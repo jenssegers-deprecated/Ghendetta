@@ -24,6 +24,7 @@
 
 <script>
 var gemeentes = <?php echo json_encode($gemeentes); ?>;
+var map, infoWindow;
 
 function initialize() {
     
@@ -36,7 +37,7 @@ function initialize() {
     	mapTypeId: google.maps.MapTypeId.TERRAIN
     };
     
-    var map = new google.maps.Map(document.getElementById("map_canvas"), options);
+    map = new google.maps.Map(document.getElementById("map_canvas"), options);
 
     // areas bijhouden
 	var areas = new Array();
@@ -51,17 +52,31 @@ function initialize() {
 			polygon.push(new google.maps.LatLng(coords[j][0], coords[j][1]));
 		}
 
-		// area aanmaken en aan map koppelen
-		areas.push(new google.maps.Polygon({
+		// area aanmaken
+		areas[i] = new google.maps.Polygon({
             paths: polygon,
             /*strokeColor: "#FF0000",*/
             strokeOpacity: 0.8,
             strokeWeight: 3,
             /*fillColor: "#FF0000",*/
             fillOpacity: 0.35
-		}).setMap(map));
+		});
+		
+		// aan map koppelen
+		areas[i].setMap(map);
+
+		// klik event
+		//google.maps.event.addListener(areas[i], 'click', tooltip);
 	}
+
+	//infowindow = new google.maps.InfoWindow();
 }
+
+/*function tooltip(event) {
+	infowindow.setContent('Hello');
+	infowindow.setPosition(event.latLng);
+	infowindow.open(map);
+}*/
 
 </script>
 
