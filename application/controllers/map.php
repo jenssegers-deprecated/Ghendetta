@@ -3,6 +3,6 @@
 class Map extends CI_Controller {
     
     public function index() {
-        $this->load->view('maps');
+        $this->load->view('map');
     }
 }
