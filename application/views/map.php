@@ -1,83 +1,51 @@
 <!doctype html>
 <html>
 <head>
-	<title>I like turtles</title>
+	<title>Ghendetta</title>
 	<meta charset="utf-8">
 	
-	<script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
-</head>
-<body onload="initialize()">
+	<link rel="stylesheet" href="css/1140.css" media="screen" />
+	<link rel="stylesheet" href="css/styles.css" media="screen" />
+	<script src="js/css3-mediaqueries.js"></script>
 
-<style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    
-    #map_canvas {
-      height: 100%;
-    }
-</style>
+</head>
+<body>
+
+<div id="sidebar">
+	<img src="img/logo.png" id="logo">
+	
+	<div id="login">
+		<p id="welcome">Welcome, Godfather!</p>
+	</div>
+	
+	<?php if(!$this->ghendetta->current_user()): ?>
+		<a href="<?php echo site_url('foursquare/auth'); ?>"><img src="img/connect-white.png" id="foursquare"></a>
+	<?php else: ?>
+		<a href="#" class="button">Manage your Clan</a>
+	<?php endif; ?>
+	
+	<div id="leadingclans">
+		<ul>
+			<li><img src="img/wapenschild4.png">Turtles</li>
+			<li><img src="img/wapenschild2.png">iRail</li>
+			<li><img src="img/wapenschild3.png">GhentMob</li>
+			<li><img src="img/wapenschild1.png">DriveBy</li>
+		</ul>
+	</div>
+</div>
 
 <div id="map_canvas"></div>
 
+<script src="js/jquery.js"></script>
+<script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="js/application.js"></script>
+<script src="js/battlefield.js"></script>
 <script>
-var gemeentes = <?php echo json_encode($gemeentes); ?>;
-var map, infoWindow;
+var battlefield = <?php echo json_encode($battlefield); ?>;
 
-function initialize() {
-    
-    var center = new google.maps.LatLng(51.1083039005843,3.78923551375085);
-    
-    var options = {
-    	zoom: 12,
-    	disableDefaultUI: true,
-    	center: center,
-    	mapTypeId: google.maps.MapTypeId.TERRAIN
-    };
-    
-    map = new google.maps.Map(document.getElementById("map_canvas"), options);
-
-    // areas bijhouden
-	var areas = new Array();
-
-	var coords, polygon, area;
-	for (i in gemeentes) {
-		coords = gemeentes[i];
-
-		// coordinaten in polygon smijten
-		polygon = new Array();
-		for (j in coords) {
-			polygon.push(new google.maps.LatLng(coords[j][0], coords[j][1]));
-		}
-
-		// area aanmaken
-		areas[i] = new google.maps.Polygon({
-            paths: polygon,
-            /*strokeColor: "#FF0000",*/
-            strokeOpacity: 0.8,
-            strokeWeight: 3,
-            /*fillColor: "#FF0000",*/
-            fillOpacity: 0.35
-		});
-		
-		// aan map koppelen
-		areas[i].setMap(map);
-
-		// klik event
-		//google.maps.event.addListener(areas[i], 'click', tooltip);
-	}
-
-	//infowindow = new google.maps.InfoWindow();
-}
-
-/*function tooltip(event) {
-	infowindow.setContent('Hello');
-	infowindow.setPosition(event.latLng);
-	infowindow.open(map);
-}*/
-
+$(document).ready(function() {
+    visualize(battlefield);
+});
 </script>
 
 </body>

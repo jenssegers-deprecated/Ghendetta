@@ -1,5 +1,7 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*
+<?php
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+    /*
 | -------------------------------------------------------------------
 | DATABASE CONNECTIVITY SETTINGS
 | -------------------------------------------------------------------
@@ -48,10 +50,22 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = '';
-$db['default']['password'] = '';
-$db['default']['database'] = '';
+switch ($_SERVER['SERVER_NAME']) {
+    case 'sandy.jenssegers.be' :
+    case 'localhost' :
+        $db['default']['hostname'] = 'localhost';
+        $db['default']['username'] = 'root';
+        $db['default']['password'] = 'root';
+        $db['default']['database'] = 'ghendetta';
+        break;
+    default :
+        $db['default']['hostname'] = 'localhost';
+        $db['default']['username'] = 'ghendetta';
+        $db['default']['password'] = 'XAYewr9c';
+        $db['default']['database'] = 'ghendetta';
+        break;
+}
+
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

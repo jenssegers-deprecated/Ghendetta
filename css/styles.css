@@ -1,0 +1,120 @@
+/* ============================== */
+/* ! Layout for desktop version   */
+/* ============================== */
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+html,body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#sidebar {
+	width: 300px;
+	float: left;
+	text-align: center;
+
+	height: 100%;
+	position: relative;
+
+	box-shadow: 3px 0px 5px #666;
+	z-index: 9999;
+}
+
+#map_canvas {
+	height: 100%;
+	margin-left: 300px;
+}
+
+.button {
+	text-decoration: none;
+	padding: 1px;
+	background-color: #C1272D;
+	border-radius: 5px;
+	border: solid 2px #A1373D;
+	color: white;
+	display: block;
+	text-align: center;
+	font-size: 12px;
+	line-height: 16px;
+	width: 50%;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+.button:hover {
+	background-color: black;
+	border-color: #AAA;
+}
+
+#login {
+	padding-top: 10px;
+}
+
+#welcome {
+	padding-bottom: 12px;
+}
+
+#logo {
+	margin: 10px auto;
+}
+
+#leadingclans {
+	position: absolute;
+	margin-bottom: 10px;
+	bottom: 0;
+}
+
+#leadingclans li {
+	float: left;
+	width: 75px;
+	list-style: none;
+	text-align: center;
+}
+
+/* ============================= */
+/* ! Layout for mobile version   */
+/* ============================= */
+@media handheld , only screen and (max-width: 767px) {
+	body {
+		
+	}
+	#leadingclans li {
+		float: left;
+		width: 175px;
+		list-style: none;
+		text-align: left;
+	}
+	#leadingclans img {
+		width: 30px;
+	}
+	#foursquare {
+		position: absolute;
+		margin-top: 116px;
+		right: 4%;
+	}
+	#welcome {
+		padding-bottom: 0px;
+		margin-top: -75px;
+		position: absolute;
+		right: 5%;
+		width: 149px;
+	}
+	#login {
+		padding-bottom: 20px;
+	}
+	p {
+		margin-bottom: 15px;
+	}
+}
+
+/* ========================================== */
+/* ! Provide higher res assets for iPhone 4   */
+/* ========================================== */
+@media only screen and (-webkit-min-device-pixel-ratio: 2) { /*	.logo {
+		background: url(logo2x.jpg) no-repeat;
+		background-size: 212px 303px;
+	}*/
+}
