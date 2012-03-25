@@ -13,7 +13,7 @@
 	<h2>Welcome!</h2>
 
 	<div class="message warning">
-		<p><strong>Warning:</strong> enter the game at your own risk. It is very much &szlig;. Lives or data will be lost.</p>
+		<p><strong>Warning:</strong> enter at your own risk. It is very much &szlig;. Lives or game data will be lost. <small>But we respect your privacy, and your Foursquare data is safe!</small></p>
 	</div>
 
 	<p>
