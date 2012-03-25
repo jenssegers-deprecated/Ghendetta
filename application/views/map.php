@@ -19,7 +19,7 @@
 		<?php endif; ?>
 
 	<div class="message warning">
-		<p><strong>Warning:</strong> enter at your own risk. It is very much &szlig;. Lives or game data will be lost. <small>But we respect your privacy, and your Foursquare data is safe!</small></p>
+		<p><strong>Warning:</strong> play at your own risk. This is very much &szlig;. Lives or game data will be lost. <small>But we respect your privacy, and your Foursquare data is safe!</small></p>
 	</div>
 
 	<ul class="leaderboard">
