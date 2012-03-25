@@ -10,6 +10,7 @@
 
 application/config/database.php
 application/config/foursquare.php
+application/config/config.php
 
 # OS generated files #
 ######################
