@@ -20,20 +20,10 @@ class Foursquare {
         return $this->ci->session->set_userdata('fsq_token', $token);
     }
     
-    function id() {
-        if ($this->ci->session->userdata('fsq_id')) {
-            return $this->ci->session->userdata('fsq_id');
-        }
-        
+    function fsqid() {
         // fetch current user id
         $info = $this->api('users/self');
-        $this->set_id($info->response->user->id);
-        
         return $info->response->user->id;
-    }
-    
-    function set_id($id) {
-        return $this->ci->session->set_userdata('fsq_id', $id);
     }
     
     function auth_url($callback = FALSE) {

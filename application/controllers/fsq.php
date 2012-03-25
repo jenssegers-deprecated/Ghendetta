@@ -19,7 +19,7 @@ class fsq extends CI_Controller {
     function callback() {
         if ($code = $this->input->get('code')) {
             $token = $this->foursquare->request_token($code);
-            $fsqid = $this->foursquare->id();
+            $fsqid = $this->foursquare->fsqid();
             
             // set this user as ghendetta user
             $this->ghendetta->set_user($fsqid);
