@@ -117,25 +117,31 @@ p {
 	background: #F7F6F2;
 }
 
-.logo {
-	margin: 10px auto;
-}
-
-.login {
-	padding-top: 10px;
-}
-
-.leaderboard {
-	position: absolute;
-	bottom: 10px;
-}
-
-	.leaderboard li {
-		float: left;
-		width: 75px;
-		list-style: none;
-		text-align: center;
+	.logo {
+		margin: 10px auto;
 	}
+
+	.login {
+		padding-top: 10px;
+	}
+
+	.clan strong {
+		color: #fff;
+		padding: 2px 4px;
+		border-radius: 3px;
+	}
+
+	.leaderboard {
+		position: absolute;
+		bottom: 10px;
+	}
+
+		.leaderboard li {
+			float: left;
+			width: 75px;
+			list-style: none;
+			text-align: center;
+		}
 
 /* Map */
 
