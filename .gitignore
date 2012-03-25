@@ -10,3 +10,10 @@
 
 application/config/database.php
 application/config/foursquare.php
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
