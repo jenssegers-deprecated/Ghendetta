@@ -72,7 +72,7 @@ p {
 /* Messages */
 
 .message {
-	font-size: 14px;
+	font-size: .8125em;
 	line-height: 16px;
 	padding: 8px 10px;
 	margin: 7px 10px 15px;
@@ -82,9 +82,16 @@ p {
 	box-shadow: 0 0 3px rgba(0,0,0,.11);
 }
 
-.message p:last-child {
-	padding: 0;
-}
+	.message p:last-child {
+		padding: 0;
+	}
+
+	.message small {
+		font-size: 1em;
+		display: block;
+		padding-top: 8px;
+		opacity: .77;
+	}
 
 .warning {
 	background: #FFC;
