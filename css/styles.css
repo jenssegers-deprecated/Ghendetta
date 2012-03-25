@@ -1,32 +1,60 @@
-/* ============================== */
-/* ! Layout for desktop version   */
-/* ============================== */
-body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+/*
+	Project:	Ghendetta
+	Author:     Miet Claes
+				Xavier Bertels
 
-html,body {
+	Defaults:
+		Baseline Rhythm: 8px
+		Font Stack: "Helvetica Neue", Arial, sans-serif
+		Type Rhythm: http://modularscale.com/scale/?px1=16&px2=&ra1=1.618&ra2=0
+*/
+
+/*
+	CSS Libraries
+*/
+
+@import "1140.css";
+
+/*
+	Site-Wide Structure & Layout
+*/
+
+html,
+body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
 }
 
-#sidebar {
+body {
+	font: 100%/1.5 "Helvetica Neue", Arial, sans-serif;
+	color: #444;
+}
+
+/* Framework Positions */
+
+.main {
 	width: 300px;
 	float: left;
 	text-align: center;
-
 	height: 100%;
 	position: relative;
-
 	box-shadow: 3px 0px 5px #666;
 	z-index: 9999;
 }
 
-#map_canvas {
-	height: 100%;
-	margin-left: 300px;
+/* Typography */
+
+h1,
+h2 {
+	font-weight: 400;
 }
+
+p {
+	padding-bottom: 16px;
+}
+
+/* Objects */
 
 .button {
 	text-decoration: none;
@@ -49,70 +77,81 @@ html,body {
 	border-color: #AAA;
 }
 
-#login {
-	padding-top: 10px;
-}
+/*
+	Game elements
+*/
 
-#welcome {
-	padding-bottom: 12px;
-}
+/* Dashboard */
 
-#logo {
+.logo {
 	margin: 10px auto;
 }
 
-#leadingclans {
+.login {
+	padding-top: 10px;
+}
+
+.leaderboard {
 	position: absolute;
-	margin-bottom: 10px;
-	bottom: 0;
+	bottom: 10px;
 }
 
-#leadingclans li {
-	float: left;
-	width: 75px;
-	list-style: none;
-	text-align: center;
-}
-
-/* ============================= */
-/* ! Layout for mobile version   */
-/* ============================= */
-@media handheld , only screen and (max-width: 767px) {
-	body {
-		
+	.leaderboard li {
+		float: left;
+		width: 75px;
+		list-style: none;
+		text-align: center;
 	}
-	#leadingclans li {
+
+/* Map */
+
+#map_canvas {
+	height: 100%;
+	margin-left: 300px;
+}
+
+/*
+	Media Queries
+*/
+
+@media handheld , only screen and (max-width: 767px) {
+	.leadingclans li {
 		float: left;
 		width: 175px;
 		list-style: none;
 		text-align: left;
 	}
-	#leadingclans img {
+
+	.leadingclans img {
 		width: 30px;
 	}
-	#foursquare {
+
+	.foursquare {
 		position: absolute;
 		margin-top: 116px;
 		right: 4%;
 	}
-	#welcome {
+
+	.welcome {
 		padding-bottom: 0px;
 		margin-top: -75px;
 		position: absolute;
 		right: 5%;
 		width: 149px;
 	}
-	#login {
+
+	.login {
 		padding-bottom: 20px;
 	}
+
 	p {
 		margin-bottom: 15px;
 	}
 }
 
-/* ========================================== */
-/* ! Provide higher res assets for iPhone 4   */
-/* ========================================== */
+/*
+	iPhone 4 Assets
+*/
 @media only screen and (-webkit-min-device-pixel-ratio: 2) { /*	.logo {
 		background: url(logo2x.jpg) no-repeat;
 		background-size: 212px 303px;
