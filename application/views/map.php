@@ -12,7 +12,9 @@
 	<h1><img src="img/logo.png" class="logo" alt="Ghendetta" /></h1>
 	<h2>Welcome!</h2>
 
-	<p class="message warning">Warning: enter the game at your own risk. It is very much &szlig;. Lives or data will be lost.</p>
+	<div class="message warning">
+		<p><strong>Warning:</strong> enter the game at your own risk. It is very much &szlig;. Lives or data will be lost.</p>
+	</div>
 
 	<p>
 		<?php if(!$this->ghendetta->current_user()): ?>
