@@ -114,6 +114,7 @@ p {
 	box-shadow: 3px 0px 5px rgba(0,0,0,.11);
 	float: left;
 	z-index: 999;
+	background: #F7F6F2;
 }
 
 .logo {
