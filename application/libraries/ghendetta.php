@@ -54,9 +54,9 @@ class Ghendetta {
         $data = array();
         $data['fsqid'] = $user->response->user->id;
         $data['firstname'] = $user->response->user->firstName;
-        $data['lastname'] = $user->response->user->lastName;
-        $data['email'] = $user->response->user->contact->email;
-        $data['picurl'] = $user->response->user->photo;
+        $data['lastname'] = isset($user->response->user->lastName) ? $user->response->user->lastName : '';
+        $data['email'] = isset($user->response->user->contact->email) ? $user->response->user->contact->email : '';
+        $data['picurl'] = isset($user->response->user->photo) ? $user->response->user->photo : '';
         $data['token'] = $token;
         
         if (!$this->ci->user_model->exists($fsqid)) {
