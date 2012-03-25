@@ -19,7 +19,11 @@ class user_model extends CI_Model {
     }
     
     function set_clan($fsqid, $clanid) {
-        $this->db->where('fsqid', $fsqid)->update('users', array('clanid' => $clanid));
+        return $this->db->where('fsqid', $fsqid)->update('users', array('clanid' => $clanid));
+    }
+    
+    function get_all() {
+        return $this->db->get('users')->result_array();
     }
 
 }
