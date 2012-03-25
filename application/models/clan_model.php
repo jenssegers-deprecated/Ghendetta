@@ -18,4 +18,9 @@ class clan_model extends CI_Model {
         return $this->db->get('clans')->result_array();
     }
 
+    function get_clan_members( $clanid ){
+        return $this->db->query( sprintf( "select * from users where clanid = %d", $clanid ) )->result_array();
+    }
 }
+
+?>
