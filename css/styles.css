@@ -46,29 +46,6 @@ p {
 	Objects
 */
 
-/* Buttons */
-
-.button {
-	text-decoration: none;
-	padding: 1px;
-	background-color: #C1272D;
-	border-radius: 5px;
-	border: solid 2px #A1373D;
-	color: white;
-	display: block;
-	text-align: center;
-	font-size: 12px;
-	line-height: 16px;
-	width: 50%;
-	margin: auto;
-	margin-bottom: 10px;
-}
-
-.button:hover {
-	background-color: black;
-	border-color: #AAA;
-}
-
 /* Messages */
 
 .message {
