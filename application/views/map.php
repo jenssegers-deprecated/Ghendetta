@@ -9,18 +9,26 @@
 </head>
 <body>
 <section class="main" role="main">
-	<h1><img src="img/logo.png" class="logo" alt="Ghendetta" /></h1>
-	<h2>Welcome!</h2>
+	<h1 class="logo"><img src="img/logo.png" alt="Ghendetta" /></h1>
 
 		<?php if(!$this->ghendetta->current_user()): ?>
-		<p class="foursquare"><a href="<?php echo site_url('foursquare/auth'); ?>"><img src="img/connect-white.png" /></a></p>
-		<?php else: ?>
-		<p class="clan">Your clan: <strong style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></strong></p>
-		<?php endif; ?>
+		<p class="foursquare">
+			<a href="<?php echo site_url('foursquare/auth'); ?>">Connect &amp; Conquer</a>
+			Connect with Foursquare and play.
+		</p>
+		<div class="message notice">
+			<p><strong>Warning:</strong> play at your own risk. This is very much &szlig;. Lives (or game data) might be lost. <small>But we respect your privacy, and your Foursquare data is safe!</small></p>
+			<p class="gamedev" title="Game Development Process"><span class="progress"></span></p>
 
-	<div class="message warning">
-		<p><strong>Warning:</strong> play at your own risk. This is very much &szlig;. Lives or game data will be lost. <small>But we respect your privacy, and your Foursquare data is safe!</small></p>
-	</div>
+		</div>
+		<?php else: ?>
+		<h2>Welcome to Ghendetta</h2>
+		<p class="clan">You are with the <strong style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></strong> clan.</p>
+		<div class="tutorial">
+			<h2>How To Play</h2>
+			<p>Every visit to another district (check-in on Foursquare) gives you a chance to take away a district from a rivaling clan.</p>
+		</div>
+		<?php endif; ?>
 
 	<ul class="leaderboard">
 		<?php foreach($clans as $clan): ?>

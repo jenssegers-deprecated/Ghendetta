@@ -6,7 +6,9 @@
 	Defaults:
 		Baseline Rhythm: 8px
 		Font Stack: "Helvetica Neue", Arial, sans-serif
-		Type Rhythm: http://modularscale.com/scale/?px1=16&px2=&ra1=1.618&ra2=0
+		Type Rhythm: http://modularscale.com/scale/?px1=16&px2=14&ra1=1.618&ra2=0
+		Colours:
+			$red: c1272d
 */
 
 /*
@@ -36,10 +38,26 @@ body {
 h1,
 h2 {
 	font-weight: 400;
+	padding-bottom: 8px;
 }
 
-p {
+p,
+ol,
+ul {
 	padding-bottom: 16px;
+}
+
+/* Links */
+
+a {
+	color: #c1272d;
+	text-decoration: none;
+	border-bottom: 1px solid #CB797D;
+}
+
+a:hover,
+a:focus {
+	border-color: #c1272d;
 }
 
 /*
@@ -52,7 +70,7 @@ p {
 	font-size: .8125em;
 	line-height: 16px;
 	padding: 8px 10px;
-	margin: 7px 10px 15px;
+	margin: 7px 0 15px;
 	border: 1px solid #ddd;
 	background: #F0F0F0;
 	border-radius: 3px;
@@ -71,22 +89,55 @@ p {
 	}
 
 .warning {
+	background: #FDD;
+	border-color: #EBB;
+	color: #6E5C5C;
+}
+
+.notice {
 	background: #FFC;
 	border-color: #DDA;
 	color: #6E6E5C;
 }
 
+
+.gamedev {
+	width: 100%;
+	height: 10px;
+	border-radius: 5px;
+	background: #DDD;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#BBB), to(#DDD) );
+	background: -webkit-linear-gradient(#BBB, #DDD);
+	background:    -moz-linear-gradient(#BBB, #DDD);
+	background:         linear-gradient(#BBB, #DDD);
+	box-shadow: inset 0 2px 2px #AAA;
+	padding: 0;
+	overflow: hidden;
+}
+
+	.gamedev .progress {
+		display: block;
+		background: #2BA32B;
+		border-radius: 5px;
+		background: -webkit-gradient(linear, 0 0, 0 100%, from(#666), to(#111) );
+		background: -webkit-linear-gradient(#666, #111);
+		background:    -moz-linear-gradient(#666, #111);
+		background:         linear-gradient(#666, #111);
+		width: 10%;
+		height: 100%;
+	}
+
 /*
 	Game elements
 */
 
-/* Dashboard */
+/* Dashboard: general */
 
 .main {
 	height: 100%;
-	width: 25%;
+	width: 23%;
+	padding: 0 1%;
 	min-width: 280px;
-	text-align: center;
 	position: relative;
 	box-shadow: 3px 0px 5px rgba(0,0,0,.11);
 	float: left;
@@ -95,29 +146,78 @@ p {
 }
 
 	.logo {
-		margin: 10px auto;
-	}
-
-	.login {
-		padding-top: 10px;
-	}
-
-	.clan strong {
-		color: #fff;
-		padding: 2px 4px;
-		border-radius: 3px;
+		padding: 10px 0;
+		margin: auto;
+		width: 201px;
 	}
 
 	.leaderboard {
 		position: absolute;
 		bottom: 10px;
+		padding: 0;
 	}
 
 		.leaderboard li {
 			float: left;
-			width: 75px;
+			width: 25%;
 			list-style: none;
 			text-align: center;
+		}
+
+	/* Dashboard: Logged out */
+
+	.foursquare {
+		text-align: center;
+		color: #888;
+		font-size: .875em;
+	}
+
+		.foursquare a {
+			display: block;
+			border: none;
+			padding: 15px;
+			margin-bottom: 4px;
+			background: #2398C9;
+			background: -webkit-gradient(linear, 0 0, 0 100%, from(#4FBEED), to(#2398C9) );
+			background: -webkit-linear-gradient(#4FBEED, #2398C9);
+			background:    -moz-linear-gradient(#4FBEED, #2398C9);
+			background:         linear-gradient(#4FBEED, #2398C9);
+			border: 1px solid #1079A5;
+			box-shadow: 0 1px 2px rgba(0,0,0,.33), inset 0 1px 3px rgba(255,255,255,.44);
+			border-radius: 30px;
+			color: #fff;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+
+		.foursquare a:hover {
+			background: #1079A5;
+			background: -webkit-linear-gradient(#1FA2D8, #1079A5);
+			background:    -moz-linear-gradient(#1FA2D8, #1079A5);
+			background:         linear-gradient(#1FA2D8, #1079A5);		}
+
+		.foursquare a:active {
+			box-shadow: inset 0 3px 6px rgba(0,0,0,.66);
+		}
+
+	/* Dashboard: Logged in */
+
+	.clan strong {
+		padding: 2px 4px;
+		border-radius: 3px;
+		color: #fff;
+	}
+
+	.tutorial {
+		border-top: 1px solid #DDD;
+		padding-top: 7px;
+		color: #777;
+		font-size: .875em;
+	}
+
+		.tutorial h2 {
+			font-size: 1em;
+			font-weight: 700;
 		}
 
 /* Map */
@@ -130,39 +230,21 @@ p {
 	Media Queries
 */
 
-@media handheld , only screen and (max-width: 767px) {
-	.leadingclans li {
-		float: left;
-		width: 175px;
-		list-style: none;
+@media handheld, only screen and (max-width: 640px) {
+
+	.leaderboard li {
+		float: none;
+		width: 100%;
 		text-align: left;
+		padding: 4px 0;
+		clear: left;
 	}
 
-	.leadingclans img {
-		width: 30px;
-	}
+		.leaderboard img {
+	        width: 30px;
+			float: left;
+		}
 
-	.foursquare {
-		position: absolute;
-		margin-top: 116px;
-		right: 4%;
-	}
-
-	.welcome {
-		padding-bottom: 0px;
-		margin-top: -75px;
-		position: absolute;
-		right: 5%;
-		width: 149px;
-	}
-
-	.login {
-		padding-bottom: 20px;
-	}
-
-	p {
-		margin-bottom: 15px;
-	}
 }
 
 /*
