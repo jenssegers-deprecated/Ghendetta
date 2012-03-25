@@ -40,12 +40,11 @@
 <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="js/application.js"></script>
 <script src="js/battlefield.js"></script>
-<script>
-var battlefield = <?php echo json_encode($battlefield); ?>;
 
-$(document).ready(function() {
-    visualize(battlefield);
-});
+<script>
+Battlefield.regions = <?php echo json_encode($regions); ?>;
+Battlefield.checkins = <?php echo json_encode($checkins); ?>;
+Battlefield.init('map_canvas');
 </script>
 
 </body>
