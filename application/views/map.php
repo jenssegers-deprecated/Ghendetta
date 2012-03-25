@@ -18,15 +18,14 @@
 		<?php if(!$this->ghendetta->current_user()): ?>
 		<a href="<?php echo site_url('foursquare/auth'); ?>"><img src="img/connect-white.png" class="foursquare" /></a>
 		<?php else: ?>
-		<a href="#" class="button">Manage your Clan</a>
+		Jouw clan: <strong style="color:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></strong>
 		<?php endif; ?>
 	</p>
 
 	<ul class="leaderboard">
-		<li><img src="img/wapenschild4.png" />Turtles</li>
-		<li><img src="img/wapenschild2.png" />iRail</li>
-		<li><img src="img/wapenschild3.png" />GhentMob</li>
-		<li><img src="img/wapenschild1.png" />DriveBy</li>
+		<?php foreach($clans as $clan): ?>
+		<li><img src="<?php echo $clan['logo']; ?>"><?php echo $clan['name']; ?></li>
+		<?php endforeach; ?>
 	</ul>
 </section>
 
@@ -37,11 +36,9 @@
 <script src="js/application.js"></script>
 <script src="js/battlefield.js"></script>
 <script>
-	var battlefield = <?php echo json_encode($battlefield); ?>;
-	$(document).ready(function()
-	{
-	    visualize(battlefield);
-	});
+	Battlefield.regions = <?php echo json_encode($regions); ?>;
+	Battlefield.checkins = <?php echo json_encode($checkins); ?>;
+	Battlefield.init('map_canvas');
 </script>
 </body>
 </html>

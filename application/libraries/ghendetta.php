@@ -61,6 +61,9 @@ class Ghendetta {
         $data['token'] = $token;
         
         if (!$this->ci->user_model->exists($fsqid)) {
+            // TEMP
+            $data['clanid'] = rand(1, 4);
+            
             $this->ci->user_model->insert($data);
         } else {
             $this->ci->user_model->update($fsqid, $data);

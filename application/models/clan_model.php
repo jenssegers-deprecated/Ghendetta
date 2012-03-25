@@ -13,5 +13,9 @@ class clan_model extends CI_Model {
     function get($clanid) {
     	return $this->db->where('clanid', $clanid)->get('clans')->row_array();
     }
+    
+    function get_all() {
+        return $this->db->get('clans')->result_array();
+    }
 
 }
