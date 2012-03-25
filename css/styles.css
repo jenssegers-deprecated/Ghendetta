@@ -31,18 +31,6 @@ body {
 	color: #444;
 }
 
-/* Framework Positions */
-
-.main {
-	width: 300px;
-	float: left;
-	text-align: center;
-	height: 100%;
-	position: relative;
-	box-shadow: 3px 0px 5px #666;
-	z-index: 9999;
-}
-
 /* Typography */
 
 h1,
@@ -110,6 +98,16 @@ p {
 
 /* Dashboard */
 
+.main {
+	height: 100%;
+	width: 25%;
+	min-width: 280px;
+	text-align: center;
+	position: relative;
+	box-shadow: 3px 0px 5px rgba(0,0,0,.22);
+	float: left;
+}
+
 .logo {
 	margin: 10px auto;
 }
@@ -134,7 +132,7 @@ p {
 
 #map_canvas {
 	height: 100%;
-	margin-left: 300px;
+/*	width: 75%;*/
 }
 
 /*
