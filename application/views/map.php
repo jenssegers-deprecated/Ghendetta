@@ -26,10 +26,9 @@
 	
 	<div id="leadingclans">
 		<ul>
-			<li><img src="img/wapenschild4.png">Turtles</li>
-			<li><img src="img/wapenschild2.png">iRail</li>
-			<li><img src="img/wapenschild3.png">GhentMob</li>
-			<li><img src="img/wapenschild1.png">DriveBy</li>
+			<?php foreach($clans as $clan): ?>
+			<li><img src="<?php echo $clan['logo']; ?>"><?php echo $clan['name']; ?></li>
+			<?php endforeach; ?>
 		</ul>
 	</div>
 </div>
