@@ -23,7 +23,7 @@ class region_model extends CI_Model {
         $this->load->model('clan_model');
         
         $results = $this->db->query('SELECT users.clanid, regionid, count(1) as count FROM checkins JOIN users ON checkins.userid = users.fsqid WHERE checkins.date >= ' . (time() - 604800) . ' GROUP BY checkins.regionid, users.clanid
-ORDER BY regionid ASC, count DESC')->result_array();
+ORDER BY regionid ASC, count DESC, date DESC')->result_array();
         
         $winners = array();
         foreach ($results as $result) {
