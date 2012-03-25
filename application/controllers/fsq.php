@@ -45,13 +45,17 @@ class fsq extends CI_Controller {
             $this->ghendetta->refresh_user($user['fsqid']);
             $this->ghendetta->refresh_checkins($user['fsqid']);
         } else {
-            if ($type != 'ajax') {
+            if ($type == 'ajax') {
+                echo json_encode(array('status' => 'not authenticated'));
+            } else {
                 // please authenticate
                 redirect('foursquare/auth');
             }
         }
         
-        if ($type != 'ajax') {
+        if ($type == 'ajax') {
+            echo json_encode(array('status' => 'updated'));
+        } else {
             // go back home!
             redirect();
         }

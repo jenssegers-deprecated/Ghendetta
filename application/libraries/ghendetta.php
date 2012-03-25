@@ -49,7 +49,7 @@ class Ghendetta {
         }
         
         $this->ci->foursquare->set_token($token);
-        $user = $this->ci->foursquare->api('users/self');
+        $user = $this->ci->foursquare->api('users/' . $fsqid);
         
         $data = array();
         $data['fsqid'] = $user->response->user->id;
@@ -83,7 +83,7 @@ class Ghendetta {
         
         $regions = $this->ci->region_model->get_all();
         
-        $checkins = $this->ci->foursquare->api('users/self/checkins');
+        $checkins = $this->ci->foursquare->api('users/' . $fsqid . '/checkins');
         
         foreach ($checkins->response->checkins->items as $checkin) {
             
