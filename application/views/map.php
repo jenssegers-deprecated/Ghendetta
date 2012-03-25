@@ -21,7 +21,7 @@
 	<?php if(!$this->ghendetta->current_user()): ?>
 		<a href="<?php echo site_url('foursquare/auth'); ?>"><img src="img/connect-white.png" id="foursquare"></a>
 	<?php else: ?>
-		<a href="#" class="button">Manage your Clan</a>
+		Jouw clan: <strong style="color:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></strong>
 	<?php endif; ?>
 	
 	<div id="leadingclans">

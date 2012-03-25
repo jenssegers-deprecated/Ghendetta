@@ -50,22 +50,22 @@ Battlefield = {
 			Battlefield.polygons[i].setMap(Battlefield.map);
 		}
 		
-		/*var checkin, dot;
+		var checkin, dot;
 		for(i in Battlefield.checkins) {
 			checkin = Battlefield.checkins[i];
 			
 			//create circle
 			Battlefield.dots[i] = new google.maps.Circle({
-		        strokeColor: "#FF0000",
-		        strokeOpacity: 0.8,
-		        strokeWeight: 2,
+		        /*strokeColor: "#FF0000",
+		        strokeOpacity: 0.8,*/
+		        strokeWeight: 0,
 		        fillColor: "#FF0000",
-		        fillOpacity: 0.35,
+		        fillOpacity: 0.8,
 		        map: Battlefield.map,
 		        center: new google.maps.LatLng(checkin.lat, checkin.lon),
-		        radius: 200
+		        radius: 100
 		    });
-		}*/
+		}
 	}
 	
 }
