@@ -3,6 +3,7 @@
 class Ghendetta {
     
     private $ci;
+    private $time_window = 604800;
     
     function __construct() {
         $this->ci = &get_instance();
@@ -83,7 +84,8 @@ class Ghendetta {
         
         $regions = $this->ci->region_model->get_all();
         
-        $checkins = $this->ci->foursquare->api('users/' . $fsqid . '/checkins');
+        // only get checkins in interval
+        $checkins = $this->ci->foursquare->api('users/' . $fsqid . '/checkins', array('afterTimestamp' => (time() - $this->time_window)));
         
         foreach ($checkins->response->checkins->items as $checkin) {
             

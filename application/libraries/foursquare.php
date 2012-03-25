@@ -56,12 +56,14 @@ class Foursquare {
         }
     }
     
-    function api($uri) {
+    function api($uri, $data = array()) {
         if (!$token = $this->token()) {
             show_error('Not authenticated');
         }
         
-        $uri = 'https://api.foursquare.com/v2/' . $uri . '?oauth_token=' . $token;
+        $data['oauth_token'] = $token;
+        
+        $uri = 'https://api.foursquare.com/v2/' . $uri . '?' . http_build_query($data);
         return $this->_request($uri);
     }
     
