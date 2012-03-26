@@ -5,7 +5,7 @@ $(document).ready(function() {
 	 * Will do nothing when the user is not authenticated
 	 */
 	$.ajax({
-		url : '/foursquare/refresh/ajax',
+		url : site_url + 'foursquare/refresh?ajax=1',
 		cache : false
 	});
 

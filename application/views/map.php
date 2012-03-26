@@ -44,6 +44,9 @@
 <script src="js/application.js"></script>
 <script src="js/battlefield.js"></script>
 <script>
+	var base_url = '<?php echo base_url(); ?>';
+	var site_url = '<?php echo site_url(); ?>';
+
 	Battlefield.regions = <?php echo json_encode($regions); ?>;
 	Battlefield.checkins = <?php echo json_encode($checkins); ?>;
 	Battlefield.init('map_canvas');

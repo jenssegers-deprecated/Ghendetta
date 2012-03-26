@@ -69,7 +69,7 @@ class Foursquare {
      */
     function api($uri, $data = array()) {
         if (!$token = $this->token()) {
-            $this->error = 'Not authenticated';
+            $this->error = 'No token available for API request';
             return FALSE;
         }
         

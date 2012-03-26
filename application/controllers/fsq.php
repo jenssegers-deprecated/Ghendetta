@@ -50,7 +50,7 @@ class fsq extends CI_Controller {
     }
     
     /**
-     * Refresh information for a user
+     * AJAX refresh method
      * @param int $fsqid
      */
     function refresh($fsqid = FALSE) {
@@ -70,14 +70,25 @@ class fsq extends CI_Controller {
             if ($json = $this->foursquare->api('users/' . $user['fsqid'])) {
                 // update the user in our database
                 $this->process_user($json->response->user);
+            } else {
+                echo json_encode(array('message' => $this->foursquare->error));
+                return FALSE;
             }
             
             // refresh checkins
             if ($json = $this->foursquare->api('users/' . $user['fsqid'] . '/checkins', array('afterTimestamp' => (time() - 608400)))) {
                 // insert the checkins in our database
                 $this->process_checkins($json->response->checkins->items, $user['fsqid']);
+            } else {
+                echo json_encode(array('message' => $this->foursquare->error));
+                return FALSE;
             }
+        } else {
+            echo json_encode(array('message' => 'Not authenticated'));
+            return FALSE;
         }
+        
+        echo json_encode(array('message' => 'Ok'));
     }
     
     /**
@@ -89,7 +100,7 @@ class fsq extends CI_Controller {
             $secret = $this->input->post('secret');
             
             $this->config->load('foursquare');
-            if ($secret != $this->config->item('foursquare', 'push_secret')) {
+            if ($secret != $this->config->item('push_secret', 'foursquare')) {
                 show_error('Wrong secret');
             }
             
