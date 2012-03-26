@@ -14,7 +14,7 @@ class fsq extends CI_Controller {
     }
     
     /**
-     * OAuth callback function
+     * OAuth callback controller
      */
     function callback() {
         if ($code = $this->input->get('code')) {
@@ -50,60 +50,6 @@ class fsq extends CI_Controller {
     }
     
     /**
-     * AJAX refresh method
-     * @param int $fsqid
-     */
-    function refresh($fsqid = FALSE) {
-        // get current user or user with matching fsqid
-        if (!$fsqid) {
-            $user = $this->ghendetta->current_user();
-        } else {
-            $this->load->model('user_model');
-            $user = $this->user_model->get($fsqid);
-        }
-        
-        if ($user && $user['token']) {
-            // set this user's token
-            $this->foursquare->set_token($user['token']);
-            
-            // refresh user
-            if ($json = $this->foursquare->api('users/' . $user['fsqid'])) {
-                // update the user in our database
-                $this->process_user($json->response->user);
-            } else {
-                echo json_encode(array('message' => $this->foursquare->error));
-                return FALSE;
-            }
-            
-            // get the last checkin of this user
-            $this->load->model('checkin_model');
-            $last = $this->checkin_model->last($user['fsqid']);
-            
-            // the default time ago to get checkins
-            $since = time() - 608400;
-            
-            // only request the smallest timespan
-            if ($last) {
-                $since = max($since, $last['date']);
-            }
-            
-            // refresh checkins
-            if ($json = $this->foursquare->api('users/' . $user['fsqid'] . '/checkins', array('afterTimestamp' => $since))) {
-                // insert the checkins in our database
-                $this->process_checkins($json->response->checkins->items, $user['fsqid']);
-            } else {
-                echo json_encode(array('message' => $this->foursquare->error));
-                return FALSE;
-            }
-        } else {
-            echo json_encode(array('message' => 'Not authenticated'));
-            return FALSE;
-        }
-        
-        echo json_encode(array('message' => 'Ok'));
-    }
-    
-    /**
      * Foursquare Push API controller
      */
     function push() {
@@ -119,6 +65,51 @@ class fsq extends CI_Controller {
             // save the checkin to our database
             $this->process_checkin($json);
         }
+    }
+    
+    /**
+     * Cronjob controller
+     */
+    function cronjob() {
+        $this->load->model('user_model');
+        $users = $this->user_model->get_all();
+        
+        foreach ($users as $user) {
+            echo "Updating user " . $user['fsqid'] . "\n";
+            $this->refresh($user['fsqid'], $user['token']);
+        }
+    }
+    
+    /**
+     * User refresh method
+     * @param int $fsqid
+     */
+    private function refresh($fsqid, $token) {
+        // set this user's token
+        $this->foursquare->set_token($token);
+        
+        // the default time ago to get checkins
+        $since = time() - 608400;
+        
+        // get the last checkin of this user
+        $this->load->model('checkin_model');
+        $last = $this->checkin_model->last($fsqid);
+        
+        // only request the smallest timespan
+        if ($last) {
+            // we substract 1 hour just in case we missed some checkins
+            $since = max($since, ($last['date'] - 3600));
+        }
+        
+        // fetch checkins
+        if ($json = $this->foursquare->api('users/' . $fsqid . '/checkins', array('afterTimestamp' => $since))) {
+            // insert the checkins in our database
+            $this->process_checkins($json->response->checkins->items, $fsqid);
+        } else {
+            return FALSE;
+        }
+        
+        return TRUE;
     }
     
     /**
