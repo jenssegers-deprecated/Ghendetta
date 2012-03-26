@@ -3,7 +3,8 @@
 class checkin_model extends CI_Model {
 	
 	function insert($user) {
-		return $this->db->insert('checkins', $user);
+		$this->db->insert('checkins', $user);
+		return $this->db->insert_id();
 	}
 	
 	function exists($checkinid) {

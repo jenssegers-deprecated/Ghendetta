@@ -3,7 +3,8 @@
 class clan_model extends CI_Model {
     
     function insert($clan) {
-        return $this->db->insert('clans', $clan);
+        $this->db->insert('clans', $clan);
+        return $this->db->insert_id();
     }
     
     function update($clanid, $clan) {

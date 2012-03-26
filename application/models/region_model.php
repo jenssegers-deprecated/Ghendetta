@@ -2,12 +2,14 @@
 
 class region_model extends CI_Model {
     
-    function insertRegion($region) {
-        return $this->db->insert('regions', $region);
+    function insert_region($region) {
+        $this->db->insert('regions', $region);
+        return $this->db->insert_id();
     }
     
-    function insertCoords($coords) {
-        return $this->db->insert('regioncoords', $coords);
+    function insert_coords($coords) {
+        $this->db->insert('regioncoords', $coords);
+        return $this->db->insert_id();
     }
     
     function get_all() {
@@ -17,6 +19,11 @@ class region_model extends CI_Model {
         }
         
         return $regions;
+    }
+    
+    function truncate() {
+        $this->db->truncate("regions");
+        $this->db->truncate("regioncoords");
     }
     
     function battlefield() {

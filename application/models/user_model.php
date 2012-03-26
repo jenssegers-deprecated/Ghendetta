@@ -7,7 +7,8 @@ class user_model extends CI_Model {
     }
     
     function insert($user) {
-        return $this->db->insert('users', $user);
+        $this->db->insert('users', $user);
+        return $this->db->insert_id();
     }
     
     function update($fsqid, $user) {
