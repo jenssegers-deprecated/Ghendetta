@@ -29,20 +29,13 @@ Battlefield = {
 				polygon.push(new google.maps.LatLng(coords[j].lon, coords[j].lat));
 			}
 
-			// check if there is a winner for this area
-			if (region.winner.color !== undefined) {
-				color = region.winner.color;
-			} else {
-				color = '666666';
-			}
-
 			// create area
 			Battlefield.polygons[i] = new google.maps.Polygon({
 				paths : polygon,
 				strokeColor : "#333333",
 				strokeOpacity : 0.8,
 				strokeWeight : 2,
-				fillColor : "#" + color,
+				fillColor : "#" + region.clan.color,
 				fillOpacity : 0.35
 			});
 

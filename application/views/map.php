@@ -3,7 +3,7 @@
 <head>
 	<title>Ghendetta</title>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" href="css/styles.css" media="screen" />
+	<link rel="stylesheet" href="css/styles.css?v=26032012" media="screen" />
 	<script src="js/css3-mediaqueries.js"></script>
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
@@ -41,8 +41,8 @@
 
 <script src="js/jquery.js"></script>
 <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script src="js/application.js"></script>
-<script src="js/battlefield.js"></script>
+<script src="js/application.js?v=26032012"></script>
+<script src="js/battlefield.js?v=26032012"></script>
 <script>
 	var base_url = '<?php echo base_url(); ?>';
 	var site_url = '<?php echo site_url(); ?>';

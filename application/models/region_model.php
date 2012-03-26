@@ -29,29 +29,35 @@ class region_model extends CI_Model {
     function battlefield() {
         $this->load->model('clan_model');
         
-        $results = $this->db->query('SELECT users.clanid, regionid, count(1) as count FROM checkins JOIN users ON checkins.userid = users.fsqid WHERE checkins.date >= ' . (time() - 604800) . ' GROUP BY checkins.regionid, users.clanid
-ORDER BY regionid ASC, count DESC, date DESC')->result_array();
+        $results = $this->db->query('
+        SELECT clans.*, regions.regionid, count(1) as count 
+        FROM regions
+        JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= ' . (time() - 604800) . ' 
+        JOIN users ON users.fsqid = checkins.userid
+        JOIN clans ON clans.clanid = users.clanid
+        GROUP BY checkins.regionid, users.clanid
+        ORDER BY regions.regionid ASC, count DESC
+        ')->result_array();
         
-        $winners = array();
+        // select the leading clan for each region
+        $leaderboard = array();
         foreach ($results as $result) {
             $rid = $result['regionid'];
             
-            if (!isset($winners[$rid])) {
-                $winners[$rid] = $result;
-            } else if ($winners[$rid]['count'] < $result['count']) {
-                $winners[$rid] = $result;
+            if (!isset($leaderboard[$rid]) || $leaderboard[$rid]['count'] < $result['count']) {
+                $leaderboard[$rid] = $result;
             }
         }
         
+        // add the leading clan to the region data
         $regions = $this->get_all();
         foreach ($regions as &$region) {
             $rid = $region['regionid'];
             
-            if (isset($winners[$rid])) {
-                $winner = $winners[$rid];
-                $region['winner'] = $this->clan_model->get($winner['clanid']);
+            if (isset($leaderboard[$rid])) {
+                $region['clan'] = $leaderboard[$rid];
             } else {
-                $region['winner'] = FALSE;
+                $region['clan'] = array('name' => 'Uncontested territory', 'color' => '666666');
             }
         }
         
