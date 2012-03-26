@@ -185,6 +185,7 @@ class fsq extends CI_Controller {
         $data['firstname'] = $user->firstName;
         $data['lastname'] = isset($user->lastName) ? $user->lastName : '';
         $data['email'] = isset($user->contact->email) ? $user->contact->email : '';
+        $data['twitter'] = isset($user->contact->twitter) ? $user->contact->twitter : '';
         $data['picurl'] = isset($user->photo) ? $user->photo : '';
         
         // if a token is supplied, replace old token with this token
