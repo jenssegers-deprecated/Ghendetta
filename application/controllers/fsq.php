@@ -75,8 +75,20 @@ class fsq extends CI_Controller {
                 return FALSE;
             }
             
+            // get the last checkin of this user
+            $this->load->model('checkin_model');
+            $last = $this->checkin_model->last($user['fsqid']);
+            
+            // the default time ago to get checkins
+            $since = time() - 608400;
+            
+            // only request the smallest timespan
+            if ($last) {
+                $since = max($since, $last['date']);
+            }
+            
             // refresh checkins
-            if ($json = $this->foursquare->api('users/' . $user['fsqid'] . '/checkins', array('afterTimestamp' => (time() - 608400)))) {
+            if ($json = $this->foursquare->api('users/' . $user['fsqid'] . '/checkins', array('afterTimestamp' => $since))) {
                 // insert the checkins in our database
                 $this->process_checkins($json->response->checkins->items, $user['fsqid']);
             } else {
