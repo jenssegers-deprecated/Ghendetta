@@ -9,20 +9,40 @@ class Ghendetta {
     }
     
     function set_user($fsqid) {
-        $cookie = array('name' => 'ghendetta_user', 'value' => $fsqid, 'expire' => '8640000');
+        $code = hash('sha256', $fsqid . $this->ci->config->item('encryption_key'));
+        $data = serialize(array('id' => $fsqid, 'code' => $code));
+        
+        $this->ci->load->library('encrypt');
+        $data = $this->ci->encrypt->encode($data);
+        
+        $cookie = array('name' => 'ghendetta_user', 'value' => $data, 'expire' => '8640000');
         return $this->ci->input->set_cookie($cookie);
     }
     
     function current_user() {
-        $fsqid = $this->ci->input->cookie('ghendetta_user', TRUE);
+        $data = $this->ci->input->cookie('ghendetta_user', TRUE);
         
-        // user not detected
-        if (!$fsqid) {
+        // cookie not found
+        if (!$data) {
+            return FALSE;
+        }
+        
+        $this->ci->load->library('encrypt');
+        $data = @unserialize($this->ci->encrypt->decode($data));
+        
+        // wrong cookie data
+        if (!isset($data['id']) || !isset($data['code'])) {
+            return FALSE;
+        }
+        
+        // check code
+        $code = hash('sha256', $data['id'] . $this->ci->config->item('encryption_key'));
+        if ($code != $data['code']) {
             return FALSE;
         }
         
         $this->ci->load->model('user_model');
-        $user = $this->ci->user_model->get($fsqid);
+        $user = $this->ci->user_model->get($data['id']);
         
         // user or token not found
         if (!$user || !$user['token']) {
