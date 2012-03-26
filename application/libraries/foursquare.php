@@ -4,6 +4,9 @@ class Foursquare {
     
     private $settings, $ci;
     
+    // contains the last error
+    public $error = FALSE;
+    
     function __construct() {
         $this->ci = &get_instance();
         
@@ -12,20 +15,26 @@ class Foursquare {
         $this->settings = $this->ci->config->item('foursquare');
     }
     
+    /**
+     * Set the token to use for following request
+     */
     function token() {
         return $this->ci->session->userdata('fsq_token');
     }
     
+    /**
+     * Get the current token
+     * @param string $token
+     */
     function set_token($token) {
         return $this->ci->session->set_userdata('fsq_token', $token);
     }
     
-    function fsqid() {
-        // fetch current user id
-        $info = $this->api('users/self');
-        return $info->response->user->id;
-    }
-    
+    /**
+     * Authorization url
+     * @param string $callback
+     * @return string
+     */
     function auth_url($callback = FALSE) {
         if (!$callback) {
             $callback = $this->settings['callback'];
@@ -34,29 +43,55 @@ class Foursquare {
         return 'https://foursquare.com/oauth2/authenticate?client_id=' . $this->settings['client'] . '&response_type=code&redirect_uri=' . urlencode($callback);
     }
     
+    /**
+     * Get OAuth token
+     * @param string $code
+     * @return string
+     */
     function request_token($code) {
         $url = 'https://foursquare.com/oauth2/access_token?client_id=' . $this->settings['client'] . '&client_secret=' . $this->settings['secret'] . '&grant_type=authorization_code&redirect_uri=' . urlencode($this->settings['callback']) . '&code=' . $code;
         $json = $this->_request($url);
         
-        if (isset($json->access_token)) {
-            $this->set_token($json->access_token);
-            return $json->access_token;
-        } else {
-            show_error($json->error);
+        if (!isset($json->access_token)) {
+            $this->error = 'Did not receive authentication token';
+            return FALSE;
         }
+        
+        $this->set_token($json->access_token);
+        return $json->access_token;
     }
     
+    /**
+     * Foursquare API request method
+     * @param string $uri
+     * @param array $data
+     * @return Object
+     */
     function api($uri, $data = array()) {
         if (!$token = $this->token()) {
-            show_error('Not authenticated');
+            $this->error = 'Not authenticated';
+            return FALSE;
         }
         
         $data['oauth_token'] = $token;
+        $json = $this->_request('https://api.foursquare.com/v2/' . $uri . '?' . http_build_query($data));
         
-        $uri = 'https://api.foursquare.com/v2/' . $uri . '?' . http_build_query($data);
-        return $this->_request($uri);
+        if (!$json) {
+            $this->error = 'No response from Foursquare API';
+            return FALSE;
+        } elseif ($json->meta->code != 200) {
+            $this->error = $json->meta->errorDetail;
+            return FALSE;
+        }
+        
+        return $json;
     }
     
+    /**
+     * Raw CURL request method
+     * @param string $url
+     * @return Object
+     */
     private function _request($url) {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);

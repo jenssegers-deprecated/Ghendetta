@@ -21,16 +21,8 @@ class fsq extends CI_Controller {
             // request token
             $token = $this->foursquare->request_token($code);
             
-            // get current fsqid
-            $json = $this->foursquare->api('users/self');
-            $fsqid = $json->response->user->id;
-            
-            // -- USER ---------------------------------------------------------
-            
-
-            $json = $this->foursquare->api('users/self');
-            
-            if ($json->meta->code == 200) {
+            // fetch user
+            if ($json = $this->foursquare->api('users/self')) {
                 $fsqid = $json->response->user->id;
                 
                 // update the user in our database
@@ -39,20 +31,14 @@ class fsq extends CI_Controller {
                 // mark this user as current ghendetta user
                 $this->ghendetta->set_user($fsqid);
             } else {
-                log_message('error', 'Could not register user: ' . $json->meta->errorDetail);
                 show_error('Something went wrong, please try again');
             }
             
-            // -- CHECKINS ------------------------------------------------------
-            
-
-            $json = $this->foursquare->api('users/self/checkins', array('afterTimestamp' => (time() - 608400)));
-            
-            if ($json->meta->code == 200) {
+            // fetch checkins
+            if ($json = $this->foursquare->api('users/self/checkins', array('afterTimestamp' => (time() - 608400)))) {
                 // insert the checkins in our database
                 $this->process_checkins($json->response->checkins->items, $fsqid);
             } else {
-                log_message('error', 'Could not refresh user: ' . $json->meta->errorDetail);
                 show_error('Something went wrong, please try again');
             }
             
@@ -80,31 +66,17 @@ class fsq extends CI_Controller {
             // set this user's token
             $this->foursquare->set_token($user['token']);
             
-            // -- USER ---------------------------------------------------------
-            
-
-            $json = $this->foursquare->api('users/' . $user['fsqid']);
-            
-            if ($json->meta->code == 200) {
+            // refresh user
+            if ($json = $this->foursquare->api('users/' . $user['fsqid'])) {
                 // update the user in our database
                 $this->process_user($json->response->user);
-            } else {
-                log_message('error', 'Could not refresh user: ' . $json->meta->errorDetail);
             }
             
-            // -- CHECKINS ------------------------------------------------------
-            
-
-            $json = $this->foursquare->api('users/' . $user['fsqid'] . '/checkins', array('afterTimestamp' => (time() - 608400)));
-            
-            if ($json->meta->code == 200) {
+            // refresh checkins
+            if ($json = $this->foursquare->api('users/' . $user['fsqid'] . '/checkins', array('afterTimestamp' => (time() - 608400)))) {
                 // insert the checkins in our database
                 $this->process_checkins($json->response->checkins->items, $user['fsqid']);
-            } else {
-                log_message('error', 'Could not refresh user: ' . $json->meta->errorDetail);
             }
-        } else {
-            log_message('error', 'Could not refresh user, user or token not found');
         }
     }
     
@@ -113,14 +85,12 @@ class fsq extends CI_Controller {
      */
     function push() {
         if ($this->input->post('checkin')) {
-            log_message('debug', 'Received push from Foursquare');
             $json = json_decode($this->input->post('checkin'));
-            
             $secret = $this->input->post('secret');
             
             $this->config->load('foursquare');
             if ($secret != $this->config->item('foursquare', 'push_secret')) {
-                log_message('error', 'Foursquare push container wrong secret');
+                show_error('Wrong secret');
             }
             
             // save the checkin to our database
