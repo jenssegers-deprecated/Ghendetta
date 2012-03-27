@@ -195,7 +195,11 @@ class fsq extends CI_Controller {
         
         // insert or update this user
         if (!$this->user_model->exists($data['fsqid'])) {
-            $data['clanid'] = rand(1, 4);
+            // get clan suggestion
+            $this->load->model('clan_model');
+            $clan = $this->clan_model->suggest();
+            $data['clanid'] = $clan['clanid'];
+            
             $this->user_model->insert($data);
         } else {
             $this->user_model->update($data['fsqid'], $data);
