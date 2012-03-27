@@ -44,7 +44,7 @@ class region_model extends CI_Model {
         foreach ($results as $result) {
             $rid = $result['regionid'];
             
-            if (!isset($leaderboard[$rid]) || $leaderboard[$rid]['count'] < $result['count']) {
+            if (!isset($leaderboard[$rid]) || $leaderboard[$rid]['points'] < $result['points']) {
                 $leaderboard[$rid] = $result;
             }
         }
