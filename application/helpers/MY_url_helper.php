@@ -7,7 +7,7 @@ if (!function_exists('static_url')) {
         $CI = & get_instance();
         
         if ($CI->config->item('static_url')) {
-            return $CI->slash_item('static_url') . ltrim($uri, '/');
+            return $CI->config->slash_item('static_url') . ltrim($uri, '/');
         } else {
             return $CI->config->base_url($uri);
         }
