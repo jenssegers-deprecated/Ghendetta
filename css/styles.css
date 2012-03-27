@@ -255,20 +255,57 @@ a:focus {
 
 @media handheld, only screen and (max-width: 640px) {
 
-	.leaderboard li {
-		float: none;
-		width: 100%;
-		text-align: left;
-		padding: 4px 0;
-		clear: left;
+	.logo,
+	.tutorial {
+		display: none;
 	}
 
-		.leaderboard img {
-	        width: 30px;
+	.leaderboard {
+		position: static;
+		padding-bottom: 8px;
+	}
+
+		.leaderboard li {
 			float: left;
+			width: 25%;
+			padding: 4px 0;
+			line-height: 32px;
+			text-align: left;
 		}
 
+			.leaderboard img {
+		        width: 30px;
+				float: left;
+			}
+
+	.main {
+		width: 96%;
+		padding: 8px 2% 0;
+		height: auto;
+		box-shadow: 0 3px 5px rgba(0,0,0,.11);
+	}
+
+	#map_canvas {
+		width: 100%;
+	}
+
 }
+
+@media handheld, only screen and (max-width: 480px) {
+
+	h2,
+	.clan {
+		display: inline;
+		font-size: 16px;
+	}
+
+	.leaderboard li {
+		font-size: 14px;
+	}
+
+}
+
+
 
 /*
 	iPhone 4 Assets
