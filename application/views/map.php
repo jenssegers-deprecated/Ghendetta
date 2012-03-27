@@ -29,7 +29,12 @@
 			<p>Every visit to another district (check-in on Foursquare) gives you a chance to take away a district from a rivaling clan.</p>
 		</div>
 		<?php endif; ?>
-
+		<p class="tutorial" >
+			<a href="https://twitter.com/Ghendetta" class="twitter-follow-button" data-show-count="false" data-size="large" data-show-screen-name="false">Follow @Ghendetta</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;
+						  js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+			</script> us on twitter for updates about new features.
+		</p>
 	<ul class="leaderboard">
 		<?php foreach($clans as $clan): ?>
 		<li><img src="<?php echo $clan['logo']; ?>"><?php echo $clan['name']; ?></li>
