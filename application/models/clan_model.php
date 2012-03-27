@@ -20,7 +20,13 @@ class clan_model extends CI_Model {
     }
 
     function get_members( $clanid ){
-        return $this->db->where('clanid', $clanid)->get('users')->result_array();
+        return $this->db->query( sprintf('select fsqid, firstname, lastname, picurl, count(1) as checkins
+                                          from users u 
+                                          left outer join checkins c on u.fsqid = c.userid
+					  where clanid = %d 
+					  group by fsqid, firstname, lastname, picurl
+					  order by checkins desc',$clanid
+                                         ))->result_array();
     }
     
     function suggest() {
@@ -28,15 +34,20 @@ class clan_model extends CI_Model {
         SELECT clans.*, count(1) as count
         FROM clans
         LEFT JOIN users ON users.clanid = clans.clanid
-        LEFT JOIN checkins ON checkins.userid = users.fsqid AND checkins.date >= ' . (time() - 604800) . '
+        LEFT JOIN checkins ON checkins.userid = users.fsqid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
         GROUP BY clans.clanid
         ORDER BY count ASC
+	LIMIT 0, 1
         ')->result_array();
         
         // return the first clan with the lowest number of checkins
         return reset($results);
     }
-    
+    /*
+	
+SELECT fsqid, firstname, lastname, groupid, picurl, count(1) as count FROM users u cross join checkins c on u.fsqid = c.userid 
+where clanid = 2 and c.date >= UNIX_TIMESTAMP( subdate(now(),7) )group by u.fsqid, c.userid, firstname, lastname, groupid, picurl	
+*/
 }
 
 ?>
