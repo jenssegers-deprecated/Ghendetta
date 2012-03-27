@@ -1,6 +1,6 @@
 var Battlefield = function() {
 
-	var map, polygons, circles;
+	var map, polygons, icons;
 
 	var drawRegions = function(regions) {
 		delete polygons;
@@ -36,22 +36,18 @@ var Battlefield = function() {
 	};
 
 	var drawFights = function(checkins) {
-		delete circles;
-		circles = new Array();
+		delete icons;
+		icons = new Array();
 
-		var checkin, dot;
+		var checkin, icon;
 		for (i in checkins) {
 			checkin = checkins[i];
 
-			// create circle
-			circles[i] = new google.maps.Circle({
-				strokeWeight : 0,
-				fillColor : '#FF0000',
-				fillOpacity : 0.8,
-				map : map,
-				center : new google.maps.LatLng(checkin.lat, checkin.lon),
-				radius : 100
-			});
+			icons[i] = new google.maps.Marker({
+		        position: new google.maps.LatLng(checkin.lat, checkin.lon),
+		        map: map,
+		        icon: static_url + 'img/ico_battle.png'
+		    });
 		}
 	};
 
