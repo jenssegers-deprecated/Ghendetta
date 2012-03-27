@@ -20,13 +20,10 @@ class clan_model extends CI_Model {
     }
 
     function get_members( $clanid ){
-        return $this->db->query( sprintf('select fsqid, firstname, lastname, picurl, count(1) as checkins
-                                          from users u 
-                                          left outer join checkins c on u.fsqid = c.userid
-					  where clanid = %d 
-					  group by fsqid, firstname, lastname, picurl
-					  order by checkins desc',$clanid
-                                         ))->result_array();
+        return $this->db->query( sprintf('select fsqid, firstname, lastname, picurl, 
+                                                 (select count(1) from checkins where date >= UNIX_TIMESTAMP( subdate(now(),7) ) and userid = fsqid ) as checkins 
+                                         from users where clanid = %d order by checkins desc',
+                                         $clanid ))->result_array();
     }
     
     function suggest() {
