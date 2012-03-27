@@ -18,7 +18,18 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'development');
+	
+    switch ($_SERVER['SERVER_NAME']) {
+        case 'sandy.jenssegers.be' :
+        case 'localhost' :
+            define('ENVIRONMENT', 'development');
+            break;
+        default :
+            define('ENVIRONMENT', 'production');
+            break;
+    }
+	
+	
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING

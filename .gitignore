@@ -8,9 +8,8 @@
 .buildpath
 .project
 
-application/config/database.php
-application/config/foursquare.php
-application/config/config.php
+application/config/development/*
+application/config/production/*
 application/logs/*
 
 # OS generated files #
