@@ -3,13 +3,13 @@
 <head>
 	<title>Ghendetta</title>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" href="css/styles.css?v=26032012" media="screen" />
-	<script src="js/css3-mediaqueries.js"></script>
+	<link rel="stylesheet" href="<?php echo static_url('css/styles.css?v=26032012'); ?>" media="screen" />
+	<script src="<?php echo static_url('js/css3-mediaqueries.js'); ?>"></script>
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 <body>
 <section class="main" role="main">
-	<h1 class="logo"><img src="img/logo.png" alt="Ghendetta" /></h1>
+	<h1 class="logo"><img src="<?php echo static_url('img/logo.png'); ?>" alt="Ghendetta" /></h1>
 
 		<?php if(!$this->ghendetta->current_user()): ?>
 		<p class="foursquare">
@@ -39,13 +39,14 @@
 
 <section id="map_canvas"></section>
 
-<script src="js/jquery.js"></script>
 <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script src="js/application.js?v=26032012"></script>
-<script src="js/battlefield.js?v=26032012"></script>
+<script src="<?php echo static_url('js/jquery.js'); ?>"></script>
+<script src="<?php echo static_url('js/application.js?v=26032012'); ?>"></script>
+<script src="<?php echo static_url('js/battlefield.js?v=26032012'); ?>"></script>
 <script>
 	var base_url = '<?php echo base_url(); ?>';
 	var site_url = '<?php echo site_url(); ?>';
+	var static_url = '<?php echo static_url(); ?>';
 
 	Battlefield.regions = <?php echo json_encode($regions); ?>;
 	Battlefield.checkins = <?php echo json_encode($checkins); ?>;

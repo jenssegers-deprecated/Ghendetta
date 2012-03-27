@@ -18,6 +18,20 @@ $config['base_url']	= '';
 
 /*
 |--------------------------------------------------------------------------
+| Static content URL
+|--------------------------------------------------------------------------
+|
+| URL to your static content WITH a trailing slash:
+|
+|	http://static.example.com/
+|
+| If this is not set then CodeIgniter will use the base_url instead.
+|
+*/
+$config['static_url'] = '';
+
+/*
+|--------------------------------------------------------------------------
 | Index File
 |--------------------------------------------------------------------------
 |
