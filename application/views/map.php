@@ -3,7 +3,7 @@
 <head>
 	<title>Ghendetta</title>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" href="<?php echo static_url('css/styles.css?v=26032012'); ?>" media="screen" />
+	<link rel="stylesheet" href="<?php echo static_url('css/styles.css?v=27032012'); ?>" media="screen" />
 	<script src="<?php echo static_url('js/css3-mediaqueries.js'); ?>"></script>
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
@@ -29,12 +29,14 @@
 			<p>Every visit to another district (check-in on Foursquare) gives you a chance to take away a district from a rivaling clan.</p>
 		</div>
 		<?php endif; ?>
-		<p class="tutorial" >
+		
+		<!-- <p class="tutorial" >
 			<a href="https://twitter.com/Ghendetta" class="twitter-follow-button" data-show-count="false" data-size="large" data-show-screen-name="false">Follow @Ghendetta</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;
 						  js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 			</script> us on twitter for updates about new features.
-		</p>
+		</p> -->
+		
 	<ul class="leaderboard">
 		<?php foreach($clans as $clan): ?>
 		<li><img src="<?php echo $clan['logo']; ?>"><?php echo $clan['name']; ?></li>
@@ -52,7 +54,6 @@
 
 <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="<?php echo static_url('js/jquery.js'); ?>"></script>
-<script src="<?php echo static_url('js/battlefield.js?v=26032012'); ?>"></script>
-<script src="<?php echo static_url('js/application.js?v=26032012'); ?>"></script>
+<script src="<?php echo static_url('js/battlefield.js?v=27032012'); ?>"></script>
 </body>
 </html>

@@ -68,13 +68,13 @@ var Battlefield = function() {
 		var self = this;
 
 		// get regions
-		$.getJSON(site_url + '/api/regions.json', {}, function(data) {
+		$.getJSON(site_url + 'api/regions.json', {}, function(data) {
 			if (data) {
 				drawRegions(data);
 			}
 
 			// get user checkins
-			$.getJSON(site_url + '/api/user/checkins.json', {}, function(data) {
+			$.getJSON(site_url + 'api/user/fights.json', {}, function(data) {
 				if (data) {
 					drawFights(data);
 				}
