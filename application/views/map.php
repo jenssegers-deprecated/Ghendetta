@@ -41,7 +41,7 @@
 			</script> us on twitter for updates about new features.
 		</p> -->
 
-	<ul class="leaderboard">
+	<ul class="leaderboard cf">
 		<?php foreach($clans as $clan): ?>
 		<li><img src="<?php echo $clan['logo']; ?>"><?php echo $clan['name']; ?></li>
 		<?php endforeach; ?>
