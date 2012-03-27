@@ -44,18 +44,15 @@
 
 <section id="map_canvas"></section>
 
-<script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script src="<?php echo static_url('js/jquery.js'); ?>"></script>
-<script src="<?php echo static_url('js/application.js?v=26032012'); ?>"></script>
-<script src="<?php echo static_url('js/battlefield.js?v=26032012'); ?>"></script>
 <script>
 	var base_url = '<?php echo base_url(); ?>';
 	var site_url = '<?php echo site_url(); ?>';
 	var static_url = '<?php echo static_url(); ?>';
-
-	Battlefield.regions = <?php echo json_encode($regions); ?>;
-	Battlefield.checkins = <?php echo json_encode($checkins); ?>;
-	Battlefield.init('map_canvas');
 </script>
+
+<script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="<?php echo static_url('js/jquery.js'); ?>"></script>
+<script src="<?php echo static_url('js/battlefield.js?v=26032012'); ?>"></script>
+<script src="<?php echo static_url('js/application.js?v=26032012'); ?>"></script>
 </body>
 </html>

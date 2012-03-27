@@ -15,7 +15,7 @@ class region_model extends CI_Model {
     function get_all() {
         $regions = $this->db->get('regions')->result_array();
         foreach ($regions as &$region) {
-            $region['coords'] = $this->db->where('regionid', $region['regionid'])->get('regioncoords')->result_array();
+            $region['coords'] = $this->db->select('lon, lat')->where('regionid', $region['regionid'])->get('regioncoords')->result_array();
         }
         
         return $regions;
@@ -30,13 +30,13 @@ class region_model extends CI_Model {
         $this->load->model('clan_model');
         
         $results = $this->db->query('
-        SELECT clans.*, regions.regionid, count(1) as count 
+        SELECT regions.regionid, clans.*, count(1) as points 
         FROM regions
         JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= ' . (time() - 604800) . ' 
         JOIN users ON users.fsqid = checkins.userid
         JOIN clans ON clans.clanid = users.clanid
         GROUP BY checkins.regionid, users.clanid
-        ORDER BY regions.regionid ASC, count DESC
+        ORDER BY regions.regionid ASC, points DESC
         ')->result_array();
         
         // select the leading clan for each region
@@ -57,7 +57,7 @@ class region_model extends CI_Model {
             if (isset($leaderboard[$rid])) {
                 $region['clan'] = $leaderboard[$rid];
             } else {
-                $region['clan'] = array('name' => 'Uncontested territory', 'color' => '666666');
+                $region['clan'] = FALSE;
             }
         }
         
