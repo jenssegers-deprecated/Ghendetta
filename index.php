@@ -20,18 +20,11 @@
  */
 	
     switch ($_SERVER['SERVER_NAME']) {
-        case 'sandy.jenssegers.be' :
-        case 'localhost' :
-            define('ENVIRONMENT', 'development');
-            break;
-	case 'ghendetta' :
-            define('ENVIRONMENT', 'development');
-            break;
-	case 'ghendetta.dev' :
-            define('ENVIRONMENT', 'development');
+	    case 'ghendetta.be' :
+            define('ENVIRONMENT', 'production');
             break;
         default :
-            define('ENVIRONMENT', 'production');
+            define('ENVIRONMENT', 'development');
             break;
     }
 	
