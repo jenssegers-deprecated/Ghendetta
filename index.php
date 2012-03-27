@@ -24,6 +24,12 @@
         case 'localhost' :
             define('ENVIRONMENT', 'development');
             break;
+	case 'ghendetta' :
+            define('ENVIRONMENT', 'development');
+            break;
+	case 'ghendetta.dev' :
+            define('ENVIRONMENT', 'development');
+            break;
         default :
             define('ENVIRONMENT', 'production');
             break;
