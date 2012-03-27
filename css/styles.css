@@ -123,9 +123,17 @@ a:focus {
 		background: -webkit-linear-gradient(#666, #111);
 		background:    -moz-linear-gradient(#666, #111);
 		background:         linear-gradient(#666, #111);
-		width: 10%;
+		width: 12%;
 		height: 100%;
 	}
+
+/* Clearfix For modern browsers */
+.cf:before,
+.cf:after{content:"";display:table;}
+.cf:after{clear:both;}
+/* Clearfix For IE 6/7 (trigger hasLayout) */
+.cf{zoom:1;}
+
 
 /*
 	Game elements
@@ -208,9 +216,24 @@ a:focus {
 		color: #fff;
 	}
 
+	.legend {
+		border-bottom: 1px solid #DDD;
+		padding-bottom: 7px;
+		margin-bottom: 16px;
+	}
+
+		.legend dt {
+			float: left;
+		}
+
+		.legend dd {
+			line-height: 40px;
+			font-size: 23px;
+		}
+
 	.tutorial {
 		border-top: 1px solid #DDD;
-		padding-top: 7px;
+		padding-top: 15px;
 		color: #777;
 		font-size: .875em;
 	}
