@@ -26,7 +26,7 @@
 		<p class="clan">You are with the <strong style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></strong> clan.</p>
 		<div class="tutorial">
 			<dl class="legend cf">
-				<dt><img src="/img/ico_battle.png" /></dt>
+				<dt><img src="<?php echo static_url('img/ico_battle.png'); ?>" /></dt>
 				<dd>Your battles</dd>
 			</dl>
 			<h2>How To Play</h2>
@@ -41,7 +41,7 @@
 			</script> us on twitter for updates about new features.
 		</p> -->
 
-	<ul class="leaderboard">
+	<ul class="leaderboard cf">
 		<?php foreach($clans as $clan): ?>
 		<li><img src="<?php echo $clan['logo']; ?>"><?php echo $clan['name']; ?></li>
 		<?php endforeach; ?>
