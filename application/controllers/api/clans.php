@@ -6,6 +6,7 @@ class Clans extends CI_Controller {
         $this->load->model('clan_model');
         $clans = $this->clan_model->get_all();
         
+	header('HTTP/1.1 200 OK');
         $this->output->set_header('Content-type: application/json');
         echo json_encode($clans);
     }
@@ -20,6 +21,7 @@ class Clans extends CI_Controller {
         $clan = $this->clan_model->get($id);
         
         if ($clan) {
+	    header('HTTP/1.1 200 OK');
             $this->output->set_header('Content-type: application/json');
             echo json_encode($clan);
         } else {

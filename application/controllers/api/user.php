@@ -20,7 +20,8 @@ class User extends CI_Controller {
         if ($user = $this->ghendetta->current_user()) {
             $this->load->model('checkin_model');
             $checkins = $this->checkin_model->get_unique_since($user['fsqid'], time() - (608400));
-            
+	
+            header('HTTP/1.1 200 OK');
             $this->output->set_header('Content-type: application/json');
             echo json_encode($checkins);
         } else {
