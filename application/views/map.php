@@ -1,13 +1,6 @@
-<!doctype html>
-<html>
-<head>
-	<title>Ghendetta</title>
-	<meta charset="utf-8" />
-	<link rel="stylesheet" href="<?php echo static_url('css/styles.css?v=28032012'); ?>" media="screen" />
-	<script src="<?php echo static_url('js/css3-mediaqueries.js'); ?>"></script>
-	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-</head>
+<?php include_once('head.tpl'); ?>
 <body>
+<?php include_once('navigation.tpl'); ?>
 <section class="main" role="main">
 	<h1 class="logo"><img src="<?php echo static_url('img/logo.png'); ?>" alt="Ghendetta" /></h1>
 
@@ -33,14 +26,6 @@
 			<p>Every visit to another district (check-in on Foursquare) gives you a chance to take away a district from a rivaling clan.</p>
 		</div>
 		<?php endif; ?>
-		<div class="tutorial">
-			<h2>Follow us on Twitter</h2>
-			<p>Be the first to know of updates, give feedback and spread the word!</p>
-			<a href="https://twitter.com/Ghendetta" class="twitter-follow-button" data-show-count="true" data-lang="en" data-size="large">Follow Ghendetta</a>
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;
-				js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-			
-		</div>
 
 	<ul class="leaderboard cf">
 		<?php foreach($clans as $clan): ?>
