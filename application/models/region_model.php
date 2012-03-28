@@ -61,5 +61,9 @@ class region_model extends CI_Model {
         
         return $regions;
     }
+    
+    function count() {
+        return $this->db->count_all('regions');
+    }
 
 }

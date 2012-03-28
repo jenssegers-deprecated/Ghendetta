@@ -29,12 +29,12 @@ class user_model extends CI_Model {
         return $this->db->where('fsqid', $fsqid)->count_all_results('users') != 0;
     }
     
-    function set_clan($fsqid, $clanid) {
-        return $this->db->where('fsqid', $fsqid)->update('users', array('clanid' => $clanid));
-    }
-    
     function get_all() {
         return $this->db->get('users')->result_array();
+    }
+    
+    function count() {
+        return $this->db->count_all('users');
     }
 
 }
