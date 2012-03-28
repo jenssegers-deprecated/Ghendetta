@@ -30,19 +30,16 @@ class clan_model extends CI_Model {
             ' . ($limit ? 'LIMIT 0,?' : ''), array($clanid, $limit))->result_array();
     }
     
-    function suggest() {
-        $results = $this->db->query('
-            SELECT clans.*, count(1) as points
+    function suggest_clan() {
+        return $this->db->query('
+            SELECT clans.*, count(checkins.checkinid) as points
             FROM clans
             LEFT JOIN users ON users.clanid = clans.clanid
             LEFT JOIN checkins ON checkins.userid = users.fsqid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
             GROUP BY clans.clanid
-            ORDER BY count ASC
+            ORDER BY points ASC
             LIMIT 0, 1
-            ')->result_array();
-        
-        // return the first clan with the lowest number of checkins
-        return reset($results);
+            ')->row_array();
     }
 
 }

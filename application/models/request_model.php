@@ -7,4 +7,17 @@ class request_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 	
+    function truncate() {
+        $this->db->truncate('requests');
+    }
+    
+    function clean($since = FALSE) {
+        if(!$since) {
+            // 50 days
+            $since = time() - 4320000;
+        }
+        
+        $this->db->where('time <=', $since)->delete('requests');
+    }
+	
 }
