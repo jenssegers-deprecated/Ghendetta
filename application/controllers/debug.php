@@ -12,9 +12,8 @@ class debug extends CI_Controller{
         // load model & clan
         $this->load->model('clan_model');
         $clan = $this->clan_model->get($user['clanid']);
-
-        print_r( $clan );
         
+        print_r( $clan );
         // calculate the progress, start at 60 to start, and end with 100 at 23:15
         $now = time() ;
         $release = 1333055771 ; // 23:15
@@ -26,7 +25,8 @@ class debug extends CI_Controller{
         // setting data
         $data = array();
         $data['progress'] = $progress ;
-        $date['clan'] = $clan ;
+        $data['clan'] = $clan ;
+
         // view
         $this->load->view($view, $data);
     }
