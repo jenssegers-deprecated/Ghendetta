@@ -41,6 +41,14 @@ class clan_model extends CI_Model {
             LIMIT 0, 1
             ')->row_array();
     }
+    
+    function count() {
+        return $this->db->count_all('clans');
+    }
+    
+    function count_members($clanid) {
+        return $this->db->where('clanid', $clanid)->count_all_results('users');
+    }
 
 }
 
