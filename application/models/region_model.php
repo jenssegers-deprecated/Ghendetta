@@ -78,9 +78,9 @@ class region_model extends CI_Model {
             $rid = $region['regionid'];
             
             if (isset($leaders[$rid])) {
-                $region['clan'] = $leaders[$rid];
+                $region['leader'] = $leaders[$rid];
             } else {
-                $region['clan'] = FALSE;
+                $region['leader'] = FALSE;
             }
         }
         

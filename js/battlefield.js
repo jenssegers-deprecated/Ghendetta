@@ -17,7 +17,7 @@ var Battlefield = function() {
 				polygon.push(new google.maps.LatLng(coords[j].lon, coords[j].lat));
 			}
 
-			color = region.clan ? region.clan.color : '333333';
+			color = region.leader ? region.leader.color : '333333';
 
 			// create area
 			polygons[i] = new google.maps.Polygon({
