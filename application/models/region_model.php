@@ -12,6 +12,10 @@ class region_model extends CI_Model {
         return $this->db->insert_id();
     }
     
+    function update($regionid, $region) {
+        return $this->db->where('regionid', $regionid)->update('regions', $region);
+    }
+    
     /**
      * Get all regions without manipulation
      */
@@ -26,10 +30,10 @@ class region_model extends CI_Model {
     }
     
     /**
-     * Get the leading clan of a region
+     * Calculate the leading clan of a specific region
      * @param int $regionid
      */
-    function leader($regionid) {
+    function region_leader($regionid) {
         $query = '
             SELECT regions.regionid, clans.*, count(checkinid) as points
             FROM regions
@@ -48,7 +52,7 @@ class region_model extends CI_Model {
      * Get all regions with corresponding leading clan
      */
     function all_region_stats() {
-        $results = $this->db->query('
+        $query = '
         	SELECT * 
         	FROM (
                 SELECT regions.regionid, clans.*, count(checkinid) as points
@@ -58,8 +62,9 @@ class region_model extends CI_Model {
                 LEFT JOIN clans ON clans.clanid = users.clanid
                 GROUP BY checkins.regionid, users.clanid
                 ORDER BY regions.regionid ASC, points DESC ) sub
-            GROUP BY regionid
-            ')->result_array();
+            GROUP BY regionid';
+        
+        $results = $this->db->query($query)->result_array();
         
         // make array with region id as key
         $leaders = array();

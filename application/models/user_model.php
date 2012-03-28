@@ -40,9 +40,13 @@ class user_model extends CI_Model {
         return $this->db->where('fsqid', $fsqid)->count_all_results('users') != 0;
     }
     
+    /**
+     * Calculate the points of a user
+     * @param int $userid
+     */
     function points($userid) {
         $query = '
-        	SELECT count(checkind) as points
+        	SELECT count(checkinid) as points
         	FROM checkins
         	WHERE date >= UNIX_TIMESTAMP( subdate(now(),7) )
         	AND userid = ?';

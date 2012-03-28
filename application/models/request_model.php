@@ -13,8 +13,7 @@ class request_model extends CI_Model {
     
     function clean($since = FALSE) {
         if (!$since) {
-            // 50 days
-            $since = time() - 4320000;
+            $since = time() - 4320000; // 50 days
         }
         
         $this->db->where('time <=', $since)->delete('requests');
