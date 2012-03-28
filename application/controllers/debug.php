@@ -2,8 +2,14 @@
 
 class debug extends CI_Controller{
 
+    function view( $view ){
+        $this->load->view($view);
+    }
+
     function index(){
-        $this->load->view('waiting-clan');
+        redirect();
     }
 
 }
+
+?>
