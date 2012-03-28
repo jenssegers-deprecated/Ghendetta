@@ -121,12 +121,12 @@ a:focus {
 	/* actual progress meter */
 	.pr-cont .pr {
 		display: block;
-		background: #2BA32B;
 		border-radius: 5px;
-		background: -webkit-gradient(linear, 0 0, 0 100%, from(#666), to(#111) );
-		background: -webkit-linear-gradient(#666, #111);
-		background:    -moz-linear-gradient(#666, #111);
-		background:         linear-gradient(#666, #111);
+		background: #c1272d;
+		background: -webkit-gradient(linear, 0 0, 0 100%, from(#c1272d), to(#7F0C11) );
+		background: -webkit-linear-gradient(#c1272d, #7F0C11);
+		background:    -moz-linear-gradient(#c1272d, #7F0C11);
+		background:         linear-gradient(#c1272d, #7F0C11);
 		height: 100%;
 	}
 
