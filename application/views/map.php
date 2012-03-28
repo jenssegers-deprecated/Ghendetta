@@ -1,7 +1,7 @@
 <?php include_once('head.tpl'); ?>
 <body>
 <?php include_once('navigation.tpl'); ?>
-<section class="main" role="main">
+<section class="dashboard" role="main">
 	<h1 class="logo"><img src="<?php echo static_url('img/logo.png'); ?>" alt="Ghendetta" /></h1>
 
 		<?php if(!$this->ghendetta->current_user()): ?>

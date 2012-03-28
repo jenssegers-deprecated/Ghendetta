@@ -189,7 +189,7 @@ a:focus {
 
 /* Dashboard: general */
 
-.main {
+section.dashboard {
 	height: 100%;
 	width: 23%;
 	padding: 0 1%;
@@ -326,7 +326,7 @@ a:focus {
 				float: left;
 			}
 
-	.main {
+	section.dashboard {
 		width: 96%;
 		padding: 8px 2% 0;
 		height: auto;
