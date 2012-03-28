@@ -33,13 +33,14 @@
 			<p>Every visit to another district (check-in on Foursquare) gives you a chance to take away a district from a rivaling clan.</p>
 		</div>
 		<?php endif; ?>
-
-		<!-- <p class="tutorial" >
-			<a href="https://twitter.com/Ghendetta" class="twitter-follow-button" data-show-count="false" data-size="large" data-show-screen-name="false">Follow @Ghendetta</a>
+		<div class="tutorial">
+			<h2>Follow us on Twitter</h2>
+			<p>Be the first to know of updates, give feedback and spread the word!</p>
+			<a href="https://twitter.com/Ghendetta" class="twitter-follow-button" data-show-count="true" data-lang="en" data-size="large">Follow Ghendetta</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;
-						  js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-			</script> us on twitter for updates about new features.
-		</p> -->
+				js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			
+		</div>
 
 	<ul class="leaderboard cf">
 		<?php foreach($clans as $clan): ?>
