@@ -31,6 +31,7 @@ body {
 body {
 	font: 100%/1.5 "Helvetica Neue", Arial, sans-serif;
 	color: #444;
+	background: #F7F6F2;
 }
 
 /* Typography */
@@ -186,7 +187,7 @@ a:focus {
 
 
 /*
-	Page dashboard
+	View: dashboard
 */
 
 /* Dashboard: general */
@@ -260,7 +261,7 @@ section.dashboard {
 
 	/* Dashboard: Logged in */
 
-	.clan strong {
+	.dashboard .clan strong {
 		padding: 2px 4px;
 		border-radius: 3px;
 		color: #fff;
@@ -300,12 +301,19 @@ section.dashboard {
 	}
 
 /*
-	Page: clan
+	View: clan
 */
 
 section.clan {
-	padding-top: 40px;
+	padding-top: 80px;
+	margin: auto;
+	width: 66%;
+	min-width: 300px;
 }
+
+	section.clan strong {
+		color: #c1272d;
+	}
 
 /*
 	Media Queries
@@ -314,7 +322,8 @@ section.clan {
 @media handheld, only screen and (max-width: 640px) {
 
 	.logo,
-	.tutorial {
+	.tutorial,
+	.twitter {
 		display: none;
 	}
 
