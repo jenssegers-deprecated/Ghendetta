@@ -316,14 +316,13 @@ section.dashboard {
 section.clan {
 	padding-top: 80px;
 	margin: auto;
-	width: 66%;
+	width: 55%;
 	min-width: 300px;
 }
 
 	section.clan p {
-		font-size: 26px;
+		font-size: 22px;
 		color: #777;
-		width: 70%;
 	}
 
 	section.clan strong {
@@ -362,7 +361,7 @@ section.clan {
 
 	section.dashboard {
 		width: 96%;
-		padding: 8px 2% 0;
+		padding: 48px 2% 0;
 		height: auto;
 		box-shadow: 0 3px 5px rgba(0,0,0,.11);
 	}
@@ -371,18 +370,27 @@ section.clan {
 		width: 100%;
 	}
 
+	section.clan {
+		padding-top: 60px;
+		width: 90%;
+	}
+
 }
 
 @media handheld, only screen and (max-width: 480px) {
 
 	h2,
-	.clan {
+	section.dashboard .clan {
 		display: inline;
 		font-size: 16px;
 	}
 
 	.leaderboard li {
 		font-size: 14px;
+	}
+
+	section.clan p {
+		font-size: 16px;
 	}
 
 }
