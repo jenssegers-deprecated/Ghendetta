@@ -1,32 +1,30 @@
 <?php
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
-class Clans extends CI_Controller {
+require_once (APPPATH . 'core/API_Controller.php');
+
+class Clans extends API_Controller {
     
     function index() {
         $this->load->model('clan_model');
         $clans = $this->clan_model->get_all();
         
-        header('HTTP/1.1 200 OK');
-        $this->output->set_header('Content-type: application/json');
-        echo json_encode($clans);
+        $this->output($clans);
     }
     
     function get($id = FALSE) {
         if (!$id) {
-            $this->output->set_header('HTTP/1.1 400 Bad Request');
-            echo json_encode(array('error' => 'Bad request'));
+            $this->error('No ID found', 400);
         }
         
         $this->load->model('clan_model');
         $clan = $this->clan_model->get($id);
         
         if ($clan) {
-            header('HTTP/1.1 200 OK');
-            $this->output->set_header('Content-type: application/json');
-            echo json_encode($clan);
+            $this->output($clan);
         } else {
-            $this->output->set_header('HTTP/1.1 404 Not Found');
-            echo json_encode(array('error' => 'Clan not found'));
+            $this->error('Clan not found', 404);
         }
     }
 

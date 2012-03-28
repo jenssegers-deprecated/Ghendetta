@@ -1,14 +1,16 @@
 <?php
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
-class Regions extends CI_Controller {
+require_once (APPPATH . 'core/API_Controller.php');
+
+class Regions extends API_Controller {
     
     function index() {
-        header('HTTP/1.1 200 OK');
         $this->load->model('region_model');
         $regions = $this->region_model->region_stats();
         
-        header('Content-type: application/json');
-        echo json_encode($regions);
+        $this->output($regions);
     }
 
 }
