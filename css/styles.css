@@ -270,10 +270,22 @@ section.dashboard {
 
 	/* Dashboard: Logged in */
 
-	.dashboard .clan strong {
+	.dashboard .clan a {
 		padding: 2px 4px;
 		border-radius: 3px;
 		color: #fff;
+		border: none;
+		font-weight: 700;
+		-webkit-transition: opacity .3s ease-out;
+		   -moz-transition: opacity .3s ease-out;
+		    -ms-transition: opacity .3s ease-out;
+		     -o-transition: opacity .3s ease-out;
+		        transition: opacity .3s ease-out;
+	}
+
+	.dashboard .clan a:hover,
+	.dashboard .clan a:focus {
+		opacity: .66;
 	}
 
 	.legend {
