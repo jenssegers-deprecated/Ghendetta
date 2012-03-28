@@ -173,18 +173,27 @@ a:focus {
 	}
 
 	.navigation a:hover {
-		background: #444;
+		background-color: #444;
 	}
 
 	.navigation p {
 		float: left;
 	}
 
+	.navigation .dashboard {
+		background: transparent url(/img/ico_map.png) no-repeat 10px 50%;
+		padding-left: 30px;
+	}
+
+	.navigation .myClan {
+		background: transparent url(/img/ico_star.png) no-repeat 10px 50%;
+		padding-left: 30px;
+	}
+
 	.navigation .twitter {
 		float: right;
 		padding: 5px;
 	}
-
 
 /*
 	View: dashboard
@@ -310,6 +319,12 @@ section.clan {
 	width: 66%;
 	min-width: 300px;
 }
+
+	section.clan p {
+		font-size: 26px;
+		color: #777;
+		width: 70%;
+	}
 
 	section.clan strong {
 		color: #c1272d;
