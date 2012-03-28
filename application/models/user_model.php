@@ -6,6 +6,31 @@ class user_model extends CI_Model {
         return $this->db->where('fsqid', $fsqid)->get('users')->row_array();
     }
     
+    function insert($user) {
+        $this->db->insert('users', $user);
+        return $this->db->insert_id();
+    }
+    
+    function update($fsqid, $user) {
+        return $this->db->where('fsqid', $fsqid)->update('users', $user);
+    }
+    
+    function exists($fsqid) {
+        return $this->db->where('fsqid', $fsqid)->count_all_results('users') != 0;
+    }
+    
+    function get_all() {
+        return $this->db->get('users')->result_array();
+    }
+    
+    function count() {
+        return $this->db->count_all('users');
+    }
+    
+    /**
+     * Get a specific user, with total points and ranking in clan
+     * @param int $fsqid
+     */
     function user_stats($fsqid) {
         $user = $this->get($fsqid);
         
@@ -27,19 +52,6 @@ class user_model extends CI_Model {
         return $this->db->query($query, array($user['clanid'], $fsqid, $fsqid))->row_array();
     }
     
-    function insert($user) {
-        $this->db->insert('users', $user);
-        return $this->db->insert_id();
-    }
-    
-    function update($fsqid, $user) {
-        return $this->db->where('fsqid', $fsqid)->update('users', $user);
-    }
-    
-    function exists($fsqid) {
-        return $this->db->where('fsqid', $fsqid)->count_all_results('users') != 0;
-    }
-    
     /**
      * Calculate the points of a user
      * @param int $userid
@@ -53,14 +65,6 @@ class user_model extends CI_Model {
         
         $row = $this->db->query($query, array($userid))->row_array();
         return $row['points'];
-    }
-    
-    function get_all() {
-        return $this->db->get('users')->result_array();
-    }
-    
-    function count() {
-        return $this->db->count_all('users');
     }
 
 }
