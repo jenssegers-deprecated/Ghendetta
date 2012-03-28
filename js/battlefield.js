@@ -5,7 +5,7 @@ var Battlefield = function() {
 	var drawRegions = function(regions) {
 		delete polygons;
 		polygons = new Array();
-
+		
 		var coords, polygon, region, color;
 		for (i in regions) {
 			region = regions[i];
@@ -14,8 +14,7 @@ var Battlefield = function() {
 			// put coordinates into a polygon
 			polygon = new Array();
 			for (j in coords) {
-				polygon.push(new google.maps.LatLng(coords[j].lon,
-						coords[j].lat));
+				polygon.push(new google.maps.LatLng(coords[j].lon, coords[j].lat));
 			}
 
 			color = region.clan ? region.clan.color : '333333';

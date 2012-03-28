@@ -7,13 +7,24 @@ class user_model extends CI_Model {
     }
     
     function user_stats($fsqid) {
-        return $this->db->query('
-        	SELECT fsqid, firstname, lastname, picurl, count(checkins.checkinid) as points
-        	FROM users
-        	LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
-        	WHERE users.fsqid = ?
-        	GROUP BY users.fsqid
-        	', array($fsqid))->row_array();
+        $user = $this->get($fsqid);
+        
+        $query = '
+        	SELECT * 
+    		FROM (
+    		  	SELECT fsqid, firstname, lastname, picurl, points, @rownum:=@rownum+1 as rank 
+              	FROM (
+              		SELECT fsqid, firstname, lastname, picurl, count(checkins.checkinid) as points
+            		FROM users 
+            		LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
+            	  	WHERE users.clanid = ?
+            	  	GROUP BY users.fsqid
+            		ORDER BY points desc, CASE fsqid WHEN ? THEN 1 ELSE 0 END
+            		) t, (SELECT @rownum:=0) r
+            	) t
+            WHERE fsqid = ?';
+        
+        return $this->db->query($query, array($user['clanid'], $fsqid, $fsqid))->row_array();
     }
     
     function insert($user) {
