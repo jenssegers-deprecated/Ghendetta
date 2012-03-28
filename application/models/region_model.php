@@ -12,6 +12,9 @@ class region_model extends CI_Model {
         return $this->db->insert_id();
     }
     
+    /**
+     * Get all regions without manipulation
+     */
     function get_all() {
         $regions = $this->db->get('regions')->result_array();
         
@@ -22,12 +25,29 @@ class region_model extends CI_Model {
         return $regions;
     }
     
-    function truncate() {
-        $this->db->truncate('regions');
-        $this->db->truncate('regioncoords');
+    /**
+     * Get the leading clan of a region
+     * @param int $regionid
+     */
+    function leader($regionid) {
+        $query = '
+            SELECT regions.regionid, clans.*, count(checkinid) as points
+            FROM regions
+            LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) ) 
+            LEFT JOIN users ON users.fsqid = checkins.userid
+            LEFT JOIN clans ON clans.clanid = users.clanid
+            WHERE regions.regionid = ?
+            GROUP BY users.clanid
+            ORDER BY regions.regionid ASC, points DESC
+            LIMIT 0,1';
+        
+        return $this->db->query($query, array($regionid))->row_array();
     }
     
-    function region_stats() {
+    /**
+     * Get all regions with corresponding leading clan
+     */
+    function all_region_stats() {
         $results = $this->db->query('
         	SELECT * 
         	FROM (
@@ -62,8 +82,34 @@ class region_model extends CI_Model {
         return $regions;
     }
     
+    /**
+     * Get the clan standings for a specific region
+     * @param int $regionid
+     */
+    function region_stats($regionid) {
+        $query = '
+            SELECT regions.regionid, clans.*, count(checkinid) as points
+            FROM regions
+            LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) ) 
+            LEFT JOIN users ON users.fsqid = checkins.userid
+            LEFT JOIN clans ON clans.clanid = users.clanid
+            WHERE regions.regionid = ?
+            GROUP BY checkins.regionid, users.clanid
+            ORDER BY regions.regionid ASC, points DESC';
+        
+        return $this->db->query($query, array($regionid))->result_array();
+    }
+    
     function count() {
         return $this->db->count_all('regions');
+    }
+    
+    /**
+     * Remove all region data
+     */
+    function truncate() {
+        $this->db->truncate('regions');
+        $this->db->truncate('regioncoords');
     }
 
 }

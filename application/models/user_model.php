@@ -40,6 +40,17 @@ class user_model extends CI_Model {
         return $this->db->where('fsqid', $fsqid)->count_all_results('users') != 0;
     }
     
+    function points($userid) {
+        $query = '
+        	SELECT count(checkind) as points
+        	FROM checkins
+        	WHERE date >= UNIX_TIMESTAMP( subdate(now(),7) )
+        	AND userid = ?';
+        
+        $row = $this->db->query($query, array($userid))->row_array();
+        return $row['points'];
+    }
+    
     function get_all() {
         return $this->db->get('users')->result_array();
     }
