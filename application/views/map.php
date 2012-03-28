@@ -59,6 +59,6 @@
 
 <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="<?php echo static_url('js/jquery.js'); ?>"></script>
-<script src="<?php echo static_url('js/battlefield.js?v=28032012'); ?>"></script>
+<script src="<?php echo static_url('js/battlefield.js?v=29032012'); ?>"></script>
 </body>
 </html>
