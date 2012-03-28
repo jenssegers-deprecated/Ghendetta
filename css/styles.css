@@ -100,8 +100,10 @@ a:focus {
 	color: #6E6E5C;
 }
 
+/* progress meter */
 
-.gamedev {
+/* progress container */
+.pr-cont {
 	width: 100%;
 	height: 10px;
 	border-radius: 5px;
@@ -115,7 +117,8 @@ a:focus {
 	overflow: hidden;
 }
 
-	.gamedev .progress {
+	/* actual progress meter */
+	.pr-cont .pr {
 		display: block;
 		background: #2BA32B;
 		border-radius: 5px;
@@ -123,7 +126,6 @@ a:focus {
 		background: -webkit-linear-gradient(#666, #111);
 		background:    -moz-linear-gradient(#666, #111);
 		background:         linear-gradient(#666, #111);
-		width: 12%;
 		height: 100%;
 	}
 
@@ -184,7 +186,7 @@ a:focus {
 
 
 /*
-	Game elements
+	Page dashboard
 */
 
 /* Dashboard: general */
@@ -291,10 +293,18 @@ section.dashboard {
 			font-weight: 700;
 		}
 
-/* Map */
+	/* Map */
 
-#map_canvas {
-	height: 100%;
+	#map_canvas {
+		height: 100%;
+	}
+
+/*
+	Page: clan
+*/
+
+section.clan {
+	padding-top: 40px;
 }
 
 /*
