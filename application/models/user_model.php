@@ -17,7 +17,6 @@ class user_model extends CI_Model {
               		SELECT fsqid, firstname, lastname, picurl, points
             		FROM users 
             		WHERE users.clanid = ?
-            	  	GROUP BY users.fsqid
             		ORDER BY points desc, CASE fsqid WHEN ? THEN 1 ELSE 0 END
             		) t, (SELECT @rownum:=0) r
             	) t
