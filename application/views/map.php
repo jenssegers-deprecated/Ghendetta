@@ -11,8 +11,6 @@
 		</p>
 		<div class="message notice">
 			<p><strong>Warning:</strong> play at your own risk. This is very much &szlig;. Lives (or game data) might be lost. <small>But we respect your privacy, and your Foursquare data is safe!</small></p>
-			<p class="gamedev" title="Game Development Process"><span class="progress"></span></p>
-
 		</div>
 		<?php else: ?>
 		<h2>Welcome to Ghendetta</h2>
