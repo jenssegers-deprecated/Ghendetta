@@ -24,8 +24,9 @@ class clan_model extends CI_Model {
         // if you haven't checked in, you should be LAST
         // in case of ex aequo: last of those
         $query = '
-    		SELECT fsqid, firstname, lastname, picurl, points
+    		SELECT fsqid, firstname, lastname, picurl, count(checkins.checkinid) as points
             FROM users
+            LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
             WHERE users.clanid = ?
             ORDER BY points DESC ' . ($fsqid ? ', CASE fsqid WHEN ? THEN 1 ELSE 0 END ' : '') . ($limit ? 'LIMIT 0,?' : '');
         
@@ -34,9 +35,10 @@ class clan_model extends CI_Model {
     
     function suggest_clan() {
         $query = '
-            SELECT clans.*, sum(users.points) as points
+            SELECT clans.*, count(checkins.checkinid) as points
             FROM clans
             LEFT JOIN users ON users.clanid = clans.clanid
+            LEFT JOIN checkins ON checkins.userid = users.fsqid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
             GROUP BY clans.clanid
             ORDER BY points ASC
             LIMIT 0, 1';

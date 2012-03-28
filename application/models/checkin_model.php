@@ -11,11 +11,6 @@ class checkin_model extends CI_Model {
         $this->db->insert('checkins', $checkin);
         $checkinid = $this->db->insert_id();
         
-        // update user points
-        $this->load->model('user_model');
-        $points = $this->user_model->points($checkin['userid']);
-        $this->user_model->update($checkin['userid'], array('points' => $points));
-        
         // check for different region leader
         $after = $this->region_model->region_leader($checkin['regionid']);
         if ($after['clanid'] != $before['clanid']) {
