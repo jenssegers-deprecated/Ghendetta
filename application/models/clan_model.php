@@ -12,7 +12,12 @@ class clan_model extends CI_Model {
     }
     
     function get($clanid) {
-        return $this->db->where('clanid', $clanid)->get('clans')->row_array();
+        $query =   'select cl.clanid, cl.name, cl.logo, cl.color, count(1) as score
+                    from clans cl
+                    join users u on u.clanid = cl.clanid and cl.clanid = ?
+                    join checkins c on c.userid = u.fsqid and c.date >= unix_timestamp( subdate(now(),7) )
+                    group by cl.clanid, cl.name, cl.logo, cl.color' ;
+        return $this->db->query($query, array($clanid))->row_array();
     }
     
     function get_all() {
