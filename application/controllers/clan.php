@@ -13,8 +13,6 @@ class Clan extends CI_Controller {
                 $members = $this->clan_model->get_members($user['clanid']);
                 $clan = $this->clan_model->get_stats($user['clanid']);
                 
-                print_r($members);
-                
                 $this->load->view('clan', array('members' => $members, 'clan' => $clan, 'user' => $user));
             } else {
                 redirect();
