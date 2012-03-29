@@ -321,11 +321,11 @@ section.dashboard {
 		top: 40px;
 		height: 100%;
 	}
-	
+
 	section#map a {
 		border-bottom: 0;
 	}
-	
+
 /*
 	View: clan
 */
@@ -337,8 +337,58 @@ section.clan {
 	min-width: 300px;
 }
 
+	section.clan article {
+		margin: 8px 1%;
+		float: left;
+		width: 48%;
+		height: 140px;
+	}
+
+	section.clan .cf {
+		border: 1px solid #DDD;
+		border-radius: 4px;
+		overflow: hidden;
+		background: #fff;
+		box-shadow: 0 0 3px rgba(0,0,0,.11);
+	}
+
+		section.clan article h1 {
+			font-size: 16px;
+			font-weight: bold;
+			padding: 4px 0;
+			text-align: center;
+			background: #333;
+		}
+
+			section.clan article h1 a {
+				color: #FFF;
+				border: none;
+			}
+
+		section.clan dl {
+			padding-top: 8px;
+		}
+
+			section.clan dt {
+				float: left; margin-right: .5em;
+				color: #777;
+			}
+
+			section.clan dd {
+				color: #c1272d;
+			}
+
+				section.clan .battles {
+					font-weight: 700;
+				}
+
+	section.clan img {
+		float: left;
+		margin-right: 10px;
+	}
+
 	section.clan p {
-		font-size: 22px;
+		font-size: 16px;
 		color: #777;
 	}
 
