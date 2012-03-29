@@ -14,7 +14,7 @@
 		</div>
 		<?php else: ?>
 		<h2>Welcome to Ghendetta</h2>
-		<p class="clan">You are with the <a href="/clan-waiting" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.</p>
+		<p class="clan">You are with the <a href="/clan" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.</p>
 		<div class="tutorial">
 			<dl class="legend cf">
 				<dt><img src="<?php echo static_url('img/ico_battle.png'); ?>" /></dt>
