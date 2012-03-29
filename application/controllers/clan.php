@@ -5,7 +5,19 @@ if (!defined('BASEPATH'))
 class Clan extends CI_Controller {
     
     function index() {
-        $this->under_construction();
+        if (ENVIRONMENT == 'production') {
+            $this->under_construction();
+        } else {
+            if ($user = $this->ghendetta->current_user()) {
+                $this->load->model('clan_model');
+                $members = $this->clan_model->get_members($user['clanid']);
+                $clan = $this->clan_model->get_stats($user['clanid']);
+                
+                $this->load->view('clan', array('members' => $members, 'clan' => $clan, 'user' => $user));
+            } else {
+                redirect();
+            }
+        }
     }
     
     function under_construction() {
