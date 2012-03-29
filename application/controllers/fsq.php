@@ -67,6 +67,8 @@ class fsq extends CI_Controller {
             // save the checkin to our database
             if ($json) {
                 $this->process_checkin($json);
+            } else {
+                set_status_header(400);
             }
         } else {
             set_status_header(400);
