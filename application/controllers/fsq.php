@@ -61,11 +61,15 @@ class fsq extends CI_Controller {
             
             $this->config->load('foursquare');
             if ($secret != $this->config->item('push_secret', 'foursquare')) {
-                show_error('Wrong secret');
+                set_status_header(401);
             }
             
             // save the checkin to our database
-            $this->process_checkin($json);
+            if ($json) {
+                $this->process_checkin($json);
+            }
+        } else {
+            set_status_header(400);
         }
     }
     
@@ -77,7 +81,7 @@ class fsq extends CI_Controller {
         $users = $this->user_model->get_all();
         
         foreach ($users as $user) {
-            echo "Updating user " . $user['fsqid'] . "\n";
+            $this->output->append_output("Updating user " . $user['fsqid'] . "\n");
             $this->refresh($user['fsqid'], $user['token']);
         }
     }
@@ -128,30 +132,32 @@ class fsq extends CI_Controller {
             
             $regions = $this->region_model->get_all();
             
-            $found_region = FALSE;
-            $lon = $checkin->venue->location->lng;
-            $lat = $checkin->venue->location->lat;
-            
-            // check what region the checkin was located in, using point in polygon algorithm
-            foreach ($regions as $region) {
-                if (is_in_polygon($region['coords'], $lon, $lat)) {
-                    $found_region = $region;
-                    break; // yes this is a break :)
-                }
-            }
-            
-            // if region is not found, the checkin is outside our territory
-            if ($found_region) {
-                $data = array();
-                $data['checkinid'] = $checkin->id;
-                $data['userid'] = $checkin->user->id;
-                $data['date'] = $checkin->createdAt;
-                $data['venueid'] = $checkin->venue->id;
-                $data['lon'] = $checkin->venue->location->lng;
-                $data['lat'] = $checkin->venue->location->lat;
-                $data['regionid'] = $found_region['regionid'];
+            if (isset($checkin->venue)) {
+                $found_region = FALSE;
+                $lon = $checkin->venue->location->lng;
+                $lat = $checkin->venue->location->lat;
                 
-                $this->checkin_model->insert($data);
+                // check what region the checkin was located in, using point in polygon algorithm
+                foreach ($regions as $region) {
+                    if (is_in_polygon($region['coords'], $lon, $lat)) {
+                        $found_region = $region;
+                        break; // yes this is a break :)
+                    }
+                }
+                
+                // if region is not found, the checkin is outside our territory
+                if ($found_region) {
+                    $data = array();
+                    $data['checkinid'] = $checkin->id;
+                    $data['userid'] = $checkin->user->id;
+                    $data['date'] = $checkin->createdAt;
+                    $data['venueid'] = $checkin->venue->id;
+                    $data['lon'] = $checkin->venue->location->lng;
+                    $data['lat'] = $checkin->venue->location->lat;
+                    $data['regionid'] = $found_region['regionid'];
+                    
+                    $this->checkin_model->insert($data);
+                }
             }
         }
     }
