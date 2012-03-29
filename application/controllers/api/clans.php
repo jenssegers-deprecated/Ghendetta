@@ -13,11 +13,7 @@ class Clans extends API_Controller {
         $this->output($clans);
     }
     
-    function get($id = FALSE) {
-        if (!$id) {
-            $this->error('No ID found', 400);
-        }
-        
+    function get($id) {
         $this->load->model('clan_model');
         $clan = $this->clan_model->get_stats($id);
         
@@ -25,6 +21,16 @@ class Clans extends API_Controller {
             $this->output($clan);
         } else {
             $this->error('Clan not found', 404);
+        }
+    }
+    
+    function _remap($method) {
+        switch ($method) {
+            case 'index' :
+                $this->index();
+                break;
+            default :
+                $this->get($method);
         }
     }
 

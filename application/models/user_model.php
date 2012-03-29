@@ -33,7 +33,7 @@ class user_model extends CI_Model {
      * Get a specific user, with total points and ranking in clan
      * @param int $fsqid
      */
-    function user_stats($fsqid) {
+    function get_stats($fsqid) {
         $user = $this->get($fsqid);
         
         $query = '

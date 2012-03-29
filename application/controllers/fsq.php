@@ -2,7 +2,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class fsq extends CI_Controller {
+class FSQ extends CI_Controller {
     
     function index() {
         $this->auth();

@@ -17,13 +17,32 @@ class region_model extends CI_Model {
     }
     
     /**
+     * Get one region without manipulation
+     * @param int $regionid
+     */
+    function get($regionid) {
+        $region = $this->db->where('regionid', $regionid)->get('regions')->result_array();
+        $region['coords'] = $this->get_coords($regionid);
+        
+        return $region;
+    }
+    
+    /**
+     * Get the coordinates of a region
+     * @param int $regionid
+     */
+    function get_coords($regionid) {
+        return $this->db->select('lon, lat')->where('regionid', $regionid)->get('regioncoords')->result_array();
+    }
+    
+    /**
      * Get all regions without manipulation
      */
     function get_all() {
         $regions = $this->db->get('regions')->result_array();
         
         foreach ($regions as &$region) {
-            $region['coords'] = $this->db->select('lon, lat')->where('regionid', $region['regionid'])->get('regioncoords')->result_array();
+            $region['coords'] = $this->get_coords($region['regionid']);
         }
         
         return $regions;
@@ -33,7 +52,7 @@ class region_model extends CI_Model {
      * Calculate the leading clan of a specific region
      * @param int $regionid
      */
-    function region_leader($regionid) {
+    function get_leader($regionid) {
         $query = '
             SELECT regions.regionid, clans.*, count(checkinid) as points
             FROM regions
@@ -51,7 +70,7 @@ class region_model extends CI_Model {
     /**
      * Get all regions with corresponding leading clan
      */
-    function all_region_stats() {
+    function get_all_stats() {
         $query = '
         	SELECT * 
         	FROM (
@@ -73,7 +92,7 @@ class region_model extends CI_Model {
         }
         
         // add the leading clan to the region data
-        $regions = $this->get_all();
+        $regions = $this->region_model->get_all();
         foreach ($regions as &$region) {
             $rid = $region['regionid'];
             
@@ -91,9 +110,9 @@ class region_model extends CI_Model {
      * Get the clan standings for a specific region
      * @param int $regionid
      */
-    function region_stats($regionid) {
+    function get_stats($regionid) {
         $query = '
-            SELECT regions.regionid, clans.*, count(checkinid) as points
+            SELECT clans.*, count(checkinid) as points
             FROM regions
             LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) ) 
             LEFT JOIN users ON users.fsqid = checkins.userid

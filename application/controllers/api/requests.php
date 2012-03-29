@@ -17,7 +17,13 @@ class Requests extends API_Controller {
         $this->output($requests);
     }
     
-    function _remap($type) {
-        $this->get($type);
+    function _remap($method) {
+        switch ($method) {
+            case 'index' :
+                $this->index();
+                break;
+            default :
+                $this->get($method);
+        }
     }
 }

@@ -25,6 +25,10 @@ class checkin_model extends CI_Model {
         return $this->db->where('checkinid', $checkinid)->count_all_results('checkins') != 0;
     }
     
+    function get_all() {
+        return $this->db->get('checkins')->result_array();
+    }
+    
     function get_since($userid, $since) {
         return $this->db->where('userid', $userid)->where('date >=', $since)->get('checkins')->result_array();
     }
@@ -33,7 +37,7 @@ class checkin_model extends CI_Model {
         return $this->db->where('userid', $userid)->where('date >=', $since)->group_by('venueid')->get('checkins')->result_array();
     }
     
-    function last($userid) {
+    function get_last($userid) {
         return $this->db->where('userid', $userid)->order_by('date', 'desc')->get('checkins')->row_array();
     }
     
