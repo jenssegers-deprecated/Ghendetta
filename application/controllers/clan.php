@@ -20,9 +20,9 @@ class Clan extends CI_Controller {
         
         // setting data
         $data = array();
-        $data['offset'] = 60;
-        $data['start'] = strtotime('29.03.2012 01:15');
-        $data['release'] = strtotime('29.03.2012 23:15');
+        $data['offset'] = 87;
+        $data['start'] = strtotime('29.03.2012 16:32');
+        $data['release'] = strtotime('30.03.2012 11:00');
         $data['feature'] = 'who is in your clan';
         $data['clan'] = $clan;
         
