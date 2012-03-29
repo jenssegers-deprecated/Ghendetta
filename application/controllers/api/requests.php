@@ -7,10 +7,17 @@ require_once (APPPATH . 'core/API_Controller.php');
 class Requests extends API_Controller {
     
     function index() {
+        $this->get('REGULAR');
+    }
+    
+    function get($type) {
         $this->load->model('request_model');
-        $requests = $this->request_model->get_daily('REGULAR');
+        $requests = $this->request_model->get_daily($type);
         
         $this->output($requests);
     }
     
+    function _remap($type) {
+        $this->get($type);
+    }
 }

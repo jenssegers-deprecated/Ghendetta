@@ -3,7 +3,7 @@
 class request_model extends CI_Model {
     
     function get_all() {
-        return $this->db->get('requests')->result_array();
+        return $this->db->order_by('time', 'DESC')->get('requests')->result_array();
     }
     
     function insert($request) {
@@ -38,7 +38,8 @@ class request_model extends CI_Model {
         	SELECT FROM_UNIXTIME(time, GET_FORMAT(DATE,'EUR')) as date, count(1) as requests
         	FROM requests
         	WHERE time >= UNIX_TIMESTAMP(subdate(now(),30)) " . $where . "
-        	GROUP BY FROM_UNIXTIME(time, GET_FORMAT(DATE,'EUR'))";
+        	GROUP BY FROM_UNIXTIME(time, GET_FORMAT(DATE,'EUR'))
+        	ORDER BY time DESC";
         
         return $this->db->query($query)->result_array();
     }
