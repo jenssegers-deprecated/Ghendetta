@@ -37,10 +37,10 @@ class Foursquare {
      */
     function auth_url($callback = FALSE) {
         if (!$callback) {
-            $callback = $this->settings['callback'];
+            $callback = $this->settings['callback_url'];
         }
         
-        return 'https://foursquare.com/oauth2/authenticate?client_id=' . $this->settings['client'] . '&response_type=code&redirect_uri=' . urlencode($callback);
+        return 'https://foursquare.com/oauth2/authenticate?client_id=' . $this->settings['client_id'] . '&response_type=code&redirect_uri=' . urlencode($callback);
     }
     
     /**
@@ -49,7 +49,7 @@ class Foursquare {
      * @return string
      */
     function request_token($code) {
-        $url = 'https://foursquare.com/oauth2/access_token?client_id=' . $this->settings['client'] . '&client_secret=' . $this->settings['secret'] . '&grant_type=authorization_code&redirect_uri=' . urlencode($this->settings['callback']) . '&code=' . $code;
+        $url = 'https://foursquare.com/oauth2/access_token?client_id=' . $this->settings['client_id'] . '&client_secret=' . $this->settings['client_secret'] . '&grant_type=authorization_code&redirect_uri=' . urlencode($this->settings['callback_url']) . '&code=' . $code;
         $json = $this->_request($url);
         
         if (!isset($json->access_token)) {
