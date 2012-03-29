@@ -74,12 +74,15 @@ class clan_model extends CI_Model {
      */
     function get_members($clanid, $limit = FALSE, $fsqid = FALSE) {
         $query = '
-    		SELECT fsqid, firstname, lastname, picurl, count(checkins.checkinid) as points
-            FROM users
-            LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
-            WHERE users.clanid = ?
-            GROUP BY users.fsqid
-            ORDER BY points DESC ' . ($fsqid ? ', CASE fsqid WHEN ? THEN 1 ELSE 0 END ' : '') . ($limit ? 'LIMIT 0,?' : '');
+        	SELECT t.*, @rownum:=@rownum+1 as rank
+        	FROM (
+        		SELECT fsqid, firstname, lastname, picurl, count(checkins.checkinid) as points
+                FROM users
+                LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
+                WHERE users.clanid = ?
+                GROUP BY users.fsqid
+                ORDER BY points DESC ' . ($fsqid ? ', CASE fsqid WHEN ? THEN 1 ELSE 0 END ' : '') . ($limit ? 'LIMIT 0,?' : '') . '
+                ) t, (SELECT @rownum:=0) r';
         
         return $this->db->query($query, array($clanid, $fsqid, $limit))->result_array();
     }
