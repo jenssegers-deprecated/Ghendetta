@@ -334,11 +334,15 @@ section.dashboard {
 */
 
 section.clan {
-	padding-top: 80px;
+	padding: 80px 0 32px;
 	margin: auto;
 	width: 88%;
 	min-width: 300px;
 }
+
+	section.clan .bd {
+		margin: 0 1%;
+	}
 
 	section.clan article {
 		margin: 8px 1%;
@@ -357,18 +361,29 @@ section.clan {
 		section.clan article h1 {
 			font-size: 16px;
 			font-weight: bold;
-			padding: 4px 0;
 			text-align: center;
 			background: #333;
+			padding: 0;
 		}
 
 		section.clan h1.capo {
 			background: #c1272d;
 		}
 
-			section.clan article h1 a {
+			section.clan h1 a {
+				display: block;
 				color: #FFF;
 				border: none;
+				padding: 4px 0;
+				-webkit-transition: background .22s ease-out;
+				   -moz-transition: background .22s ease-out;
+				    -ms-transition: background .22s ease-out;
+				     -o-transition: background .22s ease-out;
+				        transition: background .22s ease-out;
+			}
+
+			section.clan h1 a:hover {
+				background: #666;
 			}
 
 		section.clan dl {
