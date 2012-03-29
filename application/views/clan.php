@@ -15,7 +15,18 @@
 				<dt>Battles:</dt>
 				<dd class="battles"><?php echo $member['points']; ?></dd>
 				<dt>Rank:</dt>
-				<dd class="rank">Associate</dd>
+				<dd class="rank">
+					<?php
+						switch ($member['rank']) {
+						   case 1 :
+						      echo 'Godfather';
+						      break;
+							break;
+							default:
+							echo 'Associate';
+						}
+					?>
+				</dd>
 			</dl>
 		</div>
 	</article>
