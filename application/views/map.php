@@ -44,7 +44,7 @@
 </script>
 
 <script src="<?php echo static_url('js/jquery.js'); ?>"></script>
-<script src="<?php echo static_url('js/mapbox.min.js?v=29032012'); ?>"></script>
+<script src="<?php echo static_url('js/mapbox.min.js?v=290301'); ?>"></script>
 
 </body>
 </html>
