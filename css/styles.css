@@ -317,14 +317,17 @@ section.dashboard {
 
 	/* Map */
 
-	section#map {
-		top: 40px;
+	#map {
 		height: 100%;
 	}
 
-	section#map a {
-		border-bottom: 0;
-	}
+		#map .leaflet-control {
+			margin-top: 50px;
+		}
+
+		#map a {
+			border: 0;
+		}
 
 /*
 	View: clan
@@ -449,7 +452,7 @@ section.clan {
 		box-shadow: 0 3px 5px rgba(0,0,0,.11);
 	}
 
-	#map_canvas {
+	#map {
 		width: 100%;
 	}
 
