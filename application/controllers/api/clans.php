@@ -8,7 +8,7 @@ class Clans extends API_Controller {
     
     function index() {
         $this->load->model('clan_model');
-        $clans = $this->clan_model->get_all();
+        $clans = $this->clan_model->get_all_stats();
         
         $this->output($clans);
     }
@@ -19,7 +19,7 @@ class Clans extends API_Controller {
         }
         
         $this->load->model('clan_model');
-        $clan = $this->clan_model->get($id);
+        $clan = $this->clan_model->get_stats($id);
         
         if ($clan) {
             $this->output($clan);
