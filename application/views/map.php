@@ -1,5 +1,8 @@
 <?php include_once('head.tpl'); ?>
 <body>
+
+<link rel="stylesheet" href="<?php echo static_url('css/mapbox/leaflet.css'); ?>">
+
 <?php include_once('navigation.tpl'); ?>
 <section class="dashboard" role="main">
 	<h1 class="logo"><img src="<?php echo static_url('img/logo.png'); ?>" alt="Ghendetta" /></h1>
@@ -32,7 +35,7 @@
 	</ul>
 </section>
 
-<section id="map_canvas"></section>
+<section id="map"></section>
 
 <script>
 	var base_url = '<?php echo base_url(); ?>';
@@ -40,8 +43,8 @@
 	var static_url = '<?php echo static_url(); ?>';
 </script>
 
-<script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="<?php echo static_url('js/jquery.js'); ?>"></script>
-<script src="<?php echo static_url('js/battlefield.js?v=28032012'); ?>"></script>
+<script src="<?php echo static_url('js/mapbox.min.js?v=290301'); ?>"></script>
+
 </body>
 </html>

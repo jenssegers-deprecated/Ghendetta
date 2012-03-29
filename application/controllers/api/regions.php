@@ -8,23 +8,29 @@ class Regions extends API_Controller {
     
     function index() {
         $this->load->model('region_model');
-        $regions = $this->region_model->all_region_stats();
+        $regions = $this->region_model->get_all_stats();
         
         $this->output($regions);
     }
     
-    function get($id = FALSE) {
-        if (!$id) {
-            $this->error('No ID found', 400);
-        }
-        
+    function get($id) {
         $this->load->model('region_model');
-        $region = $this->region_model->region_stats($id);
+        $region = $this->region_model->get_stats($id);
         
         if ($region) {
             $this->output($region);
         } else {
             $this->error('Region not found', 404);
+        }
+    }
+    
+    function _remap($method) {
+        switch ($method) {
+            case 'index' :
+                $this->index();
+                break;
+            default :
+                $this->get($method);
         }
     }
 

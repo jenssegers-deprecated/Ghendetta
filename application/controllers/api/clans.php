@@ -8,23 +8,29 @@ class Clans extends API_Controller {
     
     function index() {
         $this->load->model('clan_model');
-        $clans = $this->clan_model->get_all();
+        $clans = $this->clan_model->get_all_stats();
         
         $this->output($clans);
     }
     
-    function get($id = FALSE) {
-        if (!$id) {
-            $this->error('No ID found', 400);
-        }
-        
+    function get($id) {
         $this->load->model('clan_model');
-        $clan = $this->clan_model->get($id);
+        $clan = $this->clan_model->get_stats($id);
         
         if ($clan) {
             $this->output($clan);
         } else {
             $this->error('Clan not found', 404);
+        }
+    }
+    
+    function _remap($method) {
+        switch ($method) {
+            case 'index' :
+                $this->index();
+                break;
+            default :
+                $this->get($method);
         }
     }
 

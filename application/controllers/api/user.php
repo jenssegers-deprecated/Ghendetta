@@ -9,7 +9,7 @@ class User extends API_Controller {
     function index() {
         if ($user = $this->ghendetta->current_user()) {
             $this->load->model('user_model');
-            $stats = $this->user_model->user_stats($user['fsqid']);
+            $stats = $this->user_model->get_stats($user['fsqid']);
             
             $this->output($stats);
         } else {

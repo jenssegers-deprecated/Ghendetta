@@ -181,12 +181,12 @@ a:focus {
 	}
 
 	.navigation .dashboard {
-		background: transparent url(/img/ico_map.png) no-repeat 10px 50%;
+		background: transparent url(../img/ico_map.png) no-repeat 10px 50%;
 		padding-left: 30px;
 	}
 
 	.navigation .myClan {
-		background: transparent url(/img/ico_star.png) no-repeat 10px 50%;
+		background: transparent url(../img/ico_star.png) no-repeat 10px 50%;
 		padding-left: 30px;
 	}
 
@@ -317,10 +317,15 @@ section.dashboard {
 
 	/* Map */
 
-	#map_canvas {
+	section#map {
+		top: 40px;
 		height: 100%;
 	}
-
+	
+	section#map a {
+		border-bottom: 0;
+	}
+	
 /*
 	View: clan
 */
