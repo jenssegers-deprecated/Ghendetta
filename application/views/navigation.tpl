@@ -1,7 +1,7 @@
 <section class="navigation">
 	<p>
 		<a href="/" class="dashboard">Dashboard</a>
-		<a href="/clan-waiting" class="myClan">My Clan</a>
+		<a href="/clan" class="myClan">My Clan</a>
 	</p>
 	<p class="twitter">
 		<a href="https://twitter.com/Ghendetta" class="twitter-follow-button" data-show-count="true" data-lang="en" data-size="large">Follow Ghendetta</a>
