@@ -6,6 +6,7 @@ var Mapbox = function() {
 	var addLayers = function(regions) {
 		var region, coords, points, polygon;
 		var polygons = new Array();
+		var centerLon = 0, centerLat = 0,totalCoords = 0;
 		
 		for (i in regions) {
 			region = regions[i];
@@ -14,6 +15,10 @@ var Mapbox = function() {
 			// create polygon points
 			points = new Array();
 			for (j in coords) {
+				centerLon += parseFloat(coords[j].lon);
+				centerLat += parseFloat(coords[j].lat);
+				totalCoords++;
+				
 				points.push(new L.LatLng(coords[j].lon, coords[j].lat));
 			}
 			
@@ -25,6 +30,8 @@ var Mapbox = function() {
 				fillColor: '#' + (region.leader ? region.leader.color : '666666'),
 				fillOpacity: 0.35
 			});
+			
+			map.setView(new L.LatLng(centerLon / totalCoords, centerLat / totalCoords), 12);
 			
 			// add to map
 			map.addLayer(polygons[i]);
@@ -62,7 +69,7 @@ var Mapbox = function() {
 				minZoom: 10,
 				zoom: 12
 			});
-			map.addLayer(new wax.leaf.connector(tilejson)).setView(new L.LatLng(51.067075, 3.737011), 12);
+			map.addLayer(new wax.leaf.connector(tilejson));
 			
 			// get regions
 			$.getJSON(site_url + 'api/regions.json', {}, function(data) {
