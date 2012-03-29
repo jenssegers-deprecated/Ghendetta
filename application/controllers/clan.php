@@ -22,6 +22,8 @@ class Clan extends CI_Controller {
         
         $progress = ($now - $start) * 1.0 / ($release - $start) ;
         $progress = floor( 60 + ( $progress * 40 )) ;
+
+        echo $progress ;
         
         // setting data
         $data = array();
