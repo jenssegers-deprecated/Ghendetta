@@ -78,7 +78,14 @@ class FSQ extends CI_Controller {
     /**
      * Cronjob controller
      */
-    function cronjob() {
+    function cronjob($code) {
+        $this->config->load('foursquare', TRUE);
+        $check = $this->config->item('cronjob_code', 'foursquare');
+        
+        if ($code != $check) {
+            show_error('You have not permission to access this page');
+        }
+        
         $this->load->model('user_model');
         $users = $this->user_model->get_all();
         
