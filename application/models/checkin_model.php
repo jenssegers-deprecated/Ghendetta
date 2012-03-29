@@ -5,14 +5,14 @@ class checkin_model extends CI_Model {
     function insert($checkin) {
         // get region leader before checkin
         $this->load->model('region_model');
-        $before = $this->region_model->region_leader($checkin['regionid']);
+        $before = $this->region_model->get_leader($checkin['regionid']);
         
         // insert checkin
         $this->db->insert('checkins', $checkin);
         $checkinid = $this->db->insert_id();
         
         // check for different region leader
-        $after = $this->region_model->region_leader($checkin['regionid']);
+        $after = $this->region_model->get_leader($checkin['regionid']);
         if ($after['clanid'] != $before['clanid']) {
             $this->region_model->update($checkin['regionid'], array('leader' => $after['clanid']));
             
