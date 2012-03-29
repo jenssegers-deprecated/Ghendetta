@@ -8,7 +8,7 @@ class Requests extends API_Controller {
     
     function index() {
         $this->load->model('request_model');
-        $requests = $this->request_model->get_daily();
+        $requests = $this->request_model->get_daily('REGULAR');
         
         $this->output($requests);
     }
