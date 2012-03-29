@@ -88,6 +88,22 @@ class clan_model extends CI_Model {
     }
     
     /**
+     * Get the capo of a clan
+     * @param int $clanid
+     */
+    function get_capo($clanid) {
+        $query = "
+        	SELECT fsqid, firstname, lastname, picurl, clans.clanid, '1' as rank, count(checkins.checkinid) as points
+        	FROM clans
+        	JOIN users ON users.fsqid = clans.capo
+        	LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
+        	WHERE clans.clanid = ?
+        	GROUP BY users.fsqid";
+        
+        return $this->db->query($query, array($clanid))->row_array();
+    }
+    
+    /**
      * Suggest clan based on total checkins in the last 7 days between all clans
      */
     function suggest_clan() {

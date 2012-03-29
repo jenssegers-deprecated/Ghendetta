@@ -5,17 +5,33 @@ class checkin_model extends CI_Model {
     function insert($checkin) {
         // get region leader before checkin
         $this->load->model('region_model');
-        $before = $this->region_model->get_leader($checkin['regionid']);
+        $region_before = $this->region_model->get_leader($checkin['regionid']);
         
         // insert checkin
         $this->db->insert('checkins', $checkin);
         $checkinid = $this->db->insert_id();
         
-        // check for different region leader
-        $after = $this->region_model->get_leader($checkin['regionid']);
-        if ($after['clanid'] != $before['clanid']) {
-            $this->region_model->update($checkin['regionid'], array('leader' => $after['clanid']));
+        // get user with points
+        $this->load->model('user_model');
+        $self = $this->user_model->get_stats($checkin['userid']);
+        
+        // security
+        if ($self) {
+            // get clan capo
+            $this->load->model('clan_model');
+            $capo = $this->clan_model->get_capo($self['clanid']);
             
+            // new capo
+            if ($self['points'] > $capo['points'] && $capo['clanid'] == $self['clanid']) {
+                $this->clan_model->update($self['clanid'], array('capo' => $self['fsqid']));
+            }
+        }
+        
+        // check for different region leader
+        $region_after = $this->region_model->get_leader($checkin['regionid']);
+        if ($region_after['clanid'] != $region_before['clanid']) {
+            $this->region_model->update($checkin['regionid'], array('leader' => $region_after['clanid']));
+        
             // TODO: insert notification
             // ...
         }
