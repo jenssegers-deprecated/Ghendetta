@@ -76,12 +76,14 @@ class clan_model extends CI_Model {
         $query = '
         	SELECT t.*, @rownum:=@rownum+1 as rank
         	FROM (
-        		SELECT fsqid, firstname, lastname, picurl, count(checkins.checkinid) as points
+        		SELECT fsqid, firstname, lastname, picurl, count(checkins.checkinid) as points,
+        			CASE clans.capo WHEN fsqid THEN 1 ELSE 0 END as capo
                 FROM users
                 LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
+                LEFT JOIN clans ON clans.clanid = users.clanid
                 WHERE users.clanid = ?
                 GROUP BY users.fsqid
-                ORDER BY points DESC ' . ($fsqid ? ', CASE fsqid WHEN ? THEN 1 ELSE 0 END ' : '') . ($limit ? 'LIMIT 0,?' : '') . '
+                ORDER BY capo DESC, points DESC ' . ($fsqid ? ', CASE fsqid WHEN ? THEN 1 ELSE 0 END ' : '') . ($limit ? 'LIMIT 0,?' : '') . '
                 ) t, (SELECT @rownum:=0) r';
         
         return $this->db->query($query, array($clanid, $fsqid, $limit))->result_array();
