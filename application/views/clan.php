@@ -2,14 +2,14 @@
 <body>
 <?php include_once('navigation.tpl'); ?>
 <section class="clan" role="main">
-	<h1>My Clan: <?php echo $clan['name']; ?></h1>
-	<p>Congratulations. You and your fellow associates have fought <strong><?php echo  $clan['points']; ?></strong> <abbr title="Foursquare Checkins">battles</abbr>. Your Capo is pleased.</p>
+	<h1>My Clan: <?php echo $clan['name']; ?> (<strong><?php echo  $clan['points']; ?></strong> <abbr title="Foursquare Checkins">battles</abbr>)</h1>
+	<p>Your Capo is pleased.</p>
 	<?php foreach($members as $member): ?>
 	<article>
 		<div class="cf">
-			<h1><a href="https://foursquare.com/user/<?php echo $member['fsqid']; ?>"><?php echo $member['firstname']; ?></a></h1>
+			<h1<?php if($member['rank'] == 1) {echo " class=\"capo\"";} ?>><a href="https://foursquare.com/user/<?php echo $member['fsqid']; ?>"><?php echo $member['firstname']; ?></a></h1>
 			<a href="https://foursquare.com/user/<?php echo $member['fsqid']; ?>">
-				<img src="<?php echo $member['picurl']; ?>" alt="<?php echo $member['firstname']; ?>" width="110" height="110" />
+				<img src="<?php echo $member['picurl']; ?>" alt="<?php echo $member['firstname']; ?>" width="72" height="72" />
 			</a>
 			<dl>
 				<dt>Battles:</dt>
