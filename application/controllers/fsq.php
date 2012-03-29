@@ -101,7 +101,7 @@ class FSQ extends CI_Controller {
         
         // get the last checkin of this user
         $this->load->model('checkin_model');
-        $last = $this->checkin_model->last($fsqid);
+        $last = $this->checkin_model->get_last($fsqid);
         
         // only request the smallest timespan
         if ($last) {

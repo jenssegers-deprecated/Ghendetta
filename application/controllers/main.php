@@ -14,6 +14,6 @@ class Main extends CI_Controller {
             $clan = FALSE;
         }
         
-        $this->load->view('map', array('clan' => $clan, 'clans' => $clans));
+        $this->load->view('dashboard', array('clan' => $clan, 'clans' => $clans));
     }
 }
