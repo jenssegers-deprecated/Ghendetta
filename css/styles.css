@@ -333,15 +333,14 @@ section.dashboard {
 section.clan {
 	padding-top: 80px;
 	margin: auto;
-	width: 55%;
+	width: 88%;
 	min-width: 300px;
 }
 
 	section.clan article {
 		margin: 8px 1%;
 		float: left;
-		width: 48%;
-		height: 140px;
+		width: 23%;
 	}
 
 	section.clan .cf {
@@ -360,6 +359,10 @@ section.clan {
 			background: #333;
 		}
 
+		section.clan h1.capo {
+			background: #c1272d;
+		}
+
 			section.clan article h1 a {
 				color: #FFF;
 				border: none;
@@ -367,6 +370,7 @@ section.clan {
 
 		section.clan dl {
 			padding-top: 8px;
+			font-size: 14px;
 		}
 
 			section.clan dt {
@@ -385,6 +389,8 @@ section.clan {
 	section.clan img {
 		float: left;
 		margin-right: 10px;
+		height: 72px;
+		width: 72px;
 	}
 
 	section.clan p {
@@ -400,7 +406,15 @@ section.clan {
 	Media Queries
 */
 
-@media handheld, only screen and (max-width: 640px) {
+@media handheld, only screen and (max-width: 1100px) {
+
+	section.clan article {
+		width: 31%;
+	}
+
+}
+
+@media handheld, only screen and (max-width: 768px) {
 
 	.logo,
 	.tutorial,
@@ -426,6 +440,8 @@ section.clan {
 				float: left;
 			}
 
+	/* View: dashboard */
+
 	section.dashboard {
 		width: 96%;
 		padding: 48px 2% 0;
@@ -440,6 +456,12 @@ section.clan {
 	section.clan {
 		padding-top: 60px;
 		width: 90%;
+	}
+
+	/* View: clan */
+
+	section.clan article {
+		width: 46%;
 	}
 
 }
@@ -458,6 +480,12 @@ section.clan {
 
 	section.clan p {
 		font-size: 16px;
+	}
+
+	/* View: clan */
+
+	section.clan article {
+		width: 98%;
 	}
 
 }
