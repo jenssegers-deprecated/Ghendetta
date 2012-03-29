@@ -1,8 +1,8 @@
 <?php
 
-class debug extends CI_Controller{
-
-    function index(){
+class Debug extends CI_Controller {
+    
+    function index() {
         redirect();
     }
     
