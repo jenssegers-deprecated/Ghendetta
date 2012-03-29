@@ -78,6 +78,7 @@ class clan_model extends CI_Model {
             FROM users
             LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
             WHERE users.clanid = ?
+            GROUP BY users.fsqid
             ORDER BY points DESC ' . ($fsqid ? ', CASE fsqid WHEN ? THEN 1 ELSE 0 END ' : '') . ($limit ? 'LIMIT 0,?' : '');
         
         return $this->db->query($query, array($clanid, $fsqid, $limit))->result_array();
