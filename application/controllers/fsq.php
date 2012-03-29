@@ -37,7 +37,7 @@ class FSQ extends CI_Controller {
             }
             
             // fetch checkins
-            if ($json = $this->foursquare->api('users/self/checkins', array('afterTimestamp' => (time() - 608400)))) {
+            if ($json = $this->foursquare->api('users/self/checkins', array('afterTimestamp' => (time() - 604800)))) {
                 // insert the checkins in our database
                 $this->process_checkins($json->response->checkins->items, $fsqid);
             } else {
@@ -104,7 +104,7 @@ class FSQ extends CI_Controller {
         $this->foursquare->set_token($token);
         
         // the default time ago to get checkins
-        $since = time() - 608400;
+        $since = time() - 604800;
         
         // get the last checkin of this user
         $this->load->model('checkin_model');
