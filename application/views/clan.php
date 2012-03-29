@@ -19,7 +19,7 @@
 					<?php
 						switch ($member['rank']) {
 						   case 1 :
-						      echo 'Godfather';
+						      echo '<strong>Capo</strong>';
 						      break;
 							break;
 							default:
