@@ -27,7 +27,7 @@ var Mapbox = function() {
 				color: '#333333',
 				opacity: 0.8,
 				weight: 2,
-				fillColor: '#' + (region.leader ? region.leader.color : '666666'),
+				fillColor: '#' + (region.leader && region.leader.color ? region.leader.color : '666666'),
 				fillOpacity: 0.35
 			});
 			
