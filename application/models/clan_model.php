@@ -29,16 +29,20 @@ class clan_model extends CI_Model {
     
     /**
      * Get specific clan, with total member points
-     * @param unknown_type $clanid
+     * @param int $clanid
      */
     function get_stats($clanid) {
         $query = '
-        	SELECT clans.*, count(checkins.checkinid) as points
-        	FROM clans
-        	LEFT JOIN users ON users.clanid = clans.clanid
-        	LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
-        	WHERE clans.clanid = ?
-        	GROUP BY clans.clanid';
+        	SELECT *, sum(points) as points, count(1) as members
+        	FROM (
+            	SELECT clans.*, count(checkins.checkinid) as points
+            	FROM clans
+            	LEFT JOIN users ON users.clanid = clans.clanid
+            	LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
+            	WHERE clans.clanid = ?
+            	GROUP BY clans.clanid, users.fsqid
+            	) as sub
+            GROUP BY clanid';
         
         return $this->db->query($query, array($clanid))->row_array();
     }
@@ -48,11 +52,15 @@ class clan_model extends CI_Model {
      */
     function get_all_stats() {
         $query = '
-        	SELECT clans.*, count(checkins.checkinid) as points
-        	FROM clans
-        	LEFT JOIN users ON users.clanid = clans.clanid
-        	LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
-        	GROUP BY clans.clanid';
+        	SELECT *, sum(points) as points, count(1) as members
+        	FROM (
+            	SELECT clans.*, count(checkins.checkinid) as points
+            	FROM clans
+            	LEFT JOIN users ON users.clanid = clans.clanid
+            	LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
+            	GROUP BY clans.clanid, users.fsqid
+            	) sub
+            GROUP BY clanid';
         
         return $this->db->query($query)->result_array();
     }
