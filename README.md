@@ -33,3 +33,16 @@ Ghendetta is a foursquare extension. It's actualy sort of a game, to conquer a c
 ### Extra
 
 * Be sure you have the php5-curl package installed.
+
+# License
+
+© 2012 iRail vzw/asbl - Some rights reserved - AGPLv3
+
+If you want to use Ghendetta for your own city, country or game in general, please contact board@iRail.be.
+
+# Authors
+
+Xavier Bertels - xavier at iRail.be
+Miet Claes - miet at iRail.be
+Hannes Van De Vreken - hannes at iRail.be
+Jens Segers - jens at iRail.be
