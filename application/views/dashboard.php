@@ -9,7 +9,7 @@
 
 		<?php if(!$this->ghendetta->current_user()): ?>
 		<p class="foursquare">
-			<a href="<?php echo site_url('foursquare/auth'); ?>">Connect &amp; Conquer</a>
+			<a href="<?php echo site_url('foursquare'); ?>">Connect &amp; Conquer</a>
 			Connect with Foursquare and play.
 		</p>
 		<div class="message notice">

@@ -12,22 +12,23 @@
     <h2>Origin</h2>    
     <p> The city government of Ghent opened a lot of data in 2011 and 2012. 
         By opening data, developers can focus more on creativity. Together with some partners
-        <a href="http://appsforghent.be" target='_blank'>Apps For Ghent</a> was organised for the second time on 24th of march, 2012
+        <a href="http://appsforghent.be" target="_blank">Apps For Ghent</a> was organised for the second time on 24th of march, 2012
         to promote this new strategy and motivate developers to use their open data.
         At this event student teams were asked to compete in a hackathon to create a prototype of an application which uses open data. 
-        <a href='http://irail.be/' target="_blank">iRail</a> sent three students as 'Team iRail'.
+        <a href="http://irail.be/" target="_blank">iRail</a> sent three students as 'Team iRail'.
         At the end of the day Team iRail presented a prototype of Ghendetta to the city of Ghent
         and a professional jury. After that we heard a lot of positive reactions and decided to continue developing.
     </p>
     
     <h2>The Game</h2>
     <p>
-        How to play the game? Simple. You <a href='/foursquare'>log in</a> with your foursquare account.
+        How to play the game? Simple. You <a href="<?php echo site_url('foursquare'); ?>">log in</a> with your foursquare account.
         If you don't have an account, you can sign up
-        <a href='https://foursquare.com/signup/' target='_blank'>here</a>.
+        <a href="https://foursquare.com/signup/" target="_blank">here</a>.
         You will become an associate in the clan with the lowest score in the last week to maintain the balance between the clans.
         Either the Hawks, the Wolves, the Panthers or the Snakes. Your check-ins on foursquare, 
-        in the last week and in the city of Ghent, will be loaded into your map. Be loyal to your clan and your capo. 
+        in the last week and in the city of Ghent, will be loaded into your map. Be loyal to your clan and your 
+        <a href="http://en.wikipedia.org/wiki/Caporegime" target="_blank">capo</a>. 
         Score as many points as possible for your clan by making a lot of new check-ins on foursquare.
         You don't necessarily need to login or visit our site to score points.
     </p>
@@ -55,8 +56,9 @@
     <h2>Questions?</h2>
     <p>
         Feel free to ask anything you want on 
-        <a href="https://twitter.com/Ghendetta">Twitter</a> or 
-        <a href="https://www.facebook.com/pages/Ghendetta/346514788727493">Facebook</a>
+        <a href="https://twitter.com/Ghendetta">Twitter</a>, 
+        <a href="https://www.facebook.com/pages/Ghendetta/346514788727493">Facebook</a> or by
+        <a href="<?php echo site_url('email'); ?>">Email</a>
     </p> 
 </section>
 

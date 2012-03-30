@@ -1,0 +1,17 @@
+<?php
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+    
+class Email extends CI_Controller {
+    
+    function index() {
+        header('location: mailto: info@ghendetta.be');
+        
+        if(isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']) {
+            redirect($_SERVER['HTTP_REFERER'], 'refresh');
+        } else {
+            $this->output->set_output('<script>history.go(-1)</script>');
+        }
+    }
+    
+}
