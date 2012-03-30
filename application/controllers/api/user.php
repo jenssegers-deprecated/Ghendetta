@@ -17,7 +17,7 @@ class User extends API_Controller {
         }
     }
     
-    function fights() {
+    function battles() {
         if ($user = $this->ghendetta->current_user()) {
             $this->load->model('checkin_model');
             $checkins = $this->checkin_model->get_unique_since($user['fsqid'], time() - (608400));
