@@ -2,14 +2,14 @@
 <body>
 <?php include_once('navigation.tpl'); ?>
 
-<section class="clan" role="main">
+<section class="v-about" role="main">
 	<h1>About</h1>
     <h2>Ghendetta &lt;Ghent + Vendetta&gt;</h2>
 	<dl>
 		<dt>Ghent |g&#x25B;nt|</dt><dd>[:A city in Belgium].</p>
 	    <dt>Vendetta |v&#x25B;n&#x2C8;d&#x25B;t&#x259;|</dt><dd>[:A blood feud between families or clans].</dd>
 	</dl>
-    <h2>Origin</h2>
+    <h2>Game Origin</h2>
     <p> The city government of Ghent opened a lot of data in 2011 and 2012.
         By opening data, developers can focus more on creativity. Together with some partners
         <a href="http://appsforghent.be" target="_blank">Apps For Ghent</a> was organised for the second time on 24th of march, 2012
@@ -20,7 +20,7 @@
         and a professional jury. After that we heard a lot of positive reactions and decided to continue developing.
     </p>
 
-    <h2>The Game</h2>
+    <h2>How to Play</h2>
     <p>
         How to play the game? Simple. You <a href="<?php echo site_url('foursquare'); ?>">log in</a> with your foursquare account.
         If you don't have an account, you can sign up
