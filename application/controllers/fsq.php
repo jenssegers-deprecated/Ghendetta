@@ -141,7 +141,7 @@ class FSQ extends CI_Controller {
             
             $regions = $this->region_model->get_all();
             
-            if (isset($checkin->venue)) {
+            if (isset($checkin->venue) && isset($checkin->venue->location->lng) && isset($checkin->venue->location->lat)) {
                 $found_region = FALSE;
                 $lon = $checkin->venue->location->lng;
                 $lat = $checkin->venue->location->lat;
