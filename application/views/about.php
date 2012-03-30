@@ -25,16 +25,16 @@
         How to play the game? Simple. You <a href='/foursquare'>log in</a> with your foursquare account.
         If you don't have an account, you can sign up
         <a href='https://foursquare.com/signup/' target='_blank'>here</a>.
-        You will become an associate in the clan with the lowest score in the last week.
+        You will become an associate in the clan with the lowest score in the last week to maintain the balance between the clans.
         Either the Hawks, the Wolves, the Panthers or the Snakes. Your check-ins on foursquare, 
         in the last week and in the city of Ghent, will be loaded into your map. Be loyal to your clan and your capo. 
         Score as many points as possible for your clan by making a lot of new check-ins on foursquare.
         You don't necessarily need to login or visit our site to score points.
     </p>
     <p>
-        The rules are as follows: Every battle (foursquare check-in) in a zone counts for one point
-        for that particular zone. The clan takes a zone when the total number of points, collected by all your clan associates, 
-        exceeds the number of points from any other clan. The 'capo' of a clan is the clan member with the highest score.
+        The rules are as follows: Every battle (foursquare check-in) in a zone counts as one point
+        for that particular zone. The clan can overtake a zone when the total number of points, collected by all your clan associates, 
+        exceeds the number of points of the former ruling clan. The 'capo' of a clan is the clan member with the highest score.
         Do you like some healthy competition? Then battle hard and try to become the next capo. We don't hold you back to 
         plan events or meetings with your fellow associates. It's a great way to get to know new zones of our favourite city, 
         make new friends, but above all: conquer new zones! Don't forget: your points will count <strong>for one week</strong> only, 
