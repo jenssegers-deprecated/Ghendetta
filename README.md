@@ -42,7 +42,7 @@ If you want to use Ghendetta for your own city, country or game in general, plea
 
 # Authors
 
-*Xavier Bertels - xavier at iRail.be
-*Miet Claes - miet at iRail.be
-*Hannes Van De Vreken - hannes at iRail.be
-*Jens Segers - jens at iRail.be
+* Xavier Bertels - xavier at iRail.be
+* Miet Claes - miet at iRail.be
+* Hannes Van De Vreken - hannes at iRail.be
+* Jens Segers - jens at iRail.be
