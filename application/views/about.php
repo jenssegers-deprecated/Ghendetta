@@ -12,10 +12,10 @@
 	</dl>
 
 	<h2 id="team">Meet the Team</h2>
-	<p>Hannes <a href="http://twitter.com/hannesvdvreken">@hannesvdvreken</a> (Developer)</p>
-	<p>Jens <a href="http://twitter.com/jenssegers">@jenssegers</a> (Developer)</p>
-	<p>Miet <a href="http://twitter.com/choisissez">@choisissez</a> (Designer)</p>
-	<p>Xavier <a href="http://twitter.com/xavez">@xavez</a> (Designer)</p>
+	<p>Hannes <a href="http://twitter.com/account/redirect_by_id?id=65640580">@hannesvdvreken</a> (Developer)</p>
+	<p>Jens <a href="http://twitter.com/account/redirect_by_id?id=22241784">@jenssegers</a> (Developer)</p>
+	<p>Miet <a href="http://twitter.com/account/redirect_by_id?id=112554087">@choisissez</a> (Designer)</p>
+	<p>Xavier <a href="http://twitter.com/account/redirect_by_id?id=20909514">@xavez</a> (Designer)</p>
 
     <h2 id="howtoplay">How to Play</h2>
     <p>
@@ -52,7 +52,7 @@
     <h2 id="contact">Questions?</h2>
     <p>
         Just fucking ask via
-        <a href="https://twitter.com/Ghendetta">Twitter</a>,
+        <a href="http://twitter.com/account/redirect_by_id?id=537343166">Twitter</a>,
         <a href="https://www.facebook.com/pages/Ghendetta/346514788727493">Facebook</a> or by
         <a href="<?php echo site_url('email'); ?>">Email</a>.
     </p>
