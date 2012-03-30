@@ -425,6 +425,17 @@ a:focus {
 	}
 
 /*
+	View: about
+*/
+
+.v-about {
+	padding: 56px 0 32px;
+	margin: auto;
+	width: 66%;
+	min-width: 300px;
+}
+
+/*
 	Media Queries
 */
 
@@ -486,6 +497,12 @@ a:focus {
 		width: 46%;
 	}
 
+	/* View: about */
+
+	.v-about {
+		width: 77%;
+	}
+
 }
 
 @media handheld, only screen and (max-width: 480px) {
@@ -508,6 +525,10 @@ a:focus {
 
 	.v-clan article {
 		width: 98%;
+	}
+
+	.v-about {
+		width: 88%;
 	}
 
 }
