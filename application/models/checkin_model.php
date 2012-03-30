@@ -57,7 +57,7 @@ class checkin_model extends CI_Model {
         return $this->db->where('userid', $userid)->order_by('date', 'desc')->get('checkins')->row_array();
     }
     
-    function count($userid) {
+    function count($userid = FALSE) {
         if ($userid) {
             return $this->db->where('userid', $userid)->count_all_results('checkins');
         } else {

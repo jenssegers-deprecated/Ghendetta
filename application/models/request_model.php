@@ -15,21 +15,28 @@ class request_model extends CI_Model {
         $this->db->truncate('requests');
     }
     
-    function count() {
-        return $this->db->count_all('requests');
+    function count($type = 'all') {
+        switch (strtolower($type)) {
+            case 'regular' :
+                return $this->db->where("NOT SUBSTRING(uri, 1, 4) = 'api/'", NULL, FALSE)->count_all_results('requests');
+            case 'api' :
+                return $this->db->where("SUBSTRING(uri, 1, 4) = 'api/'", NULL, FALSE)->count_all_results('requests');
+            default :
+                return $this->db->count_all('requests');
+        }
     }
     
     /**
      * Get the request count of the last 30 days
      */
-    function get_daily($type = 'ALL') {
+    function get_daily($type = 'all') {
         
         $where = '';
-        switch (strtoupper($type)) {
-            case 'REGULAR' :
+        switch (strtolower($type)) {
+            case 'regular' :
                 $where = "AND NOT SUBSTRING(uri, 1, 4) = 'api/'";
                 break;
-            case 'API' :
+            case 'api' :
                 $where = "AND SUBSTRING(uri, 1, 4) = 'api/'";
                 break;
         }
