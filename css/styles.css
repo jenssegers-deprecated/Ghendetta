@@ -609,7 +609,7 @@ a:focus {
 
 	.leaderboard {
 		position: static;
-		padding-bottom: 8px;
+		padding: 8px;
 	}
 
 		.leaderboard li {
@@ -692,11 +692,6 @@ a:focus {
 	}
 
 	/* View: dashboard */
-
-	.v-dashboard .clan {
-		display: inline;
-		font-size: 16px;
-	}
 
 	.leaderboard li {
 		width: 50%;
