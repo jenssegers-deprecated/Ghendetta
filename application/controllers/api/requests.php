@@ -14,7 +14,7 @@ require_once (APPPATH . 'core/API_Controller.php');
 class Requests extends API_Controller {
     
     function index() {
-        $this->get('REGULAR');
+        $this->get('regular');
     }
     
     function get($type) {

@@ -253,7 +253,7 @@ a:focus {
 		background-color: #444;
 	}
 
-		.siteNav .active a {
+		.siteNav .selected a {
 			background-color:#890000;
 			border-color: #000 #720000 #000 #190000;
 		}
