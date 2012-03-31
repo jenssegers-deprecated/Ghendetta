@@ -498,13 +498,12 @@ a:focus {
 */
 
 .v-about dt {
-	float: left;
 	font-weight: 700;
-	margin-right: .5em;
 }
 
 .v-about dd {
 	color: #777;
+	margin: 0 0 8px 1.5em;
 }
 
 .v-about .sidebar {
