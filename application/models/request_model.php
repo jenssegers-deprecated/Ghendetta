@@ -32,6 +32,8 @@ class request_model extends CI_Model {
                 return $this->db->where("SUBSTRING(uri, 1, 4) = 'api/'", NULL, FALSE)->count_all_results('requests');
             case 'push' :
                 return $this->db->where("SUBSTRING(uri, 1, 15) = 'foursquare/push'", NULL, FALSE)->count_all_results('requests');
+            case 'cronjob' :
+                return $this->db->where("SUBSTRING(uri, 1, 18) = 'foursquare/cronjob'", NULL, FALSE)->count_all_results('requests');
             default :
                 return $this->db->count_all('requests');
         }
@@ -52,6 +54,9 @@ class request_model extends CI_Model {
                 break;
             case 'push' :
                 $where = "AND SUBSTRING(uri, 1, 15) = 'foursquare/push'";
+                break;
+            case 'cronjob' :
+                $where = "AND SUBSTRING(uri, 1, 18) = 'foursquare/push'";
                 break;
         }
         
