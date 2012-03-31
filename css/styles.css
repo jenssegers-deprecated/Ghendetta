@@ -267,6 +267,11 @@ a:focus {
 		padding-left: 30px;
 	}
 
+	.navigation .about {
+		background: transparent url(../img/ico_question.svg) no-repeat 10px 50%;
+		padding-left: 30px;
+	}
+
 	.navigation .twitter {
 		float: right;
 		padding: 5px;
