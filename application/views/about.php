@@ -17,8 +17,8 @@
 		</nav>
 
 		<div class="c7">
-			<article>
-			   <h2 id="howtoplay">How to Play</h2>
+			<article id="howtoplay">
+			   <h2>How to Play</h2>
 				<p>
 			        <strong>How do you play Ghendetta?</strong> Simple. You <a href="<?php echo site_url('foursquare'); ?>">log in with your foursquare account</a>. If you do not have an account, you can <a href="https://foursquare.com/signup/" rel="external" title="Sign up for a Foursquare account">sign up for one</a>.
 				</p>
@@ -37,8 +37,8 @@
 			    </p>
 			</article>
 
-			<article>
-			    <h2 id="origin">Game Origin</h2>
+			<article id="origin">
+			    <h2>Game Origin</h2>
 			    <p>
 					The basics of Ghendetta were entirely conceived and built in little under six hours at <a href="http://appsforghent.be" rel="external">Apps For Ghent 2012</a>. We have continued developing the game since then.
 				</p>
@@ -47,15 +47,15 @@
 			    </p>
 			</article>
 
-			<article>
-			    <h2 id="technical">Technical Stuff</h2>
+			<article id="technical">
+			    <h2>Technical Stuff</h2>
 			    <p>
 			        Now, for the geeky part. What technologies are we using? As much Open Source Software as is possible! Ghendetta runs on a regular <abbr title="Linux, Apache, MySQL and PHP">LAMP</abbr>-stack, hosted by <a href="http://ilibris.be" rel="external">iLibris</a>, thanks to <a href="http://irail.be" rel="external">iRail</a>. The entire game is built with the <a href="http://codeigniter.com" rel="external">CodeIgniter</a> PHP framework. And of course we use the <a href="http://developers.foursquare.com" rel="external">Foursquare API</a>. Check-ins are pushed to our application by Foursquare itself, so our data and displayed maps are always up-to-date. The beautiful maps by <a href="http://mapbox.com" rel="external">MapBox</a> are created by <a href="http://www.openstreetmap.org" rel="external">OpenStreetMaps</a> and contributors under a <a href="http://creativecommons.org/licenses/by-sa/2.0" rel="license">CC-BY-SA</a> license. The front-end is entirely HTML5.
 			    </p>
 			</article>
 		</div>
 
-		<div class="c5 last">
+		<div class="c5 last sidebar">
 			<article>
 			    <h2>Ghent + Vendetta</h2>
 				<dl>
