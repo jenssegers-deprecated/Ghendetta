@@ -2,10 +2,10 @@
 <body>
 <?php include_once('navigation.tpl'); ?>
 
-<section class="v-about container" role="main">
+<section class="container v-about" role="main">
 	<div class="row">
 
-		<nav class="c12">
+		<nav class="c12 pageNav">
 			<h1>About Ghendetta</h1>
 			<ul>
 				<li><a href="#howtoplay">How to Play</a></li>
