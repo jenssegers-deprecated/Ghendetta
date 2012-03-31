@@ -8,7 +8,7 @@
 		Font Stack: "Helvetica Neue", Arial, sans-serif
 		Type Rhythm: http://modularscale.com/scale/?px1=16&px2=14&ra1=1.618&ra2=0
 		Colours:
-			$red: c1272d
+			$red: 890000
 
 	Namespace:
 		v- are views.
@@ -54,14 +54,14 @@ ul {
 /* Links */
 
 a {
-	color: #c1272d;
+	color: #890000;
 	text-decoration: none;
 	border-bottom: 1px solid #CB797D;
 }
 
 a:hover,
 a:focus {
-	border-color: #c1272d;
+	border-color: #890000;
 }
 
 /*
@@ -125,11 +125,11 @@ a:focus {
 	.pr-cont .pr {
 		display: block;
 		border-radius: 5px;
-		background: #c1272d;
-		background: -webkit-gradient(linear, 0 0, 0 100%, from(#c1272d), to(#7F0C11) );
-		background: -webkit-linear-gradient(#c1272d, #7F0C11);
-		background:    -moz-linear-gradient(#c1272d, #7F0C11);
-		background:         linear-gradient(#c1272d, #7F0C11);
+		background: #890000;
+		background: -webkit-gradient(linear, 0 0, 0 100%, from(#890000), to(#7F0C11) );
+		background: -webkit-linear-gradient(#890000, #7F0C11);
+		background:    -moz-linear-gradient(#890000, #7F0C11);
+		background:         linear-gradient(#890000, #7F0C11);
 		height: 100%;
 	}
 
@@ -177,6 +177,10 @@ a:focus {
 
 	.siteNav a:hover {
 		background-color: #444;
+	}
+
+	.siteNav .active a {
+		background-color: #333;
 	}
 
 	.siteNav ul {
@@ -380,7 +384,7 @@ a:focus {
 		}
 
 		.v-clan h1.capo {
-			background: #c1272d;
+			background: #890000;
 		}
 
 			.v-clan h1 a {
@@ -410,7 +414,7 @@ a:focus {
 			}
 
 			.v-clan dd {
-				color: #c1272d;
+				color: #890000;
 			}
 
 				.v-clan .battles {
@@ -430,7 +434,7 @@ a:focus {
 	}
 
 	.v-clan strong {
-		color: #c1272d;
+		color: #890000;
 	}
 
 /*
