@@ -216,7 +216,7 @@ a:focus {
 
 
 /*
-	Navigation
+	Site Navigation
 */
 
 .siteNav {
@@ -249,6 +249,10 @@ a:focus {
 		        transition: background .3s ease-out;
 	}
 
+		.siteNav a.map {
+			display: none;
+		}
+
 	.siteNav a:hover {
 		background-color: #444;
 	}
@@ -270,20 +274,19 @@ a:focus {
 
 		.siteNav li a {
 			padding-left: 30px;
-			background: transparent url(../img/ico_map.svg) no-repeat 10px 50%;
+			background: transparent url(../img/ico_dashboard.svg) no-repeat 10px 50%;
 		}
 
-		.siteNav .dashboard {
-			background: transparent url(../img/ico_map.svg) no-repeat 10px 50%;
+		.siteNav .map {
+			background-image: url(../img/ico_map.svg);
 		}
 
 		.siteNav .myClan {
-			background: transparent url(../img/ico_star.svg) no-repeat 10px 50%;
+			background-image: url(../img/ico_star.svg);
 		}
 
 		.siteNav .about {
-			background: transparent url(../img/ico_question.svg) no-repeat 10px 50%;
-			padding-left: 30px;
+			background-image: url(../img/ico_question.svg);
 		}
 
 		.siteNav .twitter {
@@ -662,6 +665,24 @@ a:focus {
 }
 
 @media handheld, only screen and (max-width: 480px) {
+
+	/* Hide Shit */
+
+	.v-dashboard-map {
+		display: none;
+	}
+
+	/* Site Navigation */
+
+	.siteNav li a {
+		font: 700 .75em/1.333333333 "Segoe UI", "Lucida Grande", Arial, sans-serif;
+		background-position: 50% 3px;
+		padding: 20px 10px 4px;
+	}
+
+		.siteNav li a.map {
+			display: block;
+		}
 
 	/* Page Navigation */
 
