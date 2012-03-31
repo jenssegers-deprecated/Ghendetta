@@ -258,12 +258,12 @@ a:focus {
 	}
 
 	.navigation .dashboard {
-		background: transparent url(../img/ico_map.png) no-repeat 10px 50%;
+		background: transparent url(../img/ico_map.svg) no-repeat 10px 50%;
 		padding-left: 30px;
 	}
 
 	.navigation .myClan {
-		background: transparent url(../img/ico_star.png) no-repeat 10px 50%;
+		background: transparent url(../img/ico_star.svg) no-repeat 10px 50%;
 		padding-left: 30px;
 	}
 
