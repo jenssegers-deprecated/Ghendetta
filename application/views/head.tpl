@@ -1,8 +1,9 @@
 <!doctype html>
 <html>
 <head>
-	<title>Ghendetta</title>
 	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>Ghendetta</title>
 	<?php if(ENVIRONMENT == 'production'): ?>
 	<link rel="stylesheet" href="<?php echo static_url('css/styles.min.css?v=290303'); ?>" media="screen" />
 	<?php else: ?>
