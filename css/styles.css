@@ -428,11 +428,14 @@ a:focus {
 	View: about
 */
 
-.v-about {
-	padding: 56px 0 32px;
-	margin: auto;
-	width: 66%;
-	min-width: 300px;
+.v-about dt {
+	float: left;
+	font-weight: 700;
+	margin-right: .5em;
+}
+
+.v-about dd {
+	color: #777;
 }
 
 /*
@@ -497,17 +500,10 @@ a:focus {
 		width: 46%;
 	}
 
-	/* View: about */
-
-	.v-about {
-		width: 77%;
-	}
-
 }
 
 @media handheld, only screen and (max-width: 480px) {
 
-	h2,
 	.v-dashboard .clan {
 		display: inline;
 		font-size: 16px;
@@ -525,10 +521,6 @@ a:focus {
 
 	.v-clan article {
 		width: 98%;
-	}
-
-	.v-about {
-		width: 88%;
 	}
 
 }
