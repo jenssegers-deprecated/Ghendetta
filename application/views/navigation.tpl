@@ -1,8 +1,12 @@
+<?php 
+$ci = &get_instance();
+$section = strtolower($ci->router->fetch_class()); ?>
+
 <section class="navigation">
 	<p>
-		<a href="<?php echo site_url(); ?>" class="dashboard">Dashboard</a>
-		<a href="<?php echo site_url('clan'); ?>" class="myClan">My Clan</a>
-		<a href="<?php echo site_url('about'); ?>" class="about">About</a>
+		<a href="<?php echo site_url(); ?>" class="dashboard <?php echo $section == 'main' ? 'selected' : ''; ?>">Dashboard</a>
+		<a href="<?php echo site_url('clan'); ?>" class="myClan <?php echo $section == 'clan' ? 'selected' : ''; ?>">My Clan</a>
+		<a href="<?php echo site_url('about'); ?>" class="about <?php echo $section == 'about' ? 'selected' : ''; ?>">About</a>
 	</p>
 	<p class="twitter">
 		<a href="https://twitter.com/Ghendetta" class="twitter-follow-button" data-show-count="false" data-lang="en" data-size="large">Follow Ghendetta</a>
