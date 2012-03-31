@@ -4,13 +4,15 @@
 
 <section class="v-about container" role="main">
 	<div class="row">
-		<h1>About Ghendetta</h1>
 
-		<nav>
+		<nav class="c12">
+			<h1>About Ghendetta</h1>
 			<ul>
 				<li><a href="#howtoplay">How to Play</a></li>
 				<li><a href="#origin">Game Origin</a></li>
 				<li><a href="#technical">Technical Stuff</a></li>
+				<li><a href="#team">Team Awesome</a></li>
+				<li><a href="#contact">Questions?</a></li>
 			</ul>
 		</nav>
 
@@ -61,7 +63,7 @@
 				    <dt>Vendetta |v&#x25B;n&#x2C8;d&#x25B;t&#x259;|</dt><dd>[:A blood feud between families or clans].</dd>
 				</dl>
 
-				<h2 id="team">Meet the Team</h2>
+				<h2 id="team">Team Awesome</h2>
 				<ul>
 					<li>Hannes <a href="http://twitter.com/account/redirect_by_id?id=65640580">@hannesvdvreken</a>: Developer</li>
 					<li>Jens <a href="http://twitter.com/account/redirect_by_id?id=22241784">@jenssegers</a>: Developer</li>
