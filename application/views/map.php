@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="<?php echo static_url('css/mapbox/leaflet.css'); ?>">
 <?php include_once('navigation.tpl'); ?>
 
-<section id="map"></section>
+<section id="map" class="v-map"></section>
 
 <script>
 	var base_url = '<?php echo base_url(); ?>';
