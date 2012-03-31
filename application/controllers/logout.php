@@ -8,7 +8,7 @@
 class logout extends CI_Controller{
 
     function index(){
-        
+
         if ( $user = $this->ghendetta->current_user() ) {
             $this->ghendetta->unset_user();
         }
@@ -17,3 +17,5 @@ class logout extends CI_Controller{
     }
 
 }
+
+?>
