@@ -179,9 +179,10 @@ a:focus {
 		background-color: #444;
 	}
 
-	.siteNav .active a {
-		background-color: #333;
-	}
+		.siteNav .active a {
+			background-color:#890000;
+			border-color: #000 #720000 #000 #190000;
+		}
 
 	.siteNav ul {
 		list-style: none;
