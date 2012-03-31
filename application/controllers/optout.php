@@ -17,6 +17,7 @@ class optout extends CI_Controller{
             if ( $user = $this->ghendetta->current_user() ) {
                 $this->ghendetta->unset_user();
             }
+            redirect("https://foursquare.com/settings/connections");
         }else{
             $data = array();
             
