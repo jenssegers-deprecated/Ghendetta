@@ -34,7 +34,7 @@
 	</ul>
 </section>
 
-<section id="map"></section>
+<section id="map" class="v-dashboard-map"></section>
 
 <script>
 	var base_url = '<?php echo base_url(); ?>';
