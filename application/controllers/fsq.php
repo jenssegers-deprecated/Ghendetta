@@ -74,10 +74,7 @@ class FSQ extends CI_Controller {
             
             // save the checkin to our database
             if ($json) {
-                if(!$this->process_checkin($json)) {
-                    set_status_header(500);
-                    die('Processing failed');
-                }
+                $this->process_checkin($json);
             } else {
                 set_status_header(400);
                 die('No checkins found');
