@@ -17,7 +17,7 @@ class Ghendetta {
         $this->ci = &get_instance();
     }
     
-    function set_user($fsqid) {
+    function set_user($fsqid = FALSE ) {
         $code = hash('sha256', $fsqid . $this->ci->config->item('encryption_key'));
         $data = serialize(array('id' => $fsqid, 'code' => $code));
         
@@ -26,6 +26,12 @@ class Ghendetta {
         
         $cookie = array('name' => 'ghendetta_user', 'value' => $data, 'expire' => '8640000');
         return $this->ci->input->set_cookie($cookie);
+    }
+
+    function unset_user(){
+        $cookie = array('name' => 'ghendetta_user', 'value' => "", 'expire' => '0');
+        $this->ci->input->set_cookie($cookie);
+        $this->ci->session->sess_destroy();
     }
     
     function current_user() {
