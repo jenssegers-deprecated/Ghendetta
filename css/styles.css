@@ -183,24 +183,28 @@ a:focus {
 
 /* Page Navigation */
 
-.pageNav a {
-	display: block;
-	padding: 5px;
-	margin: 5px 0;
-	border: none;
-	background: #333;
-	color: #FFF;
-	-webkit-border-radius: 5px;
-	   -moz-border-radius: 5px;
-	    -ms-border-radius: 5px;
-	        border-radius: 5px;
-	text-align: center;
+.pageNav ul {
+	display: none;
 }
 
-.pageNav a:hover,
-.pageNav a:focus {
-	background: #c1272d;
-}
+	.pageNav a {
+		display: block;
+		padding: 5px;
+		margin: 5px 0;
+		border: none;
+		background: #333;
+		color: #FFF;
+		-webkit-border-radius: 5px;
+		   -moz-border-radius: 5px;
+		    -ms-border-radius: 5px;
+		        border-radius: 5px;
+		text-align: center;
+	}
+
+	.pageNav a:hover,
+	.pageNav a:focus {
+		background: #c1272d;
+	}
 
 /* Clearfix For modern browsers */
 .cf:before,
@@ -585,6 +589,15 @@ a:focus {
 }
 
 @media handheld, only screen and (max-width: 480px) {
+
+	/* Page Navigation */
+
+	.pageNav ul {
+		list-style: none;
+		display: block;
+	}
+
+	/* View: dashboard */
 
 	.v-dashboard .clan {
 		display: inline;
