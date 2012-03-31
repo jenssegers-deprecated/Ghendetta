@@ -82,6 +82,37 @@ a:focus {
 	Objects
 */
 
+/* Clans */
+
+.hawks,
+.wolves,
+.panthers,
+.snakes {
+	color: #fff;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	    -ms-border-radius: 3px;
+	        border-radius: 3px;
+	padding: 2px 4px;
+}
+
+.wolves {
+	background: #009245;
+}
+
+.panthers {
+	background: #0071BC;
+}
+
+.snakes {
+	background: #FBB03B;
+	color: #000;
+}
+
+.hawks {
+	background: #C1272D;
+}
+
 /* Messages */
 
 .message {
@@ -472,6 +503,14 @@ a:focus {
 .v-about dd {
 	color: #777;
 }
+
+.v-about .sidebar {
+	border-left: 1px solid #ddd;
+}
+
+	.v-about .sidebar article {
+		padding-left: 4%;
+	}
 
 /*
 	Media Queries
