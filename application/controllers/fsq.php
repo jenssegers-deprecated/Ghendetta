@@ -69,16 +69,22 @@ class FSQ extends CI_Controller {
             $this->config->load('foursquare');
             if ($secret != $this->config->item('push_secret', 'foursquare')) {
                 set_status_header(401);
+                die('Wrong secret');
             }
             
             // save the checkin to our database
             if ($json) {
-                $this->process_checkin($json);
+                if(!$this->process_checkin($json)) {
+                    set_status_header(500);
+                    die('Processing failed');
+                }
             } else {
                 set_status_header(400);
+                die('No checkins found');
             }
         } else {
             set_status_header(400);
+            die('No checkins found');
         }
     }
     
@@ -173,9 +179,12 @@ class FSQ extends CI_Controller {
                     $data['regionid'] = $found_region['regionid'];
                     
                     $this->checkin_model->insert($data);
+                    return TRUE;
                 }
             }
         }
+        
+        return FALSE;
     }
     
     /**
