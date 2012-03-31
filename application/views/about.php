@@ -68,10 +68,30 @@
 			<article id="team">
 				<h2>Team Awesome</h2>
 				<ul>
-					<li>Hannes <a href="http://twitter.com/account/redirect_by_id?id=65640580">@hannesvdvreken</a>: Developer</li>
-					<li>Jens <a href="http://twitter.com/account/redirect_by_id?id=22241784">@jenssegers</a>: Developer</li>
-					<li>Miet <a href="http://twitter.com/account/redirect_by_id?id=112554087">@choisissez</a>: Designer</li>
-					<li>Xavier <a href="http://twitter.com/account/redirect_by_id?id=20909514">@xavez</a>: Designer</li>
+					<li>
+						<a href="http://twitter.com/account/redirect_by_id?id=65640580">
+							<img src="https://api.twitter.com/1/users/profile_image?screen_name=hannesvdvreken&amp;size=bigger" />
+							Hannes <b>Developer</b>
+						</a>
+					</li>
+					<li>
+						<a href="http://twitter.com/account/redirect_by_id?id=22241784">
+							<img src="https://api.twitter.com/1/users/profile_image?screen_name=jenssegers&amp;size=bigger" />
+							Jens <b>Developer</b>
+						</a>
+					</li>
+					<li>
+						<a href="http://twitter.com/account/redirect_by_id?id=112554087">
+							<img src="https://api.twitter.com/1/users/profile_image?screen_name=choisissez&amp;size=bigger" />
+							Miet <b>Designer</b>
+						</a>
+					</li>
+					<li>
+						<a href="http://twitter.com/account/redirect_by_id?id=20909514">
+							<img src="https://api.twitter.com/1/users/profile_image?screen_name=xavez&amp;size=bigger" />
+							Xavier <b>Designer</b>
+						</a>
+					</li>
 				</ul>
 			</article>
 
