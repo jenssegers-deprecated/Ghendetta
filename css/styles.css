@@ -516,13 +516,20 @@ a:focus {
 	margin: 0 0 8px 1.5em;
 }
 
-.v-about .sidebar {
-	border-left: 1px solid #ddd;
+.v-about .sidebar .inner {
+	background: #F9F8F4;
+	padding: 16px 5%;
+	border: 1px solid #D7D6D2;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+	    -ms-border-radius: 5px;
+	        border-radius: 5px;
+	overflow: hidden;
+	-webkit-box-shadow: 0 0 3px rgba(0,0,0,.11);
+	   -moz-box-shadow: 0 0 3px rgba(0,0,0,.11);
+	    -ms-box-shadow: 0 0 3px rgba(0,0,0,.11);
+	        box-shadow: 0 0 3px rgba(0,0,0,.11);
 }
-
-	.v-about .sidebar article {
-		padding-left: 4%;
-	}
 
 	.v-about #team ul {
 		list-style: none;
@@ -555,7 +562,7 @@ a:focus {
 		.v-about #team img {
 			width: 100%;
 			display: block;
-			padding-bottom: 8px;
+			margin-bottom: 8px;
 		}
 
 		.v-about #team b {
@@ -628,8 +635,14 @@ a:focus {
 
 	/* View: about */
 
-	.v-about .sidebar article {
+	.v-about .sidebar .inner {
 		padding: 0;
+		background: transparent;
+		border: none;
+		-webkit-box-shadow: none;
+		   -moz-box-shadow: none;
+		    -ms-box-shadow: none;
+		        box-shadow: none;
 	}
 
 }

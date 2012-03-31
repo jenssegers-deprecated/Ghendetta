@@ -57,53 +57,55 @@
 		</div>
 
 		<div class="c5 last sidebar">
-			<article id="name">
-			    <h2>Ghent + Vendetta</h2>
-				<dl>
-					<dt>Ghent |g&#x25B;nt|</dt><dd>[:A city in Belgium].</dd>
-				    <dt>Vendetta |v&#x25B;n&#x2C8;d&#x25B;t&#x259;|</dt><dd>[:A blood feud between families or clans].</dd>
-				</dl>
-			</article>
+			<div class="inner">
+				<article id="name">
+				    <h2>Ghent + Vendetta</h2>
+					<dl>
+						<dt>Ghent |g&#x25B;nt|</dt><dd>[:A city in Belgium].</dd>
+					    <dt>Vendetta |v&#x25B;n&#x2C8;d&#x25B;t&#x259;|</dt><dd>[:A blood feud between families or clans].</dd>
+					</dl>
+				</article>
 
-			<article id="team">
-				<h2>Team Awesome</h2>
-				<ul>
-					<li>
-						<a href="http://twitter.com/account/redirect_by_id?id=65640580">
-							<img src="https://api.twitter.com/1/users/profile_image?screen_name=hannesvdvreken&amp;size=bigger" width="73" height="73" />
-							Hannes <b>Developer</b>
-						</a>
-					</li>
-					<li>
-						<a href="http://twitter.com/account/redirect_by_id?id=22241784">
-							<img src="https://api.twitter.com/1/users/profile_image?screen_name=jenssegers&amp;size=bigger" width="73" height="73" />
-							Jens <b>Developer</b>
-						</a>
-					</li>
-					<li>
-						<a href="http://twitter.com/account/redirect_by_id?id=112554087">
-							<img src="https://api.twitter.com/1/users/profile_image?screen_name=choisissez&amp;size=bigger" width="73" height="73" />
-							Miet <b>Designer</b>
-						</a>
-					</li>
-					<li>
-						<a href="http://twitter.com/account/redirect_by_id?id=20909514">
-							<img src="https://api.twitter.com/1/users/profile_image?screen_name=xavez&amp;size=bigger" width="73" height="73" />
-							Xavier <b>Designer</b>
-						</a>
-					</li>
-				</ul>
-			</article>
+				<article id="team">
+					<h2>Team Awesome</h2>
+					<ul class="cf">
+						<li>
+							<a href="http://twitter.com/account/redirect_by_id?id=65640580">
+								<img src="https://api.twitter.com/1/users/profile_image?screen_name=hannesvdvreken&amp;size=bigger" width="73" height="73" />
+								Hannes <b>Developer</b>
+							</a>
+						</li>
+						<li>
+							<a href="http://twitter.com/account/redirect_by_id?id=22241784">
+								<img src="https://api.twitter.com/1/users/profile_image?screen_name=jenssegers&amp;size=bigger" width="73" height="73" />
+								Jens <b>Developer</b>
+							</a>
+						</li>
+						<li>
+							<a href="http://twitter.com/account/redirect_by_id?id=112554087">
+								<img src="https://api.twitter.com/1/users/profile_image?screen_name=choisissez&amp;size=bigger" width="73" height="73" />
+								Miet <b>Designer</b>
+							</a>
+						</li>
+						<li>
+							<a href="http://twitter.com/account/redirect_by_id?id=20909514">
+								<img src="https://api.twitter.com/1/users/profile_image?screen_name=xavez&amp;size=bigger" width="73" height="73" />
+								Xavier <b>Designer</b>
+							</a>
+						</li>
+					</ul>
+				</article>
 
-			<article id="contact">
-				<h2>Questions?</h2>
-			    <p>
-			        Just ask via
-			        <a href="http://twitter.com/account/redirect_by_id?id=537343166">Twitter</a>,
-			        <a href="https://www.facebook.com/pages/Ghendetta/346514788727493">Facebook</a> or by
-			        <a href="<?php echo site_url('email'); ?>">Email</a>.
-			    </p>
-			</article>
+				<article id="contact">
+					<h2>Questions?</h2>
+				    <p>
+				        Just ask via
+				        <a href="http://twitter.com/account/redirect_by_id?id=537343166">Twitter</a>,
+				        <a href="https://www.facebook.com/pages/Ghendetta/346514788727493">Facebook</a> or by
+				        <a href="<?php echo site_url('email'); ?>">Email</a>.
+				    </p>
+				</article>
+			</div>
 		</div>
 	</div>
 </section>
