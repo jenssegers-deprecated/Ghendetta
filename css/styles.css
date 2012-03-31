@@ -47,7 +47,8 @@ h2 {
 
 p,
 ol,
-ul {
+ul,
+dl {
 	padding-bottom: 16px;
 }
 
