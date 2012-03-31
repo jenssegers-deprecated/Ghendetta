@@ -257,7 +257,7 @@ a:focus {
 		float: left;
 	}
 
-	.navigation .v-dashboard {
+	.navigation .dashboard {
 		background: transparent url(../img/ico_map.png) no-repeat 10px 50%;
 		padding-left: 30px;
 	}
