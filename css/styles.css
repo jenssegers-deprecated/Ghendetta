@@ -519,9 +519,43 @@ a:focus {
 		padding-left: 4%;
 	}
 
-.v-about #team ul {
-	list-style: none;
-}
+	.v-about #team ul {
+		list-style: none;
+	}
+
+		.v-about #team li {
+			float: left;
+			width: 21%;
+			padding: 8px 2%;
+			overflow: hidden;
+		}
+
+		.v-about #team a {
+			display: block;
+			border: none;
+			font-size: .875em;
+			text-align: center;
+			-webkit-transition: opacity .33s ease-out;
+			   -moz-transition: opacity .33s ease-out;
+			    -ms-transition: opacity .33s ease-out;
+			     -o-transition: opacity .33s ease-out;
+			        transition: opacity .33s ease-out;
+		}
+
+		.v-about #team a:hover,
+		.v-about #team a:focus {
+			opacity: .77;
+		}
+
+		.v-about #team img {
+			width: 100%;
+			display: block;
+			padding-bottom: 8px;
+		}
+
+		.v-about #team b {
+			display: block;
+		}
 
 /*
 	Media Queries
@@ -585,6 +619,12 @@ a:focus {
 
 	.v-clan article {
 		width: 46%;
+	}
+
+	/* View: about */
+
+	.v-about .sidebar article {
+		padding: 0;
 	}
 
 }
