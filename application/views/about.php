@@ -11,6 +11,7 @@
 				<li><a href="#howtoplay">How to Play</a></li>
 				<li><a href="#origin">Game Origin</a></li>
 				<li><a href="#technical">Technical Stuff</a></li>
+				<li><a href="#name">Why &ldquo;Ghendetta&rdquo;?</a></li>
 				<li><a href="#team">Team Awesome</a></li>
 				<li><a href="#contact">Questions?</a></li>
 			</ul>
@@ -25,7 +26,7 @@
 
 				<h3>The Clans</h3>
 				<p>
-					There are four clans in the game: the #Hawks, the #Wolves, the #Panthers and the #Snakes. You will start as an associate in the weakest clan in order to maintain the balance between the clans. Check-ins on Foursquare will be displayed as Battles on your map. Only the last seven days count. So you can lose territory quickly. Be loyal to your clan and your <a href="http://en.wikipedia.org/wiki/Caporegime" rel="external">Capo</a>. Fight as many battles as possible. Try to keep your clan&rsquo;s districts and try to take away districts of other clans by battling in their area. Finally, <strong>try to conquer the entire city</strong>.
+					There are four clans in the game: the <em class="hawks">#Hawks</em>, the <em class="wolves">#Wolves</em>, the <em class="panthers">#Panthers</em> and the <em class="snakes">#Snakes</em>. You will start as an associate in the weakest clan in order to maintain the balance between the clans. Check-ins on Foursquare will be displayed as Battles on your map. Only the last seven days count. So you can lose territory quickly. Be loyal to your clan and your <a href="http://en.wikipedia.org/wiki/Caporegime" rel="external">Capo</a>. Fight as many battles as possible. Try to keep your clan&rsquo;s districts and try to take away districts of other clans by battling in their area. Finally, <strong>try to conquer the entire city</strong>.
 			    </p>
 
 				<h3>The Rules</h3>
@@ -56,22 +57,26 @@
 		</div>
 
 		<div class="c5 last sidebar">
-			<article>
+			<article id="name">
 			    <h2>Ghent + Vendetta</h2>
 				<dl>
 					<dt>Ghent |g&#x25B;nt|</dt><dd>[:A city in Belgium].</dd>
 				    <dt>Vendetta |v&#x25B;n&#x2C8;d&#x25B;t&#x259;|</dt><dd>[:A blood feud between families or clans].</dd>
 				</dl>
+			</article>
 
-				<h2 id="team">Team Awesome</h2>
+			<article id="team">
+				<h2>Team Awesome</h2>
 				<ul>
 					<li>Hannes <a href="http://twitter.com/account/redirect_by_id?id=65640580">@hannesvdvreken</a>: Developer</li>
 					<li>Jens <a href="http://twitter.com/account/redirect_by_id?id=22241784">@jenssegers</a>: Developer</li>
 					<li>Miet <a href="http://twitter.com/account/redirect_by_id?id=112554087">@choisissez</a>: Designer</li>
 					<li>Xavier <a href="http://twitter.com/account/redirect_by_id?id=20909514">@xavez</a>: Designer</li>
 				</ul>
+			</article>
 
-				<h2 id="contact">Questions?</h2>
+			<article id="contact">
+				<h2>Questions?</h2>
 			    <p>
 			        Just ask via
 			        <a href="http://twitter.com/account/redirect_by_id?id=537343166">Twitter</a>,
