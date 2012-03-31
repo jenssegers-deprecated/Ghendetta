@@ -6,7 +6,7 @@
 	Defaults:
 		Baseline Rhythm: 8px
 		Font Stack: "Helvetica Neue", Arial, sans-serif
-		Type Rhythm: http://modularscale.com/scale/?px1=16&px2=14&ra1=1.618&ra2=0
+		Type Rhythm: 10 / 14 / 16 / 23 / 26 / 37 / 42 / 59 / 68 / 96
 		Colours:
 			$red: 890000
 
@@ -40,14 +40,32 @@ body {
 /* Typography */
 
 h1,
-h2 {
+h2,
+h3 {
 	font-weight: 400;
 	padding-bottom: 8px;
 }
 
+h1 {
+	font-size: 2.3125em;
+	line-height: 1.081081081;
+	padding-bottom: 24px;
+}
+
+h2 {
+	font-size: 1.625em;
+	line-height: 1.28;
+}
+
+h3 {
+	font-size: 1.4375em;
+	line-height: 1.043478261;
+}
+
 p,
 ol,
-ul {
+ul,
+dl {
 	padding-bottom: 16px;
 }
 
@@ -67,6 +85,37 @@ a:focus {
 /*
 	Objects
 */
+
+/* Clans */
+
+.hawks,
+.wolves,
+.panthers,
+.snakes {
+	color: #fff;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	    -ms-border-radius: 3px;
+	        border-radius: 3px;
+	padding: 2px 4px;
+}
+
+.wolves {
+	background: #009245;
+}
+
+.panthers {
+	background: #0071BC;
+}
+
+.snakes {
+	background: #FBB03B;
+	color: #000;
+}
+
+.hawks {
+	background: #C1272D;
+}
 
 /* Messages */
 
@@ -106,7 +155,7 @@ a:focus {
 
 /* progress meter */
 
-/* progress container */
+/* container */
 .pr-cont {
 	width: 100%;
 	height: 10px;
@@ -121,7 +170,7 @@ a:focus {
 	overflow: hidden;
 }
 
-	/* actual progress meter */
+	/* meter */
 	.pr-cont .pr {
 		display: block;
 		border-radius: 5px;
@@ -131,6 +180,31 @@ a:focus {
 		background:    -moz-linear-gradient(#890000, #7F0C11);
 		background:         linear-gradient(#890000, #7F0C11);
 		height: 100%;
+	}
+
+/* Page Navigation */
+
+.pageNav ul {
+	display: none;
+}
+
+	.pageNav a {
+		display: block;
+		padding: 5px;
+		margin: 5px 0;
+		border: none;
+		background: #333;
+		color: #FFF;
+		-webkit-border-radius: 5px;
+		   -moz-border-radius: 5px;
+		    -ms-border-radius: 5px;
+		        border-radius: 5px;
+		text-align: center;
+	}
+
+	.pageNav a:hover,
+	.pageNav a:focus {
+		background: #890000;
 	}
 
 /* Clearfix For modern browsers */
@@ -196,15 +270,20 @@ a:focus {
 
 		.siteNav li a {
 			padding-left: 30px;
-			background: transparent url(../img/ico_map.png) no-repeat 10px 50%;
+			background: transparent url(../img/ico_map.svg) no-repeat 10px 50%;
 		}
 
 		.siteNav .dashboard {
-			background: transparent url(../img/ico_map.png) no-repeat 10px 50%;
+			background: transparent url(../img/ico_map.svg) no-repeat 10px 50%;
 		}
 
 		.siteNav .myClan {
-			background: transparent url(../img/ico_star.png) no-repeat 10px 50%;
+			background: transparent url(../img/ico_star.svg) no-repeat 10px 50%;
+		}
+
+		.siteNav .about {
+			background: transparent url(../img/ico_question.svg) no-repeat 10px 50%;
+			padding-left: 30px;
 		}
 
 		.siteNav .twitter {
@@ -443,20 +522,74 @@ a:focus {
 */
 
 .v-about dt {
-	float: left;
 	font-weight: 700;
-	margin-right: .5em;
 }
 
 .v-about dd {
 	color: #777;
+	margin: 0 0 8px 1.5em;
 }
+
+.v-about .sidebar .inner {
+	background: #F9F8F4;
+	padding: 16px 5%;
+	border: 1px solid #D7D6D2;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+	    -ms-border-radius: 5px;
+	        border-radius: 5px;
+	overflow: hidden;
+	-webkit-box-shadow: 0 0 3px rgba(0,0,0,.11);
+	   -moz-box-shadow: 0 0 3px rgba(0,0,0,.11);
+	    -ms-box-shadow: 0 0 3px rgba(0,0,0,.11);
+	        box-shadow: 0 0 3px rgba(0,0,0,.11);
+}
+
+	.v-about #team ul {
+		list-style: none;
+	}
+
+		.v-about #team li {
+			float: left;
+			width: 21%;
+			padding: 8px 2%;
+			overflow: hidden;
+		}
+
+		.v-about #team a {
+			display: block;
+			border: none;
+			font-size: .875em;
+			text-align: center;
+			-webkit-transition: opacity .33s ease-out;
+			   -moz-transition: opacity .33s ease-out;
+			    -ms-transition: opacity .33s ease-out;
+			     -o-transition: opacity .33s ease-out;
+			        transition: opacity .33s ease-out;
+		}
+
+		.v-about #team a:hover,
+		.v-about #team a:focus {
+			opacity: .77;
+		}
+
+		.v-about #team img {
+			width: 100%;
+			display: block;
+			margin-bottom: 8px;
+		}
+
+		.v-about #team b {
+			display: block;
+		}
 
 /*
 	Media Queries
 */
 
 @media handheld, only screen and (max-width: 1100px) {
+
+	/* View: clan */
 
 	.v-clan article {
 		width: 31%;
@@ -503,20 +636,41 @@ a:focus {
 		width: 100%;
 	}
 
+	/* View: clan */
+
 	.v-clan {
 		padding-top: 60px;
 		width: 90%;
 	}
 
-	/* View: clan */
-
 	.v-clan article {
 		width: 46%;
+	}
+
+	/* View: about */
+
+	.v-about .sidebar .inner {
+		padding: 0;
+		background: transparent;
+		border: none;
+		-webkit-box-shadow: none;
+		   -moz-box-shadow: none;
+		    -ms-box-shadow: none;
+		        box-shadow: none;
 	}
 
 }
 
 @media handheld, only screen and (max-width: 480px) {
+
+	/* Page Navigation */
+
+	.pageNav ul {
+		list-style: none;
+		display: block;
+	}
+
+	/* View: dashboard */
 
 	.v-dashboard .clan {
 		display: inline;
@@ -527,14 +681,14 @@ a:focus {
 		font-size: 14px;
 	}
 
-	.v-clan p {
-		font-size: 16px;
-	}
-
 	/* View: clan */
 
 	.v-clan article {
 		width: 98%;
+	}
+
+	.v-clan p {
+		font-size: 16px;
 	}
 
 }
