@@ -1,4 +1,13 @@
 <?php
+/**
+ * @copyright (C) 2012 by iRail vzw/asbl
+ * @license AGPLv3
+ * @author Jens Segers <jens at iRail.be>
+ * @author Hannes Van De Vreken <hannes at iRail.be>
+ */
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
 class request_model extends CI_Model {
     
@@ -21,6 +30,10 @@ class request_model extends CI_Model {
                 return $this->db->where("NOT SUBSTRING(uri, 1, 4) = 'api/'", NULL, FALSE)->count_all_results('requests');
             case 'api' :
                 return $this->db->where("SUBSTRING(uri, 1, 4) = 'api/'", NULL, FALSE)->count_all_results('requests');
+            case 'push' :
+                return $this->db->where("SUBSTRING(uri, 1, 15) = 'foursquare/push'", NULL, FALSE)->count_all_results('requests');
+            case 'cronjob' :
+                return $this->db->where("SUBSTRING(uri, 1, 18) = 'foursquare/cronjob'", NULL, FALSE)->count_all_results('requests');
             default :
                 return $this->db->count_all('requests');
         }
@@ -38,6 +51,12 @@ class request_model extends CI_Model {
                 break;
             case 'api' :
                 $where = "AND SUBSTRING(uri, 1, 4) = 'api/'";
+                break;
+            case 'push' :
+                $where = "AND SUBSTRING(uri, 1, 15) = 'foursquare/push'";
+                break;
+            case 'cronjob' :
+                $where = "AND SUBSTRING(uri, 1, 18) = 'foursquare/push'";
                 break;
         }
         
