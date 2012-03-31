@@ -43,7 +43,7 @@
 </script>
 
 <script src="<?php echo static_url('js/jquery.js'); ?>"></script>
-<script src="<?php echo static_url('js/mapbox.min.js?v=290301'); ?>"></script>
+<script src="<?php echo static_url('js/mapbox.min.js?v=310301'); ?>"></script>
 
 </body>
 </html>

@@ -7,7 +7,7 @@
 
     <h2>Ghendetta &lt;Ghent + Vendetta&gt;</h2>
 	<dl>
-		<dt>Ghent |g&#x25B;nt|</dt><dd>[:A city in Belgium].</p>
+		<dt>Ghent |g&#x25B;nt|</dt><dd>[:A city in Belgium].</dd>
 	    <dt>Vendetta |v&#x25B;n&#x2C8;d&#x25B;t&#x259;|</dt><dd>[:A blood feud between families or clans].</dd>
 	</dl>
 
