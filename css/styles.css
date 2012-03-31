@@ -6,7 +6,7 @@
 	Defaults:
 		Baseline Rhythm: 8px
 		Font Stack: "Helvetica Neue", Arial, sans-serif
-		Type Rhythm: http://modularscale.com/scale/?px1=16&px2=14&ra1=1.618&ra2=0
+		Type Rhythm: 10 / 14 / 16 / 23 / 26 / 37 / 42 / 59 / 68 / 96
 		Colours:
 			$red: c1272d
 
@@ -44,6 +44,18 @@ h2,
 h3 {
 	font-weight: 400;
 	padding-bottom: 8px;
+}
+
+h1 {
+	font-size: 2.3125em;
+}
+
+h2 {
+	font-size: 1.625em;
+}
+
+h3 {
+	font-size: 1.4375em;
 }
 
 p,
@@ -108,7 +120,7 @@ a:focus {
 
 /* progress meter */
 
-/* progress container */
+/* container */
 .pr-cont {
 	width: 100%;
 	height: 10px;
@@ -123,7 +135,7 @@ a:focus {
 	overflow: hidden;
 }
 
-	/* actual progress meter */
+	/* meter */
 	.pr-cont .pr {
 		display: block;
 		border-radius: 5px;
@@ -134,6 +146,27 @@ a:focus {
 		background:         linear-gradient(#c1272d, #7F0C11);
 		height: 100%;
 	}
+
+/* Page Navigation */
+
+.pageNav a {
+	display: block;
+	padding: 5px;
+	margin: 5px 0;
+	border: none;
+	background: #333;
+	color: #FFF;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+	    -ms-border-radius: 5px;
+	        border-radius: 5px;
+	text-align: center;
+}
+
+.pageNav a:hover,
+.pageNav a:focus {
+	background: #c1272d;
+}
 
 /* Clearfix For modern browsers */
 .cf:before,
