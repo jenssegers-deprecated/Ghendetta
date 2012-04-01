@@ -11,7 +11,7 @@ if (!defined('BASEPATH'))
 
 class Foursquare {
     
-    private $settings, $ci;
+    private $settings, $ci, $token = FALSE;
     
     // contains the last error
     public $error = FALSE;
@@ -28,7 +28,7 @@ class Foursquare {
      * Set the token to use for following request
      */
     function token() {
-        return $this->ci->session->userdata('fsq_token');
+        return $this->token;
     }
     
     /**
@@ -36,7 +36,7 @@ class Foursquare {
      * @param string $token
      */
     function set_token($token) {
-        return $this->ci->session->set_userdata('fsq_token', $token);
+        return $this->token = $token;
     }
     
     /**

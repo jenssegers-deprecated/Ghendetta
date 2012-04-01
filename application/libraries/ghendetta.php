@@ -11,60 +11,100 @@ if (!defined('BASEPATH'))
 
 class Ghendetta {
     
-    private $ci;
+    private $ci, $user = FALSE;
+    
+    // expire time for cookie (31 days)
+    private $expire = 2678400;
     
     function __construct() {
         $this->ci = &get_instance();
+        
+        // start up session
+        session_start();
+        
+        // detect current user
+        $this->_detect_user();
     }
     
-    function set_user($fsqid = FALSE ) {
-        $code = hash('sha256', $fsqid . $this->ci->config->item('encryption_key'));
-        $data = serialize(array('id' => $fsqid, 'code' => $code));
+    function login($user) {
+        // generate anti-manipulation code
+        $code = hash('sha256', $user . $this->ci->config->item('encryption_key'));
+        
+        // primary login
+        $_SESSION['user'] = $user;
+        $_SESSION['code'] = $code;
+        
+        // secondary login
+        $data = serialize(array('user' => $user, 'code' => $code));
         
         $this->ci->load->library('encrypt');
         $data = $this->ci->encrypt->encode($data);
         
-        $cookie = array('name' => 'ghendetta_user', 'value' => $data, 'expire' => '8640000');
-        return $this->ci->input->set_cookie($cookie);
-    }
-
-    function unset_user(){
-        $cookie = array('name' => 'ghendetta_user', 'value' => "", 'expire' => '0');
+        $cookie = array('name' => 'ghendetta', 'value' => $data, 'expire' => $this->expire);
         $this->ci->input->set_cookie($cookie);
-        $this->ci->session->sess_destroy();
+        
+        // set user
+        $this->ci->load->model('user_model');
+        $this->user = $this->ci->user_model->get($user);
+    }
+    
+    function logout() {
+        // disable primary login
+        session_unset();
+        session_destroy();
+        
+        // disable secondary login
+        $cookie = array('name' => 'ghendetta', 'value' => '', 'expire' => '');
+        $this->ci->input->set_cookie($cookie);
+        
+        // unset user
+        $this->user = FALSE;
     }
     
     function current_user() {
-        $data = $this->ci->input->cookie('ghendetta_user', TRUE);
+        return $this->user;
+    }
+    
+    private function _detect_user() {
+        if (isset($_SESSION['user']) && isset($_SESSION['code'])) {
+            // detect primary login
+            $user = $_SESSION['user'];
+            $code = $_SESSION['code'];
         
-        // cookie not found
-        if (!$data) {
+        } else if ($data = $this->ci->input->cookie('ghendetta')) {
+            // detect secondary login
+            $this->ci->load->library('encrypt');
+            $data = @unserialize($this->ci->encrypt->decode($data));
+            
+            if (!isset($data['user']) || !isset($data['code'])) {
+                return FALSE;
+            }
+            
+            $user = $data['user'];
+            $code = $data['code'];
+        } else {
             return FALSE;
         }
         
-        $this->ci->load->library('encrypt');
-        $data = @unserialize($this->ci->encrypt->decode($data));
+        // generate anti-manipulation code
+        $check = hash('sha256', $user . $this->ci->config->item('encryption_key'));
         
-        // wrong cookie data
-        if (!isset($data['id']) || !isset($data['code'])) {
-            return FALSE;
+        // check anti-manipulation code
+        if ($code == $check) {
+            // set user
+            $this->ci->load->model('user_model');
+            $this->user = $this->ci->user_model->get($user);
+            
+            // set primary login if needed
+            if (!isset($_SESSION['user'])) {
+                $_SESSION['user'] = $user;
+                $_SESSION['code'] = $code;
+            }
+            
+            return ($user && $user['token']);
         }
         
-        // check code
-        $code = hash('sha256', $data['id'] . $this->ci->config->item('encryption_key'));
-        if ($code != $data['code']) {
-            return FALSE;
-        }
-        
-        $this->ci->load->model('user_model');
-        $user = $this->ci->user_model->get($data['id']);
-        
-        // user or token not found
-        if (!$user || !$user['token']) {
-            return FALSE;
-        }
-        
-        return $user;
+        return FALSE;
     }
 
 }

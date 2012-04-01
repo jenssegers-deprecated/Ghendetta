@@ -5,31 +5,32 @@
  * @author Jens Segers <jens at iRail.be>
  * @author Hannes Van De Vreken <hannes at iRail.be>
  */
-class optout extends CI_Controller{
 
-    function index(){
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+class Optout extends CI_Controller {
+    
+    function index() {
+        $this->warning();
+    }
+    
+    function go() {
+        // TODO: remove all user data
         
-        //tbd
-        
-        $confirmed = FALSE ;
-        
-        if( $confirmed ){
-            if ( $user = $this->ghendetta->current_user() ) {
-                $this->ghendetta->unset_user();
-            }
-            redirect("https://foursquare.com/settings/connections");
-        }else{
-            $data = array();
-            
-            $data["action"] = "log out and delete all your personal data from the Ghendetta application";
-            //to change: *secure* url to script which actually 
-            //deletes db content & logs out user.
-            $data["actionurl"] = "/optout" ;
-            //to change: hard coded url to site_url
-            $data["cancelurl"] = "http://ghendetta.be" ;//$this->site_url() ;
-            
-            $this->load->view('warning',$data);
+        if ($user = $this->ghendetta->current_user()) {
+            $this->ghendetta->logout();
         }
+        
+        redirect('https://foursquare.com/settings/connections');
+    }
+    
+    function warning() {
+        $data['action'] = 'log out and delete all your personal data from the Ghendetta application';
+        $data['action_url'] = site_url('optout/go');
+        $data['cancel_url'] = site_url();
+        
+        $this->load->view('warning', $data);
     }
 }
 

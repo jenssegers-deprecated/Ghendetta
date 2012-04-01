@@ -5,8 +5,8 @@
 <section>
     <h1>Attention</h1>
     <p>Do you really want to <?php echo $action ?>?</p>
-    <button onclick="javascript:window.location='<?php echo $cancelurl ?>';">Cancel</button>
-    <button onclick="javascript:window.location='<?php echo $actionurl ?>';">Confirm</button>
+    <a href="<?php echo $cancel_url ?>" class="btn">Cancel</a>
+    <a href="<?php echo $action_url ?>" class="btn">Confirm</a>
 </section>
 </body>
 </html>
