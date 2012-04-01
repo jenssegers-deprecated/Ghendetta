@@ -16,6 +16,9 @@ class checkin_model extends CI_Model {
         $this->load->model('region_model');
         $region_before = $this->region_model->get_leader($checkin['regionid']);
         
+        // calculate checkin points
+        $checkin['points'] = $this->calculate_points($checkin['userid'], $checkin['date']);
+        
         // insert checkin
         $this->db->insert('checkins', $checkin);
         $checkinid = $this->db->insert_id();
@@ -41,8 +44,7 @@ class checkin_model extends CI_Model {
         if ($region_after['clanid'] != $region_before['clanid']) {
             $this->region_model->update($checkin['regionid'], array('leader' => $region_after['clanid']));
         
-            // TODO: insert notification
-            // ...
+     // TODO: insert notification
         }
     }
     
@@ -72,6 +74,68 @@ class checkin_model extends CI_Model {
         } else {
             return $this->db->count_all('checkins');
         }
+    }
+    
+    function count_since($userid, $since = NULL) {
+        // count_since(timestamp)
+        if (is_null($since)) {
+            $since = $userid;
+            $userid = FALSE;
+        }
+        
+        if ($userid) {
+            return $this->db->where('userid', $userid)->where('date >=', $since)->count_all_results('checkins');
+        } else {
+            return $this->db->where('date >=', $since)->count_all_results('checkins');
+        }
+    }
+    
+    function count_between($userid, $start, $end = NULL) {
+        // count_between(start, end)
+        if (is_null($end)) {
+            $end = $start;
+            $start = $userid;
+            $userid = FALSE;
+        }
+        
+        if ($userid) {
+            return $this->db->where('userid', $userid)->where('date >=', $start)->where('date <=', $end)->count_all_results('checkins');
+        } else {
+            return $this->db->where('date >=', $start)->where('date <=', $end)->count_all_results('checkins');
+        }
+    }
+    
+    /**
+     * Points algorithm, calculate next checkin points based on history
+     * @param int $userid
+     * @param int $time
+     */
+    function calculate_points($userid, $time) {
+        /* 
+         * Short term: 15 minutes
+         * Mid term: 1 hour
+         * Long term: 24 hours
+         */
+        
+        $short_term = $this->count_between($userid, $time - 900, $time) + 1;
+        $mid_term = $this->count_between($userid, $time - 3600, $time) + 1;
+        $long_term = $this->count_between($userid, $time - 86400, $time) + 1;
+        
+        $ratio = 1;
+        
+        if ($short_term > 3) {
+            $ratio *= pow(0.90, $short_term - 3);
+        }
+        
+        if ($mid_term > 6) {
+            $ratio *= pow(0.95, $mid_term - 6);
+        }
+        
+        if ($long_term > 30) {
+            $ratio *= pow(0.90, $long_term - 30);
+        }
+        
+        return $ratio;
     }
 
 }
