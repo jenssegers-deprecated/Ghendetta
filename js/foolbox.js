@@ -68,7 +68,6 @@ var Mapbox = function() {
 		var bitMapType = new google.maps.ImageMapType(options);
 		
 		map = new google.maps.Map(document.getElementById(element), { disableDefaultUI: true });
-		map.setMapTypeId('roadmap');
 		map.overlayMapTypes.insertAt(0, bitMapType);
 		
 		// get regions
