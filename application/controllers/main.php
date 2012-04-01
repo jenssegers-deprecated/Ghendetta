@@ -12,11 +12,6 @@ if (!defined('BASEPATH'))
 class Main extends CI_Controller {
     
     public function index() {
-        // 8bit mode
-        if (rand(1, 5) == 1) {
-            redirect('aprilfools');
-        }
-        
         $this->load->model('clan_model');
         $clans = $this->clan_model->get_all();
         
