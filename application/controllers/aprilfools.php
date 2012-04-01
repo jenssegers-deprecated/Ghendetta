@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Fools extends CI_Controller {
+class Aprilfools extends CI_Controller {
     
     public function index() {
         $this->load->model('clan_model');
@@ -21,6 +21,6 @@ class Fools extends CI_Controller {
             $clan = FALSE;
         }
         
-        $this->load->view('dashboard', array('clan' => $clan, 'clans' => $clans, 'rand' => 1));
+        $this->load->view('dashboard', array('clan' => $clan, 'clans' => $clans, 'eightbit' => 1));
     }
 }
