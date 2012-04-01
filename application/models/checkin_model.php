@@ -17,7 +17,7 @@ class checkin_model extends CI_Model {
         $region_before = $this->region_model->get_leader($checkin['regionid']);
         
         // calculate checkin points
-        $checkin['points'] = $this->calculate_points($checkin['userid']);
+        $checkin['points'] = $this->calculate_points($checkin['userid'], $checkin['date']);
         
         // insert checkin
         $this->db->insert('checkins', $checkin);
@@ -90,17 +90,33 @@ class checkin_model extends CI_Model {
         }
     }
     
+    function count_between($userid, $start, $end = NULL) {
+        // count_since(start, end)
+        if (is_null($end)) {
+            $end = $start;
+            $start = $userid;
+            $userid = FALSE;
+        }
+        
+        if ($userid) {
+            return $this->db->where('userid', $userid)->where('date >=', $start)->where('date <=', $end)->count_all_results('checkins');
+        } else {
+            return $this->db->where('date >=', $start)->where('date <=', $end)->count_all_results('checkins');
+        }
+    }
+    
     /**
      * Points algorithm, calculate next checkin points based on history
      * @param int $userid
+     * @param int $time
      */
-    function calculate_points($userid) {
+    function calculate_points($userid, $time) {
         // 15 minutes
-        $short_term = $this->count_since($userid, time() - 900);
+        $short_term = $this->count_between($userid, $time - 900, $time);
         // 1 hour
-        $mid_term = $this->count_since($userid, time() - 3600);
+        $mid_term = $this->count_between($userid, $time - 3600, $time);
         // 24 hours
-        $long_term = $this->count_since($userid, time() - 86400);
+        $long_term = $this->count_between($userid, $time - 86400, $time);
         
         $ratio = 1;
         
