@@ -103,19 +103,19 @@ a:focus {
 }
 
 .wolves {
-	background-color: #009245;
+	background-color: #0ba595; /*009245*/
 }
 
 .panthers {
-	background-color: #0071BC;
+	background-color: #5e48ff; /*0071BC*/
 }
 
 .snakes {
-	background-color: #CC8F2F;
+	background-color: #ceb841; /*CC8F2F*/
 }
 
 .hawks {
-	background-color: #C1272D;
+	background-color: #ff4208; /*C1272D*/
 }
 
 /* Messages */
@@ -255,12 +255,13 @@ a:focus {
 		}
 
 	.siteNav a:hover {
-		background-color: #444;
+		background-color: #890000;
+		border-color: #000 #720000 #000 #190000;
 	}
 
 		.siteNav .selected a {
-			background-color:#890000;
-			border-color: #000 #720000 #000 #190000;
+			background-color:#444;
+			border-color: #000 #222 #000 #000;
 		}
 
 	.siteNav ul {
