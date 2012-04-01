@@ -42,7 +42,7 @@ class clan_model extends CI_Model {
      */
     function get_stats($clanid) {
         $query = '
-        	SELECT *, floor(sum(points)*5) as points, sum(battles) as battles, count(1) as members
+        	SELECT *, floor(sum(points)) as points, sum(battles) as battles, count(1) as members
         	FROM (
             	SELECT clans.*, sum(checkins.points) as points, count(checkins.checkinid) as battles
             	FROM clans
@@ -61,7 +61,7 @@ class clan_model extends CI_Model {
      */
     function get_all_stats() {
         $query = '
-        	SELECT *, floor(sum(points)*5) as points, sum(battles) as battles, count(1) as members
+        	SELECT *, floor(sum(points)) as points, sum(battles) as battles, count(1) as members
         	FROM (
             	SELECT clans.*, sum(checkins.points) as points, count(checkins.checkinid) as battles
             	FROM clans
@@ -85,7 +85,7 @@ class clan_model extends CI_Model {
         $query = '
         	SELECT t.*, @rownum:=@rownum+1 as rank
         	FROM (
-        		SELECT fsqid, firstname, lastname, picurl, floor(sum(checkins.points)*10) as points, count(checkins.checkinid) as battles,
+        		SELECT fsqid, firstname, lastname, picurl, floor(sum(checkins.points)) as points, count(checkins.checkinid) as battles,
         			CASE clans.capo WHEN fsqid THEN 1 ELSE 0 END as capo
                 FROM users
                 LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
@@ -104,7 +104,7 @@ class clan_model extends CI_Model {
      */
     function get_capo($clanid) {
         $query = "
-        	SELECT fsqid, firstname, lastname, picurl, clans.clanid, '1' as rank, floor(sum(checkins.points)*10) as points, count(checkins.checkinid) as battles
+        	SELECT fsqid, firstname, lastname, picurl, clans.clanid, '1' as rank, floor(sum(checkins.points)) as points, count(checkins.checkinid) as battles
         	FROM clans
         	JOIN users ON users.fsqid = clans.capo
         	LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
@@ -119,7 +119,7 @@ class clan_model extends CI_Model {
      */
     function suggest_clan() {
         $query = '
-            SELECT clans.*, floor(sum(checkins.points)*10) as points
+            SELECT clans.*, floor(sum(checkins.points)) as points
             FROM clans
             LEFT JOIN users ON users.clanid = clans.clanid
             LEFT JOIN checkins ON checkins.userid = users.fsqid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
