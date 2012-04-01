@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Ghendetta</title>
 	<?php if(ENVIRONMENT == 'production'): ?>
-	<link rel="stylesheet" href="<?php echo static_url('css/styles.min.css?v=010404'); ?>" media="screen" />
+	<link rel="stylesheet" href="<?php echo static_url('css/styles.min.css?v=010405'); ?>" media="screen" />
 	<?php else: ?>
 	<link rel="stylesheet" href="<?php echo static_url('css/styles.css'); ?>" media="screen" />
 	<?php endif; ?>
