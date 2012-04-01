@@ -16,6 +16,9 @@ class checkin_model extends CI_Model {
         $this->load->model('region_model');
         $region_before = $this->region_model->get_leader($checkin['regionid']);
         
+        // calculate checkin points
+        $checkin['points'] = $this->calculate_points($checkin['userid']);
+        
         // insert checkin
         $this->db->insert('checkins', $checkin);
         $checkinid = $this->db->insert_id();
@@ -42,7 +45,6 @@ class checkin_model extends CI_Model {
             $this->region_model->update($checkin['regionid'], array('leader' => $region_after['clanid']));
         
             // TODO: insert notification
-            // ...
         }
     }
     
@@ -72,6 +74,49 @@ class checkin_model extends CI_Model {
         } else {
             return $this->db->count_all('checkins');
         }
+    }
+    
+    function count_since($userid, $since = NULL) {
+        // count_since(timestamp)
+        if (is_null($since)) {
+            $since = $userid;
+            $userid = FALSE;
+        }
+        
+        if ($userid) {
+            return $this->db->where('userid', $userid)->where('date >=', $since)->count_all_results('checkins');
+        } else {
+            return $this->db->where('date >=', $since)->count_all_results('checkins');
+        }
+    }
+    
+    /**
+     * Points algorithm, calculate next checkin points based on history
+     * @param int $userid
+     */
+    function calculate_points($userid) {
+        // 15 minutes
+        $short_term = $this->count_since($userid, time() - 900);
+        // 1 hour
+        $mid_term = $this->count_since($userid, time() - 3600);
+        // 24 hours
+        $long_term = $this->count_since($userid, time() - 86400);
+        
+        $ratio = 1;
+        
+        if ($short_term > 3) {
+            $ratio *= pow(0.90, $short_term - 3);
+        }
+        
+        if ($mid_term > 6) {
+            $ratio *= pow(0.95, $mid_term - 6);
+        }
+        
+        if ($long_term > 30) {
+            $ratio *= pow(0.90, $long_term - 30);
+        }
+        
+        return $ratio;
     }
 
 }
