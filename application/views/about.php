@@ -110,5 +110,8 @@
 	</div>
 </section>
 
+<script src="<?php echo static_url('js/jquery.js'); ?>"></script>
+<script src="<?php echo static_url('js/application.min.js?v=010402'); ?>"></script>
+
 </body>
 </html>

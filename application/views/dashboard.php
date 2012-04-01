@@ -43,8 +43,9 @@
 </script>
 
 <script src="<?php echo static_url('js/jquery.js'); ?>"></script>
+<script src="<?php echo static_url('js/application.min.js?v=010402'); ?>"></script>
 
-<?php 
+<?php
 if(isset($eightbit)): ?>
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="<?php echo static_url('js/foolbox.js?v=010403'); ?>"></script>

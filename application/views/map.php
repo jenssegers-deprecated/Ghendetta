@@ -12,6 +12,7 @@
 </script>
 
 <script src="<?php echo static_url('js/jquery.js'); ?>"></script>
+<script src="<?php echo static_url('js/application.min.js?v=010402'); ?>"></script>
 <script src="<?php echo static_url('js/mapbox.min.js?v=310301'); ?>"></script>
 
 </body>
