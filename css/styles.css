@@ -88,33 +88,34 @@ a:focus {
 
 /* Clans */
 
-.hawks,
 .wolves,
 .panthers,
-.snakes {
-	color: #fff;
+.snakes,
+.hawks {
+	font-style: normal;
+	padding: 1px 2px;
 	-webkit-border-radius: 3px;
 	   -moz-border-radius: 3px;
 	    -ms-border-radius: 3px;
 	        border-radius: 3px;
-	padding: 2px 4px;
+	color: #fff;
+	font-weight: bold;
 }
 
 .wolves {
-	background: #009245;
+	background-color: #009245;
 }
 
 .panthers {
-	background: #0071BC;
+	background-color: #0071BC;
 }
 
 .snakes {
-	background: #FBB03B;
-	color: #000;
+	background-color: #CC8F2F;
 }
 
 .hawks {
-	background: #C1272D;
+	background-color: #C1272D;
 }
 
 /* Messages */
@@ -315,7 +316,6 @@ a:focus {
 	.logo {
 		padding: 50px 0 10px;
 		margin: auto;
-		width: 201px;
 	}
 
 	.leaderboard {
