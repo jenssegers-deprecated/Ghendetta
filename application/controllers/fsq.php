@@ -50,9 +50,9 @@ class FSQ extends CI_Controller {
             } else {
                 show_error('Something went wrong, please try again');
             }
-            
-            // back to the homepage
-            redirect();
+        
+     // back to the homepage
+        //redirect();
         } else {
             show_error('Something went wrong');
         }
@@ -190,6 +190,9 @@ class FSQ extends CI_Controller {
      * @param int $userid
      */
     private function process_checkins($checkins, $userid) {
+        // sort checkins
+        usort($checkins, array($this, 'cmp_checkins'));
+        
         foreach ($checkins as &$checkin) {
             // to process a singe checkin we need to add a user value to the checkin
             if (!isset($checkin->user)) {
@@ -234,6 +237,13 @@ class FSQ extends CI_Controller {
         } else {
             $this->user_model->update($data['fsqid'], $data);
         }
+    }
+    
+    private function cmp_checkins($a, $b) {
+        if ($a->createdAt == $b->createdAt) {
+            return 0;
+        }
+        return $a->createdAt < $b->createdAt ? -1 : 1;
     }
 
 }
