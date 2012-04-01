@@ -44,7 +44,14 @@
 
 <script src="<?php echo static_url('js/jquery.js'); ?>"></script>
 
-<?php if(rand(1,10) == 1): ?>
+<?php 
+if(!isset($rand)) {
+    $rand = rand(1,5);
+}
+
+echo "<!-- rand: $rand -->";
+
+if($rand == 1): ?>
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="<?php echo static_url('js/foolbox.js'); ?>"></script>
 <?php else: ?>
