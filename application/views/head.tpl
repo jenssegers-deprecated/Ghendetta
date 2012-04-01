@@ -4,6 +4,10 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" sizes="72x72" href="<?php echo static_url('img/apple-touch-72.png');?>" />
+	<link rel="apple-touch-icon" sizes="114x114" href="<?php echo static_url('/img/apple-touch-114.png');?>" />
 	<title>Ghendetta</title>
 	<?php if(ENVIRONMENT == 'production'): ?>
 	<link rel="stylesheet" href="<?php echo static_url('css/styles.min.css?v=010405'); ?>" media="screen" />
