@@ -45,6 +45,10 @@ class user_model extends CI_Model {
     function get_stats($fsqid) {
         $user = $this->get($fsqid);
         
+        if (!$user) {
+            return FALSE;
+        }
+        
         $query = '
         	SELECT * 
     		FROM (
