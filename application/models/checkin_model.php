@@ -91,7 +91,7 @@ class checkin_model extends CI_Model {
     }
     
     function count_between($userid, $start, $end = NULL) {
-        // count_since(start, end)
+        // count_between(start, end)
         if (is_null($end)) {
             $end = $start;
             $start = $userid;
