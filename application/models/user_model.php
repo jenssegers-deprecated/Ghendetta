@@ -52,9 +52,9 @@ class user_model extends CI_Model {
         $query = '
         	SELECT * 
     		FROM (
-    		  	SELECT fsqid, firstname, lastname, picurl, clanid, points, @rownum:=@rownum+1 as rank 
+    		  	SELECT fsqid, firstname, lastname, picurl, clanid, points, battles, @rownum:=@rownum+1 as rank 
               	FROM (
-              		SELECT fsqid, firstname, lastname, picurl, clanid, sum(checkins.points) as points
+              		SELECT fsqid, firstname, lastname, picurl, clanid, floor(sum(checkins.points)*10) as points, count(checkins.checkinid) as battles
             		FROM users 
             		LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
             		WHERE users.clanid = ?
@@ -73,7 +73,7 @@ class user_model extends CI_Model {
      */
     function get_points($userid) {
         $query = '
-        	SELECT sum(checkins.points) as points
+        	SELECT sum(checkins.points) as points, count(checkins.checkinid) as battles
         	FROM checkins
         	WHERE date >= UNIX_TIMESTAMP( subdate(now(),7) )
         	AND userid = ?';
