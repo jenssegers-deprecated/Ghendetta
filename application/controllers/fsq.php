@@ -51,8 +51,8 @@ class FSQ extends CI_Controller {
                 show_error('Something went wrong, please try again');
             }
         
-     // back to the homepage
-        //redirect();
+            // back to the homepage
+            redirect();
         } else {
             show_error('Something went wrong');
         }
