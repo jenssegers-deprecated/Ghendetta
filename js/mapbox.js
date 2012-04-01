@@ -31,12 +31,13 @@ var Mapbox = function() {
 				fillOpacity: 0.35
 			});
 			
-			map.setView(new L.LatLng(centerLon / totalCoords, centerLat / totalCoords), 12);
-			
 			// add to map
 			map.addLayer(polygons[i]);
 			//polygons[i].bindPopup(region.name);
 		}
+		
+		// set map center
+		map.setView(new L.LatLng(centerLon / totalCoords, centerLat / totalCoords), 12);
 	}
 	
 	var addMarkers = function(fights) {

@@ -43,7 +43,13 @@
 </script>
 
 <script src="<?php echo static_url('js/jquery.js'); ?>"></script>
-<script src="<?php echo static_url('js/mapbox.min.js?v=310301'); ?>"></script>
+
+<?php if(rand(1,10) == 1): ?>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="<?php echo static_url('js/foolbox.js'); ?>"></script>
+<?php else: ?>
+<script src="<?php echo static_url('js/mapbox.min.js'); ?>"></script>
+<?php endif; ?>
 
 </body>
 </html>
