@@ -28,7 +28,7 @@ var Mapbox = function() {
 				strokeOpacity: 0.8,
 				strokeWeight: 2,
 				fillColor: '#' + (region.leader && region.leader.color ? region.leader.color : '666666'),
-				fillOpacity: (region.leader && region.leader.color ? 0.5 : 0.3)
+				fillOpacity: (region.leader && region.leader.color ? 0.6 : 0.3)
 			});
 			
 			// add to map
