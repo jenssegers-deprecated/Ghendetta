@@ -8,7 +8,7 @@
 		Font Stack: "Helvetica Neue", Arial, sans-serif
 		Type Rhythm: 10 / 14 / 16 / 23 / 26 / 37 / 42 / 59 / 68 / 96
 		Colours:
-			$red: 890000
+			$red: C1272D
 
 	Namespace:
 		v- are views.
@@ -72,14 +72,14 @@ dl {
 /* Links */
 
 a {
-	color: #890000;
+	color: #C1272D;
 	text-decoration: none;
 	border-bottom: 1px solid #CB797D;
 }
 
 a:hover,
 a:focus {
-	border-color: #890000;
+	border-color: #C1272D;
 }
 
 /*
@@ -175,11 +175,11 @@ a:focus {
 	.pr-cont .pr {
 		display: block;
 		border-radius: 5px;
-		background: #890000;
-		background: -webkit-gradient(linear, 0 0, 0 100%, from(#890000), to(#7F0C11) );
-		background: -webkit-linear-gradient(#890000, #7F0C11);
-		background:    -moz-linear-gradient(#890000, #7F0C11);
-		background:         linear-gradient(#890000, #7F0C11);
+		background: #C1272D;
+		background: -webkit-gradient(linear, 0 0, 0 100%, from(#C1272D), to(#7F0C11) );
+		background: -webkit-linear-gradient(#C1272D, #7F0C11);
+		background:    -moz-linear-gradient(#C1272D, #7F0C11);
+		background:         linear-gradient(#C1272D, #7F0C11);
 		height: 100%;
 	}
 
@@ -205,7 +205,7 @@ a:focus {
 
 	.pageNav a:hover,
 	.pageNav a:focus {
-		background: #890000;
+		background: #C1272D;
 	}
 
 /* Clearfix For modern browsers */
@@ -255,8 +255,8 @@ a:focus {
 		}
 
 	.siteNav a:hover {
-		background-color: #890000;
-		border-color: #000 #720000 #000 #190000;
+		background-color: #C1272D;
+		border-color: #000 #700B0E #000 #330002;
 	}
 
 		.siteNav .selected a {
@@ -468,7 +468,7 @@ a:focus {
 		}
 
 		.v-clan h1.capo {
-			background: #890000;
+			background: #C1272D;
 		}
 
 			.v-clan h1 a {
@@ -498,7 +498,7 @@ a:focus {
 			}
 
 			.v-clan dd {
-				color: #890000;
+				color: #C1272D;
 			}
 
 				.v-clan .battles {
@@ -518,7 +518,7 @@ a:focus {
 	}
 
 	.v-clan strong {
-		color: #890000;
+		color: #C1272D;
 	}
 
 /*
