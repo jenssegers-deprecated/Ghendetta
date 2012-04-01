@@ -4,7 +4,7 @@
 <?php include_once('navigation.tpl'); ?>
 
 <section class="v-dashboard" role="main">
-	<h1 class="logo"><img src="<?php echo static_url('img/logo.png'); ?>" alt="Ghendetta" /></h1>
+	<h1 class="logo"><img src="<?php echo static_url('img/intro.svg'); ?>" alt="Ghendetta" /></h1>
 
 		<?php if(!$this->ghendetta->current_user()): ?>
 		<p class="foursquare">
