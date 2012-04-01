@@ -44,7 +44,7 @@ class checkin_model extends CI_Model {
         if ($region_after['clanid'] != $region_before['clanid']) {
             $this->region_model->update($checkin['regionid'], array('leader' => $region_after['clanid']));
         
-            // TODO: insert notification
+     // TODO: insert notification
         }
     }
     
@@ -111,12 +111,15 @@ class checkin_model extends CI_Model {
      * @param int $time
      */
     function calculate_points($userid, $time) {
-        // 15 minutes
-        $short_term = $this->count_between($userid, $time - 900, $time);
-        // 1 hour
-        $mid_term = $this->count_between($userid, $time - 3600, $time);
-        // 24 hours
-        $long_term = $this->count_between($userid, $time - 86400, $time);
+        /* 
+         * Short term: 15 minutes
+         * Mid term: 1 hour
+         * Long term: 24 hours
+         */
+        
+        $short_term = $this->count_between($userid, $time - 900, $time) + 1;
+        $mid_term = $this->count_between($userid, $time - 3600, $time) + 1;
+        $long_term = $this->count_between($userid, $time - 86400, $time) + 1;
         
         $ratio = 1;
         
