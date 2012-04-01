@@ -63,9 +63,9 @@ class region_model extends CI_Model {
      */
     function get_leader($regionid) {
         $query = '
-            SELECT regions.regionid, clans.*, floor(sum(checkins.points)) as points, count(checkins.checkinid) as battles
+            SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
             FROM regions
-            LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) ) 
+            LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
             LEFT JOIN users ON users.fsqid = checkins.userid
             LEFT JOIN clans ON clans.clanid = users.clanid
             WHERE regions.regionid = ?
@@ -83,9 +83,9 @@ class region_model extends CI_Model {
         $query = '
         	SELECT * 
         	FROM (
-                SELECT regions.regionid, clans.*, floor(sum(checkins.points)) as points, count(checkins.checkinid) as battles
+                SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
                 FROM regions
-                LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) ) 
+                LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
                 LEFT JOIN users ON users.fsqid = checkins.userid
                 LEFT JOIN clans ON clans.clanid = users.clanid
                 GROUP BY checkins.regionid, users.clanid
@@ -121,9 +121,9 @@ class region_model extends CI_Model {
      */
     function get_stats($regionid) {
         $query = '
-            SELECT clans.*, floor(sum(checkins.points)) as points, count(checkins.checkinid) as battles
+            SELECT clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
             FROM regions
-            LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) ) 
+            LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
             LEFT JOIN users ON users.fsqid = checkins.userid
             LEFT JOIN clans ON clans.clanid = users.clanid
             WHERE regions.regionid = ?

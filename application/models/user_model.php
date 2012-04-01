@@ -54,9 +54,9 @@ class user_model extends CI_Model {
     		FROM (
     		  	SELECT fsqid, firstname, lastname, picurl, clanid, points, battles, @rownum:=@rownum+1 as rank 
               	FROM (
-              		SELECT fsqid, firstname, lastname, picurl, clanid, floor(sum(checkins.points)) as points, count(checkins.checkinid) as battles
+              		SELECT fsqid, firstname, lastname, picurl, clanid, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
             		FROM users 
-            		LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP( subdate(now(),7) )
+            		LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
             		WHERE users.clanid = ?
             		GROUP BY users.fsqid
             		ORDER BY points desc, CASE fsqid WHEN ? THEN 1 ELSE 0 END
@@ -73,9 +73,9 @@ class user_model extends CI_Model {
      */
     function get_points($userid) {
         $query = '
-        	SELECT floor(sum(checkins.points)) as points, count(checkins.checkinid) as battles
+        	SELECT COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
         	FROM checkins
-        	WHERE date >= UNIX_TIMESTAMP( subdate(now(),7) )
+        	WHERE date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
         	AND userid = ?';
         
         $row = $this->db->query($query, array($userid))->row_array();
