@@ -105,11 +105,11 @@ class FSQ extends CI_Controller {
         $users = $this->user_model->get_all_rand($limit);
         
         foreach ($users as $user) {
-            echo "Updating user " . $user['fsqid'] . "\n";
+            //echo "Updating user " . $user['fsqid'] . "\n";
             $this->refresh($user['fsqid'], $user['token'], $user['registered']);
         }
         
-        $this->output->set_profiler_sections(array('config' => TRUE, 'queries' => TRUE));
+        $this->output->set_profiler_sections(array('queries' => TRUE));
     }
     
     /**
