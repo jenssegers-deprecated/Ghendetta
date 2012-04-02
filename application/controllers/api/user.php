@@ -15,10 +15,19 @@ class User extends API_Controller {
     
     function index() {
         if ($user = $this->ghendetta->current_user()) {
-            $this->load->model('user_model');
-            $stats = $this->user_model->get_stats($user['fsqid']);
+            $fsqid = $user['fsqid'];
             
-            $this->output($stats);
+            // try from cache
+            if (!$user = $this->cache->get("api/user-$fsqid.cache")) {
+                // cache miss
+                $this->load->model('user_model');
+                $user = $this->user_model->get_stats($fsqid);
+                
+                // save cache
+                $this->cache->save("api/user-$fsqid.cache", $user, 300);
+            }
+            
+            $this->output($user);
         } else {
             $this->error('Not authenticated', 401);
         }
@@ -26,8 +35,16 @@ class User extends API_Controller {
     
     function battles() {
         if ($user = $this->ghendetta->current_user()) {
-            $this->load->model('checkin_model');
-            $checkins = $this->checkin_model->get_unique_since($user['fsqid'], (time() - 608400));
+            $fsqid = $user['fsqid'];
+            
+            // try from cache
+            if (!$checkins = $this->cache->get("api/battles-$fsqid.cache")) {
+                $this->load->model('checkin_model');
+                $checkins = $this->checkin_model->get_unique_since($fsqid, (time() - 608400));
+                
+                // save cache
+                $this->cache->save("api/battles-$fsqid.cache", $checkins, 300);
+            }
             
             $this->output($checkins);
         } else {

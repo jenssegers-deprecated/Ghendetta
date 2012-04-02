@@ -14,15 +14,29 @@ require_once (APPPATH . 'core/API_Controller.php');
 class Regions extends API_Controller {
     
     function index() {
-        $this->load->model('region_model');
-        $regions = $this->region_model->get_all_stats();
+        // try from cache
+        if (!$regions = $this->cache->get("api/regions.cache")) {
+            // cache miss
+            $this->load->model('region_model');
+            $regions = $this->region_model->get_all_stats();
+            
+            // save cache
+            $this->cache->save("api/regions.cache", $regions, 300);
+        }
         
         $this->output($regions);
     }
     
     function get($id) {
-        $this->load->model('region_model');
-        $region = $this->region_model->get_stats($id);
+        // try from cache
+        if (!$region = $this->cache->get("api/region-$id.cache")) {
+            // cache miss
+            $this->load->model('region_model');
+            $region = $this->region_model->get_stats($id);
+            
+            // save cache
+            $this->cache->save("api/region-$id.cache", $region, 300);
+        }
         
         if ($region) {
             $this->output($region);

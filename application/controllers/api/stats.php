@@ -14,20 +14,27 @@ require_once (APPPATH . 'core/API_Controller.php');
 class Stats extends API_Controller {
     
     function index() {
-        $this->load->model('user_model');
-        $this->load->model('checkin_model');
-        $this->load->model('region_model');
-        $this->load->model('clan_model');
-        $this->load->model('request_model');
-        
-        $data = array();
-        $data['users'] = $this->user_model->count();
-        $data['battles'] = $this->checkin_model->count();
-        $data['regions'] = $this->region_model->count();
-        $data['clans'] = $this->clan_model->count();
-        $data['requests'] = $this->request_model->count();
+        // try from cache
+        if (!$data = $this->cache->get("api/stats.cache")) {
+            // cache miss
+            $this->load->model('user_model');
+            $this->load->model('checkin_model');
+            $this->load->model('region_model');
+            $this->load->model('clan_model');
+            $this->load->model('request_model');
+            
+            $data = array();
+            $data['users'] = $this->user_model->count();
+            $data['battles'] = $this->checkin_model->count();
+            $data['regions'] = $this->region_model->count();
+            $data['clans'] = $this->clan_model->count();
+            $data['requests'] = $this->request_model->count();
+            
+            // save cache
+            $this->cache->save("api/stats.cache", $data, 60);
+        }
         
         $this->output($data);
     }
-    
+
 }

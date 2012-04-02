@@ -30,12 +30,20 @@ class user_model extends CI_Model {
         return $this->db->where('fsqid', $fsqid)->count_all_results('users') != 0;
     }
     
-    function get_all($limit = NULL) {
-        return $this->db->get('users')->limit($limit)->result_array();
+    function get_all($limit = FALSE) {
+        if ($limit) {
+            return $this->db->get('users')->limit($limit)->result_array();
+        } else {
+            return $this->db->get('users')->result_array();
+        }
     }
     
-    function get_all_rand($limit = NULL) {
-        return $this->db->order_by('RAND()')->limit($limit)->get('users')->result_array();
+    function get_all_rand($limit = FALSE) {
+        if ($limit) {
+            return $this->db->order_by('RAND()')->limit($limit)->get('users')->result_array();
+        } else {
+            return $this->db->order_by('RAND()')->get('users')->result_array();
+        }
     }
     
     function count() {

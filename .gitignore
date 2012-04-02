@@ -10,7 +10,9 @@
 
 application/config/development/*
 application/config/production/*
-application/logs/*
+application/logs/*.php
+application/cache/*.cache
+application/cache/*/*.cache
 
 # OS generated files #
 ######################

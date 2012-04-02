@@ -88,7 +88,7 @@ class FSQ extends CI_Controller {
     /**
      * Cronjob controller
      */
-    function cronjob($code, $limit = NULL) {
+    function cronjob($code, $limit = FALSE) {
         $this->config->load('foursquare', TRUE);
         $check = $this->config->item('cronjob_code', 'foursquare');
         

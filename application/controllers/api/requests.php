@@ -18,8 +18,15 @@ class Requests extends API_Controller {
     }
     
     function get($type) {
-        $this->load->model('request_model');
-        $requests = $this->request_model->get_daily($type);
+        // try from cache
+        if (!$requests = $this->cache->get("api/requests-$type.cache")) {
+            // cache miss
+            $this->load->model('request_model');
+            $requests = $this->request_model->get_daily($type);
+        
+            // save cache
+            $this->cache->save("api/requests-$type.cache", $requests, 60);
+        }
         
         $this->output($requests);
     }
