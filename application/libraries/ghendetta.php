@@ -12,6 +12,7 @@ if (!defined('BASEPATH'))
 class Ghendetta {
     
     private $ci, $user = FALSE;
+    private $cookie_name = 'ghendetta_user';
     
     // expire time for cookie (31 days)
     private $expire = 2678400;
@@ -40,7 +41,7 @@ class Ghendetta {
         $this->ci->load->library('encrypt');
         $data = $this->ci->encrypt->encode($data);
         
-        $cookie = array('name' => 'ghendetta', 'value' => $data, 'expire' => $this->expire);
+        $cookie = array('name' => $this->cookie_name, 'value' => $data, 'expire' => $this->expire);
         $this->ci->input->set_cookie($cookie);
         
         // set user
@@ -54,7 +55,7 @@ class Ghendetta {
         session_destroy();
         
         // disable secondary login
-        $cookie = array('name' => 'ghendetta', 'value' => '', 'expire' => '');
+        $cookie = array('name' => $this->cookie_name, 'value' => '', 'expire' => '');
         $this->ci->input->set_cookie($cookie);
         
         // unset user
@@ -71,7 +72,7 @@ class Ghendetta {
             $user = $_SESSION['user'];
             $code = $_SESSION['code'];
         
-        } else if ($data = $this->ci->input->cookie('ghendetta')) {
+        } else if ($data = $this->ci->input->cookie($this->cookie_name)) {
             // detect secondary login
             $this->ci->load->library('encrypt');
             $data = @unserialize($this->ci->encrypt->decode($data));
