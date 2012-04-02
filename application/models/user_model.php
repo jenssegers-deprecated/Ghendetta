@@ -85,7 +85,7 @@ class user_model extends CI_Model {
      */
     function get_points($userid) {
         $query = '
-        	SELECT COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
+        	SELECT *, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
         	FROM checkins
         	WHERE date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
         	AND userid = ?';

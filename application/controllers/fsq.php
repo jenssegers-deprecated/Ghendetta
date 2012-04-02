@@ -11,6 +11,9 @@ if (!defined('BASEPATH'))
 
 class FSQ extends CI_Controller {
     
+    // store regions here
+    private $regions = NULL;
+    
     function index() {
         $this->auth();
     }
@@ -89,6 +92,8 @@ class FSQ extends CI_Controller {
      * Cronjob controller
      */
     function cronjob($code, $limit = FALSE) {
+        $this->output->enable_profiler(TRUE);
+        
         $this->config->load('foursquare', TRUE);
         $check = $this->config->item('cronjob_code', 'foursquare');
         
@@ -103,6 +108,8 @@ class FSQ extends CI_Controller {
             echo "Updating user " . $user['fsqid'] . "\n";
             $this->refresh($user['fsqid'], $user['token'], $user['registered']);
         }
+        
+        $this->output->set_profiler_sections(array('config' => TRUE, 'queries' => TRUE));
     }
     
     /**
@@ -153,7 +160,9 @@ class FSQ extends CI_Controller {
             $this->load->model('region_model');
             $this->load->helper('polygon');
             
-            $regions = $this->region_model->get_all();
+            if(is_null($this->regions)) {
+                $this->regions = $this->region_model->get_all();
+            }
             
             if (isset($checkin->venue) && isset($checkin->venue->location->lng) && isset($checkin->venue->location->lat)) {
                 $found_region = FALSE;
@@ -161,7 +170,7 @@ class FSQ extends CI_Controller {
                 $lat = $checkin->venue->location->lat;
                 
                 // check what region the checkin was located in, using point in polygon algorithm
-                foreach ($regions as $region) {
+                foreach ($this->regions as $region) {
                     if (is_in_polygon($region['coords'], $lon, $lat)) {
                         $found_region = $region;
                         break; // yes this is a break :)

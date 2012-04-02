@@ -25,7 +25,7 @@ class checkin_model extends CI_Model {
         
         // get user with points
         $this->load->model('user_model');
-        $self = $this->user_model->get_stats($checkin['userid']);
+        $self = $this->user_model->get_points($checkin['userid']);
         
         // security
         if ($self) {
@@ -65,7 +65,7 @@ class checkin_model extends CI_Model {
     }
     
     function get_last($userid) {
-        return $this->db->where('userid', $userid)->order_by('date', 'desc')->get('checkins')->row_array();
+        return $this->db->where('userid', $userid)->order_by('date', 'desc')->limit(1)->get('checkins')->row_array();
     }
     
     function count($userid = FALSE) {
