@@ -50,7 +50,7 @@ class FSQ extends CI_Controller {
             } else {
                 show_error('Something went wrong, please try again');
             }
-        
+            
             // back to the homepage
             redirect();
         } else {
@@ -97,24 +97,28 @@ class FSQ extends CI_Controller {
         }
         
         $this->load->model('user_model');
-        $users = $this->user_model->get_all();
+        $users = $this->user_model->get_all_rand();
         
         foreach ($users as $user) {
-            $this->output->append_output("Updating user " . $user['fsqid'] . "\n");
-            $this->refresh($user['fsqid'], $user['token']);
+            echo "Updating user " . $user['fsqid'] . "\n";
+            $this->refresh($user['fsqid'], $user['token'], $user['registered']);
         }
     }
     
     /**
      * User refresh method
      * @param int $fsqid
+     * @param string token
+     * @param int $since
      */
-    private function refresh($fsqid, $token) {
+    private function refresh($fsqid, $token, $since = FALSE) {
         // set this user's token
         $this->foursquare->set_token($token);
         
         // the default time ago to get checkins
-        $since = time() - 604800;
+        if (!$since || $since < (time() - 604800)) {
+            $since = time() - 604800;
+        }
         
         // get the last checkin of this user
         $this->load->model('checkin_model');

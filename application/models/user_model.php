@@ -34,6 +34,10 @@ class user_model extends CI_Model {
         return $this->db->get('users')->result_array();
     }
     
+    function get_all_rand() {
+        return $this->db->order_by('RAND()')->get('users')->result_array();
+    }
+    
     function count() {
         return $this->db->count_all('users');
     }

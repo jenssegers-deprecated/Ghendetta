@@ -34,7 +34,7 @@ class checkin_model extends CI_Model {
             $capo = $this->clan_model->get_capo($self['clanid']);
             
             // new capo
-            if ($self['points'] > $capo['points'] && $capo['clanid'] == $self['clanid']) {
+            if ($capo && $self['points'] > $capo['points'] && $capo['clanid'] == $self['clanid']) {
                 $this->clan_model->update($self['clanid'], array('capo' => $self['fsqid']));
             }
         }
@@ -44,7 +44,7 @@ class checkin_model extends CI_Model {
         if ($region_after['clanid'] != $region_before['clanid']) {
             $this->region_model->update($checkin['regionid'], array('leader' => $region_after['clanid']));
         
-     // TODO: insert notification
+            // TODO: insert notification
         }
     }
     
