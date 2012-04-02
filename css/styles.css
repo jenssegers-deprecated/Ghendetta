@@ -291,11 +291,6 @@ a:focus {
 			background-image: url(../img/ico_question.svg);
 		}
 
-		.siteNav .twitter {
-			float: right;
-			padding: 5px;
-		}
-
 /*
 	View: dashboard
 */
@@ -603,8 +598,7 @@ a:focus {
 
 @media handheld, only screen and (max-width: 768px) {
 
-	.logo,
-	.twitter {
+	.logo {
 		display: none;
 	}
 
