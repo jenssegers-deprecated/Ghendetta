@@ -41,7 +41,7 @@ class FSQ extends CI_Controller {
                 $this->process_user($json->response->user, $token);
                 
                 // mark this user as current ghendetta user
-                $this->ghendetta->set_user($fsqid);
+                $this->ghendetta->login($fsqid);
             } else {
                 show_error('Something went wrong, please try again');
             }
