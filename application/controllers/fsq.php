@@ -43,6 +43,7 @@ class FSQ extends CI_Controller {
                 // mark this user as current ghendetta user
                 $this->ghendetta->login($fsqid);
             } else {
+                log_message('error', $this->foursquare->error);
                 show_error('Something went wrong, please try again');
             }
             
@@ -51,6 +52,7 @@ class FSQ extends CI_Controller {
                 // insert the checkins in our database
                 $this->process_checkins($json->response->checkins->items, $fsqid);
             } else {
+                log_message('error', $this->foursquare->error);
                 show_error('Something went wrong, please try again');
             }
             
