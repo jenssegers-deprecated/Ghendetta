@@ -12,12 +12,25 @@ if (!defined('BASEPATH'))
 class Clan extends CI_Controller {
     
     function index() {
+        $this->load->driver('cache', array('adapter' => 'file'));
+        
         if ($user = $this->ghendetta->current_user()) {
-            $this->load->model('clan_model');
-            $members = $this->clan_model->get_members($user['clanid']);
-            $clan = $this->clan_model->get_stats($user['clanid']);
+            $clanid = $user['clanid'];
             
-            $this->load->view('clan', array('members' => $members, 'clan' => $clan, 'user' => $user));
+            // try from cache
+            if (!$data = $this->cache->get("api/members-$clanid.cache")) {
+                // cache miss
+                $this->load->model('clan_model');
+                $members = $this->clan_model->get_members($clanid);
+                $clan = $this->clan_model->get_stats($clanid);
+                
+                $data = array('members' => $members, 'clan' => $clan, 'user' => $user);
+                
+                // save cache
+                $this->cache->save("api/members-$clanid.cache", $data, 120);
+            }
+            
+            $this->load->view('clan', $data);
         } else {
             redirect();
         }
