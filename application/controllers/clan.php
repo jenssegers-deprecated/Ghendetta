@@ -12,7 +12,7 @@ if (!defined('BASEPATH'))
 class Clan extends CI_Controller {
     
     function index() {
-        $this->load->driver('cache', array('adapter' => 'file'));
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
         
         if ($user = $this->ghendetta->current_user()) {
             $clanid = $user['clanid'];
