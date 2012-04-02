@@ -88,7 +88,7 @@ class FSQ extends CI_Controller {
     /**
      * Cronjob controller
      */
-    function cronjob($code) {
+    function cronjob($code, $limit = NULL) {
         $this->config->load('foursquare', TRUE);
         $check = $this->config->item('cronjob_code', 'foursquare');
         
@@ -97,7 +97,7 @@ class FSQ extends CI_Controller {
         }
         
         $this->load->model('user_model');
-        $users = $this->user_model->get_all_rand();
+        $users = $this->user_model->get_all_rand($limit);
         
         foreach ($users as $user) {
             echo "Updating user " . $user['fsqid'] . "\n";

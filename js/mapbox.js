@@ -64,12 +64,13 @@ var Mapbox = function() {
 	
 	var init = function(element) {
 		
+		// create map
+		map = new L.Map(element, {
+			minZoom: 10,
+			zoom: 12
+		});
+		
 		wax.tilejson(url, function(tilejson) {
-			// create map
-			map = new L.Map(element, {
-				minZoom: 10,
-				zoom: 12
-			});
 			map.addLayer(new wax.leaf.connector(tilejson));
 			
 			// get regions
