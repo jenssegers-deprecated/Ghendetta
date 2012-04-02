@@ -21,5 +21,7 @@ if (isset($offset) && $offset) {
     <p class="pr-cont"><span class="pr" style="width:<?php echo $progress; ?>%"></span></p>
 </section>
 
+<?php include_once('footer.tpl'); ?>
+
 </body>
 </html>

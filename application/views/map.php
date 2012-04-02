@@ -11,9 +11,9 @@
 	var static_url = '<?php echo static_url(); ?>';
 </script>
 
-<script src="<?php echo static_url('js/jquery.js'); ?>"></script>
-<script src="<?php echo static_url('js/application.min.js?v=010402'); ?>"></script>
-<script src="<?php echo static_url('js/mapbox.min.js?v=310301'); ?>"></script>
+<?php include_once('footer.tpl'); ?>
+
+<script src="<?php echo static_url('js/mapbox.min.js?v=010401'); ?>"></script>
 
 </body>
 </html>

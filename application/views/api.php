@@ -58,5 +58,7 @@
 	
 </section>
 
+<?php include_once('footer.tpl'); ?>
+
 </body>
 </html>

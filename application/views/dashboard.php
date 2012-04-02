@@ -35,14 +35,8 @@
 
 <section id="map" class="v-dashboard-map"></section>
 
-<script>
-	var base_url = '<?php echo base_url(); ?>';
-	var site_url = '<?php echo site_url(); ?>';
-	var static_url = '<?php echo static_url(); ?>';
-</script>
+<?php include_once('footer.tpl'); ?>
 
-<script src="<?php echo static_url('js/jquery.js'); ?>"></script>
-<script src="<?php echo static_url('js/application.min.js?v=010402'); ?>"></script>
 <script src="<?php echo static_url('js/mapbox.min.js?v=010401'); ?>"></script>
 
 </body>

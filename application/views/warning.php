@@ -8,5 +8,8 @@
     <a href="<?php echo $cancel_url ?>" class="btn">Cancel</a>
     <a href="<?php echo $action_url ?>" class="btn">Confirm</a>
 </section>
+
+<?php include_once('footer.tpl'); ?>
+
 </body>
 </html>
