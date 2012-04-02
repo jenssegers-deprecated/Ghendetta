@@ -266,17 +266,13 @@ a:focus {
 
 	.siteNav ul {
 		list-style: none;
-	}
-
-	.siteNav ul,
-	.siteNav li,
-	.siteNav p {
-		float: left;
+		width: 100%;
 	}
 
 		.siteNav li a {
 			padding-left: 30px;
 			background: transparent url(../img/ico_dashboard.svg) no-repeat 10px 50%;
+			float: left;
 		}
 
 		.siteNav .map {
@@ -289,6 +285,22 @@ a:focus {
 
 		.siteNav .about {
 			background-image: url(../img/ico_question.svg);
+		}
+
+		.siteNav .logout {
+			background-image: url(../img/ico_logout.svg);
+			background-position: 50% 0;
+			text-indent: -999px;
+			overflow: hidden;
+			padding: 0;
+			width: 40px;
+			height: 40px;
+			float: right;
+		}
+
+		.siteNav .logout:hover,
+		.siteNav .logout:focus {
+			background-position: 50% -40px;
 		}
 
 /*
@@ -663,7 +675,8 @@ a:focus {
 
 	/* Hide Shit */
 
-	.v-dashboard-map {
+	.v-dashboard-map,
+	.siteNav .logout {
 		display: none;
 	}
 
@@ -696,6 +709,10 @@ a:focus {
 		width: 50%;
 		font-size: .875em;
 	}
+
+		.leaderboard img {
+			margin-right: 4px;
+		}
 
 	/* View: clan */
 

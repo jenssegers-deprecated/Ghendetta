@@ -18,5 +18,10 @@ $section = strtolower($ci->router->fetch_class()); ?>
 		<li<?php echo $section == 'about' ? ' class="selected"' : ''; ?>>
 			<a href="<?php echo site_url('about'); ?>" class="about">About</a>
 		</li>
+		<?php if($this->ghendetta->current_user()): ?>
+		<li>
+			<a href="<?php echo site_url('logout'); ?>" class="logout">Log Out</a>
+		</li>
+		<?php endif; ?>
 	</ul>
 </section>
