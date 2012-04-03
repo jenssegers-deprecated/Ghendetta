@@ -94,25 +94,28 @@ class FSQ extends CI_Controller {
      * Cronjob controller
      */
     function cronjob($code, $limit = FALSE) {
-        $this->output->enable_profiler(TRUE);
+        // temporary check to prevent execution when not live yet
+        if (ENVIRONMENT == 'production') {
+            //$this->output->enable_profiler(TRUE);
+
+            $this->config->load('foursquare', TRUE);
+            $check = $this->config->item('cronjob_code', 'foursquare');
+            
+            // check for code when not executed from CLI
+            if (!$this->input->is_cli_request() && $code != $check) {
+                show_error('You have not permission to access this page');
+            }
+            
+            $this->load->model('user_model');
+            $users = $this->user_model->get_all_rand($limit);
+            
+            foreach ($users as $user) {
+                //echo "Updating user " . $user['fsqid'] . "\n";
+                $this->refresh($user['fsqid'], $user['token'], $user['registered']);
+            }
         
-        $this->config->load('foursquare', TRUE);
-        $check = $this->config->item('cronjob_code', 'foursquare');
-        
-        // check for code when not executed from CLI
-        if (!$this->input->is_cli_request() && $code != $check) {
-            show_error('You have not permission to access this page');
+            //$this->output->set_profiler_sections(array('queries' => TRUE));
         }
-        
-        $this->load->model('user_model');
-        $users = $this->user_model->get_all_rand($limit);
-        
-        foreach ($users as $user) {
-            //echo "Updating user " . $user['fsqid'] . "\n";
-            $this->refresh($user['fsqid'], $user['token'], $user['registered']);
-        }
-        
-        $this->output->set_profiler_sections(array('queries' => TRUE));
     }
     
     /**
@@ -163,7 +166,7 @@ class FSQ extends CI_Controller {
             $this->load->model('region_model');
             $this->load->helper('polygon');
             
-            if(is_null($this->regions)) {
+            if (is_null($this->regions)) {
                 $this->regions = $this->region_model->get_all();
             }
             
