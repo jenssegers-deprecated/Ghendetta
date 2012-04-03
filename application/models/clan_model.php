@@ -86,7 +86,7 @@ class clan_model extends CI_Model {
         	SELECT t.*, @rownum:=@rownum+1 as rank
         	FROM (
         		SELECT fsqid, firstname, lastname, picurl, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles,
-        			CASE clans.capo WHEN fsqid THEN 1 ELSE 0 END as capo
+        			CASE clans.capo WHEN fsqid THEN 1 ELSE 0 END as is_capo
                 FROM users
                 LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
                 LEFT JOIN clans ON clans.clanid = users.clanid
