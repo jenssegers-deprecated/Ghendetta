@@ -99,7 +99,8 @@ class FSQ extends CI_Controller {
         $this->config->load('foursquare', TRUE);
         $check = $this->config->item('cronjob_code', 'foursquare');
         
-        if ($code != $check) {
+        // check for code when not executed from CLI
+        if (!$this->input->is_cli_request() && $code != $check) {
             show_error('You have not permission to access this page');
         }
         
