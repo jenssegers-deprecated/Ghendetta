@@ -62,7 +62,7 @@ class region_model extends CI_Model {
      * @param int $regionid
      * @param bool $redundant
      */
-    function get_leader($regionid, $redundant = FALSE) {
+    function get_leader($regionid) {
         $query = '
             SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
             FROM regions
