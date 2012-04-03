@@ -22,12 +22,14 @@ var Mapbox = function() {
 				points.push(new L.LatLng(coords[j].lon, coords[j].lat));
 			}
 			
+			console.log(region);
+			
 			// create polygon
 			polygons[i] = new L.Polygon(points, {
 				color: '#333333',
 				opacity: 0.8,
 				weight: 2,
-				fillColor: '#' + (region.leader && region.leader.color ? region.leader.color : '666666'),
+				fillColor: '#' + ((region.leader && region.leader.color) ? region.leader.color : '666666'),
 				fillOpacity: 0.35
 			});
 			

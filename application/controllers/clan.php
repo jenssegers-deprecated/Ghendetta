@@ -27,7 +27,7 @@ class Clan extends CI_Controller {
                 $data = array('members' => $members, 'clan' => $clan, 'user' => $user);
                 
                 // save cache
-                $this->cache->save("api/members-$clanid.cache", $data, 120);
+                $this->cache->save("api/members-$clanid.cache", $data, 60);
             }
             
             $this->load->view('clan', $data);

@@ -21,7 +21,7 @@ class Regions extends API_Controller {
             $regions = $this->region_model->get_all_stats();
             
             // save cache
-            $this->cache->save("api/regions.cache", $regions, 300);
+            $this->cache->save("api/regions.cache", $regions, 60);
         }
         
         $this->output($regions);
@@ -35,7 +35,7 @@ class Regions extends API_Controller {
             $region = $this->region_model->get_stats($id);
             
             // save cache
-            $this->cache->save("api/region-$id.cache", $region, 300);
+            $this->cache->save("api/region-$id.cache", $region, 60);
         }
         
         if ($region) {

@@ -24,7 +24,7 @@ class User extends API_Controller {
                 $user = $this->user_model->get_stats($fsqid);
                 
                 // save cache
-                $this->cache->save("api/user-$fsqid.cache", $user, 300);
+                $this->cache->save("api/user-$fsqid.cache", $user, 60);
             }
             
             $this->output($user);
