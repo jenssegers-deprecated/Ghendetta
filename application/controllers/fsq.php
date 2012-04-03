@@ -93,7 +93,7 @@ class FSQ extends CI_Controller {
     /**
      * Cronjob controller
      */
-    function cronjob($code, $limit = FALSE) {
+    function cronjob($code = FALSE, $limit = FALSE) {
         // temporary check to prevent execution when not live yet
         if (ENVIRONMENT == 'production') {
             //$this->output->enable_profiler(TRUE);
