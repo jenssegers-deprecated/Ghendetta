@@ -44,7 +44,7 @@
         		<tr>
         			<td>regions.json</td>
         			<td>Get information about all regions</td>
-        			<td>regionid, name, <u>leader</u>, coords</td>
+        			<td>regionid, name, <em><u>leader</u></em>, coords</td>
         		</tr>
         		<tr>
         			<td>regions/[id].json</td>
@@ -54,7 +54,7 @@
         		<tr>
         			<td>stats.json</td>
         			<td>Get general information about ghendetta</td>
-        			<td>users, battles, regions, clans</em></td>
+        			<td>users, battles, regions, clans</td>
         		</tr>
     		</tbody>
     	</table>
