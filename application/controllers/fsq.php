@@ -113,8 +113,10 @@ class FSQ extends CI_Controller {
                 //echo "Updating user " . $user['fsqid'] . "\n";
                 $this->refresh($user['fsqid'], $user['token'], $user['registered']);
             }
-        
+
             //$this->output->set_profiler_sections(array('queries' => TRUE));
+        } else {
+            echo 'Not in production yet!';
         }
     }
     
