@@ -30,6 +30,8 @@ class FSQ extends CI_Controller {
      */
     function callback() {
         if ($code = $this->input->get('code')) {
+            //$this->output->enable_profiler(TRUE);
+            
             // request token
             $token = $this->foursquare->request_token($code);
             
@@ -58,6 +60,8 @@ class FSQ extends CI_Controller {
             
             // back to the homepage
             redirect();
+            
+            //$this->output->set_profiler_sections(array('queries' => TRUE));
         } else {
             show_error('Something went wrong');
         }
@@ -116,7 +120,7 @@ class FSQ extends CI_Controller {
 
             //$this->output->set_profiler_sections(array('queries' => TRUE));
         } else {
-            echo 'Not in production yet!';
+            show_error('Not in production yet!');
         }
     }
     

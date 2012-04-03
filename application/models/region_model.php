@@ -60,8 +60,9 @@ class region_model extends CI_Model {
     /**
      * Calculate the leading clan of a specific region
      * @param int $regionid
+     * @param bool $redundant
      */
-    function get_leader($regionid) {
+    function get_leader($regionid, $redundant = FALSE) {
         $query = '
             SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
             FROM regions

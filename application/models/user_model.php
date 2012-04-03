@@ -51,10 +51,25 @@ class user_model extends CI_Model {
     }
     
     /**
+     * Get a specific user, with total points
+     * @param int $userid
+     */
+    function get_stats($fsqid) {
+        $query = '
+        	SELECT fsqid, firstname, lastname, picurl, clanid, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
+        	FROM checkins
+        	JOIN users ON users.fsqid = checkins.userid
+        	WHERE date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
+        	AND userid = ?';
+        
+        return $this->db->query($query, array($fsqid))->row_array();
+    }
+    
+    /**
      * Get a specific user, with total points and ranking in clan
      * @param int $fsqid
      */
-    function get_stats($fsqid) {
+    function get_ranked($fsqid) {
         $user = $this->get($fsqid);
         
         if (!$user) {
@@ -77,21 +92,6 @@ class user_model extends CI_Model {
             WHERE fsqid = ?';
         
         return $this->db->query($query, array($user['clanid'], $fsqid, $fsqid))->row_array();
-    }
-    
-    /**
-     * Calculate the points of a user
-     * @param int $userid
-     */
-    function get_points($userid) {
-        $query = '
-        	SELECT *, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
-        	FROM checkins
-        	WHERE date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
-        	AND userid = ?';
-        
-        $row = $this->db->query($query, array($userid))->row_array();
-        return $row['points'];
     }
 
 }

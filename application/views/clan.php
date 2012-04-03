@@ -7,10 +7,10 @@
 		<h1>My Clan: <?php echo $clan['name']; ?> (<strong><?php echo  $clan['points']; ?></strong> <abbr title="Foursquare Checkins">battles</abbr>)</h1>
 		<p>Congratulations! Your collaborative battle spree made you unlock the clan page. Your Capo is pleased. <a href="https://twitter.com/intent/tweet?source=webclient&amp;text=Mayhem%21+%23<?php echo $clan['name']; ?>+have+just+unlocked+the+clan+page+on+http%3A%2F%2Fghendetta.be" class="button">Tweet about this.</a></p>
 	</div>
-	<?php foreach($members as $member): ?>
+	<?php $rank = 1; foreach($members as $member): $rank++; ?>
 	<article>
 		<div class="cf">
-			<h1<?php if($member['rank'] == 1) {echo " class=\"capo\"";} ?>><a href="https://foursquare.com/user/<?php echo $member['fsqid']; ?>"><?php echo $member['firstname']; ?></a></h1>
+			<h1<?php if($rank == 1) {echo " class=\"capo\"";} ?>><a href="https://foursquare.com/user/<?php echo $member['fsqid']; ?>"><?php echo $member['firstname']; ?></a></h1>
 			<a href="https://foursquare.com/user/<?php echo $member['fsqid']; ?>">
 				<img src="<?php echo $member['picurl']; ?>" alt="<?php echo $member['firstname']; ?>" width="72" height="72" />
 			</a>
@@ -20,13 +20,13 @@
 				<dt>Rank:</dt>
 				<dd class="rank">
 					<?php
-						switch ($member['rank']) {
-						   case 1 :
-						      echo '<strong>Capo</strong>';
-						      break;
-							break;
-							default:
-							echo 'Associate';
+						switch ($rank) {
+						    case 1 :
+    						    echo '<strong>Capo</strong>';
+    						    break;
+						    break;
+    							default:
+    							echo 'Associate';
 						}
 					?>
 				</dd>
