@@ -44,12 +44,17 @@
         		<tr>
         			<td>regions.json</td>
         			<td>Get information about all regions</td>
-        			<td>regionid, name, <em>leader</em>, coords</td>
+        			<td>regionid, name, <u>leader</u>, coords</td>
         		</tr>
         		<tr>
         			<td>regions/[id].json</td>
         			<td>Get information about all clans in a single region</td>
-        			<td><em>clans</em></td>
+        			<td><em>list of <u>clans</u></em></td>
+        		</tr>
+        		<tr>
+        			<td>stats.json</td>
+        			<td>Get general information about ghendetta</td>
+        			<td>users, battles, regions, clans</em></td>
         		</tr>
     		</tbody>
     	</table>
