@@ -21,7 +21,7 @@ class Clans extends API_Controller {
             $clans = $this->clan_model->get_all_stats();
             
             // save cache
-            $this->cache->save("api/clans.cache", $clans, 60);
+            $this->cache->save("api/clans.cache", $clans, 300);
         }
         
         $this->output($clans);
@@ -34,7 +34,7 @@ class Clans extends API_Controller {
             $clan = $this->clan_model->get_stats($id);
             
             // save cache
-            $this->cache->save("api/clan-$id.cache", $clan, 60);
+            $this->cache->save("api/clan-$id.cache", $clan, 300);
         }
         
         if ($clan) {

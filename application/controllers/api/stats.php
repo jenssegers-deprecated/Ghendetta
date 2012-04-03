@@ -29,7 +29,7 @@ class Stats extends API_Controller {
             $data['clans'] = $this->clan_model->count();
             
             // save cache
-            $this->cache->save("api/stats.cache", $data, 60);
+            $this->cache->save("api/stats.cache", $data, 300);
         }
         
         $this->output($data);

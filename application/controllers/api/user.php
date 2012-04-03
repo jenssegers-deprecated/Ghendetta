@@ -24,7 +24,7 @@ class User extends API_Controller {
                 $user = $this->user_model->get_stats($fsqid);
                 
                 // save cache
-                $this->cache->save("api/user-$fsqid.cache", $user, 60);
+                $this->cache->save("api/user-$fsqid.cache", $user, 300);
             }
             
             $this->output($user);
@@ -43,7 +43,7 @@ class User extends API_Controller {
                 $checkins = $this->checkin_model->get_unique_since($fsqid, (time() - 608400));
                 
                 // save cache
-                $this->cache->save("api/battles-$fsqid.cache", $checkins, 60);
+                $this->cache->save("api/battles-$fsqid.cache", $checkins, 300);
             }
             
             $this->output($checkins);

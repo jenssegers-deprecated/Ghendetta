@@ -32,6 +32,7 @@ class FSQ extends CI_Controller {
         if ($code = $this->input->get('code')) {
             //$this->output->enable_profiler(TRUE);
             
+
             // request token
             $token = $this->foursquare->request_token($code);
             
@@ -60,8 +61,8 @@ class FSQ extends CI_Controller {
             
             // back to the homepage
             redirect();
-            
-            //$this->output->set_profiler_sections(array('queries' => TRUE));
+        
+     //$this->output->set_profiler_sections(array('queries' => TRUE));
         } else {
             show_error('Something went wrong');
         }
@@ -100,8 +101,11 @@ class FSQ extends CI_Controller {
     function cronjob($code = FALSE, $limit = FALSE) {
         // temporary check to prevent execution when not live yet
         if (ENVIRONMENT == 'production') {
-            //$this->output->enable_profiler(TRUE);
-
+            // turn on profiler when not a CLI request
+            if (!$this->input->is_cli_request()) {
+                $this->output->enable_profiler(TRUE);
+            }
+            
             $this->config->load('foursquare', TRUE);
             $check = $this->config->item('cronjob_code', 'foursquare');
             
@@ -117,8 +121,11 @@ class FSQ extends CI_Controller {
                 //echo "Updating user " . $user['fsqid'] . "\n";
                 $this->refresh($user['fsqid'], $user['token'], $user['registered']);
             }
-
-            //$this->output->set_profiler_sections(array('queries' => TRUE));
+            
+            // turn on profiler when not a CLI request
+            if (!$this->input->is_cli_request()) {
+                $this->output->set_profiler_sections(array('queries' => TRUE));
+            }
         } else {
             show_error('Not in production yet!');
         }
