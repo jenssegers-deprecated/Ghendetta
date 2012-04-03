@@ -162,7 +162,7 @@ class FSQ extends CI_Controller {
     
     /**
      * Process a single checkin from the Foursquare Push API
-     * @param Object $checkin
+     * @param object $checkin
      */
     private function process_checkin($checkin) {
         $this->load->model('checkin_model');
@@ -232,7 +232,7 @@ class FSQ extends CI_Controller {
     /**
      * Process a user from the Foursquare API, if a token is supplied this 
      * will overwrite the old token in the datbaase.
-     * @param Object $user
+     * @param object $user
      * @param string $token
      */
     private function process_user($user, $token = FALSE) {
@@ -264,6 +264,12 @@ class FSQ extends CI_Controller {
         }
     }
     
+    /**
+     * Sorts checkins based on their created timestamp
+     * @param checkin $a
+     * @param checkin $b
+     * @return number
+     */
     private function cmp_checkins($a, $b) {
         if ($a->createdAt == $b->createdAt) {
             return 0;

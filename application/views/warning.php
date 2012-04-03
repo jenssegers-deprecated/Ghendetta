@@ -2,7 +2,7 @@
 <body>
 <?php include_once('navigation.tpl'); ?>
 
-<section>
+<section class="container v-warning" role="main">
     <h1>Attention</h1>
     <p>Do you really want to <?php echo $action ?>?</p>
     <a href="<?php echo $cancel_url ?>" class="btn">Cancel</a>
