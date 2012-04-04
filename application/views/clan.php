@@ -31,13 +31,13 @@ $quarter = floor($capo['points'] / 4);
 						    case ($member['rank'] == 1):
     						    echo '<strong>Capo</strong>';
     						    break;
-						    case ($member['battles'] > $quarter*3):
+						    case ($member['points'] > $quarter*3):
 						        echo 'Bruglione';
 						        break;
-						    case ($member['battles'] > $quarter*2):
+						    case ($member['points'] > $quarter*2):
 						        echo 'Assassin';
 						        break;
-						    case ($member['battles'] > $quarter):
+						    case ($member['points'] > $quarter):
 						        echo 'Mobster';
 						        break;
     						default:
