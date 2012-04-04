@@ -19,11 +19,12 @@
  *
  */
 	
-
 if ((php_sapi_name() == 'cli') or defined('STDIN')) {
-    define('ENVIRONMENT', 'cli');
-} else {
-    switch ($_SERVER['SERVER_NAME']) {
+    $_SERVER['SERVER_NAME'] = php_uname('n');
+}
+
+	switch ($_SERVER['SERVER_NAME']) {
+		case 'irail-web01' :
 	    case 'ghendetta.be' :
             define('ENVIRONMENT', 'production');
             break;
@@ -31,8 +32,6 @@ if ((php_sapi_name() == 'cli') or defined('STDIN')) {
             define('ENVIRONMENT', 'development');
             break;
     }
-}
-	
 	
 /*
  *---------------------------------------------------------------
@@ -53,7 +52,6 @@ if (defined('ENVIRONMENT'))
 	
 		case 'testing':
 		case 'production':
-		case 'cli':
 			error_reporting(0);
 		break;
 
