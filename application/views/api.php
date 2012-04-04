@@ -6,7 +6,11 @@
 
 	<article id="api-info">
 		<h1>Ghendetta API</h1>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vulputate, turpis sed fringilla consectetur, eros libero iaculis lectus, at volutpat eros metus ac eros. Aenean dapibus scelerisque ullamcorper. Etiam volutpat, enim at sagittis lacinia, odio justo rutrum eros, id dictum nulla metus at orci. Praesent bibendum varius metus sit amet ornare. Nam ac turpis nulla, ullamcorper tincidunt felis. Nam venenatis venenatis mauris, ornare accumsan diam blandit vel. Duis quam dolor, facilisis et scelerisque in, suscipit et tortor. Mauris et orci purus, non pellentesque leo. Vivamus sed laoreet neque. Etiam non lectus nisl. Integer vitae eros in felis egestas tempor id et risus. Sed vitae tortor augue, id fermentum arcu.</p>
+		<p>
+			We like open data, so we would like to share some of our own data with other developers. Through our simple API system you can request the same data we are working with to create your own creative extensions to Ghendetta. There is no authentication required (yet), so no need to work with a complicated auth system. Please note that all our API results have a small cache to prevent server stressing.
+			<br /><br />
+			<em>The API system is still under heavy development, changes will happen!</em>
+		</p>
 	</article>
 	
 	<article id="api-endpoints">
@@ -22,37 +26,37 @@
     		</thead>
     		<tbody>
         		<tr>
-        			<td>user.json</td>
+        			<td>api/user.json</td>
         			<td>Get information about the current user</td>
         			<td>fsqid, firstname, lastname, picurl, clanid, points, battles, rank</td>
         		</tr>
         		<tr>
-        			<td>user/battles.json</td>
+        			<td>api/user/battles.json</td>
         			<td>Get recent battles of the current user</td>
         			<td>checkinid, userid, venueid, date, regionid, points, lon, lat</td>
         		</tr>
         		<tr>
-        			<td>clans.json</td>
+        			<td>api/clans.json</td>
         			<td>Get information about all clans</td>
         			<td>clanid, name, logo, color, capo, points, battles, members</td>
         		</tr>
         		<tr>
-        			<td>clans/[id].json</td>
+        			<td>api/clans/[id].json</td>
         			<td>Get information about a single clan</td>
         			<td>checkinid, userid, venueid, date, regionid, points, lon, lat</td>
         		</tr>
         		<tr>
-        			<td>regions.json</td>
+        			<td>api/regions.json</td>
         			<td>Get information about all regions</td>
         			<td>regionid, name, <em><u>leader</u></em>, coords</td>
         		</tr>
         		<tr>
-        			<td>regions/[id].json</td>
+        			<td>api/regions/[id].json</td>
         			<td>Get information about all clans in a single region</td>
         			<td><em>list of <u>clans</u></em></td>
         		</tr>
         		<tr>
-        			<td>stats.json</td>
+        			<td>api/stats.json</td>
         			<td>Get general information about ghendetta</td>
         			<td>users, battles, regions, clans</td>
         		</tr>
