@@ -17,7 +17,9 @@ $quarter = floor($capo['points'] / 4);
 	<?php foreach($members as $member): ?>
 	<article>
 		<div class="cf">
-			<h1<?php if($member['rank'] == 1) echo " class=\"capo\""; ?>><a href="https://foursquare.com/user/<?php echo $member['fsqid']; ?>"><?php echo $member['firstname']; ?></a></h1>
+			<h1<?php if($member['rank'] == 1 || $member['fsqid'] == $user['fsqid']) echo " class=\"capo\""; ?>>
+                <a href="https://foursquare.com/user/<?php echo $member['fsqid']; ?>"><?php echo $member['firstname']; ?></a>
+            </h1>
 			<a href="https://foursquare.com/user/<?php echo $member['fsqid']; ?>">
 				<img src="<?php echo $member['picurl']; ?>" alt="<?php echo $member['firstname']; ?>" width="72" height="72" />
 			</a>
