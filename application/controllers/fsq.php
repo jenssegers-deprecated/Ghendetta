@@ -104,7 +104,13 @@ class FSQ extends CI_Controller {
             // turn on profiler when not a CLI request
             if (!$this->input->is_cli_request()) {
                 $this->output->enable_profiler(TRUE);
+            } else {
+                echo "---------------------------------------------------------\n";
+                echo "Cronjob started at " . date('d/m/Y H:i') . "\n";
             }
+            
+            // count updated users
+            $count = 0;
             
             $this->config->load('foursquare', TRUE);
             $check = $this->config->item('cronjob_code', 'foursquare');
@@ -119,12 +125,17 @@ class FSQ extends CI_Controller {
             
             foreach ($users as $user) {
                 //echo "Updating user " . $user['fsqid'] . "\n";
-                $this->refresh($user['fsqid'], $user['token'], $user['registered']);
+                if ($this->refresh($user['fsqid'], $user['token'], $user['registered'])) {
+                    $count++;
+                }
             }
             
             // turn on profiler when not a CLI request
             if (!$this->input->is_cli_request()) {
                 $this->output->set_profiler_sections(array('queries' => TRUE));
+            } else {
+                echo "Cronjob updated $count users at " . date('d/m/Y H:i') . "\n";
+                echo "---------------------------------------------------------\n";
             }
         } else {
             show_error('Not in production yet!');
