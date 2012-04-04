@@ -78,11 +78,13 @@ class Foursquare {
      */
     function api($uri, $data = array()) {
         if (!$token = $this->token()) {
-            $this->error = 'No token available for API request';
-            return FALSE;
+            // asume userless access (https://developer.foursquare.com/overview/auth#userless)
+            $data['client_id'] = $this->settings['client_id'];
+            $data['client_secret'] = $this->settings['client_secret'];
+        } else {
+            $data['oauth_token'] = $token;
         }
         
-        $data['oauth_token'] = $token;
         $json = $this->_request('https://api.foursquare.com/v2/' . $uri . '?' . http_build_query($data));
         
         if (!$json) {

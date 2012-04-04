@@ -223,6 +223,11 @@ class FSQ extends CI_Controller {
                     $data['lat'] = $checkin->venue->location->lat;
                     $data['regionid'] = $found_region['regionid'];
                     
+                    if($checkin->venue->categories) {
+                        $category = reset($checkin->venue->categories);
+                        $data['categoryid'] = $category->id;
+                    }
+                    
                     $this->checkin_model->insert($data);
                     return TRUE;
                 }

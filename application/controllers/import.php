@@ -11,6 +11,34 @@ if (!defined('BASEPATH'))
 
 class Import extends CI_Controller {
     
+    function categories() {
+        $json = $this->foursquare->api('venues/categories');
+        
+        $this->load->model('category_model');
+        $this->category_model->truncate();
+        
+        foreach($json->response->categories as $category) {
+            $this->process_category($category);
+        }
+    }
+    
+    private function process_category($category, $parent = '') {
+        $data = array();
+        $data['categoryid'] = $category->id;
+        $data['name'] = $category->name;
+        $data['icon'] = $category->icon;
+        $data['parent'] = $parent;
+        
+        $this->category_model->insert($data);
+        
+        // recursive child categories
+        if(isset($category->categories) && count($category->categories)) {
+            foreach($category->categories as $subcategory) {
+                $this->process_category($subcategory, $category->id);
+            }
+        }
+    }
+    
     function coordinates() {
         $url = 'http://data.appsforghent.be/poi/kotzones.json';
         $json = $this->_datatank($url);

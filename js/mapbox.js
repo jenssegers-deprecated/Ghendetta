@@ -22,8 +22,6 @@ var Mapbox = function() {
 				points.push(new L.LatLng(coords[j].lon, coords[j].lat));
 			}
 			
-			console.log(region);
-			
 			// create polygon
 			polygons[i] = new L.Polygon(points, {
 				color: '#333333',

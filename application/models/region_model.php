@@ -46,7 +46,7 @@ class region_model extends CI_Model {
         $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
         
         if (!$region = $this->cache->get("model/region-$regionid.cache")) {
-            $region = $this->db->where('regionid', $regionid)->get('regions')->result_array();
+            $region = $this->db->where('regionid', $regionid)->get('regions')->row_array();
             $region['coords'] = $this->get_coords($regionid);
             
             $this->cache->save("model/region-$regionid.cache", $region, 7200);
