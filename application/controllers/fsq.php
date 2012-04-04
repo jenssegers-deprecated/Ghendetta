@@ -79,7 +79,7 @@ class FSQ extends CI_Controller {
             $this->config->load('foursquare');
             if ($secret != $this->config->item('push_secret', 'foursquare')) {
                 set_status_header(401);
-                log_message('error', 'Foursquare push used wrong secret');
+                log_message('error', "Foursquare push used wrong secret ($secret)");
             }
             
             // save the checkin to our database
