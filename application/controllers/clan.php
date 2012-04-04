@@ -18,7 +18,7 @@ class Clan extends CI_Controller {
             $clanid = $user['clanid'];
             
             // try from cache
-            if (!$data = $this->cache->get("api/members-$clanid.cache")) {
+            if (!$data = $this->cache->get("members-$clanid.cache")) {
                 // cache miss
                 $this->load->model('clan_model');
                 $members = $this->clan_model->get_members($clanid);
@@ -27,7 +27,7 @@ class Clan extends CI_Controller {
                 $data = array('members' => $members, 'clan' => $clan, 'user' => $user);
                 
                 // save cache
-                $this->cache->save("api/members-$clanid.cache", $data, 60);
+                $this->cache->save("members-$clanid.cache", $data, 60);
             }
             
             $this->load->view('clan', $data);

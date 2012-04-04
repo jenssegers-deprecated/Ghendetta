@@ -12,16 +12,28 @@ if (!defined('BASEPATH'))
 class region_model extends CI_Model {
     
     function insert_region($region) {
+        // remove cached regions
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
+        $this->cache->delete("model/regions.cache");
+        
         $this->db->insert('regions', $region);
         return $this->db->insert_id();
     }
     
     function insert_coords($coords) {
+        // remove cached regions
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
+        $this->cache->delete("model/regions.cache");
+        
         $this->db->insert('regioncoords', $coords);
         return $this->db->insert_id();
     }
     
     function update($regionid, $region) {
+        // remove cached regions
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
+        $this->cache->delete("model/regions.cache");
+        
         return $this->db->where('regionid', $regionid)->update('regions', $region);
     }
     
@@ -30,8 +42,15 @@ class region_model extends CI_Model {
      * @param int $regionid
      */
     function get($regionid) {
-        $region = $this->db->where('regionid', $regionid)->get('regions')->result_array();
-        $region['coords'] = $this->get_coords($regionid);
+        // add cache to this method, regions will not change that often
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
+        
+        if (!$region = $this->cache->get("model/region-$regionid.cache")) {
+            $region = $this->db->where('regionid', $regionid)->get('regions')->result_array();
+            $region['coords'] = $this->get_coords($regionid);
+            
+            $this->cache->save("model/region-$regionid.cache", $region, 7200);
+        }
         
         return $region;
     }
@@ -48,10 +67,17 @@ class region_model extends CI_Model {
      * Get all regions without manipulation
      */
     function get_all() {
-        $regions = $this->db->get('regions')->result_array();
+        // add cache to this method, regions will not change that often
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
         
-        foreach ($regions as &$region) {
-            $region['coords'] = $this->get_coords($region['regionid']);
+        if (!$regions = $this->cache->get("model/regions.cache")) {
+            $regions = $this->db->get('regions')->result_array();
+            
+            foreach ($regions as &$region) {
+                $region['coords'] = $this->get_coords($region['regionid']);
+            }
+            
+            $this->cache->save("model/regions.cache", $regions, 7200);
         }
         
         return $regions;
