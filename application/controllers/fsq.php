@@ -98,47 +98,54 @@ class FSQ extends CI_Controller {
     /**
      * Cronjob controller
      */
-    function cronjob($code = FALSE, $limit = FALSE) {
-        // temporary check to prevent execution when not live yet
-        if (ENVIRONMENT == 'production') {
-            // turn on profiler when not a CLI request
-            if (!$this->input->is_cli_request()) {
-                $this->output->enable_profiler(TRUE);
-            } else {
-                echo "---------------------------------------------------------\n";
-                echo "Cronjob started at " . date('d/m/Y H:i') . "\n";
-            }
-            
-            // count updated users
-            $count = 0;
-            
-            $this->config->load('foursquare', TRUE);
-            $check = $this->config->item('cronjob_code', 'foursquare');
-            
-            // check for code when not executed from CLI
-            if (!$this->input->is_cli_request() && $code != $check) {
-                show_error('You have not permission to access this page');
-            }
-            
-            $this->load->model('user_model');
-            $users = $this->user_model->get_all_rand($limit);
-            
-            foreach ($users as $user) {
-                //echo "Updating user " . $user['fsqid'] . "\n";
-                if ($this->refresh($user['fsqid'], $user['token'], $user['registered'])) {
-                    $count++;
-                }
-            }
-            
-            // turn on profiler when not a CLI request
-            if (!$this->input->is_cli_request()) {
-                $this->output->set_profiler_sections(array('queries' => TRUE));
-            } else {
-                echo "Cronjob updated $count users at " . date('d/m/Y H:i') . "\n";
-                echo "---------------------------------------------------------\n";
-            }
+    function cronjob($code = FALSE) {
+        $limit = $this->input->get('limit') ? $this->input->get('limit') : FALSE;
+        $user = $this->input->get('user') ? $this->input->get('user') : FALSE;
+        
+        // turn on profiler when not a CLI request
+        if (!$this->input->is_cli_request()) {
+            $this->output->enable_profiler(TRUE);
         } else {
-            show_error('Not in production yet!');
+            echo "---------------------------------------------------------\n";
+            echo "Cronjob started at " . date('d/m/Y H:i') . "\n";
+        }
+        
+        // count updated users
+        $count = 0;
+        
+        $this->config->load('foursquare', TRUE);
+        $check = $this->config->item('cronjob_code', 'foursquare');
+        
+        // check for code when not executed from CLI
+        if (!$this->input->is_cli_request() && $code != $check) {
+            show_error('You have not permission to access this page');
+        }
+        
+        $this->load->model('user_model');
+        if (!$user) {
+            $users = $this->user_model->get_all_rand($limit);
+        } else {
+            $user = $this->user_model->get($user);
+            
+            if ($user) {
+                $users = array($user);
+            } else {
+                $users = array();
+            }
+        }
+        
+        foreach ($users as $user) {
+            if ($this->refresh($user['fsqid'], $user['token'])) {
+                $count++;
+            }
+        }
+        
+        // turn on profiler when not a CLI request
+        if (!$this->input->is_cli_request()) {
+            $this->output->set_profiler_sections(array('queries' => TRUE));
+        } else {
+            echo "Cronjob updated $count users at " . date('d/m/Y H:i') . "\n";
+            echo "---------------------------------------------------------\n";
         }
     }
     
@@ -148,14 +155,12 @@ class FSQ extends CI_Controller {
      * @param string token
      * @param int $since
      */
-    private function refresh($fsqid, $token, $since = FALSE) {
+    private function refresh($fsqid, $token) {
         // set this user's token
         $this->foursquare->set_token($token);
         
         // the default time ago to get checkins
-        if (!$since || $since < (time() - 604800)) {
-            $since = time() - 604800;
-        }
+        $since = time() - 604800;
         
         // get the last checkin of this user
         $this->load->model('checkin_model');
