@@ -2,6 +2,13 @@
 <body>
 <?php include_once('navigation.tpl'); ?>
 
+<?php 
+// get the capo
+$capo = reset($members);
+$quarter = floor($capo['points'] / 4);
+?>
+
+
 <section class="v-clan cf" role="main">
 	<div class="bd">
 		<h1>My Clan: <?php echo $clan['name']; ?> (<strong><?php echo  $clan['points']; ?></strong> <abbr title="Foursquare Checkins">battles</abbr>)</h1>
@@ -10,7 +17,7 @@
 	<?php foreach($members as $member): ?>
 	<article>
 		<div class="cf">
-			<h1<?php if($member['rank'] == 1) {echo " class=\"capo\"";} ?>><a href="https://foursquare.com/user/<?php echo $member['fsqid']; ?>"><?php echo $member['firstname']; ?></a></h1>
+			<h1<?php if($member['rank'] == 1) echo " class=\"capo\""; ?>><a href="https://foursquare.com/user/<?php echo $member['fsqid']; ?>"><?php echo $member['firstname']; ?></a></h1>
 			<a href="https://foursquare.com/user/<?php echo $member['fsqid']; ?>">
 				<img src="<?php echo $member['picurl']; ?>" alt="<?php echo $member['firstname']; ?>" width="72" height="72" />
 			</a>
@@ -20,12 +27,20 @@
 				<dt>Rank:</dt>
 				<dd class="rank">
 					<?php
-						switch ($member['rank']) {
-						    case 1 :
+						switch (TRUE) {
+						    case ($member['rank'] == 1):
     						    echo '<strong>Capo</strong>';
     						    break;
-						    break;
-    							default:
+						    case ($member['battles'] > $quarter*3):
+						        echo 'Bruglione';
+						        break;
+						    case ($member['battles'] > $quarter*2):
+						        echo 'Assassin';
+						        break;
+						    case ($member['battles'] > $quarter):
+						        echo 'Mobster';
+						        break;
+    						default:
     							echo 'Associate';
 						}
 					?>
