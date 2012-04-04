@@ -42,16 +42,10 @@ class clan_model extends CI_Model {
      */
     function get_stats($clanid) {
         $query = '
-        	SELECT *, COALESCE(FLOOR(SUM(points)), 0) as points, SUM(battles) as battles, COUNT(1) as members
-        	FROM (
-            	SELECT clans.*, SUM(checkins.points) as points, COUNT(checkins.checkinid) as battles
-            	FROM clans
-            	LEFT JOIN users ON users.clanid = clans.clanid
-            	LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
-            	WHERE clans.clanid = ?
-            	GROUP BY clans.clanid, users.fsqid
-            	) as sub
-            GROUP BY clanid';
+        	SELECT cl.clanid, cl.name, cl.logo, cl.color, cl.capo, u.fsqid, count( distinct u.fsqid ) AS members,
+            ( SELECT count(c.checkinid) FROM users u2 JOIN checkins c ON c.userid = u2.fsqid WHERE u2.clanid = u.clanid AND c.date >= unix_timestamp( subdate(now(),7) )) AS battles,
+            ( SELECT floor(sum(c.points)) FROM users u2 JOIN checkins c ON c.userid = u2.fsqid WHERE u2.clanid = u.clanid AND c.date >= unix_timestamp( subdate(now(),7) )) AS points
+            FROM clans cl JOIN users u ON cl.clanid = u.clanid AND cl.clanid = ?';
         
         return $this->db->query($query, array($clanid))->row_array();
     }
