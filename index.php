@@ -24,8 +24,8 @@ if ((php_sapi_name() == 'cli') or defined('STDIN')) {
 }
 
 	switch ($_SERVER['SERVER_NAME']) {
-		case 'irail-web01' :
-	    case 'ghendetta.be' :
+        case 'irail-web01' :
+        case 'ghendetta.be' :
             define('ENVIRONMENT', 'production');
             break;
         default :
