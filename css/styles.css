@@ -441,17 +441,17 @@ a:focus {
 
 		.leaflet-popup-content-wrapper {
 
-			background: linear-gradient(bottom, #F7F6F2 75%, #333333 75%);
-			background: -o-linear-gradient(bottom, #F7F6F2 75%, #333333 75%);
-			background: -moz-linear-gradient(bottom, #F7F6F2 75%, #333333 75%);
-			background: -webkit-linear-gradient(bottom, #F7F6F2 75%, #333333 75%);
-			background: -ms-linear-gradient(bottom, #F7F6F2 75%, #333333 75%);
+			background: linear-gradient(bottom, #F7F6F2 70%, #333333 70%);
+			background: -o-linear-gradient(bottom, #F7F6F2 70%, #333333 70%);
+			background: -moz-linear-gradient(bottom, #F7F6F2 70%, #333333 70%);
+			background: -webkit-linear-gradient(bottom, #F7F6F2 70%, #333333 70%);
+			background: -ms-linear-gradient(bottom, #F7F6F2 70%, #333333 70%);
 			background: -webkit-gradient(
 				linear,
 				left bottom,
 				left top,
-				color-stop(0.75, #F7F6F2),
-				color-stop(0.75, #333333)
+				color-stop(0.70, #F7F6F2),
+				color-stop(0.70, #333333)
 			);
 			width: 220px;
 			padding: 5px;
