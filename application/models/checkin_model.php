@@ -34,6 +34,16 @@ class checkin_model extends CI_Model {
         // new capo
         if ($capo && $user['points'] > $capo['points'] && $capo['clanid'] == $user['clanid']) {
             $this->clan_model->update($user['clanid'], array('capo' => $user['fsqid']));
+            
+            $this->load->model('notification_model');
+            
+            // insert rank_won notification
+            $notification = array();
+            $notification['type'] = 'rank_won';
+            $notification['to'] = $user['clanid'];
+            $notification['to_type'] = 'clan';
+            $notification['data'] = array('rank' => 1, 'name' => $user['firstname'], 'userid' => $user['fsqid']);
+            $this->notification_model->insert($notification);
         }
         
         // check for different region leader, but only if current user is in different clan!
@@ -41,8 +51,26 @@ class checkin_model extends CI_Model {
             $region_after = $this->region_model->get_leader($checkin['regionid']);
             if ($region_after['clanid'] != $region_before['clanid']) {
                 $this->region_model->update($checkin['regionid'], array('leader' => $region_after['clanid']));
-            
-                // TODO: insert notification
+                
+                $this->load->model('notification_model');
+                
+                // insert region_lost notification
+                if($region_before['clanid']) {
+                    $notification = array();
+                    $notification['type'] = 'region_lost';
+                    $notification['to'] = $region_before['clanid'];
+                    $notification['to_type'] = 'clan';
+                    $notification['data'] = array('region' => $region_after['region'], 'clanid' => $region_after['clanid'], 'clan' => $region_after['name'], 'color' => $region_after['color']);
+                    $this->notification_model->insert($notification);
+                }
+                
+                // insert region_won notification
+                $notification = array();
+                $notification['type'] = 'region_won';
+                $notification['to'] = $region_after['clanid'];
+                $notification['to_type'] = 'clan';
+                $notification['data'] = array('region' => $region_after['region'], 'clanid' => $region_after['clanid'], 'clan' => $region_after['name'], 'color' => $region_after['color']);
+                $this->notification_model->insert($notification);
             }
         }
     }

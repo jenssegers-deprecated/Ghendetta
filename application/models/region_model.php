@@ -90,7 +90,7 @@ class region_model extends CI_Model {
      */
     function get_leader($regionid) {
         $query = '
-            SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
+            SELECT regions.regionid, regions.name as region, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
             FROM regions
             LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
             LEFT JOIN users ON users.fsqid = checkins.userid
@@ -110,7 +110,7 @@ class region_model extends CI_Model {
         $query = '
         	SELECT * 
         	FROM (
-                SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
+                SELECT regions.regionid, regions.name as region, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
                 FROM regions
                 LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
                 LEFT JOIN users ON users.fsqid = checkins.userid
