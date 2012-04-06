@@ -439,79 +439,59 @@ a:focus {
 
 		/* Popup Tooltips */
 
-		.popupContainer {
-			position: relative;
-			padding: 5px;
-			margin: 1em 0 3em;
-			height: 90px;
-			background-image: linear-gradient(bottom, rgb(247,246,242) 75%, rgb(3,51,51) 75%);
-			background-image: -o-linear-gradient(bottom, rgb(247,246,242) 75%, rgb(3,51,51) 75%);
-			background-image: -moz-linear-gradient(bottom, rgb(247,246,242) 75%, rgb(3,51,51) 75%);
-			background-image: -webkit-linear-gradient(bottom, rgb(247,246,242) 75%, rgb(3,51,51) 75%);
-			background-image: -ms-linear-gradient(bottom, rgb(247,246,242) 75%, rgb(3,51,51) 75%);
-			background-image: -webkit-gradient(
+		.leaflet-popup-content-wrapper {
+
+			background: linear-gradient(bottom, #F7F6F2 75%, #333333 75%);
+			background: -o-linear-gradient(bottom, #F7F6F2 75%, #333333 75%);
+			background: -moz-linear-gradient(bottom, #F7F6F2 75%, #333333 75%);
+			background: -webkit-linear-gradient(bottom, #F7F6F2 75%, #333333 75%);
+			background: -ms-linear-gradient(bottom, #F7F6F2 75%, #333333 75%);
+			background: -webkit-gradient(
 				linear,
 				left bottom,
 				left top,
-				color-stop(0.75, rgb(247,246,242)),
-				color-stop(0.75, rgb(3,51,51))
+				color-stop(0.75, #F7F6F2),
+				color-stop(0.75, #333333)
 			);
-			border-radius: 10px;
-			width: 200px;
-			box-shadow: 1px 1px 1px #777;
+			width: 220px;
+			padding: 5px;
 		}
 
-		.popupContainer:after {
-			content: "";
-			position: absolute;
-			bottom: -15px;
-			left: 50px;
-			border-width: 15px 15px 0;
-			border-style: solid;
-			border-color: rgb(247,246,242) transparent;
-		    display: block; 
-		    width: 0;
-		}
-
-			.popupContainer h1 {
+			.leaflet-popup-content-wrapper h1 {
 				color: #F7F6F2;
-				font-size: 14px;
+				font-size: 12px;
+				font-weight: bold;
 				text-align: center;
 				text-transform: uppercase;
 				letter-spacing: 1px;
 			}
 
-			.popupContainer li {
-				width: 20px;
+			.leaflet-popup-content-wrapper ul {
+				margin-left: 80px;
+			}
+
+			.leaflet-popup-content-wrapper li {
+				width: 25px;
 				list-style: none;
 				box-shadow: 1px 1px 1px #888;
 		 		z-index: 100;
-		 		position: absolute;
+		 		float: left;
 			}
 
-			.shieldPopup {
-				position: absolute;
-				margin: 30px 0 0 10px;
-			}
-
-				.hawksPopup { 
+				.leaflet-popup-content-wrapper li .hawks { 
 		 		 	background: #770606;
-		 		 	margin: 3px 0 0 110px;
 				}
 
-				.snakesPopup { 
+				.leaflet-popup-content-wrapper li .snakes { 
 		 		 	background: #CC8F2F;
-		 		 	margin: 3px 0 0 130px;
 				}
 
-				.panthersPopup {
+				.leaflet-popup-content-wrapper li .panthers {
 		 		 	background: #5E48FF;
-		 		 	margin: 3px 0 0 150px;
 				}
 
-				.wolvesPopup { 
+				.leaflet-popup-content-wrapper li .wolves { 
 		 		 	background: #0BA595;
-		 		 	margin: 3px 0 0 170px;
 				}
 
 /*
