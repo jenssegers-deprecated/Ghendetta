@@ -42,7 +42,7 @@ class clan_model extends CI_Model {
      */
     function get_stats($clanid) {
         $query = '
-            SELECT cl.clanid, cl.name, cl.logo, cl.color, cl.capo, u.fsqid, COUNT(distinct u.fsqid) AS members,
+            SELECT cl.*, u.fsqid, COUNT(distinct u.fsqid) AS members,
                 (SELECT COUNT(c.checkinid)
                 FROM users u2
                 JOIN checkins c ON c.userid = u2.fsqid

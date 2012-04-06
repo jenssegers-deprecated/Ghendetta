@@ -28,7 +28,7 @@
 
 	<ul class="leaderboard cf">
 		<?php foreach($clans as $clan): ?>
-		<li><img src="<?php echo $clan['logo']; ?>" alt="" /><?php echo $clan['name']; ?></li>
+		<li><img src="<?php echo $clan['shield']; ?>" alt="" /><?php echo $clan['name']; ?></li>
 		<?php endforeach; ?>
 	</ul>
 </section>
