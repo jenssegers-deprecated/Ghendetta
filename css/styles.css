@@ -453,8 +453,8 @@ a:focus {
 				color-stop(0.70, #F7F6F2),
 				color-stop(0.70, #333333)
 			);
-			width: 220px;
 			padding: 5px;
+			height: 115px;
 		}
 
 			.leaflet-popup-content-wrapper h1 {
@@ -464,10 +464,7 @@ a:focus {
 				text-align: center;
 				text-transform: uppercase;
 				letter-spacing: 1px;
-			}
-
-			.leaflet-popup-content-wrapper ul {
-				margin-left: 80px;
+				padding: 0 15px 17px 5px;
 			}
 
 			.leaflet-popup-content-wrapper li {
@@ -476,21 +473,33 @@ a:focus {
 				box-shadow: 1px 1px 1px #888;
 		 		z-index: 100;
 		 		float: left;
+		 		text-indent: -9999px;
 			}
 
-				.leaflet-popup-content-wrapper li .hawks { 
-		 		 	background: #770606;
+			.leaflet-popup-content-wrapper img {
+				margin-left: 10px;
+			}
+
+			.statistics{
+				height: 100px;
+				padding: 0;
+				margin-left: 90px;
+				margin-top: -79px;
+			}
+
+				.leaflet-popup-content-wrapper .Hawks{ 
+		 		 	background-color: #770606;
 				}
 
-				.leaflet-popup-content-wrapper li .snakes { 
+				.leaflet-popup-content-wrapper .Snakes { 
 		 		 	background: #CC8F2F;
 				}
 
-				.leaflet-popup-content-wrapper li .panthers {
+				.leaflet-popup-content-wrapper .Panthers {
 		 		 	background: #5E48FF;
 				}
 
-				.leaflet-popup-content-wrapper li .wolves { 
+				.leaflet-popup-content-wrapper .Wolves { 
 		 		 	background: #0BA595;
 				}
 
