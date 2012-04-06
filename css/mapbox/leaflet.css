@@ -309,7 +309,7 @@ a.leaflet-active {
 	 -webkit-box-shadow: 0 1px 14px #999;
 	}
 .leaflet-popup-tip {
-	background: white;
+	background: #F7F6F2;
 }
 
 .leaflet-popup-content-wrapper {
