@@ -51,5 +51,24 @@ class User extends API_Controller {
             $this->error('Not authenticated', 401);
         }
     }
+    
+    function notifications() {
+        if ($user = $this->ghendetta->current_user()) {
+            $fsqid = $user['fsqid'];
+            
+            // try from cache
+            if (!$notifications = $this->cache->get("api/notifications-$fsqid.cache")) {
+                $this->load->model('notification_model');
+                $notifications = $this->notification_model->get_personal($fsqid);
+                
+                // save cache
+                $this->cache->save("api/notifications-$fsqid.cache", $notifications, 300);
+            }
+            
+            $this->output($notifications);
+        } else {
+            $this->error('Not authenticated', 401);
+        }
+    }
 
 }

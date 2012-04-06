@@ -11,10 +11,8 @@ if (!defined('BASEPATH'))
 
 class notification_model extends CI_Model {
     
-    function insert($notification, $serialize = TRUE) {
-        if ($serialize) {
-            $notification['data'] = @serialize($notification['data']);
-        }
+    function insert($notification) {
+        $notification['data'] = @serialize($notification['data']);
         
         $notification['date'] = time();
         
@@ -22,48 +20,42 @@ class notification_model extends CI_Model {
         return $this->db->insert_id();
     }
     
-    function update($notificationid, $notification, $serialize = TRUE) {
-        if ($serialize && isset($notification['data'])) {
+    function update($notificationid, $notification) {
+        if (isset($notification['data'])) {
             $notification['data'] = @serialize($notification['data']);
         }
         
         return $this->db->where('notificationid', $notificationid)->update('notifications', $notification);
     }
     
-    function get($notificationid, $unserialize = TRUE) {
+    function get($notificationid) {
         $notification = $this->db->where('notificationid', $notificationid)->get('notifications')->row_array();
-        
-        if ($unserialize) {
-            $notification['data'] = @unserialize($notification['data']);
-        }
+        $notification['data'] = @unserialize($notification['data']);
         
         return $notification;
     }
     
-    function get_personal($userid, $clanid = FALSE, $unserialize = TRUE) {
-        if(!$clanid) {
+    function get_personal($userid, $clanid = FALSE, $limit = FALSE) {
+        if (!$clanid) {
             $this->load->model('user_model');
             $user = $this->user_model->get($userid);
             $clanid = $user['clanid'];
         }
         
         $query = "
-        	SELECT *
+        	SELECT notificationid, date, data
         	FROM notifications
-        	WHERE to =
-        		CASE to_type
-        			WHEN clan THEN ?
-        			WHEN user THEN ?
+        	WHERE `to` =
+        		CASE `to_type`
+        			WHEN 'user' THEN ?
+        			WHEN 'clan' THEN ?
         		END
         	ORDER BY date DESC
         	";
         
         $notifications = $this->db->query($query, array($userid, $clanid))->result_array();
-        
-        if ($unserialize) {
-            foreach ($notifications as &$notification) {
-                $notification['data'] = @unserialize($notification['data']);
-            }
+        foreach ($notifications as &$notification) {
+            $notification['data'] = @unserialize($notification['data']);
         }
         
         return $notifications;
