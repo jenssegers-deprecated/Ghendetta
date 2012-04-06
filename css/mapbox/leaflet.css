@@ -303,13 +303,15 @@ a.leaflet-active {
 	background: white;
 	opacity: 0.5;
 	}
-.leaflet-popup-content-wrapper, .leaflet-popup-tip {
-	background: white;
-
+.leaflet-popup-content-wrapper{
 	box-shadow: 0 1px 10px #888;
 	-moz-box-shadow: 0 1px 10px #888;
 	 -webkit-box-shadow: 0 1px 14px #999;
 	}
+.leaflet-popup-tip {
+	background: white;
+}
+
 .leaflet-popup-content-wrapper {
 	-moz-border-radius: 20px;
 	-webkit-border-radius: 20px;
