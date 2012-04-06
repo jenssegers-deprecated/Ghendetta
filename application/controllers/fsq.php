@@ -106,7 +106,6 @@ class FSQ extends CI_Controller {
         if (!$this->input->is_cli_request()) {
             $this->output->enable_profiler(TRUE);
         } else {
-            echo "---------------------------------------------------------\n";
             echo "Cronjob started at " . date('d/m/Y H:i') . "\n";
         }
         
