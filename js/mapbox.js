@@ -4,7 +4,7 @@ var Mapbox = function() {
 	var url = 'http://api.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp';
 	
 	var addLayers = function(regions) {
-		var region, coords, points, polygon;
+		var region, coords, points, polygon, clan, html;
 		var polygons = new Array();
 		var centerLon = 0, centerLat = 0,totalCoords = 0;
 		
@@ -27,13 +27,22 @@ var Mapbox = function() {
 				color: '#333333',
 				opacity: 0.8,
 				weight: 2,
-				fillColor: '#' + ((region.leader && region.leader.color) ? region.leader.color : '666666'),
+				fillColor: '#' + ((region.clans[0] && region.clans[0].color) ? region.clans[0].color : '666666'),
 				fillOpacity: 0.35
 			});
 			
 			// add to map
 			map.addLayer(polygons[i]);
-			//polygons[i].bindPopup(region.name);
+			
+			html = '<h1>' + region.name + '</h1><img src="' + region.clans[0].logo + '" /><ul>';
+			for (j in region.clans) {
+				clan = region.clans[j];
+				html += '<li style="background-color: #' + clan.color + '">' + clan.name + '</li>';
+			}
+			html += '</ul>';
+			
+			// bind popup
+			polygons[i].bindPopup(html);
 		}
 		
 		// set map center
