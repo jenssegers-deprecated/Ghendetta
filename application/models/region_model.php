@@ -156,7 +156,7 @@ class region_model extends CI_Model {
             LEFT JOIN users ON users.fsqid = checkins.userid
             LEFT JOIN clans ON clans.clanid = users.clanid
             GROUP BY checkins.regionid, users.clanid
-            ORDER BY regions.regionid ASC, points DESC';
+            ORDER BY regions.regionid ASC, users.clanid ASC';
         
         $results = $this->db->query($query)->result_array();
         
@@ -166,7 +166,7 @@ class region_model extends CI_Model {
             $rid = $result['regionid'];
             unset($result['regionid']);
             
-            $clans[$rid][] = $result;
+            $clans[$rid][$result['clanid']] = $result;
         }
         
         // add the clans to the region data

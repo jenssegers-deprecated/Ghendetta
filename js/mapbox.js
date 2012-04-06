@@ -27,17 +27,17 @@ var Mapbox = function() {
 				color: '#333333',
 				opacity: 0.8,
 				weight: 2,
-				fillColor: '#' + ((region.clans[0] && region.clans[0].color) ? region.clans[0].color : '666666'),
+				fillColor: '#' + ((region.clans[region.leader] && region.clans[region.leader].color) ? region.clans[region.leader].color : '666666'),
 				fillOpacity: 0.35
 			});
 			
 			// add to map
 			map.addLayer(polygons[i]);
 			
-			html = '<h1>' + region.name + '</h1><img src="' + region.clans[0].logo + '" /><ul>';
+			html = '<h1>' + region.name + '</h1><img src="' + region.clans[region.leader].icon + '" /><ul class="statistics">';
 			for (j in region.clans) {
 				clan = region.clans[j];
-				html += '<li style="background-color: #' + clan.color + '">' + clan.name + '</li>';
+				html += '<li class="' + clan.name + '" style="height:' + clan.possession + '%">' + clan.name + '</li>';
 			}
 			html += '</ul>';
 			
