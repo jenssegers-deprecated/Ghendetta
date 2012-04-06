@@ -177,7 +177,7 @@ class region_model extends CI_Model {
             if (isset($clans[$rid])) {
                 $region['clans'] = $clans[$rid];
             } else {
-                $region['clans'] = FALSE;
+                $region['clans'] = array();
             }
         }
         

@@ -20,6 +20,26 @@ class Regions extends API_Controller {
             $this->load->model('region_model');
             $regions = $this->region_model->get_all_stats();
             
+            // add possession field
+            foreach ($regions as &$region) {
+                $sum = 0;
+                foreach ($region['clans'] as $clan) {
+                    $sum += $clan['points'];
+                }
+                
+                foreach ($region['clans'] as &$clan) {
+                    if ($clan['points']) {
+                        $clan['possession'] = round($clan['points'] / $sum, 4) * 100;
+                    } else {
+                        $clan['possession'] = 0;
+                    }
+                    
+                    unset($clan['points']);
+                    unset($clan['battles']);
+                    unset($clan['capo']);
+                }
+            }
+            
             // save cache
             $this->cache->save("api/regions.cache", $regions, 120);
         }
