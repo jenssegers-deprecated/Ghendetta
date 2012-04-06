@@ -143,7 +143,7 @@ class FSQ extends CI_Controller {
         if (!$this->input->is_cli_request()) {
             $this->output->set_profiler_sections(array('queries' => TRUE));
         } else {
-            echo "Cronjob updated $count users at " . date('d/m/Y H:i') . "\n";
+            echo "Cronjob updated $count/" . count($users) . " users at " . date('d/m/Y H:i') . "\n";
             echo "---------------------------------------------------------\n";
         }
     }
@@ -222,7 +222,7 @@ class FSQ extends CI_Controller {
                     $data['lat'] = $checkin->venue->location->lat;
                     $data['regionid'] = $found_region['regionid'];
                     
-                    if($checkin->venue->categories) {
+                    if ($checkin->venue->categories) {
                         $category = reset($checkin->venue->categories);
                         $data['categoryid'] = $category->id;
                     }
