@@ -13,7 +13,7 @@ require_once (APPPATH . 'core/API_Controller.php');
 
 class Regions extends API_Controller {
     
-    function index() {
+    function get($id = FALSE) {
         // try from cache
         if (!$regions = $this->cache->get("api/regions.cache")) {
             // cache miss
@@ -46,50 +46,27 @@ class Regions extends API_Controller {
             $this->cache->save("api/regions.cache", $regions, 120);
         }
         
-        $this->output($regions);
-    }
-    
-    function get($id) {
-        // try from cache
-        if (!$region = $this->cache->get("api/region-$id.cache")) {
-            // cache miss
-            $this->load->model('region_model');
-            $region = $this->region_model->get_stats($id);
-            
-            $sum = 0;
-            foreach ($region['clans'] as $clan) {
-                $sum += $clan['points'];
-            }
-            
-            // NOTE: references did not work for some reason
-            foreach ($region['clans'] as $key => $clan) {
-                if ($clan['points']) {
-                    $region['clans'][$key]['possession'] = round($clan['points'] / $sum, 4) * 100;
-                } else {
-                    $region['clans'][$key]['possession'] = 0;
+        // return the right region depending on the supplied id
+        if ($id) {
+            if (isset($regions[$id])) {
+                foreach ($regions as $region) {
+                    if ($region['regionid'] == $id) {
+                        $this->output($region);
+                        break;
+                    }
                 }
-                
-                // clean up some non-public fields
-                unset($region['clans'][$key]['points']);
-                unset($region['clans'][$key]['battles']);
-                unset($region['clans'][$key]['capo']);
+            } else {
+                $this->error('Region not found', 404);
             }
-            
-            // save cache
-            $this->cache->save("api/region-$id.cache", $region, 120);
-        }
-        
-        if ($region) {
-            $this->output($region);
         } else {
-            $this->error('Region not found', 404);
+            $this->output($regions);
         }
     }
     
     function _remap($method) {
         switch ($method) {
             case 'index' :
-                $this->index();
+                $this->get();
                 break;
             default :
                 $this->get($method);
