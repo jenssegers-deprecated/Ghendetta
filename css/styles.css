@@ -478,6 +478,8 @@ a:focus {
 
 			.leaflet-popup-content-wrapper img {
 				margin-left: 10px;
+				width: 70px;
+				height: 70px;
 			}
 
 			.statistics{
