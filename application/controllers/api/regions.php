@@ -48,15 +48,11 @@ class Regions extends API_Controller {
         
         // return the right region depending on the supplied id
         if ($id) {
-            if (isset($regions[$id])) {
-                foreach ($regions as $region) {
-                    if ($region['regionid'] == $id) {
-                        $this->output($region);
-                        break;
-                    }
+            foreach ($regions as $region) {
+                if ($region['regionid'] == $id) {
+                    $this->output($region);
+                    break;
                 }
-            } else {
-                $this->error('Region not found', 404);
             }
         } else {
             $this->output($regions);
