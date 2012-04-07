@@ -43,7 +43,7 @@ class notification_model extends CI_Model {
         }
         
         $query = "
-        	SELECT notificationid, date, data
+        	SELECT notificationid, type, date, data
         	FROM notifications
         	WHERE `to` =
         		CASE `to_type`

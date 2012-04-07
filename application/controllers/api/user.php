@@ -62,7 +62,7 @@ class User extends API_Controller {
                 $notifications = $this->notification_model->get_personal($fsqid);
                 
                 // save cache
-                $this->cache->save("api/notifications-$fsqid.cache", $notifications, 300);
+                $this->cache->save("api/notifications-$fsqid.cache", $notifications, 60);
             }
             
             $this->output($notifications);
