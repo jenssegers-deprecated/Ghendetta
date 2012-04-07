@@ -440,21 +440,11 @@ a:focus {
 		/* Popup Tooltips */
 
 		.leaflet-popup-content-wrapper {
-
-			background: linear-gradient(bottom, #F7F6F2 70%, #333333 70%);
-			background: -o-linear-gradient(bottom, #F7F6F2 70%, #333333 70%);
-			background: -moz-linear-gradient(bottom, #F7F6F2 70%, #333333 70%);
-			background: -webkit-linear-gradient(bottom, #F7F6F2 70%, #333333 70%);
-			background: -ms-linear-gradient(bottom, #F7F6F2 70%, #333333 70%);
-			background: -webkit-gradient(
-				linear,
-				left bottom,
-				left top,
-				color-stop(0.70, #F7F6F2),
-				color-stop(0.70, #333333)
-			);
+			background: #F7F6F2;
 			padding: 5px;
 			height: 115px;
+			overflow: hidden;
+			min-width: 220px;
 		}
 
 			.leaflet-popup-content-wrapper h1 {
@@ -464,46 +454,59 @@ a:focus {
 				text-align: center;
 				text-transform: uppercase;
 				letter-spacing: 1px;
-				padding: 0 15px 17px 5px;
-			}
-
-			.leaflet-popup-content-wrapper li {
-				width: 25px;
-				list-style: none;
-				box-shadow: 1px 1px 1px #888;
-		 		z-index: 100;
-		 		float: left;
-		 		text-indent: -9999px;
+				padding: 10px 20px 10px 5px;
+				background: #333;
+				width: 100%;
+				margin: -11px 0 0 -11px;
 			}
 
 			.leaflet-popup-content-wrapper img {
-				margin-left: 10px;
 				width: 70px;
 				height: 70px;
+				float: left;
+				margin: 10px 0;
 			}
 
-			.statistics{
+			.statistics {
 				height: 100px;
 				padding: 0;
-				margin-left: 90px;
-				margin-top: -79px;
+				margin-left: 20px;
+				overflow: hidden;
+				float: left;
 			}
 
-				.leaflet-popup-content-wrapper .Hawks{ 
-		 		 	background-color: #770606;
+				.statistics li {
+					width: 25px;
+					list-style: none;
+			 		z-index: 100;
+			 		float: left;
+			 		text-indent: -9999px;
+					margin: -2px 2px 0 0;
 				}
 
-				.leaflet-popup-content-wrapper .Snakes { 
-		 		 	background: #CC8F2F;
-				}
+					.statistics .Hawks{
+			 		 	background-color: #770606;
+						box-shadow: 2px 2px #300, 1px 1px #300;
+					}
 
-				.leaflet-popup-content-wrapper .Panthers {
-		 		 	background: #5E48FF;
-				}
+					.statistics .Snakes {
+			 		 	background: #CC8F2F;
+						box-shadow: 2px 2px #663E00, 1px 1px #663E00;
+					}
 
-				.leaflet-popup-content-wrapper .Wolves { 
-		 		 	background: #0BA595;
-				}
+					.statistics .Panthers {
+			 		 	background: #5E48FF;
+						box-shadow: 2px 2px #1E1466, 1px 1px #1E1466;
+					}
+
+					.statistics .Wolves {
+			 		 	background: #0BA595;
+						box-shadow: 2px 2px #004C44, 1px 1px #004C44;
+					}
+
+					.statistics .null {
+						display: none;
+					}
 
 /*
 	View: clan
