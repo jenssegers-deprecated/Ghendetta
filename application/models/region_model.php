@@ -155,8 +155,8 @@ class region_model extends CI_Model {
             LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
             LEFT JOIN users ON users.fsqid = checkins.userid
             LEFT JOIN clans ON clans.clanid = users.clanid
-            GROUP BY checkins.regionid, users.clanid
-            ORDER BY regions.regionid ASC, users.clanid ASC';
+            GROUP BY checkins.regionid, clans.clanid
+            ORDER BY regions.regionid ASC, clans.clanid ASC';
         
         $results = $this->db->query($query)->result_array();
         
@@ -206,10 +206,22 @@ class region_model extends CI_Model {
             LEFT JOIN users ON users.fsqid = checkins.userid
             LEFT JOIN clans ON clans.clanid = users.clanid
             WHERE regions.regionid = ?
-            GROUP BY checkins.regionid, users.clanid
-            ORDER BY regions.regionid ASC, points DESC';
+            GROUP BY checkins.regionid, clans.clanid
+            ORDER BY regions.regionid ASC, clans.clanid ASC';
         
-        return $this->db->query($query, array($regionid))->result_array();
+        $region = $this->get($regionid);
+        $region['clans'] = $this->db->query($query, array($regionid))->result_array();
+        
+        // TODO: remove this part when the database bug has been resolved!
+        $max = 0;
+        foreach ($region['clans'] as $clan) {
+            if ($clan['points'] > $max) {
+                $max = $clan['points'];
+                $region['leader'] = $clan['clanid'];
+            }
+        }
+        
+        return $region;
     }
     
     function count() {
