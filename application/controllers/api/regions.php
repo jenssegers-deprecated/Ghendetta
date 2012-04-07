@@ -28,7 +28,7 @@ class Regions extends API_Controller {
                 }
                 
                 // NOTE: references did not work for some reason
-                foreach ($region['clans'] as $key=>$clan) {
+                foreach ($region['clans'] as $key => $clan) {
                     if ($clan['points']) {
                         $region['clans'][$key]['possession'] = round($clan['points'] / $sum, 4) * 100;
                     } else {
@@ -55,6 +55,25 @@ class Regions extends API_Controller {
             // cache miss
             $this->load->model('region_model');
             $region = $this->region_model->get_stats($id);
+            
+            $sum = 0;
+            foreach ($region['clans'] as $clan) {
+                $sum += $clan['points'];
+            }
+            
+            // NOTE: references did not work for some reason
+            foreach ($region['clans'] as $key => $clan) {
+                if ($clan['points']) {
+                    $region['clans'][$key]['possession'] = round($clan['points'] / $sum, 4) * 100;
+                } else {
+                    $region['clans'][$key]['possession'] = 0;
+                }
+                
+                // clean up some non-public fields
+                unset($region['clans'][$key]['points']);
+                unset($region['clans'][$key]['battles']);
+                unset($region['clans'][$key]['capo']);
+            }
             
             // save cache
             $this->cache->save("api/region-$id.cache", $region, 120);
