@@ -92,14 +92,14 @@ class clan_model extends CI_Model {
                 SELECT fsqid, firstname, lastname, picurl, COALESCE(points, 0) as points, COALESCE(battles, 0) as battles
                 FROM users
                 LEFT JOIN (
-                	SELECT fsqid as userid, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
+                	SELECT fsqid as userid, max(checkins.date) as last_checkin, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
                 	FROM users
                 	JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
                 	WHERE users.clanid = ?
                 	GROUP BY users.fsqid
                 ) as sub ON sub.userid = users.fsqid
                 WHERE users.clanid = ? AND users.active = 1
-                ORDER BY points DESC " . ($fsqid ? ", CASE fsqid WHEN ? THEN 1 ELSE 0 END " : "") . ($limit ? "LIMIT 0,?" : "") . "
+                ORDER BY points DESC, last_checkin ASC " . ($fsqid ? ", CASE fsqid WHEN ? THEN 1 ELSE 0 END " : "") . ($limit ? "LIMIT 0,?" : "") . "
             ) t, (SELECT @rownum:=0) r";
 
         return $this->db->query($query, array($clanid, $clanid, $fsqid, $limit))->result_array();
@@ -111,15 +111,20 @@ class clan_model extends CI_Model {
      */
     function get_capo($clanid) {
         $query = "
-        	SELECT fsqid, firstname, lastname, picurl, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
+        	SELECT fsqid, firstname, lastname, picurl, COALESCE(points, 0) as points, COALESCE(battles, 0) as battles
             FROM users
-            JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
+            LEFT JOIN (
+            	SELECT fsqid as userid, max(checkins.date) as last_checkin, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
+            	FROM users
+            	JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
+            	WHERE users.clanid = ?
+            	GROUP BY users.fsqid
+            ) as sub ON sub.userid = users.fsqid
             WHERE users.clanid = ? AND users.active = 1
-            GROUP BY users.fsqid
-            ORDER BY points DESC, checkins.date DESC
+            ORDER BY points DESC, last_checkin ASC
             LIMIT 0,1";
         
-        return $this->db->query($query, array($clanid))->row_array();
+        return $this->db->query($query, array($clanid, $clanid))->row_array();
     }
     
     /**
