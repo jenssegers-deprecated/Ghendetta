@@ -26,9 +26,10 @@ class Optout extends CI_Controller {
     }
     
     function warning() {
-        $data['message']  = 'When you click confirm all your precious battles will be gone and your clanmembers will be very disappointed. ';
-        $data['message'] .= 'It is still possible to change your mind and click cancel. If not, you will be redirected to Foursquare ';
-        $data['message'] .= 'after Ghendetta has deleted your battle history. On the Foursquare settings page ';
+        $data['message']  = 'When you click confirm your will let down all your clanmembers. ';
+        $data['message'] .= 'It is still possible to change your mind and click cancel. If not, ';
+        $data['message'] .= 'Ghendetta will forget about you and you will be redirected to your Foursquare settings. ';
+        $data['message'] .= 'On the Foursquare settings page ';
         $data['message'] .= 'you will be given the possibility to revoke Ghendetta from having any further access.';
         $data['action_url'] = site_url('optout/go');
         $data['cancel_url'] = site_url();
