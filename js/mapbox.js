@@ -4,7 +4,7 @@ var Mapbox = function() {
 	var url = 'http://api.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp';
 	
 	var addLayers = function(regions) {
-		var region, coords, points, polygon, clan, html;
+		var region, coords, points, polygon, clan, html, max;
 		var polygons = new Array();
 		var centerLon = 0, centerLat = 0,totalCoords = 0;
 		
@@ -35,9 +35,10 @@ var Mapbox = function() {
 			map.addLayer(polygons[i]);
 			
 			html = '<h1>' + region.name + '</h1><img src="' + region.clans[region.leader].icon + '" /><ul class="statistics">';
+			max = region.clans[region.leader].possession;
 			for (j in region.clans) {
 				clan = region.clans[j];
-				html += '<li class="' + clan.name + '" style="height:' + clan.possession + '%">' + clan.name + '</li>';
+				html += '<li class="' + clan.name + '" style="height:' + (clan.possession / max) * 100 + '%">' + clan.name + '</li>';
 			}
 			html += '</ul>';
 			
