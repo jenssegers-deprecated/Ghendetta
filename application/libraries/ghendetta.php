@@ -61,12 +61,6 @@ class Ghendetta {
         // unset user
         $this->user = FALSE;
     }
-
-    function optout() {
-        $this->ci->load->model('user_model');
-        $this->ci->user_model->delete( $this->current_user() );
-        $this->logout();
-    }
     
     function current_user() {
         return $this->user;

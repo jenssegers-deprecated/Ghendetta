@@ -32,21 +32,19 @@ class FSQ extends CI_Controller {
         if ($code = $this->input->get('code')) {
             //$this->output->enable_profiler(TRUE);
             
-
             // request token
             $token = $this->foursquare->request_token($code);
             
             // fetch user
             if ($json = $this->foursquare->api('users/self')) {
                 $fsqid = $json->response->user->id;
-
-                // update the user in our database
                 
+                // update the user in our database
                 $this->process_user($json->response->user, $token);
                 
                 // mark this user as current ghendetta user
                 $this->ghendetta->login($fsqid);
-                
+            
             } else {
                 log_message('error', $this->foursquare->error);
                 show_error('Something went wrong, please try again');
@@ -62,7 +60,8 @@ class FSQ extends CI_Controller {
             }
             // back to the homepage
             redirect();
-     //$this->output->set_profiler_sections(array('queries' => TRUE));
+        
+            //$this->output->set_profiler_sections(array('queries' => TRUE));
         } else {
             show_error('Something went wrong');
         }
@@ -187,14 +186,14 @@ class FSQ extends CI_Controller {
      * @param object $checkin
      */
     private function process_checkin($checkin) {
-
+        
         $this->load->model('checkin_model');
         
         // only process this checkin if it is not already inserted in the database
         if (!$this->checkin_model->exists($checkin->id)) {
             $this->load->model('region_model');
             $this->load->helper('polygon');
-
+            
             if (is_null($this->regions)) {
                 $this->regions = $this->region_model->get_all();
             }
@@ -276,7 +275,7 @@ class FSQ extends CI_Controller {
         // if a token is supplied, replace old token with this token and set active
         if ($token) {
             $data['token'] = $token;
-            $data['inactive'] = 0 ;
+            $data['active'] = 1;
         }
         
         // insert or update this user

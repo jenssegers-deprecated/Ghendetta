@@ -16,17 +16,18 @@ class Optout extends CI_Controller {
     }
     
     function go() {
-        // TODO: remove all user data
-        
         if ($user = $this->ghendetta->current_user()) {
-            $this->ghendetta->optout();
+            $this->load->model('user_model');
+            $this->user_model->delete($user['fsqid']);
+            
+            $this->ghendetta->logout();
         }
         
         redirect('https://foursquare.com/settings/connections');
     }
     
     function warning() {
-        $data['message']  = 'When you click confirm your will let down all your clanmembers. ';
+        $data['message'] = 'When you click confirm your will let down all your clanmembers. ';
         $data['message'] .= 'It is still possible to change your mind and click cancel. If not, ';
         $data['message'] .= 'Ghendetta will forget about you and you will be redirected to your Foursquare settings. ';
         $data['message'] .= 'On the Foursquare settings page ';

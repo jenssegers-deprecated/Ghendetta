@@ -86,19 +86,18 @@ class region_model extends CI_Model {
     /**
      * Calculate the leading clan of a specific region
      * @param int $regionid
-     * @param bool $redundant
      */
     function get_leader($regionid) {
-        $query = '
+        $query = "
             SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
             FROM regions
             LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
-            LEFT JOIN users ON users.fsqid = checkins.userid AND users.inactive = 0
+            LEFT JOIN users ON users.fsqid = checkins.userid
             LEFT JOIN clans ON clans.clanid = users.clanid
             WHERE regions.regionid = ?
             GROUP BY users.clanid
             ORDER BY regions.regionid ASC, points DESC
-            LIMIT 0,1';
+            LIMIT 0,1";
         
         return $this->db->query($query, array($regionid))->row_array();
     }
@@ -107,17 +106,17 @@ class region_model extends CI_Model {
      * Get all regions with corresponding leading clan
      */
     function get_all_stats() {
-        $query = '
+        $query = "
         	SELECT * 
         	FROM (
                 SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
                 FROM regions
                 LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
-                LEFT JOIN users ON users.fsqid = checkins.userid AND users.inactive = 0
+                LEFT JOIN users ON users.fsqid = checkins.userid
                 LEFT JOIN clans ON clans.clanid = users.clanid
                 GROUP BY checkins.regionid, users.clanid
                 ORDER BY regions.regionid ASC, points DESC ) sub
-            GROUP BY regionid';
+            GROUP BY regionid";
         
         $results = $this->db->query($query)->result_array();
         
@@ -147,15 +146,15 @@ class region_model extends CI_Model {
      * @param int $regionid
      */
     function get_stats($regionid) {
-        $query = '
+        $query = "
             SELECT clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
             FROM regions
             LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
-            LEFT JOIN users ON users.fsqid = checkins.userid AND users.inactive = 0
+            LEFT JOIN users ON users.fsqid = checkins.userid
             LEFT JOIN clans ON clans.clanid = users.clanid
             WHERE regions.regionid = ?
             GROUP BY checkins.regionid, users.clanid
-            ORDER BY regions.regionid ASC, points DESC';
+            ORDER BY regions.regionid ASC, points DESC";
         
         return $this->db->query($query, array($regionid))->result_array();
     }
