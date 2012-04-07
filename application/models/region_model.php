@@ -93,7 +93,7 @@ class region_model extends CI_Model {
             SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
             FROM regions
             LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
-            LEFT JOIN users ON users.fsqid = checkins.userid
+            LEFT JOIN users ON users.fsqid = checkins.userid AND users.inactive = 0
             LEFT JOIN clans ON clans.clanid = users.clanid
             WHERE regions.regionid = ?
             GROUP BY users.clanid
@@ -113,7 +113,7 @@ class region_model extends CI_Model {
                 SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
                 FROM regions
                 LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
-                LEFT JOIN users ON users.fsqid = checkins.userid
+                LEFT JOIN users ON users.fsqid = checkins.userid AND users.inactive = 0
                 LEFT JOIN clans ON clans.clanid = users.clanid
                 GROUP BY checkins.regionid, users.clanid
                 ORDER BY regions.regionid ASC, points DESC ) sub
@@ -151,7 +151,7 @@ class region_model extends CI_Model {
             SELECT clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
             FROM regions
             LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
-            LEFT JOIN users ON users.fsqid = checkins.userid
+            LEFT JOIN users ON users.fsqid = checkins.userid AND users.inactive = 0
             LEFT JOIN clans ON clans.clanid = users.clanid
             WHERE regions.regionid = ?
             GROUP BY checkins.regionid, users.clanid
@@ -173,3 +173,4 @@ class region_model extends CI_Model {
     }
 
 }
+

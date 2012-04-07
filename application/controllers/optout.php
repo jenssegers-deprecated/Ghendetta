@@ -19,14 +19,17 @@ class Optout extends CI_Controller {
         // TODO: remove all user data
         
         if ($user = $this->ghendetta->current_user()) {
-            $this->ghendetta->logout();
+            $this->ghendetta->optout();
         }
         
         redirect('https://foursquare.com/settings/connections');
     }
     
     function warning() {
-        $data['action'] = 'log out and delete all your personal data from the Ghendetta application';
+        $data['message']  = 'When you click confirm all your precious battles will be gone and your clanmembers will be very disappointed. ';
+        $data['message'] .= 'It is still possible to change your mind and click cancel. If not, you will be redirected to Foursquare ';
+        $data['message'] .= 'after Ghendetta has deleted your battle history. On the Foursquare settings page ';
+        $data['message'] .= 'you will be given the possibility to revoke Ghendetta from having any further access.';
         $data['action_url'] = site_url('optout/go');
         $data['cancel_url'] = site_url();
         

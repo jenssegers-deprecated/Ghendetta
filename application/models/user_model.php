@@ -12,7 +12,7 @@ if (!defined('BASEPATH'))
 class user_model extends CI_Model {
     
     function get($fsqid) {
-        return $this->db->where('fsqid', $fsqid)->get('users')->row_array();
+        return $this->db->get_where('users', array('fsqid' => $fsqid , 'inactive' => 0))->row_array();
     }
     
     function insert($user) {
@@ -25,29 +25,34 @@ class user_model extends CI_Model {
     function update($fsqid, $user) {
         return $this->db->where('fsqid', $fsqid)->update('users', $user);
     }
+
+    function delete( $user ){
+        $user['inactive'] = 1 ;
+        return $this->db->where('fsqid', $user['fsqid'])->update('users', $user);
+    }
     
     function exists($fsqid) {
-        return $this->db->where('fsqid', $fsqid)->count_all_results('users') != 0;
+        return $this->db->where('fsqid' , $fsqid)->count_all_results('users') != 0;
     }
     
     function get_all($limit = FALSE) {
         if ($limit) {
-            return $this->db->get('users')->limit($limit)->result_array();
+            return $this->db->get_where('users',array('inactive' => 0 ))->limit($limit)->result_array();
         } else {
-            return $this->db->get('users')->result_array();
+            return $this->db->get_where('users',array('inactive' => 0 ))->result_array();
         }
     }
     
     function get_all_rand($limit = FALSE) {
         if ($limit) {
-            return $this->db->order_by('RAND()')->limit($limit)->get('users')->result_array();
+            return $this->db->order_by('RAND()')->limit($limit)->get_where('users',array('inactive' => 0 ))->result_array();
         } else {
-            return $this->db->order_by('RAND()')->get('users')->result_array();
+            return $this->db->order_by('RAND()')->get_where('users',array('inactive' => 0 ))->result_array();
         }
     }
     
     function count() {
-        return $this->db->count_all('users');
+        return $this->db->where('inactive' , 0 )->count_all_results('users') ;
     }
     
     /**
@@ -58,7 +63,7 @@ class user_model extends CI_Model {
         $query = '
         	SELECT fsqid, firstname, lastname, picurl, clanid, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
         	FROM checkins
-        	JOIN users ON users.fsqid = checkins.userid
+        	JOIN users ON users.fsqid = checkins.userid AND users.inactive = 0
         	WHERE date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
         	AND userid = ?';
         
@@ -83,7 +88,10 @@ class user_model extends CI_Model {
               	FROM (
               		SELECT fsqid, firstname, lastname, picurl, clanid, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
             		FROM users 
-            		LEFT JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
+            		LEFT JOIN checkins ON 
+                        users.fsqid = checkins.userid 
+                        AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
+                        AND users.inactive = 0
             		WHERE users.clanid = ?
             		GROUP BY users.fsqid
             		ORDER BY points desc, CASE fsqid WHEN ? THEN 1 ELSE 0 END

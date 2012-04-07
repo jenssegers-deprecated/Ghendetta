@@ -4,7 +4,7 @@
 
 <section class="container v-warning" role="main">
     <h1>Attention</h1>
-    <p>Do you really want to <?php echo $action ?>?</p>
+    <p><?php echo $message ?></p>
     <a href="<?php echo $cancel_url ?>" class="btn">Cancel</a>
     <a href="<?php echo $action_url ?>" class="btn">Confirm</a>
 </section>
