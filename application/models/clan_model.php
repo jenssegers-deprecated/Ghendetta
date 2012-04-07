@@ -87,10 +87,10 @@ class clan_model extends CI_Model {
         $query = "
             SELECT t.*, @rownum:=@rownum+1 as rank
             FROM (
-                SELECT fsqid, firstname, lastname, picurl, points, battles
+                SELECT fsqid, firstname, lastname, picurl, COALESCE(points, 0) as points, COALESCE(battles, 0) as battles
                 FROM users
                 LEFT JOIN (
-                	SELECT fsqid as userid, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
+                	SELECT fsqid as userid, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
                 	FROM users
                 	JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
                 	WHERE users.clanid = ? AND users.active = 1
