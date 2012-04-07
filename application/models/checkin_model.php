@@ -42,7 +42,7 @@ class checkin_model extends CI_Model {
             if ($region_after['clanid'] != $region_before['clanid']) {
                 $this->region_model->update($checkin['regionid'], array('leader' => $region_after['clanid']));
             
-                // TODO: insert notification
+     // TODO: insert notification
             }
         }
     }
@@ -102,6 +102,38 @@ class checkin_model extends CI_Model {
         } else {
             return $this->db->where('date >=', $start)->where('date <=', $end)->count_all_results('checkins');
         }
+    }
+    
+    /**
+     * Get daily checkin count for a specific user
+     * @param int $userid
+     * @param int $days
+     */
+    function get_daily($userid, $days = 30) {
+        $query = "
+            SELECT FROM_UNIXTIME(date, GET_FORMAT(DATE,'EUR')) as date, count(1) as battles
+            FROM checkins
+            WHERE userid = ? AND date >= UNIX_TIMESTAMP(subdate(now(),?))
+            GROUP BY FROM_UNIXTIME(date, GET_FORMAT(DATE,'EUR'))
+            ORDER BY date DESC";
+        
+        return $this->db->query($query, array($userid, $days))->result_array();
+    }
+    
+    /**
+     * Get hourly checkin count for a specific user
+     * @param int $userid
+     * @param int $days
+     */
+    function get_hourly($userid, $days = 1) {
+        $query = "
+            SELECT FROM_UNIXTIME(date, '%Y-%m-%d %H') as date, FROM_UNIXTIME(date, '%H') as hour, count(1) as battles
+            FROM checkins
+            WHERE userid = ? AND date >= UNIX_TIMESTAMP(subdate(now(),?))
+            GROUP BY FROM_UNIXTIME(date, '%Y-%m-%d %H')
+            ORDER BY date DESC";
+        
+        return $this->db->query($query, array($userid, $days))->result_array();
     }
     
     /**
