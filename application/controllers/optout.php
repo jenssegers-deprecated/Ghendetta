@@ -12,7 +12,11 @@ if (!defined('BASEPATH'))
 class Optout extends CI_Controller {
     
     function index() {
-        $this->warning();
+        if ($user = $this->ghendetta->current_user()) {
+            $this->warning();
+        } else {
+            redirect();
+        }
     }
     
     function go() {
