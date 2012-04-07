@@ -27,16 +27,18 @@ class Regions extends API_Controller {
                     $sum += $clan['points'];
                 }
                 
-                foreach ($region['clans'] as &$clan) {
+                // NOTE: references did not work for some reason
+                foreach ($region['clans'] as $key=>$clan) {
                     if ($clan['points']) {
-                        $clan['possession'] = round($clan['points'] / $sum, 4) * 100;
+                        $region['clans'][$key]['possession'] = round($clan['points'] / $sum, 4) * 100;
                     } else {
-                        $clan['possession'] = 0;
+                        $region['clans'][$key]['possession'] = 0;
                     }
                     
-                    unset($clan['points']);
-                    unset($clan['battles']);
-                    unset($clan['capo']);
+                    // clean up some non-public fields
+                    unset($region['clans'][$key]['points']);
+                    unset($region['clans'][$key]['battles']);
+                    unset($region['clans'][$key]['capo']);
                 }
             }
             

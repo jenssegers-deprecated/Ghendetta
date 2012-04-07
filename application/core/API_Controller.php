@@ -6,7 +6,7 @@ class API_Controller extends CI_Controller {
         parent::__construct();
         
         // load caching driver
-        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
     }
     
     function output($data) {
