@@ -115,6 +115,30 @@ class clan_model extends CI_Model {
     }
     
     /**
+     * Set a new capo of the clan
+     * @param int $clanid
+     * @param int $userid
+     */
+    function set_capo($clanid, $userid) {
+        // set capo
+        $this->update($clanid, array('capo' => $userid));
+        
+        // get user
+        $this->load->model('user_model');
+        $user = $this->user_model->get($userid);
+        
+        $this->load->model('notification_model');
+        
+        // insert rank_won notification
+        $notification = array();
+        $notification['type'] = 'rank_won';
+        $notification['to'] = $clanid;
+        $notification['to_type'] = 'clan';
+        $notification['data'] = array('rank' => 1, 'name' => $user['firstname'], 'userid' => $userid);
+        $this->notification_model->insert($notification);
+    }
+    
+    /**
      * Suggest clan based on total checkins in the last 7 days between all clans
      */
     function suggest_clan() {

@@ -31,18 +31,19 @@ class checkin_model extends CI_Model {
         $this->load->model('clan_model');
         $capo = $this->clan_model->get_capo($user['clanid']);
         
-        // new capo
-        if ($capo && $user['points'] > $capo['points'] && $capo['clanid'] == $user['clanid']) {
-            $this->clan_model->update($user['clanid'], array('capo' => $user['fsqid']));
+        // check new capo
+        if (!$capo || ($user['points'] > $capo['points'])) {
+            // set new capo
+            $this->clan_model->set_capo($user['clanid'], $user['fsqid']);
         }
         
         // check for different region leader, but only if current user is in different clan!
         if ($user['clanid'] != $region_before['clanid']) {
             $region_after = $this->region_model->get_leader($checkin['regionid']);
-            if ($region_after['clanid'] != $region_before['clanid']) {
-                $this->region_model->update($checkin['regionid'], array('leader' => $region_after['clanid']));
             
-     // TODO: insert notification
+            if ($region_after['clanid'] != $region_before['clanid']) {
+                // set new region leader
+                $this->region_model->set_leader($checkin['regionid'], $region_after['clanid'], $region_before['clanid']);
             }
         }
     }

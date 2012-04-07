@@ -104,6 +104,47 @@ class region_model extends CI_Model {
     }
     
     /**
+     * Set the new leader for a specific region
+     * @param int $regionid
+     * @param int $new
+     * @param int $old
+     */
+    function set_leader($regionid, $new, $old = FALSE) {
+        // set leader
+        $this->update($regionid, array('leader' => $new));
+        
+        // get region
+        $region = $this->get($regionid);
+        
+        // get new clan
+        $this->load->model('clan_model');
+        $new_clan = $this->clan_model->get($new);
+        
+        $this->load->model('notification_model');
+                
+        // insert region_lost notification
+        if($old) {
+            // get old clan
+            $old_clan = $this->clan_model->get($old);
+            
+            $notification = array();
+            $notification['type'] = 'region_lost';
+            $notification['to'] = $old_clan['clanid'];
+            $notification['to_type'] = 'clan';
+            $notification['data'] = array('region' => $region['name'], 'clanid' => $new_clan['clanid'], 'clan' => $new_clan['name'], 'color' => $new_clan['color']);
+            $this->notification_model->insert($notification);
+        }
+        
+        // insert region_won notification
+        $notification = array();
+        $notification['type'] = 'region_won';
+        $notification['to'] = $new_clan['clanid'];
+        $notification['to_type'] = 'clan';
+        $notification['data'] = array('region' => $region['name'], 'clanid' => $new_clan['clanid'], 'clan' => $new_clan['name'], 'color' => $new_clan['color']);
+        $this->notification_model->insert($notification);
+    }
+    
+    /**
      * Get all regions with corresponding leading clan
      */
     function get_all_stats() {
