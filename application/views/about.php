@@ -31,8 +31,10 @@
 
 				<h3>The Rules</h3>
 			    <p>
-			        Every Foursquare check-in counts as a battle. Every battle within a district also counts as one battle for that particular district. A clan can take over a district when the total number of battles fought by all of the clan members exceeds the number of battles fought by the former ruling clan. The <em>Capo</em> of a clan is the clan member with the highest score within that clan. Do you like some healthy competition? Then battle hard and try to become the next Capo.</p>
-<p>When Ghendetta notices an extraordinary high battle rate your new battle's contribution to conquer the city will be limited. The further you cross the limit of what we defined as a reasonable amount of battles, the less they will help you to conquer the city or become capo. Ghendetta does not hand out penalties. On this topic you should also read <a href="http://support.foursquare.com/entries/211084-what-does-the-rapid-fire-check-in-message-mean" rel="external">Foursquare's thoughts on rapid fire and drive-by battles</a>.
+			        Every Foursquare check-in counts as a battle. Every battle within a district also counts as one battle for that particular district. A clan can take over a district when the total number of battles fought by all of the clan members exceeds the number of battles fought by the former ruling clan. The <em>Capo</em> of a clan is the clan member with the highest score within that clan. Do you like some healthy competition? Then battle hard and try to become the next Capo.
+			    </p>
+				<p>
+					When Ghendetta notices an extraordinary high battle rate, your new battle's contribution to conquer the city will be limited. The further you cross the limit of what we defined as a reasonable amount of battles, the less they will help you to conquer the city or become capo. Ghendetta does not hand out penalties. On this topic you should also read <a href="http://support.foursquare.com/entries/211084-what-does-the-rapid-fire-check-in-message-mean" rel="external">Foursquare's thoughts on rapid fire and drive-by battles</a>.
 				</p>
 				<p>
 					We encourage you to plan events or meetings with your fellow associates. It&#x27;s a great way to get to know new districts of our favourite city, make new friends, but above all: conquer new districts! Don&#x27;t forget: your battles will count <strong>for seven days</strong> only. So be sure to go back if you don&#x27;t want to lose your district.
