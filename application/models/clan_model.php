@@ -42,7 +42,7 @@ class clan_model extends CI_Model {
      */
     function get_stats($clanid) {
         $query = "
-            SELECT clans.*, fsqid, firstname, lastname, picurl, sum(points) as points, sum(battles) as battles
+            SELECT clans.*, sum(points) as points, sum(battles) as battles
 			FROM users
 			LEFT JOIN (
                 	SELECT fsqid as userid, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
@@ -63,7 +63,7 @@ class clan_model extends CI_Model {
      */
     function get_all_stats() {
         $query = "
-            SELECT clans.*, fsqid, firstname, lastname, picurl, sum(points) as points, sum(battles) as battles
+            SELECT clans.*, sum(points) as points, sum(battles) as battles
 			FROM users
 			LEFT JOIN (
                 	SELECT fsqid as userid, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
@@ -127,11 +127,17 @@ class clan_model extends CI_Model {
      */
     function suggest_clan() {
         $query = "
-            SELECT clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points
-            FROM clans
-            LEFT JOIN users ON users.clanid = clans.clanid AND users.active = 1
-            LEFT JOIN checkins ON checkins.userid = users.fsqid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
-            GROUP BY clans.clanid
+            SELECT clans.*, sum(points) as points, sum(battles) as battles
+			FROM users
+			LEFT JOIN (
+                	SELECT fsqid as userid, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
+                	FROM users
+                	JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
+                	GROUP BY users.fsqid
+                ) as sub ON sub.userid = users.fsqid
+            JOIN clans ON clans.clanid = users.clanid
+			WHERE users.active = 1
+            GROUP BY clanid
             ORDER BY points ASC
             LIMIT 0, 1";
         
