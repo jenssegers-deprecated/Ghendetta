@@ -38,7 +38,7 @@
         		<tr>
         			<td>api/clans.json</td>
         			<td>Get information about all clans</td>
-        			<td>clanid, name, logo, color, capo, points, battles, members</td>
+        			<td>clanid, name, shield, icon, color, capo, points, battles, members</td>
         		</tr>
         		<tr>
         			<td>api/clans/[id].json</td>
@@ -48,7 +48,7 @@
         		<tr>
         			<td>api/regions.json</td>
         			<td>Get information about all regions</td>
-        			<td>regionid, name, <em><u>leader</u></em>, coords</td>
+        			<td>regionid, name, <em><u>leader</u></em>, coords, <em><u>clans</u></em></td>
         		</tr>
         		<tr>
         			<td>api/regions/[id].json</td>
