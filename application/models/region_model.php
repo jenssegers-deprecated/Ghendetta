@@ -121,9 +121,9 @@ class region_model extends CI_Model {
         $new_clan = $this->clan_model->get($new);
         
         $this->load->model('notification_model');
-                
+        
         // insert region_lost notification
-        if($old) {
+        if ($old) {
             // get old clan
             $old_clan = $this->clan_model->get($old);
             
@@ -176,6 +176,16 @@ class region_model extends CI_Model {
             
             if (isset($clans[$rid])) {
                 $region['clans'] = $clans[$rid];
+                
+                // TODO: remove this part when the database bug has been resolved!
+                $max = 0;
+                foreach ($clans[$rid] as $clan) {
+                    if ($clan['points'] > $max) {
+                        $max = $clan['points'];
+                        $region['leader'] = $clan['clanid'];
+                    }
+                }
+            
             } else {
                 $region['clans'] = array();
             }
