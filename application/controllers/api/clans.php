@@ -13,7 +13,7 @@ require_once (APPPATH . 'core/API_Controller.php');
 
 class Clans extends API_Controller {
     
-    function get($id) {
+    function get($id = FALSE) {
         // try from cache
         if (!$clans = $this->cache->get("api/clans.cache")) {
             // cache miss
