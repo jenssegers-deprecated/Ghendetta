@@ -69,11 +69,12 @@ class Import extends CI_Controller {
                 $venuedata = array();
                 foreach(  $list as $venue ){
                     $venue = $venue->venue ;
+                    $category = reset( $venue->categories );
                     
                     $venuedata['listid'] = $listid ;
                     $venuedata['venueid'] = $venue->id ;
                     $venuedata['name'] = $venue->name ;
-                    $venuedata['categoryid'] = $venue->categories[0]->id ;
+                    $venuedata['categoryid'] = $category->id ;
                     $venuedata['lon'] = $venue->location->lat ;
                     $venuedata['lat'] = $venue->location->lng ;
                     
