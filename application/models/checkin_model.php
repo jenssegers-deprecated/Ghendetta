@@ -33,15 +33,18 @@ class checkin_model extends CI_Model {
         
         // add new points to the user
         $user['points'] += $checkin['points'];
-
+        
         // check new capo
         if (!$capo || ($user['fsqid'] != $capo['fsqid'] && $user['points'] > $capo['points'])) {
             // set new capo
             $this->clan_model->set_capo($user['clanid'], $user['fsqid']);
         }
         
-        // check for different region leader, but only if current user is in different clan!
-        if ($user['clanid'] != $leader_before['clanid']) {
+        if (!$leader_before) {
+            // there was no previous leader, this clan is taking this region
+            $this->region_model->set_leader($checkin['regionid'], $user['clanid']);
+        } else if ($user['clanid'] != $leader_before['clanid']) {
+            // check for different region leader, but only if current user is in different clan!
             $leader_after = $this->region_model->get_leader($checkin['regionid']);
             
             if ($leader_after['clanid'] != $leader_before['clanid']) {

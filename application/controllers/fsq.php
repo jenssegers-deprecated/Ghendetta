@@ -58,6 +58,7 @@ class FSQ extends CI_Controller {
                 log_message('error', $this->foursquare->error);
                 show_error('Something went wrong, please try again');
             }
+            
             // back to the homepage
             redirect();
         
