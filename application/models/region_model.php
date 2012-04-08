@@ -89,14 +89,14 @@ class region_model extends CI_Model {
      */
     function get_leader($regionid) {
         $query = "
-            SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
+            SELECT regions.regionid, clans.*, MAX(checkins.date) as last_checkin, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
             FROM regions
             JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
             JOIN users ON users.fsqid = checkins.userid
             JOIN clans ON clans.clanid = users.clanid
             WHERE regions.regionid = ?
             GROUP BY users.clanid
-            ORDER BY regions.regionid ASC, points DESC
+            ORDER BY regions.regionid ASC, points DESC, last_checkin ASC
             LIMIT 0,1";
         
         return $this->db->query($query, array($regionid))->row_array();

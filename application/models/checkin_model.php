@@ -12,9 +12,17 @@ if (!defined('BASEPATH'))
 class checkin_model extends CI_Model {
     
     function insert($checkin) {
-        // get region clan before checkin
+        // get region clan (before checkin)
         $this->load->model('region_model');
-        $region_before = $this->region_model->get_leader($checkin['regionid']);
+        $leader_before = $this->region_model->get_leader($checkin['regionid']);
+        
+        // get user information (before checkin)
+        $this->load->model('user_model');
+        $user = $this->user_model->get_stats($checkin['userid']);
+        
+        // get clan capo (before checkin)
+        $this->load->model('clan_model');
+        $capo = $this->clan_model->get_capo($user['clanid']);
         
         // calculate checkin points
         $checkin['points'] = $this->calculate_points($checkin['userid'], $checkin['date']);
@@ -23,27 +31,22 @@ class checkin_model extends CI_Model {
         $this->db->insert('checkins', $checkin);
         $checkinid = $this->db->insert_id();
         
-        // get user information
-        $this->load->model('user_model');
-        $user = $this->user_model->get_stats($checkin['userid']);
-        
-        // get clan capo
-        $this->load->model('clan_model');
-        $capo = $this->clan_model->get_capo($user['clanid']);
-        
+        // add new points to the user
+        $user['points'] += $checkin['points'];
+
         // check new capo
-        if (!$capo || ($user['points'] > $capo['points'])) {
+        if (!$capo || ($user['fsqid'] != $capo['fsqid'] && $user['points'] > $capo['points'])) {
             // set new capo
             $this->clan_model->set_capo($user['clanid'], $user['fsqid']);
         }
         
         // check for different region leader, but only if current user is in different clan!
-        if ($user['clanid'] != $region_before['clanid']) {
-            $region_after = $this->region_model->get_leader($checkin['regionid']);
+        if ($user['clanid'] != $leader_before['clanid']) {
+            $leader_after = $this->region_model->get_leader($checkin['regionid']);
             
-            if ($region_after['clanid'] != $region_before['clanid']) {
+            if ($leader_after['clanid'] != $leader_before['clanid']) {
                 // set new region leader
-                $this->region_model->set_leader($checkin['regionid'], $region_after['clanid'], $region_before['clanid']);
+                $this->region_model->set_leader($checkin['regionid'], $leader_after['clanid'], $leader_before['clanid']);
             }
         }
     }
