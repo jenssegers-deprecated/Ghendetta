@@ -15,6 +15,11 @@ class venue_model extends CI_Model {
         $this->db->insert('venues', $venue);
         return $this->db->insert_id();
     }
+
+    function insert_list( $list ){
+        $this->db->insert('venuelists', $list);
+        return $this->db->insert_id();
+    }
     
     function update($venueid, $venue) {
         return $this->db->where('venueid', $venueid)->update('venues', $venue);
@@ -26,9 +31,10 @@ class venue_model extends CI_Model {
     
     function get_active($venueid) {
         $query = "
-        	SELECT venues.*, categories.name as category, categories.icon as icon
-        	FROM venues
-        	JOIN categories ON categories.categoryid = venues.categoryid
+        	SELECT l.name AS listname, startdate, enddate, multiplier, v.*, c.name, c.icon
+            FROM venuelists l
+            JOIN venues v ON v.listid = l.listid
+            JOIN categories c ON v.categoryid = c.categoryid
         	WHERE venueid = ? AND startdate <= UNIX_TIMESTAMP(NOW()) AND enddate >= UNIX_TIMESTAMP(NOW())";
         
         return $this->db->query($query, array($venueid))->row_array();
@@ -36,9 +42,10 @@ class venue_model extends CI_Model {
     
     function get_all_active() {
         $query = "
-        	SELECT venues.*, categories.name as category, categories.icon as icon
-        	FROM venues
-        	JOIN categories ON categories.categoryid = venues.categoryid
+        	SELECT l.name AS listname, startdate, enddate, multiplier, v.*, c.name, c.icon
+            FROM venuelists l
+            JOIN venues v ON v.listid = l.listid
+            JOIN categories c ON v.categoryid = c.categoryid
         	WHERE startdate <= UNIX_TIMESTAMP(NOW()) AND enddate >= UNIX_TIMESTAMP(NOW())";
         
         return $this->db->query($query)->result_array();

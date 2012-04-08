@@ -51,29 +51,33 @@ class Import extends CI_Controller {
         //get parameters
         $startdate = $this->input->get('from') ? $this->input->get('from') : time() ;
         $enddate = $this->input->get('till') ? $this->input->get('till') : time() ;
-        $multiplier = $this->input->get('multi') ? $this->input->get('multi') : 5 ;
+        $multiplier = $this->input->get('multi') ? $this->input->get('multi') : 2 ; //default = 2
         
         if ($json = $this->foursquare->api('lists/' . $listid )) {
+
+            $list = array();
+            $list['startdate'] = $startdate ;
+            $list['enddate'] = $enddate ;
+            $list['multiplier'] = $multiplier ;
+            $list['listid'] = $listid ;
+            $list['name'] = $json->response->list->name ;
+            
+            $this->load->model('venue_model');
+            $this->venue_model->insert_list( $list );
             
             if( $list = $json->response->list->listItems->items ){
-                
-                $data = array();
-                $data['startdate'] = $startdate ;
-                $data['enddate'] = $enddate ;
-                $data['multiplier'] = $multiplier ;
-                
-                $this->load->model('venue_model');
-                
+                $venuedata = array();
                 foreach(  $list as $venue ){
                     $venue = $venue->venue ;
                     
-                    $data['venueid'] = $venue->id ;
-                    $data['name'] = $venue->name ;
-                    $data['categoryid'] = $venue->categories[0]->id ;
-                    $data['lon'] = $venue->location->lat ;
-                    $data['lat'] = $venue->location->lng ;
+                    $venuedata['listid'] = $listid ;
+                    $venuedata['venueid'] = $venue->id ;
+                    $venuedata['name'] = $venue->name ;
+                    $venuedata['categoryid'] = $venue->categories[0]->id ;
+                    $venuedata['lon'] = $venue->location->lat ;
+                    $venuedata['lat'] = $venue->location->lng ;
                     
-                    $this->venue_model->insert( $data );
+                    $this->venue_model->insert( $venuedata );
                 }
                 
                 echo count( $list ) . ' venues from list ' . $listid . ' imported.' ;
