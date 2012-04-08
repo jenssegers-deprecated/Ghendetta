@@ -38,6 +38,32 @@ class Import extends CI_Controller {
             }
         }
     }
+
+    function venuelist( $listid, $code = FALSE ){
+        
+        $this->config->load('foursquare', TRUE);
+        $check = $this->config->item('cronjob_code', 'foursquare');
+        
+        if( $code != $check ){
+            show_error('You don\'t have permission to access this page');
+        }
+        
+        $listid = '4f620fd2e4b0ee9499dd638e'; //for testing only
+        
+        echo $this->foursquare->api('lists/' . $listid . "/" );
+        echo $this->foursquare->error ;
+        
+        //if ($json = $this->foursquare->api('lists/' . $listid . "/" )) {
+            
+            //$list = $json->response->listItems->items ;
+            
+            /*
+            foreach( $list as $venue ){
+                print_r( $venue );
+            }*/
+        //}
+        
+    }
     
     function coordinates() {
         $url = 'http://data.appsforghent.be/poi/kotzones.json';
