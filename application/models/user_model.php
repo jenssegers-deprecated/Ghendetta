@@ -64,9 +64,9 @@ class user_model extends CI_Model {
     function get_stats($fsqid) {
         $query = '
         	SELECT fsqid, firstname, lastname, picurl, clanid, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
-        	FROM checkins
-        	JOIN users ON users.fsqid = checkins.userid AND users.active = 1
-        	WHERE date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
+        	FROM users
+        	JOIN checkins ON users.fsqid = checkins.userid
+        	WHERE date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) AND users.active = 1
         	AND userid = ?';
         
         return $this->db->query($query, array($fsqid))->row_array();
