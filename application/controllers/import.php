@@ -48,21 +48,41 @@ class Import extends CI_Controller {
             show_error('You don\'t have permission to access this page');
         }
         
-        $listid = '4f620fd2e4b0ee9499dd638e'; //for testing only
+        //get parameters
+        $startdate = $this->input->get('from') ? $this->input->get('from') : time() ;
+        $enddate = $this->input->get('till') ? $this->input->get('till') : time() ;
+        $multiplier = $this->input->get('multi') ? $this->input->get('multi') : 5 ;
         
-        echo $this->foursquare->api('lists/' . $listid . "/" );
+        if ($json = $this->foursquare->api('lists/' . $listid )) {
+            
+            if( $list = $json->response->list->listItems->items ){
+                
+                $data = array();
+                $data['startdate'] = $startdate ;
+                $data['enddate'] = $enddate ;
+                $data['multiplier'] = $multiplier ;
+                
+                $this->load->model('venue_model');
+                
+                foreach(  $list as $venue ){
+                    $venue = $venue->venue ;
+                    
+                    $data['venueid'] = $venue->id ;
+                    $data['name'] = $venue->name ;
+                    $data['categoryid'] = $venue->categories[0]->id ;
+                    $data['lon'] = $venue->location->lat ;
+                    $data['lat'] = $venue->location->lng ;
+                    
+                    $this->venue_model->insert( $data );
+                }
+                
+                echo count( $list ) . ' venues from list ' . $listid . ' imported.' ;
+            }else{
+                show_error('This list doesn\'t exist');
+            }
+            
+        }
         echo $this->foursquare->error ;
-        
-        //if ($json = $this->foursquare->api('lists/' . $listid . "/" )) {
-            
-            //$list = $json->response->listItems->items ;
-            
-            /*
-            foreach( $list as $venue ){
-                print_r( $venue );
-            }*/
-        //}
-        
     }
     
     function coordinates() {
