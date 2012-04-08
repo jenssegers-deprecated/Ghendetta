@@ -56,7 +56,6 @@ class clan_model extends CI_Model {
         
         return $this->db->query($query, array($clanid, $clanid))->row_array();
     }
-
     
     /**
      * Get all clans, with total member points
@@ -101,7 +100,7 @@ class clan_model extends CI_Model {
                 WHERE users.clanid = ? AND users.active = 1
                 ORDER BY points DESC, last_checkin ASC " . ($fsqid ? ", CASE fsqid WHEN ? THEN 1 ELSE 0 END " : "") . ($limit ? "LIMIT 0,?" : "") . "
             ) t, (SELECT @rownum:=0) r";
-
+        
         return $this->db->query($query, array($clanid, $clanid, $fsqid, $limit))->result_array();
     }
     
@@ -157,15 +156,14 @@ class clan_model extends CI_Model {
     function suggest_clan() {
         $query = "
             SELECT clans.*, sum(points) as points, sum(battles) as battles
-			FROM users
+			FROM clans
+			LEFT JOIN users ON clans.clanid = users.clanid AND users.active = 1
 			LEFT JOIN (
-                	SELECT fsqid as userid, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
+                	SELECT users.fsqid, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
                 	FROM users
                 	JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
                 	GROUP BY users.fsqid
-                ) as sub ON sub.userid = users.fsqid
-            JOIN clans ON clans.clanid = users.clanid
-			WHERE users.active = 1
+                ) as sub ON sub.fsqid = users.fsqid
             GROUP BY clanid
             ORDER BY points ASC
             LIMIT 0, 1";

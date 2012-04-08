@@ -17,6 +17,7 @@ class user_model extends CI_Model {
     
     function insert($user) {
         $user['registered'] = time();
+        $user['active'] = 1;
         
         $this->db->insert('users', $user);
         return $this->db->insert_id();
@@ -67,7 +68,7 @@ class user_model extends CI_Model {
         	FROM users
         	JOIN checkins ON users.fsqid = checkins.userid
         	WHERE date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) AND users.active = 1
-        	AND userid = ?';
+        	AND fsqid = ?';
         
         return $this->db->query($query, array($fsqid))->row_array();
     }

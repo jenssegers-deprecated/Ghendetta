@@ -34,16 +34,19 @@ var Mapbox = function() {
 			// add to map
 			map.addLayer(polygons[i]);
 
-			html = '<h1>' + region.name + '</h1><img src="' + region.clans[region.leader].icon + '" /><ul class="statistics">';
-			max = region.clans[region.leader].possession;
-			for (j in region.clans) {
-				clan = region.clans[j];
-				html += '<li class="' + clan.name + '"><span style="height:' + (clan.possession / max) * 100 + '%">' + clan.name + ' ' + clan.posession + '%</span></li>';
+			// only show popup when occupied
+			if(region.clans[region.leader]) {
+				html = '<h1>' + region.name + '</h1><img src="' + region.clans[region.leader].icon + '" /><ul class="statistics">';
+				max = region.clans[region.leader].possession;
+				for (j in region.clans) {
+					clan = region.clans[j];
+					html += '<li class="' + clan.name + '"><span style="height:' + (clan.possession / max) * 100 + '%">' + clan.name + ' ' + clan.posession + '%</span></li>';
+				}
+				html += '</ul>';
+	
+				// bind popup
+				polygons[i].bindPopup(html);
 			}
-			html += '</ul>';
-
-			// bind popup
-			polygons[i].bindPopup(html);
 		}
 
 		// set map center
