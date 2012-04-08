@@ -13,7 +13,7 @@ require_once (APPPATH . 'core/API_Controller.php');
 
 class Clans extends API_Controller {
     
-    function index() {
+    function get($id) {
         // try from cache
         if (!$clans = $this->cache->get("api/clans.cache")) {
             // cache miss
@@ -24,30 +24,23 @@ class Clans extends API_Controller {
             $this->cache->save("api/clans.cache", $clans, 300);
         }
         
-        $this->output($clans);
-    }
-    
-    function get($id) {
-        // try from cache
-        if (!$clan = $this->cache->get("api/clan-$id.cache")) {
-            $this->load->model('clan_model');
-            $clan = $this->clan_model->get_stats($id);
-            
-            // save cache
-            $this->cache->save("api/clan-$id.cache", $clan, 300);
-        }
-        
-        if ($clan) {
-            $this->output($clan);
+        // return the right clan depending on the supplied id
+        if ($id) {
+            foreach ($clans as $clan) {
+                if ($clan['clanid'] == $id) {
+                    $this->output($clan);
+                    break;
+                }
+            }
         } else {
-            $this->error('Clan not found', 404);
+            $this->output($clans);
         }
     }
     
     function _remap($method) {
         switch ($method) {
             case 'index' :
-                $this->index();
+                $this->get();
                 break;
             default :
                 $this->get($method);

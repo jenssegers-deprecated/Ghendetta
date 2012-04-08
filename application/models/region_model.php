@@ -103,38 +103,89 @@ class region_model extends CI_Model {
     }
     
     /**
+     * Set the new leader for a specific region
+     * @param int $regionid
+     * @param int $new
+     * @param int $old
+     */
+    function set_leader($regionid, $new, $old = FALSE) {
+        // set leader
+        $this->update($regionid, array('leader' => $new));
+        
+        // get region
+        $region = $this->get($regionid);
+        
+        // get new clan
+        $this->load->model('clan_model');
+        $new_clan = $this->clan_model->get($new);
+        
+        $this->load->model('notification_model');
+        
+        // insert region_lost notification
+        if ($old) {
+            // get old clan
+            $old_clan = $this->clan_model->get($old);
+            
+            $notification = array();
+            $notification['type'] = 'region_lost';
+            $notification['to'] = $old_clan['clanid'];
+            $notification['to_type'] = 'clan';
+            $notification['data'] = array('region' => $region['name'], 'clanid' => $new_clan['clanid'], 'clan' => $new_clan['name'], 'color' => $new_clan['color']);
+            $this->notification_model->insert($notification);
+        }
+        
+        // insert region_won notification
+        $notification = array();
+        $notification['type'] = 'region_won';
+        $notification['to'] = $new_clan['clanid'];
+        $notification['to_type'] = 'clan';
+        $notification['data'] = array('region' => $region['name'], 'clanid' => $new_clan['clanid'], 'clan' => $new_clan['name'], 'color' => $new_clan['color']);
+        $this->notification_model->insert($notification);
+    }
+    
+    /**
      * Get all regions with corresponding leading clan
      */
     function get_all_stats() {
         $query = "
-        	SELECT * 
-        	FROM (
-                SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
-                FROM regions
-                JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
-                JOIN users ON users.fsqid = checkins.userid
-                JOIN clans ON clans.clanid = users.clanid
-                GROUP BY checkins.regionid, users.clanid
-                ORDER BY regions.regionid ASC, points DESC) sub
-            GROUP BY regionid";
+            SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
+            FROM regions
+            LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
+            LEFT JOIN users ON users.fsqid = checkins.userid
+            LEFT JOIN clans ON clans.clanid = users.clanid
+            GROUP BY checkins.regionid, clans.clanid
+            ORDER BY regions.regionid ASC, clans.clanid ASC";
         
         $results = $this->db->query($query)->result_array();
         
         // make array with region id as key
-        $leaders = array();
+        $clans = array();
         foreach ($results as $result) {
-            $leaders[$result['regionid']] = $result;
+            $rid = $result['regionid'];
+            unset($result['regionid']);
+            
+            $clans[$rid][$result['clanid']] = $result;
         }
         
-        // add the leading clan to the region data
+        // add the clans to the region data
         $regions = $this->region_model->get_all();
         foreach ($regions as &$region) {
             $rid = $region['regionid'];
             
-            if (isset($leaders[$rid])) {
-                $region['leader'] = $leaders[$rid];
+            if (isset($clans[$rid])) {
+                $region['clans'] = $clans[$rid];
+                
+                // TODO: remove this part when the database bug has been resolved!
+                $max = 0;
+                foreach ($clans[$rid] as $clan) {
+                    if ($clan['points'] > $max) {
+                        $max = $clan['points'];
+                        $region['leader'] = $clan['clanid'];
+                    }
+                }
+            
             } else {
-                $region['leader'] = FALSE;
+                $region['clans'] = array();
             }
         }
         
@@ -153,10 +204,22 @@ class region_model extends CI_Model {
             JOIN users ON users.fsqid = checkins.userid
             JOIN clans ON clans.clanid = users.clanid
             WHERE regions.regionid = ?
-            GROUP BY checkins.regionid, users.clanid
-            ORDER BY regions.regionid ASC, points DESC";
+            GROUP BY checkins.regionid, clans.clanid
+            ORDER BY regions.regionid ASC, clans.clanid ASC";
         
-        return $this->db->query($query, array($regionid))->result_array();
+        $region = $this->get($regionid);
+        $region['clans'] = $this->db->query($query, array($regionid))->result_array();
+        
+        // TODO: remove this part when the database bug has been resolved!
+        $max = 0;
+        foreach ($region['clans'] as $clan) {
+            if ($clan['points'] > $max) {
+                $max = $clan['points'];
+                $region['leader'] = $clan['clanid'];
+            }
+        }
+        
+        return $region;
     }
     
     function count() {
@@ -172,4 +235,3 @@ class region_model extends CI_Model {
     }
 
 }
-

@@ -36,24 +36,29 @@
         			<td>checkinid, userid, venueid, date, regionid, points, lon, lat</td>
         		</tr>
         		<tr>
+        			<td>api/user/notifications.json</td>
+        			<td>Get a list of notifications for the current user</td>
+        			<td>notificationid, type, date, <em><u>data</u></em></td>
+        		</tr>
+        		<tr>
         			<td>api/clans.json</td>
         			<td>Get information about all clans</td>
-        			<td>clanid, name, shield, icon, color, capo, points, battles, members</td>
+        			<td><em>list of <u>clans</u></em></td>
         		</tr>
         		<tr>
         			<td>api/clans/[id].json</td>
         			<td>Get information about a single clan</td>
-        			<td>checkinid, userid, venueid, date, regionid, points, lon, lat</td>
+        			<td>clanid, name, shield, icon, color, capo, points, battles, members</td>
         		</tr>
         		<tr>
         			<td>api/regions.json</td>
         			<td>Get information about all regions</td>
-        			<td>regionid, name, <em><u>leader</u></em>, coords, <em><u>clans</u></em></td>
+        			<td><em>list of <u>regions</u></em></td>
         		</tr>
         		<tr>
         			<td>api/regions/[id].json</td>
         			<td>Get information about all clans in a single region</td>
-        			<td><em>list of <u>clans</u></em></td>
+        			<td>regionid, name, leader, coords (lon, lat), <em>list of <u>clans</u></em></td>
         		</tr>
         		<tr>
         			<td>api/stats.json</td>
