@@ -44,55 +44,57 @@ class Import extends CI_Controller {
         $check = $this->config->item('cronjob_code', 'foursquare');
         
         if ($code != $check) {
-            show_error('You don\'t have permission to access this page');
+            show_error('You have no permission to access this page');
         }
         
         //get parameters
         $startdate = $this->input->get('from') ? $this->input->get('from') : time();
         $enddate = $this->input->get('till') ? $this->input->get('till') : time();
-        $multiplier = $this->input->get('multi') ? $this->input->get('multi') : 2; //default = 2
-
+        $multiplier = $this->input->get('multiplier'); // no need for default, specified in model
+        
         if ($json = $this->foursquare->api('lists/' . $listid)) {
-
-            $num_added = 0 ;
+            $count = 0;
             
             $list = array();
             $list['startdate'] = $startdate;
             $list['enddate'] = $enddate;
-            $list['multiplier'] = $multiplier;
             $list['listid'] = $listid;
             $list['name'] = $json->response->list->name;
+            
+            if ($multiplier) {
+                $list['multiplier'] = $multiplier;
+            }
             
             $this->load->model('region_model'); //for detect_region(...);
             $this->load->model('venue_model');
             $this->venue_model->insert_list($list);
             
             if ($list = $json->response->list->listItems->items) {
-                $venuedata = array();
+                $data = array();
                 foreach ($list as $venue) {
                     $venue = $venue->venue;
                     $category = reset($venue->categories);
                     
-                    $venuedata['listid'] = $listid;
-                    $venuedata['venueid'] = $venue->id;
-                    $venuedata['name'] = $venue->name;
-                    $venuedata['categoryid'] = $category->id;
-                    $venuedata['lon'] = $venue->location->lng;
-                    $venuedata['lat'] = $venue->location->lat;
+                    $data['listid'] = $listid;
+                    $data['venueid'] = $venue->id;
+                    $data['name'] = $venue->name;
+                    $data['categoryid'] = $category->id;
+                    $data['lon'] = $venue->location->lng;
+                    $data['lat'] = $venue->location->lat;
                     
-                    if( $regionid = $this->region_model->detect_region( $venuedata['lat'], $venuedata['lon'] ) ){
-                        $this->venue_model->insert($venuedata);
-                        $num_added += 1 ;
+                    if ($regionid = $this->region_model->detect_region($data['lat'], $data['lon'])) {
+                        $this->venue_model->insert($data);
+                        $count += 1;
                     }
                 }
                 
-                echo $num_added . ' venues from list ' . $listid . ' imported.';
+                echo "$count/" . count($list) . " venues importerd from list $listid";
             } else {
-                show_error('This list doesn\'t exist');
+                show_error('This list does not exist');
             }
-        
+        } else {
+            show_error($this->foursquare->error);
         }
-        echo $this->foursquare->error;
     }
     
     function coordinates() {

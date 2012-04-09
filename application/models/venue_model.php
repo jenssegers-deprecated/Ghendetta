@@ -17,6 +17,10 @@ class venue_model extends CI_Model {
     }
     
     function insert_list($list) {
+        if (!isset($list['multiplier'])) {
+            $list['multiplier'] = 2;
+        }
+        
         $this->db->insert('venuelists', $list);
         return $this->db->insert_id();
     }

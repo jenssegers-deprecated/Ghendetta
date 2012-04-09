@@ -114,7 +114,7 @@ class FSQ extends CI_Controller {
         
         // check for code when not executed from CLI
         if (!$this->input->is_cli_request() && $code != $check) {
-            show_error('You have not permission to access this page');
+            show_error('You have no permission to access this page');
         }
         
         $this->load->model('user_model');
@@ -190,7 +190,6 @@ class FSQ extends CI_Controller {
         // only process this checkin if it is not already inserted in the database
         if (!$this->checkin_model->exists($checkin->id)) {
             $this->load->model('region_model');
-            $this->load->helper('polygon');
             
             if (isset($checkin->venue) && isset($checkin->venue->location->lng) && isset($checkin->venue->location->lat)) {
                 $found_region = FALSE;
@@ -198,7 +197,7 @@ class FSQ extends CI_Controller {
                 $lat = $checkin->venue->location->lat;
                 
                 // check what region the checkin was located in, using point in polygon algorithm
-                $found_region = $this->region_model->detect_region( $lat, $lon );
+                $found_region = $this->region_model->detect_region($lat, $lon);
                 
                 // if region is not found, the checkin is outside our territory
                 if ($found_region) {
