@@ -122,7 +122,7 @@ var Mapbox = function() {
 					}
 					
 					// add layer controls
-					addControls();
+					//addControls();
 				});
 			});
 		});
