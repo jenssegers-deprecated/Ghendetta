@@ -150,9 +150,9 @@ class region_model extends CI_Model {
         $query = "
             SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
             FROM regions
-            LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
-            LEFT JOIN users ON users.fsqid = checkins.userid
-            LEFT JOIN clans ON clans.clanid = users.clanid
+            JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
+            JOIN users ON users.fsqid = checkins.userid
+            JOIN clans ON clans.clanid = users.clanid
             GROUP BY checkins.regionid, clans.clanid
             ORDER BY regions.regionid ASC, clans.clanid ASC";
         
