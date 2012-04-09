@@ -12,16 +12,6 @@ if (!defined('BASEPATH'))
 class checkin_model extends CI_Model {
     
     function insert($checkin, $message = FALSE) {
-
-        // test checkin
-/*
-        $this->db->delete('checkins', array('checkinid' => 'test'));
-        if( $checkin['checkinid'] == 'test' ){
-            $checkin['date'] = time();
-        }
-*/
-        //
-
         // get region clan (before checkin)
         $this->load->model('region_model');
         $leader_before = $this->region_model->get_leader($checkin['regionid']);
@@ -33,16 +23,13 @@ class checkin_model extends CI_Model {
         // get clan capo (before checkin)
         $this->load->model('clan_model');
         $capo = $this->clan_model->get_capo($user['clanid']);
-
+        
         // get extra points
         $this->load->model('venue_model');
-        $venue = $this->venue_model->get_active( $checkin['venueid'] );
-        if( count( $venue ) > 0 ){//&& preg_match('/'. $venue['validator'] . '/' , $message ) ){
-            $checkin['points'] = $venue['multiplier'] ;
-        }else{
-            // calculate checkin points
-            $checkin['points'] = $this->calculate_points($checkin['userid'], $checkin['date']);
-        }
+        $multiplier = $this->venue_model->get_multiplier($checkin['venueid']);
+        
+        // calculate checkin points
+        $checkin['points'] = $multiplier * $this->calculate_points($checkin['userid'], $checkin['date']);
         
         // insert checkin
         $this->db->insert('checkins', $checkin);
