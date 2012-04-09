@@ -35,7 +35,7 @@ class venue_model extends CI_Model {
      */
     function get_active($venueid) {
         $query = "
-        	SELECT l.name AS listname, startdate, enddate, multiplier, v.*, c.name, c.icon
+        	SELECT l.name AS listname, startdate, enddate, multiplier, v.*, c.name as category, c.icon
             FROM venuelists l
             JOIN venues v ON v.listid = l.listid
             JOIN categories c ON v.categoryid = c.categoryid
@@ -49,7 +49,7 @@ class venue_model extends CI_Model {
      */
     function get_all_active() {
         $query = "
-        	SELECT l.name AS listname, startdate, enddate, multiplier, v.*, c.name, c.icon
+        	SELECT l.name AS listname, startdate, enddate, multiplier, v.*, c.name as category, c.icon
             FROM venuelists l
             JOIN venues v ON v.listid = l.listid
             JOIN categories c ON v.categoryid = c.categoryid

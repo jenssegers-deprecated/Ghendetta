@@ -5,6 +5,7 @@ var Mapbox = function() {
 	
 	// map layers
 	var markerGroup = new L.LayerGroup();
+	var specialGroup = new L.LayerGroup();
 	var polygonGroup = new L.LayerGroup();
 
 	/**
@@ -42,6 +43,7 @@ var Mapbox = function() {
 
 			// only show popup when occupied
 			if(region.clans[region.leader]) {
+				
 				html = '<h1>' + region.name + '</h1><img src="' + region.clans[region.leader].icon + '" /><ul class="statistics">';
 				max = region.clans[region.leader].possession;
 				for (j in region.clans) {
@@ -57,16 +59,13 @@ var Mapbox = function() {
 
 		// set map center
 		map.setView(new L.LatLng(centerLon / totalCoords, centerLat / totalCoords), 12);
-		
-		// add layer to map
-		map.addLayer(polygonGroup);
 	}
 
 	/**
 	 * Add battle markers to the map
 	 */
 	var addMarkers = function(fights) {
-		var fight, icon, marker;
+		var fight;
 
 		var fightIcon = L.Icon.extend({
 		    iconUrl: static_url + 'img/ico_battle.png',
@@ -78,26 +77,37 @@ var Mapbox = function() {
 		for (i in fights) {
 			fight = fights[i];
 
-			// create marker
-			marker = new L.Marker(new L.LatLng(fight.lat, fight.lon), {icon: new fightIcon()});
+			// add to layer
+			markerGroup.addLayer(new L.Marker(new L.LatLng(fight.lat, fight.lon), {icon: new fightIcon()}));
+		}
+	}
+	
+	/**
+	 * Add venue specials to the map
+	 */
+	var addSpecials = function(venues) {
+		var venue;
+		
+		for (i in venues) {
+			venue = venues[i];
+			
+			venueIcon = L.Icon.extend({
+			    iconUrl: venue.icon,
+			    iconSize: new L.Point(32, 32),
+			    shadowUrl: null,
+			    iconAnchor: new L.Point(16, 30),
+			});
 			
 			// add to layer
-			markerGroup.addLayer(marker);
+			specialGroup.addLayer(new L.Marker(new L.LatLng(venue.lat, venue.lon), {icon: new venueIcon()}));
 		}
-		
-		// add layer to map
-		map.addLayer(markerGroup);
 	}
 	
 	/**
 	 * Add layer controls to the map
 	 */
 	var addControls = function() {
-		var overlays = {
-		    "Battles" : markerGroup
-		};
-		var layersControl = new L.Control.Layers(null, overlays);
-		map.addControl(layersControl);
+		
 	}
 
 	var init = function(element) {
@@ -116,17 +126,32 @@ var Mapbox = function() {
 				if (data) {
 					addPolygons(data);
 				}
-
-				// get user checkins
-				$.getJSON(site_url + 'api/user/battles.json', {}, function(data) {
-					if (data) {
-						addMarkers(data);
-					}
-					
-					// add layer controls
-					//addControls();
-				});
 			});
+			
+			// get user checkins
+			$.getJSON(site_url + 'api/venues.json', {}, function(data) {
+				if (data) {
+					addSpecials(data);
+				}
+			});
+			
+			// get user checkins
+			$.getJSON(site_url + 'api/user/battles.json', {}, function(data) {
+				if (data) {
+					addMarkers(data);
+				}
+			});
+			
+			map.addLayer(polygonGroup);
+			map.addLayer(specialGroup);
+			map.addLayer(markerGroup);
+			
+			// add layer controls
+			var overlays = {
+			    "Battles" : markerGroup,
+			    "Specials" : specialGroup
+			};
+			map.addControl(new L.Control.Layers(null, overlays));
 		});
 	}
 

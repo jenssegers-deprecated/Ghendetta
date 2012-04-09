@@ -74,8 +74,8 @@ class Import extends CI_Controller {
                     $venuedata['venueid'] = $venue->id;
                     $venuedata['name'] = $venue->name;
                     $venuedata['categoryid'] = $category->id;
-                    $venuedata['lon'] = $venue->location->lat;
-                    $venuedata['lat'] = $venue->location->lng;
+                    $venuedata['lon'] = $venue->location->lng;
+                    $venuedata['lat'] = $venue->location->lat;
                     
                     $this->venue_model->insert($venuedata);
                 }
