@@ -10,6 +10,8 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class region_model extends CI_Model {
+
+    private $regions = FALSE ;
     
     function insert_region($region) {
         // remove cached regions
@@ -81,6 +83,23 @@ class region_model extends CI_Model {
         }
         
         return $regions;
+    }
+
+    function detect_region( $lat, $long ){
+        
+        if (is_null($this->regions)) {
+            $this->regions = $this->get_all();
+        }
+
+        $found_region = FALSE;
+        foreach ( $this->regions as $region ) {
+            if (is_in_polygon($region['coords'], $lon, $lat)) {
+                $found_region = $region;
+                break; // yes this is a break :)
+            }
+        }
+        
+        return $found_region ;
     }
     
     /**

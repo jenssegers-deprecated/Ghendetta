@@ -11,9 +11,6 @@ if (!defined('BASEPATH'))
 
 class FSQ extends CI_Controller {
     
-    // store regions here
-    private $regions = NULL;
-    
     function index() {
         $this->auth();
     }
@@ -195,22 +192,13 @@ class FSQ extends CI_Controller {
             $this->load->model('region_model');
             $this->load->helper('polygon');
             
-            if (is_null($this->regions)) {
-                $this->regions = $this->region_model->get_all();
-            }
-            
             if (isset($checkin->venue) && isset($checkin->venue->location->lng) && isset($checkin->venue->location->lat)) {
                 $found_region = FALSE;
                 $lon = $checkin->venue->location->lng;
                 $lat = $checkin->venue->location->lat;
                 
                 // check what region the checkin was located in, using point in polygon algorithm
-                foreach ($this->regions as $region) {
-                    if (is_in_polygon($region['coords'], $lon, $lat)) {
-                        $found_region = $region;
-                        break; // yes this is a break :)
-                    }
-                }
+                $found_region = $this->region_model->detect_region( $lat, $lon );
                 
                 // if region is not found, the checkin is outside our territory
                 if ($found_region) {

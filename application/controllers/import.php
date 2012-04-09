@@ -53,6 +53,8 @@ class Import extends CI_Controller {
         $multiplier = $this->input->get('multi') ? $this->input->get('multi') : 2; //default = 2
 
         if ($json = $this->foursquare->api('lists/' . $listid)) {
+
+            $num_added = 0 ;
             
             $list = array();
             $list['startdate'] = $startdate;
@@ -61,6 +63,7 @@ class Import extends CI_Controller {
             $list['listid'] = $listid;
             $list['name'] = $json->response->list->name;
             
+            $this->load->model('region_model'); //for detect_region(...);
             $this->load->model('venue_model');
             $this->venue_model->insert_list($list);
             
@@ -77,10 +80,13 @@ class Import extends CI_Controller {
                     $venuedata['lon'] = $venue->location->lng;
                     $venuedata['lat'] = $venue->location->lat;
                     
-                    $this->venue_model->insert($venuedata);
+                    if( $regionid = $this->region_model->detect_region( $venuedata['lat'], $venuedata['lon'] ) ){
+                        $this->venue_model->insert($venuedata);
+                        $num_added += 1 ;
+                    }
                 }
                 
-                echo count($list) . ' venues from list ' . $listid . ' imported.';
+                echo $num_added . ' venues from list ' . $listid . ' imported.';
             } else {
                 show_error('This list doesn\'t exist');
             }
