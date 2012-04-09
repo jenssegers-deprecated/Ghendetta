@@ -219,6 +219,7 @@ class FSQ extends CI_Controller {
                     $data['userid'] = $checkin->user->id;
                     $data['date'] = $checkin->createdAt;
                     $data['venueid'] = $checkin->venue->id;
+                    $data['message'] = $checkin->shout;
                     $data['lon'] = $checkin->venue->location->lng;
                     $data['lat'] = $checkin->venue->location->lat;
                     $data['regionid'] = $found_region['regionid'];

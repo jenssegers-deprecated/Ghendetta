@@ -11,7 +11,7 @@ if (!defined('BASEPATH'))
 
 class checkin_model extends CI_Model {
     
-    function insert($checkin, $message = FALSE) {
+    function insert($checkin) {
         // get region clan (before checkin)
         $this->load->model('region_model');
         $leader_before = $this->region_model->get_leader($checkin['regionid']);
@@ -24,9 +24,15 @@ class checkin_model extends CI_Model {
         $this->load->model('clan_model');
         $capo = $this->clan_model->get_capo($user['clanid']);
         
+        // detect message
+        if (isset($checkin['message'])) {
+            $message = $checkin['message'];
+            unset($checkin['message']);
+        }
+        
         // get extra points
         $this->load->model('venue_model');
-        $multiplier = $this->venue_model->get_multiplier($checkin['venueid']);
+        $multiplier = $this->venue_model->get_multiplier($checkin['venueid'], $message);
         
         // calculate checkin points
         $checkin['points'] = $multiplier * $this->calculate_points($checkin['userid'], $checkin['date']);
