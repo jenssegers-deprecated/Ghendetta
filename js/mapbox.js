@@ -59,9 +59,9 @@ var Mapbox = function() {
 
 		var fightIcon = L.Icon.extend({
 		    iconUrl: static_url + 'img/ico_battle.png',
-		    iconSize: new L.Point(64, 40),
+		    iconSize: new L.Point(43, 38),
 		    shadowUrl: null,
-		    iconAnchor: new L.Point(32, 38),
+		    iconAnchor: new L.Point(21, 36),
 		});
 
 		for (i in fights) {

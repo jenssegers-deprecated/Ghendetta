@@ -58,7 +58,7 @@
         		<tr>
         			<td>api/regions/[id].json</td>
         			<td>Get information about all clans in a single region</td>
-        			<td>regionid, name, leader, coords (lon, lat), <em>list of <u>clans</u></em></td>
+        			<td>regionid, name, leader, <em><u>coords</u> (lon, lat)</em>, <em>list of <u>clans</u> (including possession)</em></td>
         		</tr>
         		<tr>
         			<td>api/stats.json</td>
