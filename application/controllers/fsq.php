@@ -84,13 +84,21 @@ class FSQ extends CI_Controller {
             
             // save the checkin to our database
             if ($json) {
-                $this->process_checkin($json);
+                $this->load->model('user_model');
+                $fsqid = $json->user->id;
+                
+                if($this->user_model->exists($fsqid)) {
+                    $this->process_checkin($json);
+                } else {
+                    set_status_header(500);
+                    log_message('error', "Foursquare push for unexisting user ($fsqid)");
+                }
             } else {
-                set_status_header(400);
+                set_status_header(500);
                 log_message('error', 'Foursquare push did not contain checkin');
             }
         } else {
-            set_status_header(400);
+            set_status_header(500);
             log_message('error', 'Foursquare push did not contain checkin');
         }
     }
