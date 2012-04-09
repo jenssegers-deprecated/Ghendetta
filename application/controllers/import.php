@@ -17,7 +17,7 @@ class Import extends CI_Controller {
         $this->load->model('category_model');
         $this->category_model->truncate();
         
-        foreach($json->response->categories as $category) {
+        foreach ($json->response->categories as $category) {
             $this->process_category($category);
         }
     }
@@ -32,62 +32,63 @@ class Import extends CI_Controller {
         $this->category_model->insert($data);
         
         // recursive child categories
-        if(isset($category->categories) && count($category->categories)) {
-            foreach($category->categories as $subcategory) {
+        if (isset($category->categories) && count($category->categories)) {
+            foreach ($category->categories as $subcategory) {
                 $this->process_category($subcategory, $category->id);
             }
         }
     }
-
-    function venuelist( $listid, $code = FALSE ){
+    
+    function venuelist($listid, $code = FALSE) {
         
         $this->config->load('foursquare', TRUE);
         $check = $this->config->item('cronjob_code', 'foursquare');
         
-        if( $code != $check ){
+        if ($code != $check) {
             show_error('You don\'t have permission to access this page');
         }
         
         //get parameters
-        $startdate = $this->input->get('from') ? $this->input->get('from') : time() ;
-        $enddate = $this->input->get('till') ? $this->input->get('till') : time() ;
-        $multiplier = $this->input->get('multi') ? $this->input->get('multi') : 2 ; //default = 2
+        $startdate = $this->input->get('from') ? $this->input->get('from') : time();
+        $enddate = $this->input->get('till') ? $this->input->get('till') : time();
+        $multiplier = $this->input->get('multi') ? $this->input->get('multi') : 2; //default = 2
         
-        if ($json = $this->foursquare->api('lists/' . $listid )) {
 
+        if ($json = $this->foursquare->api('lists/' . $listid)) {
+            
             $list = array();
-            $list['startdate'] = $startdate ;
-            $list['enddate'] = $enddate ;
-            $list['multiplier'] = $multiplier ;
-            $list['listid'] = $listid ;
-            $list['name'] = $json->response->list->name ;
+            $list['startdate'] = $startdate;
+            $list['enddate'] = $enddate;
+            $list['multiplier'] = $multiplier;
+            $list['listid'] = $listid;
+            $list['name'] = $json->response->list->name;
             
             $this->load->model('venue_model');
-            $this->venue_model->insert_list( $list );
+            $this->venue_model->insert_list($list);
             
-            if( $list = $json->response->list->listItems->items ){
+            if ($list = $json->response->list->listItems->items) {
                 $venuedata = array();
-                foreach(  $list as $venue ){
-                    $venue = $venue->venue ;
-                    $category = reset( $venue->categories );
+                foreach ($list as $venue) {
+                    $venue = $venue->venue;
+                    $category = reset($venue->categories);
                     
-                    $venuedata['listid'] = $listid ;
-                    $venuedata['venueid'] = $venue->id ;
-                    $venuedata['name'] = $venue->name ;
-                    $venuedata['categoryid'] = $category->id ;
-                    $venuedata['lon'] = $venue->location->lat ;
-                    $venuedata['lat'] = $venue->location->lng ;
+                    $venuedata['listid'] = $listid;
+                    $venuedata['venueid'] = $venue->id;
+                    $venuedata['name'] = $venue->name;
+                    $venuedata['categoryid'] = $category->id;
+                    $venuedata['lon'] = $venue->location->lat;
+                    $venuedata['lat'] = $venue->location->lng;
                     
-                    $this->venue_model->insert( $venuedata );
+                    $this->venue_model->insert($venuedata);
                 }
                 
-                echo count( $list ) . ' venues from list ' . $listid . ' imported.' ;
-            }else{
+                echo count($list) . ' venues from list ' . $listid . ' imported.';
+            } else {
                 show_error('This list doesn\'t exist');
             }
-            
+        
         }
-        echo $this->foursquare->error ;
+        echo $this->foursquare->error;
     }
     
     function coordinates() {
