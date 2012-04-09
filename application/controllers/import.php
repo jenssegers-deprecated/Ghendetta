@@ -83,6 +83,7 @@ class Import extends CI_Controller {
                     $data['lat'] = $venue->location->lat;
                     
                     if ($regionid = $this->region_model->detect_region($data['lat'], $data['lon'])) {
+                        $data['regionid'] = $regionid ;
                         $this->venue_model->insert($data);
                         $count += 1;
                     }
