@@ -40,7 +40,6 @@ class Import extends CI_Controller {
     }
     
     function venuelist($listid, $code = FALSE) {
-        
         $this->config->load('foursquare', TRUE);
         $check = $this->config->item('cronjob_code', 'foursquare');
         
@@ -52,7 +51,6 @@ class Import extends CI_Controller {
         $startdate = $this->input->get('from') ? $this->input->get('from') : time();
         $enddate = $this->input->get('till') ? $this->input->get('till') : time();
         $multiplier = $this->input->get('multi') ? $this->input->get('multi') : 2; //default = 2
-        
 
         if ($json = $this->foursquare->api('lists/' . $listid)) {
             
