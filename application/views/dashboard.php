@@ -1,6 +1,8 @@
 <?php include_once('head.tpl'); ?>
 <body>
 <link rel="stylesheet" href="<?php echo static_url('css/mapbox/leaflet.css'); ?>">
+<!--[if lte IE 8]><link rel="stylesheet" href="<?php echo static_url('css/mapbox/leaflet.ie.css'); ?>" /><![endif]-->
+
 <?php include_once('navigation.tpl'); ?>
 
 <section class="v-dashboard" role="main">
