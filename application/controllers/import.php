@@ -52,7 +52,7 @@ class Import extends CI_Controller {
         $enddate = $this->input->get('till') ? $this->input->get('till') : time();
         $multiplier = $this->input->get('multiplier'); // no need for default, specified in model
         
-        if ($json = $this->foursquare->api('lists/' . $listid)) {
+        if ($json = $this->foursquare->api("lists/$listid")) {
             $count = 0;
             
             $list = array();
@@ -85,7 +85,7 @@ class Import extends CI_Controller {
                     if ($regionid = $this->region_model->detect_region($data['lat'], $data['lon'])) {
                         $data['regionid'] = $regionid ;
                         $this->venue_model->insert($data);
-                        $count += 1;
+                        $count++;
                     }
                 }
                 

@@ -49,14 +49,14 @@ class venue_model extends CI_Model {
     }
     
     /**
-     * Get all active venues
+     * Get all active venues for all regions or a specific region
      */
-    function get_all_active( $regionid = FALSE ) {
+    function get_all_active($regionid = FALSE) {
         $query = "
         	SELECT l.name AS listname, startdate, enddate, multiplier, v.*, c.name as category, c.icon
             FROM venuelists l
             JOIN venues v ON v.listid = l.listid
-            JOIN categories c ON v.categoryid = c.categoryid".( $regionid ? ' AND v.regionid = ? ' : '' )."
+            JOIN categories c ON v.categoryid = c.categoryid" . ($regionid ? ' AND v.regionid = ? ' : '') . "
         	WHERE startdate <= UNIX_TIMESTAMP(NOW()) AND enddate >= UNIX_TIMESTAMP(NOW())";
         return $this->db->query($query, array($regionid))->result_array();
     }
