@@ -172,12 +172,15 @@ class region_model extends CI_Model {
      */
     function get_all_stats() {
         $query = "
-            SELECT regions.regionid, clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
+            SELECT regions.regionid, clans.*, points, battles
             FROM regions
-            LEFT JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
-            LEFT JOIN users ON users.fsqid = checkins.userid
-            LEFT JOIN clans ON clans.clanid = users.clanid
-            GROUP BY checkins.regionid, clans.clanid
+            JOIN clans
+            LEFT JOIN (
+            	SELECT regionid, clanid, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
+            	FROM users
+            	JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
+            	GROUP BY regionid, clanid ) as sub ON sub.regionid = regions.regionid AND sub.clanid = clans.clanid
+            GROUP BY regions.regionid, clans.clanid
             ORDER BY regions.regionid ASC, clans.clanid ASC";
         
         $results = $this->db->query($query)->result_array();
@@ -222,17 +225,20 @@ class region_model extends CI_Model {
      */
     function get_stats($regionid) {
         $query = "
-            SELECT clans.*, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COUNT(checkins.checkinid) as battles
+        	SELECT regions.regionid, clans.*, points, battles
             FROM regions
-            JOIN checkins ON checkins.regionid = regions.regionid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7)) 
-            JOIN users ON users.fsqid = checkins.userid
-            JOIN clans ON clans.clanid = users.clanid
+            JOIN clans
+            LEFT JOIN (
+            	SELECT regionid, clanid, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
+            	FROM users
+            	JOIN checkins ON users.fsqid = checkins.userid AND regionid = ? AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
+            	GROUP BY regionid, clanid ) as sub ON sub.regionid = regions.regionid AND sub.clanid = clans.clanid
             WHERE regions.regionid = ?
-            GROUP BY checkins.regionid, clans.clanid
+            GROUP BY regions.regionid, clans.clanid
             ORDER BY regions.regionid ASC, clans.clanid ASC";
         
         $region = $this->get($regionid);
-        $region['clans'] = $this->db->query($query, array($regionid))->result_array();
+        $region['clans'] = $this->db->query($query, array($regionid, $regionid))->result_array();
         
         // TODO: remove this part when the database bug has been resolved!
         $max = 0;
