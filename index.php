@@ -18,7 +18,8 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	
+
+# PHP CLI support
 if ((php_sapi_name() == 'cli') or defined('STDIN')) {
     $_SERVER['SERVER_NAME'] = php_uname('n');
 }
@@ -28,6 +29,15 @@ if ((php_sapi_name() == 'cli') or defined('STDIN')) {
         case 'ghendetta.be' :
             define('ENVIRONMENT', 'production');
             break;
+            
+        case 'testing.ghendetta.be':
+            define('ENVIRONMENT', 'testing');
+            break;
+            
+        case 'staging.ghendetta.be':
+            define('ENVIRONMENT', 'staging');
+            break;
+            
         default :
             define('ENVIRONMENT', 'development');
             break;
@@ -47,10 +57,11 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
+		case 'testing':
 			error_reporting(E_ALL | E_STRICT);
 		break;
 	
-		case 'testing':
+		case 'staging':
 		case 'production':
 			error_reporting(0);
 		break;
