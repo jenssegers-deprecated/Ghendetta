@@ -12,7 +12,7 @@ if (!defined('BASEPATH'))
 class Construction extends CI_Controller {
     
     public function index() {
-        $user = $this->ghendetta->current_user();
+        /*$user = $this->ghendetta->current_user();
         
         if ($user) {
             $this->load->model('clan_model');
@@ -21,6 +21,6 @@ class Construction extends CI_Controller {
             $clan = FALSE;
         }
         
-        $this->load->view('construction', array('user' => $user, 'clan' => $clan));
+        $this->load->view('construction', array('user' => $user, 'clan' => $clan));*/
     }
 }
