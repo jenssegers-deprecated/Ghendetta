@@ -35,6 +35,7 @@ if ((php_sapi_name() == 'cli') or defined('STDIN')) {
             break;
             
         case 'staging.ghendetta.be':
+        case 'stag.ghendetta.be':
             define('ENVIRONMENT', 'staging');
             break;
             
