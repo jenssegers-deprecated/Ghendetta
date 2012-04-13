@@ -59,10 +59,10 @@ if (defined('ENVIRONMENT'))
 	{
 		case 'development':
 		case 'testing':
+		case 'staging':
 			error_reporting(E_ALL | E_STRICT);
 		break;
 	
-		case 'staging':
 		case 'production':
 			error_reporting(0);
 		break;
