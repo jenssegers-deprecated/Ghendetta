@@ -41,7 +41,7 @@ class Import extends CI_Controller {
     
     function coordinates() {
         $url = 'http://data.appsforghent.be/poi/kotzones.json';
-        $json = $this->_datatank($url);
+        $json = $this->datatank($url);
         
         $this->load->model('region_model');
         $this->region_model->truncate();
@@ -61,7 +61,7 @@ class Import extends CI_Controller {
         }
     }
     
-    function _datatank($url) {
+    private function datatank($url) {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPGET, TRUE);
