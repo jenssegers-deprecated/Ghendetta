@@ -698,6 +698,7 @@ a:focus {
 			width: 100%;
 			display: block;
 			margin-bottom: 8px;
+			border-radius: 3px;
 		}
 
 		.v-about #team b {
