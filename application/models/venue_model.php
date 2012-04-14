@@ -78,17 +78,7 @@ class venue_model extends CI_Model {
             return 1;
         }
         
-        if ($venue['validator']) {
-            // validator was supplied and matches
-            if ($venue['multiplier'] && stristr($venue['multiplier'], $venue['validator'])) {
-                return $venue['multiplier'];
-            }
-            
-            // return 1 in all other cases
-            return 1;
-        } else {
-            return $venue['validator'];
-        }
+        return $venue['multiplier'];
     }
     
     function count() {
