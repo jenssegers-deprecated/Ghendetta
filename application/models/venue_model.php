@@ -12,10 +12,6 @@ if (!defined('BASEPATH'))
 class venue_model extends CI_Model {
     
     function insert($venue) {
-        if (!isset($venue['hash'])) {
-            $venue['hash'] = hash('md5', $venue['venueid'] . $this->config->item('encryption_key'));
-        }
-        
         $this->db->insert('venues', $venue);
         return $this->db->insert_id();
     }
@@ -36,21 +32,6 @@ class venue_model extends CI_Model {
     
     function get($venueid) {
         return $this->db->where('venueid', $venueid)->get('venues')->row_array();
-    }
-    
-    /**
-     * Get active checkin by hash
-     * @param string $hash
-     */
-    function get_by_hash($hash) {
-        $query = "
-        	SELECT v.listid, v.venueid, v.name, v.lon, v.lat, v.regionid, 
-            	COALESCE(v.multiplier, l.multiplier), c.icon, c.name as category, l.name as listname FROM venues v
-            JOIN venuelists l ON l.listid = v.listid
-            JOIN categories c ON c.categoryid = v.categoryid
-            WHERE hash = ? AND startdate <= UNIX_TIMESTAMP(NOW()) AND enddate >= UNIX_TIMESTAMP(NOW())";
-        
-        return $this->db->query($query, array($hash))->row_array();
     }
     
     /**

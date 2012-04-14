@@ -24,18 +24,12 @@ class checkin_model extends CI_Model {
         $this->load->model('clan_model');
         $capo = $this->clan_model->get_capo($user['clanid']);
         
-        // detect message
-        if (isset($checkin['message'])) {
-            $message = $checkin['message'];
-            unset($checkin['message']);
-        }
-        
         // get extra points
-        $this->load->model('venue_model');
-        $multiplier = $this->venue_model->get_multiplier($checkin['venueid'], $message);
+        //$this->load->model('venue_model');
+        //$multiplier = $this->venue_model->get_multiplier($checkin['venueid'], $message);
         
         // calculate checkin points
-        $checkin['points'] = $multiplier * $this->calculate_points($checkin['userid'], $checkin['date']);
+        $checkin['points'] = $this->calculate_points($checkin['userid'], $checkin['date']);
         
         // insert checkin
         $this->db->insert('checkins', $checkin);

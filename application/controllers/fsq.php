@@ -96,12 +96,23 @@ class FSQ extends CI_Controller {
         }
     }
     
-    function checkin($hash) {
+    function checkin($code) {
         if ($user = $this->ghendetta->current_user()) {
+            // decrypt
+            $code = $this->encrypt->decode($code);
+            
+            // substract venueid
+            list($venueid, $hash) = explode(':', $code);
+            
+            // check for valid code
+            $check = hash('sha256', $venueid . $this->config->item('encryption_key'));
+            if ($hash != $check) {
+                show_error('Could not check you into this venue: invalid code');
+            }
+            
             // search the specific venue
             $this->load->model('venue_model');
-            if ($venue = $this->venue_model->get_by_hash($hash)) {
-                
+            if ($venue = $this->venue_model->get_active($venueid)) {
                 // do checkin
                 $data = array();
                 $data['venueId'] = $venue['venueid'];
@@ -109,7 +120,7 @@ class FSQ extends CI_Controller {
                 $response = $this->foursquare->api('checkins/add', $data, 'POST');
                 print_r($response);
             } else {
-                show_error('Could not check you into this venue (unlisted or expired)');
+                show_error('Could not check you into this venue: unlisted or expired');
             }
         } else {
             redirect();
@@ -123,7 +134,7 @@ class FSQ extends CI_Controller {
         // not a CLI reqeuest, check if admin
         if (!$this->input->is_cli_request()) {
             // no user detected or not admin
-            if(!$user = $this->ghendetta->current_user() || !$user['admin']) {
+            if (!$user = $this->ghendetta->current_user() || !$user['admin']) {
                 show_error('You have not permission to access this page');
             }
         }
@@ -225,7 +236,6 @@ class FSQ extends CI_Controller {
                     $data['userid'] = $checkin->user->id;
                     $data['date'] = $checkin->createdAt;
                     $data['venueid'] = $checkin->venue->id;
-                    $data['message'] = $checkin->shout;
                     $data['lon'] = $checkin->venue->location->lng;
                     $data['lat'] = $checkin->venue->location->lat;
                     $data['regionid'] = $found_region['regionid'];
@@ -233,6 +243,10 @@ class FSQ extends CI_Controller {
                     if ($checkin->venue->categories) {
                         $category = reset($checkin->venue->categories);
                         $data['categoryid'] = $category->id;
+                    }
+                    
+                    if (isset($checkin->shout)) {
+                        $data['message'] = $checkin->shout;
                     }
                     
                     $this->checkin_model->insert($data);
