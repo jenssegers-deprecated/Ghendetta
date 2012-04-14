@@ -30,11 +30,12 @@
 </section>
 
 <section class="v-dashboard-legend cf">
+	<h1 class="js-toggle">Legend</h1></a>
 	<dl class="legend">
 		<dt><img src="<?php echo static_url('img/ico_battle.svg'); ?>" alt="" /></dt>
-			<dd>Your battles</dd>
+			<dd>My Battles</dd>
 		<dt><img src="<?php echo static_url('img/ico_event.svg'); ?>" alt="" /></dt>
-			<dd>Foursquare Day Events</dd>
+			<dd>Arena</dd>
 		<?php foreach($clans as $clan): ?>
 		<dt><img src="<?php echo $clan['shield']; ?>" alt="<?php echo $clan['name']; ?>" /></dt>
 			<dd><?php echo $clan['name']; ?></dd>
