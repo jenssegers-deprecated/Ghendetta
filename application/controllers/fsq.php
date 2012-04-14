@@ -101,11 +101,12 @@ class FSQ extends CI_Controller {
             $this->load->model('venue_model');
             
             // decrypt and substract data
+            $this->load->library('encrypt');
             $code = $this->encrypt->decode($code);
-            list($venueid, $hash) = explode(':', $code);
+            @list($venueid, $hash) = explode(':', $code);
             
             // check for valid code
-            if (!$venueid || !$hash || $hash != $this->venue_model->get_code($venueid)) {
+            if ($hash != $this->venue_model->get_code($venueid)) {
                 show_error('Could not check you into this venue: invalid code');
             }
             
