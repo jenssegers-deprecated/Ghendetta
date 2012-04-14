@@ -96,7 +96,7 @@ class FSQ extends CI_Controller {
         }
     }
     
-    function checkin($code) {
+    function checkin($code = '') {
         if ($user = $this->ghendetta->current_user()) {
             $this->load->model('venue_model');
             
