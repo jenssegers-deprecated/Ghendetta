@@ -29,7 +29,7 @@ class checkin_model extends CI_Model {
         $multiplier = $this->venue_model->get_multiplier($checkin['venueid']);
         
         // calculate checkin points
-        $checkin['points'] = $this->calculate_points($checkin['userid'], $checkin['date']);
+        $checkin['points'] = $multiplier * $this->calculate_points($checkin['userid'], $checkin['date']);
         
         // insert checkin
         $this->db->insert('checkins', $checkin);
