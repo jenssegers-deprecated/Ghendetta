@@ -27,8 +27,6 @@ class FSQ extends CI_Controller {
      */
     function callback() {
         if ($code = $this->input->get('code')) {
-            //$this->output->enable_profiler(TRUE);
-            
             // request token
             $token = $this->foursquare->request_token($code);
             
@@ -58,8 +56,6 @@ class FSQ extends CI_Controller {
             
             // back to the homepage
             redirect();
-        
-            //$this->output->set_profiler_sections(array('queries' => TRUE));
         } else {
             show_error('Something went wrong');
         }
@@ -84,7 +80,7 @@ class FSQ extends CI_Controller {
                 $this->load->model('user_model');
                 $fsqid = $json->user->id;
                 
-                if($this->user_model->exists($fsqid)) {
+                if ($this->user_model->exists($fsqid)) {
                     $this->process_checkin($json);
                 } else {
                     set_status_header(500);
@@ -100,10 +96,48 @@ class FSQ extends CI_Controller {
         }
     }
     
+    function checkin($code = '') {
+        if ($user = $this->ghendetta->current_user()) {
+            $this->load->model('venue_model');
+            
+            // decrypt and substract data
+            $this->load->library('encrypt');
+            $code = $this->encrypt->decode($code);
+            @list($venueid, $hash) = explode(':', $code);
+            
+            // check for valid code
+            if ($hash != $this->venue_model->get_code($venueid)) {
+                show_error('Could not check you into this venue: invalid code');
+            }
+            
+            // search the specific venue
+            if ($venue = $this->venue_model->get_active($venueid)) {
+                // do checkin
+                $data = array();
+                $data['venueId'] = $venue['venueid'];
+                
+                $response = $this->foursquare->api('checkins/add', $data, 'POST');
+                print_r($response);
+            } else {
+                show_error('Could not check you into this venue: unlisted or expired');
+            }
+        } else {
+            redirect();
+        }
+    }
+    
     /**
      * Cronjob controller
      */
-    function cronjob($code = FALSE) {
+    function cronjob() {
+        // not a CLI reqeuest, check if admin
+        if (!$this->input->is_cli_request()) {
+            // no user detected or not admin
+            if (!$user = $this->ghendetta->current_user() || !$user['admin']) {
+                show_error('You have not permission to access this page');
+            }
+        }
+        
         $limit = $this->input->get('limit') ? $this->input->get('limit') : FALSE;
         $user = $this->input->get('user') ? $this->input->get('user') : FALSE;
         
@@ -117,25 +151,12 @@ class FSQ extends CI_Controller {
         // count updated users
         $count = 0;
         
-        $this->config->load('foursquare', TRUE);
-        $check = $this->config->item('cronjob_code', 'foursquare');
-        
-        // check for code when not executed from CLI
-        if (!$this->input->is_cli_request() && $code != $check) {
-            show_error('You have no permission to access this page');
-        }
-        
         $this->load->model('user_model');
         if (!$user) {
             $users = $this->user_model->get_all_rand($limit);
         } else {
             $user = $this->user_model->get($user);
-            
-            if ($user) {
-                $users = array($user);
-            } else {
-                $users = array();
-            }
+            $users = $user ? array($user) : array();
         }
         
         foreach ($users as $user) {
@@ -214,7 +235,6 @@ class FSQ extends CI_Controller {
                     $data['userid'] = $checkin->user->id;
                     $data['date'] = $checkin->createdAt;
                     $data['venueid'] = $checkin->venue->id;
-                    $data['message'] = $checkin->shout;
                     $data['lon'] = $checkin->venue->location->lng;
                     $data['lat'] = $checkin->venue->location->lat;
                     $data['regionid'] = $found_region['regionid'];
@@ -222,6 +242,10 @@ class FSQ extends CI_Controller {
                     if ($checkin->venue->categories) {
                         $category = reset($checkin->venue->categories);
                         $data['categoryid'] = $category->id;
+                    }
+                    
+                    if (isset($checkin->shout)) {
+                        $data['message'] = $checkin->shout;
                     }
                     
                     $this->checkin_model->insert($data);

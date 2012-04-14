@@ -59,7 +59,7 @@ class Foursquare {
      */
     function request_token($code) {
         $url = 'https://foursquare.com/oauth2/access_token?client_id=' . $this->settings['client_id'] . '&client_secret=' . $this->settings['client_secret'] . '&grant_type=authorization_code&redirect_uri=' . urlencode($this->settings['callback_url']) . '&code=' . $code;
-        $json = $this->_request($url);
+        $json = $this->_get($url);
         
         if (!isset($json->access_token)) {
             $this->error = 'Did not receive authentication token';
@@ -76,16 +76,24 @@ class Foursquare {
      * @param array $data
      * @return Object
      */
-    function api($uri, $data = array()) {
+    function api($uri, $data = array(), $method = 'GET') {
+        // url parameters
+        $params = array();
+        
+        // active token set?
         if (!$token = $this->token()) {
             // asume userless access (https://developer.foursquare.com/overview/auth#userless)
-            $data['client_id'] = $this->settings['client_id'];
-            $data['client_secret'] = $this->settings['client_secret'];
+            $params['client_id'] = $this->settings['client_id'];
+            $params['client_secret'] = $this->settings['client_secret'];
         } else {
-            $data['oauth_token'] = $token;
+            $params['oauth_token'] = $token;
         }
         
-        $json = $this->_request('https://api.foursquare.com/v2/' . $uri . '?' . http_build_query($data));
+        if (strtoupper($method) == 'GET') {
+            $json = $this->_get('https://api.foursquare.com/v2/' . $uri . '?' . http_build_query(array_merge($params, $data)));
+        } else {
+            $json = $this->_post('https://api.foursquare.com/v2/' . $uri . '?' . http_build_query($params), $data);
+        }
         
         if (!$json) {
             $this->error = 'No response from Foursquare API';
@@ -99,19 +107,45 @@ class Foursquare {
     }
     
     /**
-     * Raw CURL request method
+     * Raw CURL get method
      * @param string $url
      * @return Object
      */
-    private function _request($url) {
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
+    private function _get($url) {
+        $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_HTTPGET, TRUE);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
         
         $data = curl_exec($curl);
         curl_close($curl);
+        
+        if (!$data) {
+            return FALSE;
+        }
+        
+        return json_decode($data);
+    }
+    
+    /**
+     * Raw CURL post method
+     * @param string $url
+     * @param array $data 
+     * @return Object
+     */
+    private function _post($url, $data) {
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_POST, TRUE);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+        
+        $data = curl_exec($curl);
+        curl_close($curl);
+        
+        if (!$data) {
+            return FALSE;
+        }
         
         return json_decode($data);
     }

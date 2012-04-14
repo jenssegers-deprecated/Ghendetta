@@ -10,6 +10,8 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class region_model extends CI_Model {
+
+    private $regions = NULL ;
     
     function insert_region($region) {
         $this->db->insert('regions', $region);
@@ -94,12 +96,14 @@ class region_model extends CI_Model {
     function detect_region($lat, $lon) {
         $this->load->helper('polygon');
         
-        $regions = $this->get_all();
+        if (is_null($this->regions)) {
+            $this->regions = $this->region_model->get_all();
+        }
         $found_region = FALSE;
         
-        foreach ($regions as $region) {
+        foreach ($this->regions as $region) {
             if (is_in_polygon($region['coords'], $lon, $lat)) {
-                $found_region = $region;
+                $found_region = $region['regionid'];
                 break; // yes this is a break :)
             }
         }
@@ -176,7 +180,7 @@ class region_model extends CI_Model {
             FROM regions
             JOIN clans
             LEFT JOIN (
-            	SELECT regionid, clanid, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
+            	SELECT regionid, clanid, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COALESCE(COUNT(checkins.checkinid), 0) as battles
             	FROM users
             	JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
             	GROUP BY regionid, clanid ) as sub ON sub.regionid = regions.regionid AND sub.clanid = clans.clanid
@@ -201,6 +205,7 @@ class region_model extends CI_Model {
             
             if (isset($clans[$rid])) {
                 $region['clans'] = $clans[$rid];
+                $region['leader'] = FALSE;
                 
                 // TODO: remove this part when the database bug has been resolved!
                 $max = 0;
@@ -229,7 +234,7 @@ class region_model extends CI_Model {
             FROM regions
             JOIN clans
             LEFT JOIN (
-            	SELECT regionid, clanid, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
+            	SELECT regionid, clanid, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COALESCE(COUNT(checkins.checkinid), 0) as battles
             	FROM users
             	JOIN checkins ON users.fsqid = checkins.userid AND regionid = ? AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
             	GROUP BY regionid, clanid ) as sub ON sub.regionid = regions.regionid AND sub.clanid = clans.clanid
@@ -239,11 +244,12 @@ class region_model extends CI_Model {
         
         $region = $this->get($regionid);
         $region['clans'] = $this->db->query($query, array($regionid, $regionid))->result_array();
+        $region['leader'] = FALSE;
         
         // TODO: remove this part when the database bug has been resolved!
         $max = 0;
         foreach ($region['clans'] as $clan) {
-            if ($clan['points'] > $max) {
+            if ($clan['points'] && $clan['points'] > $max) {
                 $max = $clan['points'];
                 $region['leader'] = $clan['clanid'];
             }

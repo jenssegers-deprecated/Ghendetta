@@ -18,6 +18,7 @@ class user_model extends CI_Model {
     function insert($user) {
         $user['registered'] = time();
         $user['active'] = 1;
+        $user['admin'] = 0;
         
         $this->db->insert('users', $user);
         return $this->db->insert_id();

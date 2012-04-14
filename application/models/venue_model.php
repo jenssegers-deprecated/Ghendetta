@@ -17,6 +17,7 @@ class venue_model extends CI_Model {
     }
     
     function insert_list($list) {
+        // default multiplier
         if (!isset($list['multiplier'])) {
             $list['multiplier'] = 2;
         }
@@ -39,7 +40,9 @@ class venue_model extends CI_Model {
      */
     function get_active($venueid) {
         $query = "
-        	SELECT l.name AS listname, startdate, enddate, multiplier, v.*, c.name as category, c.icon
+        	SELECT l.name AS listname, startdate, enddate, 
+                   COALESCE(v.multiplier , l.multiplier) as multiplier, v.listid, v.venueid,
+                   v.name, v.categoryid, v.lon, v.lat, v.regionid, c.name as category, c.icon
             FROM venuelists l
             JOIN venues v ON v.listid = l.listid
             JOIN categories c ON v.categoryid = c.categoryid
@@ -53,7 +56,9 @@ class venue_model extends CI_Model {
      */
     function get_all_active($regionid = FALSE) {
         $query = "
-        	SELECT l.name AS listname, startdate, enddate, multiplier, v.*, c.name as category, c.icon
+        	SELECT l.name AS listname, startdate, enddate, 
+                   COALESCE(v.multiplier , l.multiplier) as multiplier, v.listid, v.venueid,
+                   v.name, v.categoryid, v.lon, v.lat, v.regionid, c.name as category, c.icon
             FROM venuelists l
             JOIN venues v ON v.listid = l.listid
             JOIN categories c ON v.categoryid = c.categoryid" . ($regionid ? ' AND v.regionid = ? ' : '') . "
@@ -67,23 +72,22 @@ class venue_model extends CI_Model {
      * @param string $message
      * @return foat
      */
-    function get_multiplier($venueid, $message = FALSE) {
+    function get_multiplier($venueid) {
         // venue not found, return multiplier 1
         if (!$venue = $this->get_active($venueid)) {
             return 1;
         }
         
-        if ($venue['validator']) {
-            // validator was supplied and matches
-            if ($venue['multiplier'] && stristr($venue['multiplier'], $venue['validator'])) {
-                return $venue['multiplier'];
-            }
-            
-            // return 1 in all other cases
-            return 1;
-        } else {
-            return $venue['validator'];
-        }
+        return $venue['multiplier'];
+    }
+    
+    /**
+     * Get identification code for a venueid
+     * @param int $venueid
+     * @return string
+     */
+    function get_code($venueid) {
+        return hash('sha256', $venueid . $this->config->item('encryption_key'));
     }
     
     function count() {

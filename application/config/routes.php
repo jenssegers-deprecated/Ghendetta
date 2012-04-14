@@ -44,8 +44,6 @@ $route['404_override'] = '';
 $route['foursquare'] = 'fsq';
 $route['foursquare(:any)'] = 'fsq$1';
 
-$route['4sqday'] = 'fsqday';
-
 $route['(:any).json'] = '$1';
 
 /* End of file routes.php */
