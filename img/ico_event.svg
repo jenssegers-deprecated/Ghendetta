@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="32px" height="44px" viewBox="-134.5 120.5 32 44" enable-background="new -134.5 120.5 32 44" xml:space="preserve">
+<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="32px" height="44px" viewBox="2.5 0 32 44" overflow="visible" enable-background="new 2.5 0 32 44"
+	 xml:space="preserve">
+<defs>
+</defs>
 <filter  filterUnits="objectBoundingBox" id="AI_Shadow_1">
 	<feGaussianBlur  result="blur" in="SourceAlpha" stdDeviation="1"></feGaussianBlur>
 	<feOffset  result="offsetBlurredAlpha" in="blur" dx="0" dy="1"></feOffset>
@@ -15,31 +21,23 @@
 	<feGaussianBlur  stdDeviation="2"></feGaussianBlur>
 </filter>
 <g opacity="0.33" filter="url(#AI_GaussianBlur_4)">
-	<path d="M-116.978,150.417c-0.064-0.001-0.125,0-0.186-0.001c-0.064-0.001-0.122-0.005-0.185-0.006
-		c-10.097-0.181-16.007,0.657-16.007,1.729c0,1.03,2.349,4.858,4.527,5.955c2.055,1.036,8.498,2.104,8.498,2.104
-		s6.963-1.042,9.541-2.035c2.684-1.033,7.108-4.622,7.72-5.59C-102.436,151.569-107.255,150.591-116.978,150.417z"/>
+	<path fill="#010101" d="M19.4,29.4c-0.1,0-0.1,0-0.2,0c-0.1,0-0.1,0-0.2,0C8.9,29.2,3,30.1,3,31.2c0,1,2.3,4.9,4.5,6
+		c2.1,1,8.5,2.1,8.5,2.1s7-1,9.5-2c2.7-1,7.1-4.6,7.7-5.6C34,30.6,29.1,29.6,19.4,29.4z"/>
 </g>
-<g>
-	
-		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="150.0947" y1="-1088.1533" x2="150.0947" y2="-1110.7656" gradientTransform="matrix(1 0 0 -1 -270.7197 -955.1621)">
-		<stop  offset="0" style="stop-color:#CC2A2A"/>
-		<stop  offset="1" style="stop-color:#961F1F"/>
-	</linearGradient>
-	<path fill="url(#SVGID_1_)" d="M-120.476,121.486c-0.052,0-0.1,0.006-0.15,0.006c-0.052,0-0.099-0.006-0.15-0.006
-		c-8.019,0-12.579,2.91-12.579,6.349c0,3.455,2.085,17.669,4.139,22.215c2.053,4.548,8.591,9.521,8.591,9.521
-		s6.539-4.975,8.591-9.521s4.14-18.76,4.14-22.215C-107.896,124.396-112.458,121.486-120.476,121.486z"/>
-	<path fill="#5E1515" d="M-120.625,160.198l-0.303-0.229c-0.271-0.207-6.663-5.103-8.744-9.713
-		c-2.103-4.654-4.184-18.936-4.184-22.421c0-3.409,4.044-6.849,13.079-6.849h0.3c9.034,0,13.08,3.439,13.082,6.849
-		c0,3.481-2.081,17.761-4.184,22.421c-2.08,4.608-8.473,9.506-8.744,9.712L-120.625,160.198z M-120.74,121.988
-		c-8.338,0-12.115,3.03-12.115,5.847c0,3.333,2.082,17.555,4.095,22.009c1.729,3.832,6.836,8.058,8.135,9.091
-		c1.299-1.034,6.408-5.264,8.135-9.091c2.013-4.459,4.095-18.679,4.095-22.009c-0.001-2.816-3.783-5.849-12.082-5.849l-0.165,0.006
-		l-0.091-0.004C-120.734,121.988-120.737,121.988-120.74,121.988z"/>
-</g>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="557.4854" y1="1364.668" x2="557.4854" y2="1387.2797" gradientTransform="matrix(1 0 0 1 -541.7197 -1352.6621)">
+	<stop  offset="0" style="stop-color:#BF3731"/>
+	<stop  offset="1" style="stop-color:#962522"/>
+</linearGradient>
+<path fill="url(#SVGID_1_)" d="M15.9,0.5c-0.1,0-0.1,0-0.1,0c-0.1,0-0.1,0-0.1,0C7.6,0.5,3,3.4,3,6.8c0,3.5,2.1,17.7,4.1,22.2
+	c2.1,4.5,8.6,9.5,8.6,9.5s6.5-5,8.6-9.5c2.1-4.5,4.1-18.8,4.1-22.2C28.5,3.4,23.9,0.5,15.9,0.5z"/>
+<path fill="#5E1614" d="M15.8,39.2L15.5,39c-0.3-0.2-6.7-5.1-8.7-9.7C4.6,24.6,2.5,10.3,2.5,6.8c0-3.4,4-6.8,13.1-6.8h0.3
+	C24.9,0,29,3.4,29,6.8c0,3.5-2.1,17.8-4.2,22.4c-2.1,4.6-8.5,9.5-8.7,9.7L15.8,39.2z M15.6,1C7.3,1,3.5,4,3.5,6.8
+	c0,3.3,2.1,17.6,4.1,22c1.7,3.8,6.8,8.1,8.1,9.1c1.3-1,6.4-5.3,8.1-9.1c2-4.5,4.1-18.7,4.1-22C28,4,24.2,1,15.9,1L15.6,1L15.6,1
+	C15.7,1,15.7,1,15.6,1z"/>
 <g filter="url(#AI_Shadow_1)">
 	<g>
-		<path fill="#F7F6F2" d="M-115.115,131.889V127.5h-2v2h-1v-2h-2v2h-1v-2h-2v2h-1v-2h-2v4h0.047l1.953,2.293v8.566l-2,1.904v1.902
-			l3.597,0.005l7.405-0.005v-1.902l-2-1.904v-8.566L-115.115,131.889z M-122.116,143.5v-4.114c0-0.836,0.369-1.886,1.334-1.886
-			h0.314c0.965,0,1.352,1.05,1.352,1.886v4.114H-122.116z"/>
+		<path fill="#F8F8F3" d="M21.3,10.9V6.5h-2v2h-1v-2h-2v2h-1v-2h-2v2h-1v-2h-2v4h0l2,2.3v8.6l-2,1.9v1.9l3.6,0l7.4,0v-1.9l-2-1.9
+			v-8.6L21.3,10.9z M14.3,22.5v-4.1c0-0.8,0.4-1.9,1.3-1.9h0.3c1,0,1.4,1,1.4,1.9v4.1H14.3z"/>
 	</g>
 </g>
 </svg>

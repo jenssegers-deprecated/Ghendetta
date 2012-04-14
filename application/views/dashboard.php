@@ -13,6 +13,10 @@
 			<a href="<?php echo site_url('foursquare'); ?>">Connect &amp; Conquer</a>
 			Connect with Foursquare and play.
 		</p>
+		<div class="tutorial">
+			<h2>How To Play</h2>
+			<p>Every visit to another district (check-in on Foursquare) gives you a chance to take away a district from a rivaling clan.</p>
+		</div>
 		<div class="message notice">
 			<p><strong>Warning:</strong> play at your own risk. This is very much &beta;. Lives (or game data) might be lost. <small>But we respect your privacy, and your Foursquare data is safe!</small></p>
 		</div>
@@ -20,11 +24,9 @@
 		<p class="clan">You are with the <a href="/clan" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.</p>
 		<div class="tutorial">
 			<dl class="legend cf">
-				<dt><img src="<?php echo static_url('img/ico_battle.png'); ?>" alt="" /></dt>
+				<dt><img src="<?php echo static_url('img/ico_battle.svg'); ?>" alt="" /></dt>
 				<dd>Your battles</dd>
 			</dl>
-			<h2>How To Play</h2>
-			<p>Every visit to another district (check-in on Foursquare) gives you a chance to take away a district from a rivaling clan.</p>
 		</div>
 		<?php endif; ?>
 

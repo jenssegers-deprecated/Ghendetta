@@ -5,7 +5,7 @@
 ]>
 <svg version="1.1"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-	 x="0px" y="0px" width="32px" height="44px" viewBox="1.4 0.2 32 44" overflow="visible" enable-background="new 1.4 0.2 32 44"
+	 x="0px" y="0px" width="32px" height="44px" viewBox="2.5 0.2 32 44" overflow="visible" enable-background="new 2.5 0.2 32 44"
 	 xml:space="preserve">
 <defs>
 </defs>
@@ -36,7 +36,7 @@
 	L15.6,1.2C15.7,1.2,15.7,1.2,15.6,1.2z"/>
 <g filter="url(#AI_Shadow_1)">
 	
-		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="828.4004" y1="-1509.8682" x2="828.4004" y2="-1537.6447" gradientTransform="matrix(1 0 0 -1 -812.7197 -1503.7324)">
+		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="828.3994" y1="-1509.8682" x2="828.3994" y2="-1537.6447" gradientTransform="matrix(1 0 0 -1 -812.7197 -1503.7324)">
 		<stop  offset="0" style="stop-color:#F8F8F3"/>
 		<stop  offset="1" style="stop-color:#DBDAD7"/>
 	</linearGradient>
