@@ -68,6 +68,7 @@
 	*************************************************
 	-->
 	<target name="initialize">
+		<echo>-------------------------------------</echo>
 		<echo>Initialising Apache Ant</echo>
 		
         <antcall target="compress_mapbox" />
@@ -75,6 +76,7 @@
 		
 		<antcall target="compress_stylesheet" />
 		<echo>Stylesheet minified</echo>
+		<echo>-------------------------------------</echo>
     </target>
 
 </project>
