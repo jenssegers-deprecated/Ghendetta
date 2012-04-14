@@ -20,7 +20,6 @@
 			<arg value="-o" />
 			<arg value="${file}" />
 		</java>
-		<echo>${file}</echo>
 	</target>
 	
 	<!--
@@ -69,9 +68,8 @@
 	*************************************************
 	-->
 	<target name="initialize">
-        <antcall target="compress_mapbox"  />
-		<antcall target="compress_stylesheet"  />
-        <echo>Done!</echo>
+        <antcall target="compress_mapbox" />
+		<antcall target="compress_stylesheet" />
     </target>
 
 </project>
