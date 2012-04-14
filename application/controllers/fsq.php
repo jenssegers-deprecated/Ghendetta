@@ -27,8 +27,6 @@ class FSQ extends CI_Controller {
      */
     function callback() {
         if ($code = $this->input->get('code')) {
-            //$this->output->enable_profiler(TRUE);
-            
             // request token
             $token = $this->foursquare->request_token($code);
             
@@ -58,8 +56,6 @@ class FSQ extends CI_Controller {
             
             // back to the homepage
             redirect();
-        
-            //$this->output->set_profiler_sections(array('queries' => TRUE));
         } else {
             show_error('Something went wrong');
         }
@@ -84,7 +80,7 @@ class FSQ extends CI_Controller {
                 $this->load->model('user_model');
                 $fsqid = $json->user->id;
                 
-                if($this->user_model->exists($fsqid)) {
+                if ($this->user_model->exists($fsqid)) {
                     $this->process_checkin($json);
                 } else {
                     set_status_header(500);
@@ -99,18 +95,23 @@ class FSQ extends CI_Controller {
             log_message('error', 'Foursquare push did not contain checkin');
         }
     }
-
-    function checkin( $hash ){
+    
+    function checkin($hash) {
         if ($user = $this->ghendetta->current_user()) {
+            // search the specific venue
             $this->load->model('venue_model');
-            $venue = $this->venue_model->get_by_hash($hash);
-            if( count( $venue ) > 0 ){ // associative array with more then zero elements
-                $checkin = $this->foursquare->checkin($user['token'],$venue['venueid']);
-                print_r( $checkin );
-            }else{
-                show_error("no such promoted venue found") ;
+            if ($venue = $this->venue_model->get_by_hash($hash)) {
+                
+                // do checkin
+                $data = array();
+                $data['venueId'] = $venue['venueid'];
+                
+                $response = $this->foursquare->api('checkins/add', $data, 'POST');
+                print_r($response);
+            } else {
+                show_error('Could not check you into this venue (unlisted or expired)');
             }
-        }else{
+        } else {
             redirect();
         }
     }
