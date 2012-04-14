@@ -409,11 +409,21 @@ a:focus {
 
 		.legend dt {
 			float: left;
+			clear: both;
+			margin-right: 1em;
+			height: 32px;
+			padding-top: 4px;
 		}
 
+			.legend img {
+				height: 100%;
+			}
+
 		.legend dd {
-			line-height: 40px;
-			font-size: 23px;
+			line-height: 32px;
+			font-size: 16px;
+			padding-top: 4px;
+			color: #555;
 		}
 
 	.tutorial {
