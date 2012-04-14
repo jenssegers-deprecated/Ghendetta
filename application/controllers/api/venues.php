@@ -14,23 +14,17 @@ require_once (APPPATH . 'core/API_Controller.php');
 class Venues extends API_Controller {
     
     function index() {
-        if ($user = $this->ghendetta->current_user()) {
-            $fsqid = $user['fsqid'];
+        // try from cache
+        if (!$venues = $this->cache->get("api/venues.cache")) {
+            // cache miss
+            $this->load->model('venue_model');
+            $venues = $this->venue_model->get_all_active();
             
-            // try from cache
-            if (!$venues = $this->cache->get("api/venues.cache")) {
-                // cache miss
-                $this->load->model('venue_model');
-                $venues = $this->venue_model->get_all_active();
-                
-                // save cache
-                $this->cache->save("api/venues.cache", $venues, 300);
-            }
-            
-            $this->output($venues);
-        } else {
-            $this->error('Not authenticated', 401);
+            // save cache
+            $this->cache->save("api/venues.cache", $venues, 300);
         }
+        
+        $this->output($venues);
     }
 
 }
