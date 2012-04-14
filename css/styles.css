@@ -406,7 +406,6 @@ a:focus {
 		position: absolute;
 		left: 0;
 		bottom: 0;
-		height: 0;
 		z-index: 999;
 		background: #F7F6F2;
 		border-top: 1px solid #E0DED6;
@@ -416,7 +415,7 @@ a:focus {
 		width: 23%;
 	}
 
-		.v-dashboard-legend .js-toggle {
+		.v-dashboard-legend .js-toggle-legend {
 			font-size: 16px;
 			cursor: pointer;
 			border: 1px solid #E0DED6;
@@ -437,6 +436,7 @@ a:focus {
 
 		.legend {
 			padding: 0;
+			display: none;
 		}
 
 			.legend dt {

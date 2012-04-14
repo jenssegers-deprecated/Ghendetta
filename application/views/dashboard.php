@@ -30,7 +30,7 @@
 </section>
 
 <section class="v-dashboard-legend cf">
-	<h1 class="js-toggle">Legend</h1></a>
+	<h1 class="js-toggle-legend">Legend</h1></a>
 	<dl class="legend">
 		<dt><img src="<?php echo static_url('img/ico_battle.svg'); ?>" alt="" /></dt>
 			<dd>My Battles</dd>
