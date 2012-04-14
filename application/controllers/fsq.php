@@ -99,6 +99,21 @@ class FSQ extends CI_Controller {
             log_message('error', 'Foursquare push did not contain checkin');
         }
     }
+
+    function checkin( $hash ){
+        if ($user = $this->ghendetta->current_user()) {
+            $this->load->model('venue_model');
+            $venue = $this->venue_model->get_by_hash($hash);
+            if( count( $venue ) > 0 ){ // associative array with more then zero elements
+                $checkin = $this->foursquare->checkin($user['token'],$venue['venueid']);
+                print_r( $checkin );
+            }else{
+                show_error("no such promoted venue found") ;
+            }
+        }else{
+            redirect();
+        }
+    }
     
     /**
      * Cronjob controller

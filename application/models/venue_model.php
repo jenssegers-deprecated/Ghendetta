@@ -32,6 +32,18 @@ class venue_model extends CI_Model {
     function get($venueid) {
         return $this->db->where('venueid', $venueid)->get('venues')->row_array();
     }
+    /**
+     * used to check in with a url containing this hash
+     * 
+     */
+    function get_by_hash( $hash ){
+        $query =   "SELECT v.listid, v.venueid, v.name, v.lon, v.lat, v.regionid, 
+                    coalesce( v.multiplier, l.multiplier), c.icon, c.name as category, l.name as listname FROM venues v
+                    JOIN venuelists l on l.listid = v.listid
+                    JOIN categories c on c.categoryid = v.categoryid
+                    WHERE hash = ? AND startdate <= UNIX_TIMESTAMP(NOW()) AND enddate >= UNIX_TIMESTAMP(NOW())";
+        return $this->db->query($query, array($hash))->row_array();
+    }
     
     /**
      * Get an active venue
@@ -39,7 +51,9 @@ class venue_model extends CI_Model {
      */
     function get_active($venueid) {
         $query = "
-        	SELECT l.name AS listname, startdate, enddate, multiplier, v.*, c.name as category, c.icon
+        	SELECT l.name AS listname, startdate, enddate, 
+                   coalesce( v.multiplier , l.multiplier ) as multiplier, v.listid, v.venueid,
+                   v.name, v.categoryid, v.lon, v.lat, v.regionid, c.name as category, c.icon
             FROM venuelists l
             JOIN venues v ON v.listid = l.listid
             JOIN categories c ON v.categoryid = c.categoryid
@@ -53,7 +67,9 @@ class venue_model extends CI_Model {
      */
     function get_all_active($regionid = FALSE) {
         $query = "
-        	SELECT l.name AS listname, startdate, enddate, multiplier, v.*, c.name as category, c.icon
+        	SELECT l.name AS listname, startdate, enddate, 
+                   coalesce( v.multiplier , l.multiplier ) as multiplier, v.listid, v.venueid,
+                   v.name, v.categoryid, v.lon, v.lat, v.regionid, c.name as category, c.icon
             FROM venuelists l
             JOIN venues v ON v.listid = l.listid
             JOIN categories c ON v.categoryid = c.categoryid" . ($regionid ? ' AND v.regionid = ? ' : '') . "

@@ -97,6 +97,23 @@ class Foursquare {
         
         return $json;
     }
+
+    /**
+     *
+     */
+    function checkin( $token, $venueid, $message = FALSE ){
+        $json = $this->_post('https://api.foursquare.com/v2/checkins/add?oauth_token=' . $token , array( 'venueId' => $venueid ) ) ;
+        
+        if (!$json) {
+            $this->error = 'No response from Foursquare API';
+            return FALSE;
+        } elseif ($json->meta->code != 200) {
+            $this->error = $json->meta->errorDetail;
+            return FALSE;
+        }
+        
+        return $json;
+    }
     
     /**
      * Raw CURL request method
@@ -108,6 +125,25 @@ class Foursquare {
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPGET, TRUE);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+        
+        $data = curl_exec($curl);
+        curl_close($curl);
+        
+        return json_decode($data);
+    }
+
+    /**
+     * Raw CURL request method
+     * @param string $url
+     * @param array $data 
+     * @return Object
+     */
+    private function _post($url,$data){
+        $curl = curl_init( $url );
+        curl_setopt($curl, CURLOPT_POST, TRUE );
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data );
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER , TRUE);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
         
         $data = curl_exec($curl);
