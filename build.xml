@@ -20,7 +20,7 @@
 			<arg value="-o" />
 			<arg value="${file}" />
 		</java>
-		<echo>${file}</echo>
+		<echo>Minified: ${file}</echo>
 	</target>
 	
 	<!--
@@ -69,9 +69,11 @@
 	*************************************************
 	-->
 	<target name="initialize">
-        <antcall target="compress_mapbox"  />
-		<antcall target="compress_stylesheet"  />
-        <echo>Done!</echo>
+		<echo>-------------------------------------</echo>
+		<echo>Initialising Apache Ant</echo>
+        <antcall target="compress_mapbox" />
+		<antcall target="compress_stylesheet" />
+		<echo>-------------------------------------</echo>
     </target>
 
 </project>
