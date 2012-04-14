@@ -41,7 +41,7 @@ class venue_model extends CI_Model {
     function get_active($venueid) {
         $query = "
         	SELECT l.name AS listname, startdate, enddate, 
-                   coalesce( v.multiplier , l.multiplier ) as multiplier, v.listid, v.venueid,
+                   COALESCE(v.multiplier , l.multiplier) as multiplier, v.listid, v.venueid,
                    v.name, v.categoryid, v.lon, v.lat, v.regionid, c.name as category, c.icon
             FROM venuelists l
             JOIN venues v ON v.listid = l.listid
@@ -57,7 +57,7 @@ class venue_model extends CI_Model {
     function get_all_active($regionid = FALSE) {
         $query = "
         	SELECT l.name AS listname, startdate, enddate, 
-                   coalesce( v.multiplier , l.multiplier ) as multiplier, v.listid, v.venueid,
+                   COALESCE(v.multiplier , l.multiplier) as multiplier, v.listid, v.venueid,
                    v.name, v.categoryid, v.lon, v.lat, v.regionid, c.name as category, c.icon
             FROM venuelists l
             JOIN venues v ON v.listid = l.listid
@@ -72,13 +72,22 @@ class venue_model extends CI_Model {
      * @param string $message
      * @return foat
      */
-    function get_multiplier($venueid, $message = FALSE) {
+    function get_multiplier($venueid) {
         // venue not found, return multiplier 1
         if (!$venue = $this->get_active($venueid)) {
             return 1;
         }
         
         return $venue['multiplier'];
+    }
+    
+    /**
+     * Get identification code for a venueid
+     * @param int $venueid
+     * @return string
+     */
+    function get_code($venueid) {
+        return hash('sha256', $venueid . $this->config->item('encryption_key'));
     }
     
     function count() {
