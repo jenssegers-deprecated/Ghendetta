@@ -148,7 +148,7 @@ var Mapbox = function() {
 			});
 			
 			map.addLayer(polygonGroup);
-			map.addLayer(specialGroup);
+			//map.addLayer(specialGroup);
 			map.addLayer(markerGroup);
 			
 			// add layer controls
@@ -156,6 +156,7 @@ var Mapbox = function() {
 			    "Battles" : markerGroup,
 			    "Specials" : specialGroup
 			};
+			
 			map.addControl(new L.Control.Layers(null, overlays));
 		});
 	}
