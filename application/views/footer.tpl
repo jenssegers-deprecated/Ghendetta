@@ -1,6 +1,6 @@
 <script>
 	var base_url = '<?php echo base_url(); ?>';
-	var site_url = '<?php echo site_url(); ?>';
+	var site_url = '<?php echo rtrim(site_url(), '/') . '/'; ?>';
 	var static_url = '<?php echo static_url(); ?>';
 </script>
 

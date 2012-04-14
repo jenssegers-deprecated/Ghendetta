@@ -1,14 +1,14 @@
 <?php
 /*
 |--------------------------------------------------------------------------
-| Foursquare config
+| Cache config
 |--------------------------------------------------------------------------
 |
 | Your Foursquare application consumer credentials
 |
+| ['adapter']	The primary cache adapter
+| ['backup']	The secondary backup cache adapter
 */
 
-$config['client_id']     = '';
-$config['client_secret'] = '';
-$config['callback_url']  = '';
-$config['push_secret']   = '';
+$config['adapter']    = 'apc';
+$config['backup']     = 'dummy';

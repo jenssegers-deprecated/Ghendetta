@@ -119,7 +119,15 @@ class FSQ extends CI_Controller {
     /**
      * Cronjob controller
      */
-    function cronjob($code = FALSE) {
+    function cronjob() {
+        // not a CLI reqeuest, check if admin
+        if (!$this->input->is_cli_request()) {
+            // no user detected or not admin
+            if(!$user = $this->ghendetta->current_user() || !$user['admin']) {
+                show_error('You have not permission to access this page');
+            }
+        }
+        
         $limit = $this->input->get('limit') ? $this->input->get('limit') : FALSE;
         $user = $this->input->get('user') ? $this->input->get('user') : FALSE;
         
@@ -133,25 +141,12 @@ class FSQ extends CI_Controller {
         // count updated users
         $count = 0;
         
-        $this->config->load('foursquare', TRUE);
-        $check = $this->config->item('cronjob_code', 'foursquare');
-        
-        // check for code when not executed from CLI
-        if (!$this->input->is_cli_request() && $code != $check) {
-            show_error('You have no permission to access this page');
-        }
-        
         $this->load->model('user_model');
         if (!$user) {
             $users = $this->user_model->get_all_rand($limit);
         } else {
             $user = $this->user_model->get($user);
-            
-            if ($user) {
-                $users = array($user);
-            } else {
-                $users = array();
-            }
+            $users = $user ? array($user) : array();
         }
         
         foreach ($users as $user) {
