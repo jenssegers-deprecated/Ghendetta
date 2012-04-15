@@ -67,6 +67,23 @@ class venue_model extends CI_Model {
     }
     
     /**
+     * Get all venues from a list
+     * @param int $listid
+     */
+    function get_list($listid) {
+        $query = "
+        	SELECT l.name AS listname, startdate, enddate, 
+                   COALESCE(v.multiplier , l.multiplier) as multiplier, v.listid, v.venueid,
+                   v.name, v.categoryid, v.lon, v.lat, v.regionid, c.name as category, c.icon
+            FROM venuelists l
+            JOIN venues v ON v.listid = l.listid
+            JOIN categories c ON v.categoryid = c.categoryid
+        	WHERE listid = ?";
+        
+        return $this->db->query($query, array($listid))->result_array();
+    }
+    
+    /**
      * Get the multiplier for a specific venue with a to be validated message
      * @param int $venueid
      * @param string $message
