@@ -66,7 +66,14 @@ class checkin_model extends CI_Model {
     }
     
     function exists($checkinid) {
-        return $this->db->where('checkinid', $checkinid)->count_all_results('checkins') != 0;
+        $query = "
+        	SELECT COUNT(1) as count
+        	FROM checkins
+        	WHERE checkinid = ?
+        		OR venueid = ? AND date >= UNIX_TIMESTAMP(now()) - 3600";
+        
+        $row = $this->db->query($query)->row_array();
+        return $row['count'] == 0;
     }
     
     function get_all() {
