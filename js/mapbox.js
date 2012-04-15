@@ -101,7 +101,7 @@ var Mapbox = function() {
 			marker = new L.Marker(new L.LatLng(venue.lat, venue.lon), {icon: new venueIcon()});
 
 			// bind popup
-			marker.bindPopup('<h2>' + venue.name + '</h2>');
+			marker.bindPopup('<h1>' + venue.name + '</h1>');
 
 			// add to layer
 			specialGroup.addLayer(marker);
@@ -156,7 +156,7 @@ var Mapbox = function() {
 			    "Battles" : markerGroup,
 			    "Specials" : specialGroup
 			};
-			
+
 			map.addControl(new L.Control.Layers(null, overlays));
 		});
 	}

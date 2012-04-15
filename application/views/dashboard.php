@@ -26,6 +26,8 @@
 			<dl class="legend cf">
 				<dt><img src="<?php echo static_url('img/ico_battle.svg'); ?>" alt="" /></dt>
 				<dd>Your battles</dd>
+				<dt><img src="<?php echo static_url('img/ico_event.svg'); ?>" alt="" /></dt>
+				<dd>Foursquare Day Events</dd>
 			</dl>
 		</div>
 		<?php endif; ?>
