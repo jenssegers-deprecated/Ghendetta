@@ -19,7 +19,11 @@ class Venues_hash extends CI_Controller {
         }
     }
     
-    function index($listid) {
+    function index($listid = FALSE) {
+        if(!$listid) {
+            return FALSE;
+        }
+        
         $this->load->model('venue_model');
         $venues = $this->venue_model->get_list($listid);
         
