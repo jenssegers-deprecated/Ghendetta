@@ -96,19 +96,13 @@ class FSQ extends CI_Controller {
         }
     }
     
-    function checkin($code = '') {
-        if ($user = $this->ghendetta->current_user()) {
+    function checkin($code = FALSE) {
+        if ($user = $this->ghendetta->current_user() && $code) {
             $this->load->model('venue_model');
             
-            // decrypt and substract data
+            // decrypt
             $this->load->library('encrypt');
-            $code = $this->encrypt->decode($code);
-            @list($venueid, $hash) = explode(':', $code);
-            
-            // check for valid code
-            if ($hash != $this->venue_model->get_code($venueid)) {
-                show_error('Could not check you into this venue: invalid code');
-            }
+            $venueid = $this->encrypt->decode($code);
             
             // search the specific venue
             if ($venue = $this->venue_model->get_active($venueid)) {

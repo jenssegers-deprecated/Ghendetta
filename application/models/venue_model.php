@@ -81,15 +81,6 @@ class venue_model extends CI_Model {
         return $venue['multiplier'];
     }
     
-    /**
-     * Get identification code for a venueid
-     * @param int $venueid
-     * @return string
-     */
-    function get_code($venueid) {
-        return hash('sha256', $venueid . $this->config->item('encryption_key'));
-    }
-    
     function count() {
         return $this->db->count_all('venues');
     }

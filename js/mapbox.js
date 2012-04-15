@@ -128,12 +128,8 @@ var Mapbox = function() {
 	}
 
 	/**
-	 * Add layer controls to the map
+	 * Initialise the map
 	 */
-	var toggleLayer = function() {
-		
-	}
-
 	var init = function(element) {
 
 		// create map
@@ -144,12 +140,6 @@ var Mapbox = function() {
 
 		wax.tilejson(url, function(tilejson) {
 			map.addLayer(new wax.leaf.connector(tilejson));
-			
-			// add layer listener
-			map.on('layeradd', function(e) {
-			    console.log(e);
-			    console.log(e.layer);
-			});
 			
 			// get regions
 			$.getJSON(site_url + 'api/regions.json', {}, function(data) {
@@ -174,6 +164,8 @@ var Mapbox = function() {
 
 			// add layer control
 			map.addControl(layerControl);
+			
+			console.log(layerControl);
 		});
 	}
 
