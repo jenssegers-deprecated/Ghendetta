@@ -144,7 +144,13 @@ var Mapbox = function() {
 
 		wax.tilejson(url, function(tilejson) {
 			map.addLayer(new wax.leaf.connector(tilejson));
-
+			
+			// add layer listener
+			map.on('layer', function(e) {
+			    alert(e);
+			    alert(e.layer);
+			});
+			
 			// get regions
 			$.getJSON(site_url + 'api/regions.json', {}, function(data) {
 				if (data) {
@@ -156,8 +162,6 @@ var Mapbox = function() {
 			$.getJSON(site_url + 'api/venues.json', {}, function(data) {
 				if (data) {
 					addSpecials(data);
-					
-					console.log(map.layers);
 				}
 			});
 
