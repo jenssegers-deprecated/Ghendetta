@@ -27,22 +27,24 @@
 	<p class="clan">You are with the <a href="/clan" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.</p>
 
 	<?php endif; ?>
-</section>
 
-<section class="v-dashboard-legend cf">
-	<h1 class="js-toggle-legend">Legend</h1></a>
-	<dl class="legend">
-		<?php if($this->ghendetta->current_user()): ?>
-		<dt><img src="<?php echo static_url('img/ico_battle.svg'); ?>" alt="" /></dt>
-			<dd>My Battles</dd>
-		<dt><img src="<?php echo static_url('img/ico_event.svg'); ?>" alt="" /></dt>
-			<dd>Arena</dd>
-		<?php endif; ?>
-		<?php foreach($clans as $clan): ?>
-		<dt><img src="<?php echo $clan['shield']; ?>" alt="<?php echo $clan['name']; ?>" /></dt>
-			<dd><?php echo $clan['name']; ?></dd>
-		<?php endforeach; ?>
-	</dl>
+	<h2 class="btn js-toggle-legend">Legend</h2></a>
+	<div class="legend-holder cf">
+		<dl class="legend">
+			<?php if($this->ghendetta->current_user()): ?>
+			<dt><img src="<?php echo static_url('img/ico_battle.svg'); ?>" alt="" /></dt>
+				<dd>My Battles</dd>
+			<dt><img src="<?php echo static_url('img/ico_event.svg'); ?>" alt="" /></dt>
+				<dd>Arena</dd>
+			<?php endif; ?>
+			<?php foreach($clans as $clan): ?>
+			<dt><img src="<?php echo $clan['shield']; ?>" alt="<?php echo $clan['name']; ?>" /></dt>
+				<dd><?php echo $clan['name']; ?></dd>
+			<?php endforeach; ?>
+		</dl>
+	</div>
+
+
 </section>
 
 <div class="v-dashboard-map" id="map" ></div>
