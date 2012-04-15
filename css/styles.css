@@ -523,6 +523,8 @@ a:focus {
 				margin: 10px 20px 10px 10px;
 			}
 
+			/* statistics */
+
 			.statistics {
 				height: 80px;
 				padding: 0;
@@ -588,6 +590,18 @@ a:focus {
 							background:         linear-gradient(left, #0BA595, #098);
 							border: 1px solid #007F72;
 						}
+
+				/* points */
+
+				.points {
+					display: block;
+					float: left;
+					margin-top: 5px;
+					line-height: 70px;
+					font-size: 42px;
+					color: #C1272D;
+					font-weight: bold;
+				}
 
 /*
 	View: clan

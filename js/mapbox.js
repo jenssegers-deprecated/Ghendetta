@@ -92,7 +92,7 @@ var Mapbox = function() {
 			venue = venues[i];
 
 			venueIcon = L.Icon.extend({
-			    iconUrl: static_url + 'img/ico_event.svg',
+			    iconUrl: static_url + 'img/ico_arena.svg',
 			    iconSize: new L.Point(32, 44),
 			    shadowUrl: null,
 			    iconAnchor: new L.Point(16, 16),
