@@ -61,6 +61,8 @@ class checkin_model extends CI_Model {
                 $this->region_model->set_leader($checkin['regionid'], $leader_after['clanid'], $leader_before['clanid']);
             }
         }
+        
+        return $checkinid;
     }
     
     function exists($checkinid) {
