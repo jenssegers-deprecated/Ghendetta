@@ -146,9 +146,9 @@ var Mapbox = function() {
 			map.addLayer(new wax.leaf.connector(tilejson));
 			
 			// add layer listener
-			map.on('layer', function(e) {
-			    alert(e);
-			    alert(e.layer);
+			map.on('layeradd', function(e) {
+			    console.log(e);
+			    console.log(e.layer);
 			});
 			
 			// get regions
