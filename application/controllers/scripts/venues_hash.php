@@ -20,7 +20,7 @@ class Venues_hash extends CI_Controller {
     }
     
     function index($listid = FALSE) {
-        if(!$listid) {
+        if (!$listid) {
             return FALSE;
         }
         
@@ -28,7 +28,10 @@ class Venues_hash extends CI_Controller {
         $venues = $this->venue_model->get_list($listid);
         
         foreach ($venues as $venue) {
-            echo $venue['name'] . " -> " . $this->venue_model->generate_code($venue['venueid']) . "\n";
+            $code = $this->venue_model->generate_code($venue['venueid']);
+            
+            echo $venue['name'] . " -> " . $code . "\n";
+            echo "\t" . site_url('foursquare/checkin/' . $venue['venueid'] . '/' . $code) . "\n";
         }
     }
 }
