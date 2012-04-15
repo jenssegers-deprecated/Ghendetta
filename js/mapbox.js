@@ -4,9 +4,12 @@ var Mapbox = function() {
 	var url = 'http://api.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp';
 
 	// map layers
-	var markerGroup = new L.LayerGroup();
+	var battlesGroup = new L.LayerGroup();
 	var specialGroup = new L.LayerGroup();
 	var polygonGroup = new L.LayerGroup();
+	
+	// control
+	var layerControl = new L.Control.Layers();
 
 	/**
 	 * Add region polygons to the map and bind popups
@@ -57,6 +60,9 @@ var Mapbox = function() {
 			}
 		}
 
+		// add polygons to map
+		map.addLayer(polygonGroup);
+		
 		// set map center
 		map.setView(new L.LatLng(centerLon / totalCoords, centerLat / totalCoords), 12);
 	}
@@ -64,22 +70,28 @@ var Mapbox = function() {
 	/**
 	 * Add battle markers to the map
 	 */
-	var addMarkers = function(fights) {
-		var fight;
+	var addBattles = function(battles) {
+		var battle;
 
-		var fightIcon = L.Icon.extend({
+		var battleIcon = L.Icon.extend({
 		    iconUrl: static_url + 'img/ico_battle.svg',
 		    iconSize: new L.Point(32, 44),
 		    shadowUrl: null,
 		    iconAnchor: new L.Point(21, 36),
 		});
 
-		for (i in fights) {
-			fight = fights[i];
+		for (i in battles) {
+			battle = battles[i];
 
 			// add to layer
-			markerGroup.addLayer(new L.Marker(new L.LatLng(fight.lat, fight.lon), {icon: new fightIcon()}));
+			battlesGroup.addLayer(new L.Marker(new L.LatLng(battle.lat, battle.lon), {icon: new battleIcon()}));
 		}
+		
+		// add layer to control
+		layerControl.addOverlay(battlesGroup, "Battles");
+		
+		// add battles to map
+		map.addLayer(battlesGroup);
 	}
 
 	/**
@@ -98,6 +110,7 @@ var Mapbox = function() {
 			    iconAnchor: new L.Point(16, 16),
 			});
 
+			// create marker
 			marker = new L.Marker(new L.LatLng(venue.lat, venue.lon), {icon: new venueIcon()});
 
 			// generate html
@@ -106,16 +119,19 @@ var Mapbox = function() {
 			// bind popup
 			marker.bindPopup(html);
 
-			// add to layer
+			// add to layer to group
 			specialGroup.addLayer(marker);
 		}
+		
+		// add layer to control
+		layerControl.addOverlay(specialGroup, "Specials");
 	}
 
 	/**
 	 * Add layer controls to the map
 	 */
-	var addControls = function() {
-
+	var toggleLayer = function() {
+		
 	}
 
 	var init = function(element) {
@@ -140,27 +156,20 @@ var Mapbox = function() {
 			$.getJSON(site_url + 'api/venues.json', {}, function(data) {
 				if (data) {
 					addSpecials(data);
+					
+					console.log(map.layers);
 				}
 			});
 
 			// get user checkins
 			$.getJSON(site_url + 'api/user/battles.json', {}, function(data) {
 				if (data) {
-					addMarkers(data);
+					addBattles(data);
 				}
 			});
 
-			map.addLayer(polygonGroup);
-			//map.addLayer(specialGroup);
-			map.addLayer(markerGroup);
-
-			// add layer controls
-			var overlays = {
-			    "Battles" : markerGroup,
-			    "Specials" : specialGroup
-			};
-
-			map.addControl(new L.Control.Layers(null, overlays));
+			// add layer control
+			map.addControl(layerControl);
 		});
 	}
 
