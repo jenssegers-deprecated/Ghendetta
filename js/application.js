@@ -14,4 +14,9 @@ $(document).ready(function()
 	        window.location = target.attr('href');
 	    }
 	}
+
+	$('.js-toggle-legend, .legend-holder').bind('click', function()
+	{
+	  	$('.legend-holder').fadeToggle('fast');
+	});
 });
