@@ -30,7 +30,10 @@ class Venues_hash extends CI_Controller {
         $this->load->library('encrypt');
         
         foreach ($venues as $venue) {
-            echo $venue['name'] . " -> " . $this->encrypt->encode($venue['venueid']) . "\n";
+            $code = $this->encrypt->encode($venue['venueid']);
+            $venueid = $this->encrypt->decode($code);
+            
+            echo $venue['name'] . " ($venueid) -> " . $this->encrypt->encode($venue['venueid']) . "\n";
         }
     }
 }
