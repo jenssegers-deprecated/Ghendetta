@@ -48,7 +48,7 @@ class FSQ extends CI_Controller {
             // fetch checkins
             if ($json = $this->foursquare->api('users/self/checkins', array('afterTimestamp' => (time() - 604800)))) {
                 // insert the checkins in our database
-                $this->process_checkins($json->response->checkins->items, $fsqid);
+                $this->process_checkins($json->response->checkins->items, array('userid' => $fsqid));
             } else {
                 log_message('error', $this->foursquare->error);
                 show_error('Something went wrong, please try again');
@@ -112,6 +112,7 @@ class FSQ extends CI_Controller {
                 
                 $this->foursquare->set_token($user['token']);
                 $checkin = $this->foursquare->api('checkins/add', $data, 'POST');
+                print_r($checkin);
                 
                 if(!$checkin) {
                     log_message('error', $this->foursquare->error);
@@ -119,7 +120,7 @@ class FSQ extends CI_Controller {
                 }
                 
                 // insert checkin response with multiplier
-                $this->process_checkin($checkin->response->checkin, array('multiplier' => $venue['multiplier']));
+                $this->process_checkin($checkin->response->checkin, array('userid' => $user['fsqid'], 'multiplier' => $venue['multiplier']));
             
             } else {
                 show_error('Could not check you into this venue: unlisted or expired');
@@ -234,8 +235,12 @@ class FSQ extends CI_Controller {
                 // if region is not found, the checkin is outside our territory
                 if ($found_region) {
                     $data = $defaults;
+                    
+                    if(!isset($data['userid'])) {
+                        $data['userid'] = $checkin->user->id;
+                    }
+                    
                     $data['checkinid'] = $checkin->id;
-                    $data['userid'] = $checkin->user->id;
                     $data['date'] = $checkin->createdAt;
                     $data['venueid'] = $checkin->venue->id;
                     $data['lon'] = $checkin->venue->location->lng;
@@ -265,16 +270,11 @@ class FSQ extends CI_Controller {
      * @param array $checkins
      * @param int $userid
      */
-    private function process_checkins($checkins, $userid, $defaults = array()) {
+    private function process_checkins($checkins, $defaults = array()) {
         // sort checkins
         usort($checkins, array($this, 'cmp_checkins'));
         
         foreach ($checkins as &$checkin) {
-            // to process a singe checkin we need to add a user value to the checkin
-            if (!isset($checkin->user)) {
-                $checkin->user = new stdClass();
-                $checkin->user->id = $userid;
-            }
             $this->process_checkin($checkin, $defaults);
         }
     }
