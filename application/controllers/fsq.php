@@ -112,16 +112,17 @@ class FSQ extends CI_Controller {
                 
                 $this->foursquare->set_token($user['token']);
                 $checkin = $this->foursquare->api('checkins/add', $data, 'POST');
-                print_r($checkin);
                 
-                if(!$checkin) {
+                if (!$checkin) {
                     log_message('error', $this->foursquare->error);
                     show_error('Something went wrong, please try again');
                 }
                 
                 // insert checkin response with multiplier
-                $this->process_checkin($checkin->response->checkin, array('userid' => $user['fsqid'], 'multiplier' => $venue['multiplier']));
-            
+                $checkinid = $this->process_checkin($checkin->response->checkin, array('userid' => $user['fsqid'], 'multiplier' => $venue['multiplier']));
+                
+                // redirect to foursquare
+                redirect('https://foursquare.com/user/' . $user['fsqid'] . '/checkin/' . $checkinid);
             } else {
                 show_error('Could not check you into this venue: unlisted or expired');
             }
@@ -236,7 +237,7 @@ class FSQ extends CI_Controller {
                 if ($found_region) {
                     $data = $defaults;
                     
-                    if(!isset($data['userid'])) {
+                    if (!isset($data['userid'])) {
                         $data['userid'] = $checkin->user->id;
                     }
                     
@@ -256,8 +257,7 @@ class FSQ extends CI_Controller {
                         $data['message'] = $checkin->shout;
                     }
                     
-                    $this->checkin_model->insert($data);
-                    return TRUE;
+                    return $this->checkin_model->insert($data);
                 }
             }
         }
