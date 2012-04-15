@@ -14,11 +14,11 @@
 		<a href="<?php echo site_url('foursquare'); ?>">Connect &amp; Conquer</a>
 		Connect with Foursquare and play.
 	</p>
-	<div class="message tutorial">
+	<div class="message notice tutorial">
 		<h2>How to Play</h2>
 		<p>Connect. Check in. Watch the map.</p>
 	</div>
-	<div class="message notice">
+	<div class="message">
 		<p><strong>Warning:</strong> play at your own risk. This is very much &beta;. Lives (or game data) might be lost. <small>But we respect your privacy, and your Foursquare data is safe!</small></p>
 	</div>
 
