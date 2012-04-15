@@ -106,7 +106,7 @@ class venue_model extends CI_Model {
             return $hash;
         }
         
-        return substr($hash, floor($tot-$length / 2), $length);
+        return substr($hash, floor(($tot-$length) / 2), $length);
     }
     
     function count() {
