@@ -32,10 +32,10 @@
 	<div class="legend-holder cf">
 		<dl class="legend">
 			<?php if($this->ghendetta->current_user()): ?>
-			<dt><img src="<?php echo static_url('img/ico_battle.svg'); ?>" alt="" /></dt>
-				<dd>My Battles</dd>
-			<dt><img src="<?php echo static_url('img/ico_arena.svg'); ?>" alt="" /></dt>
-				<dd>Arena</dd>
+			<dt class="battles"><img src="<?php echo static_url('img/ico_battle.svg'); ?>" alt="" /></dt>
+				<dd class="battles">My Battles</dd>
+			<dt class="specials"><img src="<?php echo static_url('img/ico_arena.svg'); ?>" alt="" /></dt>
+				<dd class="specials">Arena</dd>
 			<?php endif; ?>
 			<?php foreach($clans as $clan): ?>
 			<dt><img src="<?php echo $clan['shield']; ?>" alt="<?php echo $clan['name']; ?>" /></dt>
