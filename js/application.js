@@ -15,8 +15,8 @@ $(document).ready(function()
 	    }
 	}
 
-	$('.js-toggle-legend').bind('click', function()
+	$('.js-toggle-legend, .legend-holder').bind('click', function()
 	{
-	  	$('.legend').toggle();
+	  	$('.legend-holder').fadeToggle('fast');
 	});
 });
