@@ -101,8 +101,8 @@ var Mapbox = function() {
 			marker = new L.Marker(new L.LatLng(venue.lat, venue.lon), {icon: new venueIcon()});
 
 			// generate html
-			html = '<h1>' + venue.name + '</h1><span class="points">+' + venue.multiplier + '</span>';
-			
+			html = '<h1>' + venue.name + '</h1><img src="/img/ico_tower.svg" /><span class="points">+' + venue.multiplier + '</span>';
+
 			// bind popup
 			marker.bindPopup(html);
 
