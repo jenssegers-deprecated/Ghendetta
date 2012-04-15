@@ -8,14 +8,19 @@ $(document).ready(function()
 		var mapbox = new Mapbox();
 		mapbox.init('map');
 
-		// toggle map markers
-
 		$('.legend dt, .legend dd').bind('click', function()
 		{
-			layerClass = $(this).attr('class');
+			layerClass = $(this).attr('class').split(/\s+/);
+
 			if(layerClass.length)
 			{
-				mapbox.toggleLayer(mapbox.layers[layerClass]);
+				$.each(layerClass, function(index, item)
+				{
+				    if (item != 'chk')
+					{
+						mapbox.toggleLayer(mapbox.layers[item]);
+					}
+			    });
 			}
 		});
 
