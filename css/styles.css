@@ -12,6 +12,7 @@
 
 	Namespace:
 		v- are views.
+		n- are notifications.
 */
 
 /*
@@ -424,6 +425,8 @@ a:focus {
 		}
 
 	/* Dashboard: Logged in */
+
+	/* Clan sentence */
 
 	.v-dashboard .clan a {
 		padding: 2px 4px;
