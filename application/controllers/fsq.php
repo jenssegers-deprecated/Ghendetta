@@ -110,11 +110,16 @@ class FSQ extends CI_Controller {
                 $data = array();
                 $data['venueId'] = $venue['venueid'];
                 
+                $this->foursquare->set_token($user['token']);
                 $checkin = $this->foursquare->api('checkins/add', $data, 'POST');
-                print_r($checkin);
+                
+                if(!$checkin) {
+                    log_message('error', $this->foursquare->error);
+                    show_error('Something went wrong, please try again');
+                }
                 
                 // insert checkin response with multiplier
-                //$this->process_checkin($checkin, array('multiplier' => $venue['multiplier']));
+                $this->process_checkin($checkin->response->checkin, array('multiplier' => $venue['multiplier']));
             
             } else {
                 show_error('Could not check you into this venue: unlisted or expired');
