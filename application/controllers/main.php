@@ -17,10 +17,14 @@ class Main extends CI_Controller {
         
         if ($user = $this->ghendetta->current_user()) {
             $clan = $this->clan_model->get($user['clanid']);
+            
+            $this->load->model('notification_model');
+            $notifications = $this->notification_model->get_personal($user['fsqid']);
         } else {
             $clan = FALSE;
+            $notifications = array();
         }
         
-        $this->load->view('dashboard', array('clan' => $clan, 'clans' => $clans));
+        $this->load->view('dashboard', array('clan' => $clan, 'clans' => $clans, 'notificaions' => $notifications));
     }
 }
