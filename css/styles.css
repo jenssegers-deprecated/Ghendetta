@@ -237,6 +237,12 @@ a:focus {
 	border-color: #700B0E;
 }
 
+.btn:active {
+	-webkit-box-shadow: inset 0 3px 6px rgba(0,0,0,.66), inset 0 -1px 1px rgba(255,255,255,.22);
+	        box-shadow: inset 0 3px 6px rgba(0,0,0,.66), inset 0 -1px 1px rgba(255,255,255,.22);
+	background: #991E24;
+}
+
 /* Clearfix For modern browsers */
 .cf:before,
 .cf:after{content:"";display:table;}
@@ -283,9 +289,21 @@ a:focus {
 			display: none;
 		}
 
-	.siteNav a:hover {
+	.siteNav a:hover,
+	.siteNav a:focus {
 		background-color: #C1272D;
 		border-color: #000 #700B0E #000 #330002;
+	}
+
+	.siteNav a:active {
+		-webkit-box-shadow: inset 0 3px 6px rgba(0,0,0,.66), inset 0 -1px 1px rgba(255,255,255,.22);
+		        box-shadow: inset 0 3px 6px rgba(0,0,0,.66), inset 0 -1px 1px rgba(255,255,255,.22);
+		background-color: #991E24;
+		-webkit-transition-duration: .1s;
+		   -moz-transition-duration: .1s;
+		    -ms-transition-duration: .1s;
+		     -o-transition-duration: .1s;
+		        transition-duration: .1s;
 	}
 
 		.siteNav .selected a {
