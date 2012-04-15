@@ -12,6 +12,8 @@ if (!defined('BASEPATH'))
 class Categories extends CI_Controller {
     
     function __construct() {
+        parent::__construct();
+        
         if (!$this->input->is_cli_request()) {
             show_error('Scripts can only be executed from CLI');
         }
