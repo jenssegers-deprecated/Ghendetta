@@ -86,7 +86,7 @@ var Mapbox = function() {
 	 * Add venue specials to the map
 	 */
 	var addSpecials = function(venues) {
-		var venue, marker;
+		var venue, marker, html;
 
 		for (i in venues) {
 			venue = venues[i];
@@ -100,8 +100,11 @@ var Mapbox = function() {
 
 			marker = new L.Marker(new L.LatLng(venue.lat, venue.lon), {icon: new venueIcon()});
 
+			// generate html
+			html = '<h1>' + venue.name + '</h1><span class="points">+' + venue.multiplier + '</span>';
+			
 			// bind popup
-			marker.bindPopup('<h1>' + venue.name + '</h1>');
+			marker.bindPopup(html);
 
 			// add to layer
 			specialGroup.addLayer(marker);
