@@ -14,9 +14,9 @@
 		<a href="<?php echo site_url('foursquare'); ?>">Connect &amp; Conquer</a>
 		Connect with Foursquare and play.
 	</p>
-	<div class="tutorial">
-		<h2>How To Play</h2>
-		<p>Every visit to another district (check-in on Foursquare) gives you a chance to take away a district from a rivaling clan.</p>
+	<div class="message tutorial">
+		<h2>How to Play</h2>
+		<p>Connect. Check in. Watch the map.</p>
 	</div>
 	<div class="message notice">
 		<p><strong>Warning:</strong> play at your own risk. This is very much &beta;. Lives (or game data) might be lost. <small>But we respect your privacy, and your Foursquare data is safe!</small></p>
@@ -32,10 +32,12 @@
 <section class="v-dashboard-legend cf">
 	<h1 class="js-toggle-legend">Legend</h1></a>
 	<dl class="legend">
+		<?php if($this->ghendetta->current_user()): ?>
 		<dt><img src="<?php echo static_url('img/ico_battle.svg'); ?>" alt="" /></dt>
 			<dd>My Battles</dd>
 		<dt><img src="<?php echo static_url('img/ico_event.svg'); ?>" alt="" /></dt>
 			<dd>Arena</dd>
+		<?php endif; ?>
 		<?php foreach($clans as $clan): ?>
 		<dt><img src="<?php echo $clan['shield']; ?>" alt="<?php echo $clan['name']; ?>" /></dt>
 			<dd><?php echo $clan['name']; ?></dd>
