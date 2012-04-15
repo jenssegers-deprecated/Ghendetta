@@ -38,7 +38,7 @@ class checkin_model extends CI_Model {
         
         // insert checkin
         $this->db->insert('checkins', $checkin);
-        $checkinid = $this->db->insert_id();
+        $this->db->insert_id();
         
         // add new points to the user
         $user['points'] += $checkin['points'];
@@ -62,7 +62,7 @@ class checkin_model extends CI_Model {
             }
         }
         
-        return $checkinid;
+        return $checkin['checkinid'];
     }
     
     function exists($checkinid) {

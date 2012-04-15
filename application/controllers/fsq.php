@@ -218,7 +218,6 @@ class FSQ extends CI_Controller {
      * @param object $checkin
      */
     private function process_checkin($checkin, $defaults = array()) {
-        
         $this->load->model('checkin_model');
         
         // only process this checkin if it is not already inserted in the database
