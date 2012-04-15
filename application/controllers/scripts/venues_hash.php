@@ -13,8 +13,9 @@ class Venues_hash extends CI_Controller {
     
     function __construct() {
         parent::__construct();
-        
-        if (!$this->input->is_cli_request()) {
+
+        $user = $this->ghendetta->current_user();
+        if (!($user && $user['admin']) && !$this->input->is_cli_request()) {
             show_error('Scripts can only be executed from CLI');
         }
     }
