@@ -116,8 +116,12 @@ class FSQ extends CI_Controller {
                 $data = array();
                 $data['venueId'] = $venue['venueid'];
                 
-                $response = $this->foursquare->api('checkins/add', $data, 'POST');
-                print_r($response);
+                $checkin = $this->foursquare->api('checkins/add', $data, 'POST');
+                print_r($checkin);
+                
+                // insert checkin response with multiplier
+                $this->process_checkin($checkin, array('multiplier' => $venue['multiplier']));
+                
             } else {
                 show_error('Could not check you into this venue: unlisted or expired');
             }
@@ -212,7 +216,7 @@ class FSQ extends CI_Controller {
      * Process a single checkin from the Foursquare Push API
      * @param object $checkin
      */
-    private function process_checkin($checkin) {
+    private function process_checkin($checkin, $defaults = array()) {
         
         $this->load->model('checkin_model');
         
@@ -230,7 +234,7 @@ class FSQ extends CI_Controller {
                 
                 // if region is not found, the checkin is outside our territory
                 if ($found_region) {
-                    $data = array();
+                    $data = $defaults;
                     $data['checkinid'] = $checkin->id;
                     $data['userid'] = $checkin->user->id;
                     $data['date'] = $checkin->createdAt;
@@ -262,7 +266,7 @@ class FSQ extends CI_Controller {
      * @param array $checkins
      * @param int $userid
      */
-    private function process_checkins($checkins, $userid) {
+    private function process_checkins($checkins, $userid, $defaults = array()) {
         // sort checkins
         usort($checkins, array($this, 'cmp_checkins'));
         
@@ -272,7 +276,7 @@ class FSQ extends CI_Controller {
                 $checkin->user = new stdClass();
                 $checkin->user->id = $userid;
             }
-            $this->process_checkin($checkin);
+            $this->process_checkin($checkin, $defaults);
         }
     }
     
