@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Venues extends CI_Controller {
+class Venues_hash extends CI_Controller {
     
     function __construct() {
         if (!$this->input->is_cli_request()) {
