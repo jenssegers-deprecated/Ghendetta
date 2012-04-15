@@ -41,7 +41,7 @@
 $route['default_controller'] = 'main';
 $route['404_override'] = '';
 
-$route['foursquare'] = 'fsq'; 
+$route['foursquare'] = 'fsq';
 $route['foursquare(:any)'] = 'fsq$1';
 
 $route['(:any).json'] = '$1';

@@ -10,22 +10,26 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class region_model extends CI_Model {
+
+    private $regions = NULL ;
     
     function insert_region($region) {
+        $this->db->insert('regions', $region);
+        
         // remove cached regions
         $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
         $this->cache->delete("model/regions.cache");
         
-        $this->db->insert('regions', $region);
         return $this->db->insert_id();
     }
     
     function insert_coords($coords) {
+        $this->db->insert('regioncoords', $coords);
+        
         // remove cached regions
         $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
         $this->cache->delete("model/regions.cache");
         
-        $this->db->insert('regioncoords', $coords);
         return $this->db->insert_id();
     }
     
@@ -81,6 +85,30 @@ class region_model extends CI_Model {
         }
         
         return $regions;
+    }
+    
+    /**
+     * Detect the region depending on a latitude and longitude
+     * @param double $lat
+     * @param double $lon
+     * @return int
+     */
+    function detect_region($lat, $lon) {
+        $this->load->helper('polygon');
+        
+        if (is_null($this->regions)) {
+            $this->regions = $this->region_model->get_all();
+        }
+        $found_region = FALSE;
+        
+        foreach ($this->regions as $region) {
+            if (is_in_polygon($region['coords'], $lon, $lat)) {
+                $found_region = $region['regionid'];
+                break; // yes this is a break :)
+            }
+        }
+        
+        return $found_region;
     }
     
     /**
@@ -240,6 +268,9 @@ class region_model extends CI_Model {
     function truncate() {
         $this->db->truncate('regions');
         $this->db->truncate('regioncoords');
+        
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
+        $this->cache->delete("model/regions.cache");
     }
 
 }

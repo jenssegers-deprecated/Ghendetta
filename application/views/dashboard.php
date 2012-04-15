@@ -8,34 +8,46 @@
 <section class="v-dashboard" role="main">
 	<h1 class="logo"><img src="<?php echo static_url('img/intro.svg'); ?>" alt="Ghendetta" /></h1>
 
-		<?php if(!$this->ghendetta->current_user()): ?>
-		<p class="foursquare">
-			<a href="<?php echo site_url('foursquare'); ?>">Connect &amp; Conquer</a>
-			Connect with Foursquare and play.
-		</p>
-		<div class="message notice">
-			<p><strong>Warning:</strong> play at your own risk. This is very much &beta;. Lives (or game data) might be lost. <small>But we respect your privacy, and your Foursquare data is safe!</small></p>
-		</div>
-		<?php else: ?>
-		<p class="clan">You are with the <a href="/clan" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.</p>
-		<div class="tutorial">
-			<dl class="legend cf">
-				<dt><img src="<?php echo static_url('img/ico_battle.png'); ?>" alt="" /></dt>
-				<dd>Your battles</dd>
-			</dl>
-			<h2>How To Play</h2>
-			<p>Every visit to another district (check-in on Foursquare) gives you a chance to take away a district from a rivaling clan.</p>
-		</div>
-		<?php endif; ?>
+	<?php if(!$this->ghendetta->current_user()): ?>
 
-	<ul class="leaderboard cf">
-		<?php foreach($clans as $clan): ?>
-		<li><img src="<?php echo $clan['shield']; ?>" alt="" /><?php echo $clan['name']; ?></li>
-		<?php endforeach; ?>
-	</ul>
+	<p class="foursquare">
+		<a href="<?php echo site_url('foursquare'); ?>">Connect &amp; Conquer</a>
+		Connect with Foursquare and play.
+	</p>
+	<div class="message notice tutorial">
+		<h2>How to Play</h2>
+		<p>Connect. Check in. Watch the map.</p>
+	</div>
+	<div class="message">
+		<p><strong>Warning:</strong> play at your own risk. This is very much &beta;. Lives (or game data) might be lost. <small>But we respect your privacy, and your Foursquare data is safe!</small></p>
+	</div>
+
+	<?php else: ?>
+
+	<p class="clan">You are with the <a href="/clan" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.</p>
+
+	<?php endif; ?>
+
+	<h2 class="btn js-toggle-legend">Legend</h2></a>
+	<div class="legend-holder cf">
+		<dl class="legend">
+			<?php if($this->ghendetta->current_user()): ?>
+			<dt><img src="<?php echo static_url('img/ico_battle.svg'); ?>" alt="" /></dt>
+				<dd>My Battles</dd>
+			<dt><img src="<?php echo static_url('img/ico_arena.svg'); ?>" alt="" /></dt>
+				<dd>Arena</dd>
+			<?php endif; ?>
+			<?php foreach($clans as $clan): ?>
+			<dt><img src="<?php echo $clan['shield']; ?>" alt="<?php echo $clan['name']; ?>" /></dt>
+				<dd><?php echo $clan['name']; ?></dd>
+			<?php endforeach; ?>
+		</dl>
+	</div>
+
+
 </section>
 
-<section id="map" class="v-dashboard-map"></section>
+<div class="v-dashboard-map" id="map" ></div>
 
 <?php include_once('footer.tpl'); ?>
 

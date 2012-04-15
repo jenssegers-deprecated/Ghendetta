@@ -11,9 +11,6 @@ if (!defined('BASEPATH'))
 
 class FSQ extends CI_Controller {
     
-    // store regions here
-    private $regions = NULL;
-    
     function index() {
         $this->auth();
     }
@@ -30,8 +27,6 @@ class FSQ extends CI_Controller {
      */
     function callback() {
         if ($code = $this->input->get('code')) {
-            //$this->output->enable_profiler(TRUE);
-            
             // request token
             $token = $this->foursquare->request_token($code);
             
@@ -61,8 +56,6 @@ class FSQ extends CI_Controller {
             
             // back to the homepage
             redirect();
-        
-            //$this->output->set_profiler_sections(array('queries' => TRUE));
         } else {
             show_error('Something went wrong');
         }
@@ -87,7 +80,7 @@ class FSQ extends CI_Controller {
                 $this->load->model('user_model');
                 $fsqid = $json->user->id;
                 
-                if($this->user_model->exists($fsqid)) {
+                if ($this->user_model->exists($fsqid)) {
                     $this->process_checkin($json);
                 } else {
                     set_status_header(500);
@@ -103,6 +96,40 @@ class FSQ extends CI_Controller {
         }
     }
     
+    function checkin($code = '') {
+        if ($user = $this->ghendetta->current_user()) {
+            $this->load->model('venue_model');
+            
+            // decrypt and substract data
+            $this->load->library('encrypt');
+            $code = $this->encrypt->decode($code);
+            @list($venueid, $hash) = explode(':', $code);
+            
+            // check for valid code
+            if ($hash != $this->venue_model->get_code($venueid)) {
+                show_error('Could not check you into this venue: invalid code');
+            }
+            
+            // search the specific venue
+            if ($venue = $this->venue_model->get_active($venueid)) {
+                // do checkin
+                $data = array();
+                $data['venueId'] = $venue['venueid'];
+                
+                $checkin = $this->foursquare->api('checkins/add', $data, 'POST');
+                print_r($checkin);
+                
+                // insert checkin response with multiplier
+                $this->process_checkin($checkin, array('multiplier' => $venue['multiplier']));
+                
+            } else {
+                show_error('Could not check you into this venue: unlisted or expired');
+            }
+        } else {
+            redirect();
+        }
+    }
+    
     /**
      * Cronjob controller
      */
@@ -110,7 +137,7 @@ class FSQ extends CI_Controller {
         // not a CLI reqeuest, check if admin
         if (!$this->input->is_cli_request()) {
             // no user detected or not admin
-            if(!$user = $this->ghendetta->current_user() || !$user['admin']) {
+            if (!$user = $this->ghendetta->current_user() || !$user['admin']) {
                 show_error('You have not permission to access this page');
             }
         }
@@ -189,18 +216,13 @@ class FSQ extends CI_Controller {
      * Process a single checkin from the Foursquare Push API
      * @param object $checkin
      */
-    private function process_checkin($checkin) {
+    private function process_checkin($checkin, $defaults = array()) {
         
         $this->load->model('checkin_model');
         
         // only process this checkin if it is not already inserted in the database
         if (!$this->checkin_model->exists($checkin->id)) {
             $this->load->model('region_model');
-            $this->load->helper('polygon');
-            
-            if (is_null($this->regions)) {
-                $this->regions = $this->region_model->get_all();
-            }
             
             if (isset($checkin->venue) && isset($checkin->venue->location->lng) && isset($checkin->venue->location->lat)) {
                 $found_region = FALSE;
@@ -208,16 +230,11 @@ class FSQ extends CI_Controller {
                 $lat = $checkin->venue->location->lat;
                 
                 // check what region the checkin was located in, using point in polygon algorithm
-                foreach ($this->regions as $region) {
-                    if (is_in_polygon($region['coords'], $lon, $lat)) {
-                        $found_region = $region;
-                        break; // yes this is a break :)
-                    }
-                }
+                $found_region = $this->region_model->detect_region($lat, $lon);
                 
                 // if region is not found, the checkin is outside our territory
                 if ($found_region) {
-                    $data = array();
+                    $data = $defaults;
                     $data['checkinid'] = $checkin->id;
                     $data['userid'] = $checkin->user->id;
                     $data['date'] = $checkin->createdAt;
@@ -229,6 +246,10 @@ class FSQ extends CI_Controller {
                     if ($checkin->venue->categories) {
                         $category = reset($checkin->venue->categories);
                         $data['categoryid'] = $category->id;
+                    }
+                    
+                    if (isset($checkin->shout)) {
+                        $data['message'] = $checkin->shout;
                     }
                     
                     $this->checkin_model->insert($data);
@@ -245,7 +266,7 @@ class FSQ extends CI_Controller {
      * @param array $checkins
      * @param int $userid
      */
-    private function process_checkins($checkins, $userid) {
+    private function process_checkins($checkins, $userid, $defaults = array()) {
         // sort checkins
         usort($checkins, array($this, 'cmp_checkins'));
         
@@ -255,7 +276,7 @@ class FSQ extends CI_Controller {
                 $checkin->user = new stdClass();
                 $checkin->user->id = $userid;
             }
-            $this->process_checkin($checkin);
+            $this->process_checkin($checkin, $defaults);
         }
     }
     

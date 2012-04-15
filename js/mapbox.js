@@ -2,10 +2,14 @@ var Mapbox = function() {
 
 	var map;
 	var url = 'http://api.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp';
-	
+
 	// map layers
-	var markerGroup = new L.LayerGroup();
+	var battlesGroup = new L.LayerGroup();
+	var specialGroup = new L.LayerGroup();
 	var polygonGroup = new L.LayerGroup();
+	
+	// control
+	var layerControl = new L.Control.Layers();
 
 	/**
 	 * Add region polygons to the map and bind popups
@@ -36,12 +40,13 @@ var Mapbox = function() {
 				fillColor: '#' + ((region.clans[region.leader] && region.clans[region.leader].color) ? region.clans[region.leader].color : '666666'),
 				fillOpacity: 0.35
 			});
-			
+
 			// add to layer
 			polygonGroup.addLayer(polygon);
 
 			// only show popup when occupied
 			if(region.clans[region.leader]) {
+
 				html = '<h1>' + region.name + '</h1><img src="' + region.clans[region.leader].icon + '" /><ul class="statistics">';
 				max = region.clans[region.leader].possession;
 				for (j in region.clans) {
@@ -49,55 +54,84 @@ var Mapbox = function() {
 					html += '<li class="' + clan.name + '"><span style="height:' + (clan.possession / max) * 100 + '%">' + clan.name + ' ' + clan.posession + '%</span></li>';
 				}
 				html += '</ul>';
-	
+
 				// bind popup
 				polygon.bindPopup(html);
 			}
 		}
 
+		// add polygons to map
+		map.addLayer(polygonGroup);
+		
 		// set map center
 		map.setView(new L.LatLng(centerLon / totalCoords, centerLat / totalCoords), 12);
-		
-		// add layer to map
-		map.addLayer(polygonGroup);
 	}
 
 	/**
 	 * Add battle markers to the map
 	 */
-	var addMarkers = function(fights) {
-		var fight, icon, marker;
+	var addBattles = function(battles) {
+		var battle;
 
-		var fightIcon = L.Icon.extend({
-		    iconUrl: static_url + 'img/ico_battle.png',
-		    iconSize: new L.Point(43, 38),
+		var battleIcon = L.Icon.extend({
+		    iconUrl: static_url + 'img/ico_battle.svg',
+		    iconSize: new L.Point(32, 44),
 		    shadowUrl: null,
 		    iconAnchor: new L.Point(21, 36),
 		});
 
-		for (i in fights) {
-			fight = fights[i];
+		for (i in battles) {
+			battle = battles[i];
 
-			// create marker
-			marker = new L.Marker(new L.LatLng(fight.lat, fight.lon), {icon: new fightIcon()});
-			
 			// add to layer
-			markerGroup.addLayer(marker);
+			battlesGroup.addLayer(new L.Marker(new L.LatLng(battle.lat, battle.lon), {icon: new battleIcon()}));
 		}
 		
-		// add layer to map
-		map.addLayer(markerGroup);
+		// add layer to control
+		layerControl.addOverlay(battlesGroup, "Battles");
+		
+		// add battles to map
+		map.addLayer(battlesGroup);
 	}
-	
+
+	/**
+	 * Add venue specials to the map
+	 */
+	var addSpecials = function(venues) {
+		var venue, marker, html;
+
+		for (i in venues) {
+			venue = venues[i];
+
+			venueIcon = L.Icon.extend({
+			    iconUrl: static_url + 'img/ico_arena.svg',
+			    iconSize: new L.Point(32, 44),
+			    shadowUrl: null,
+			    iconAnchor: new L.Point(16, 16),
+			});
+
+			// create marker
+			marker = new L.Marker(new L.LatLng(venue.lat, venue.lon), {icon: new venueIcon()});
+
+			// generate html
+			html = '<h1>' + venue.name + '</h1><img src="/img/ico_tower.svg" /><span class="points">+' + venue.multiplier + '</span>';
+
+			// bind popup
+			marker.bindPopup(html);
+
+			// add to layer to group
+			specialGroup.addLayer(marker);
+		}
+		
+		// add layer to control
+		layerControl.addOverlay(specialGroup, "Specials");
+	}
+
 	/**
 	 * Add layer controls to the map
 	 */
-	var addControls = function() {
-		var overlays = {
-		    "Battles" : markerGroup
-		};
-		var layersControl = new L.Control.Layers(null, overlays);
-		map.addControl(layersControl);
+	var toggleLayer = function() {
+		
 	}
 
 	var init = function(element) {
@@ -107,26 +141,39 @@ var Mapbox = function() {
 			minZoom: 10,
 			zoom: 12
 		});
-		
+
 		wax.tilejson(url, function(tilejson) {
 			map.addLayer(new wax.leaf.connector(tilejson));
-
+			
+			// add layer listener
+			map.on('layeradd', function(e) {
+			    console.log(e);
+			    console.log(e.layer);
+			});
+			
 			// get regions
 			$.getJSON(site_url + 'api/regions.json', {}, function(data) {
 				if (data) {
 					addPolygons(data);
 				}
-
-				// get user checkins
-				$.getJSON(site_url + 'api/user/battles.json', {}, function(data) {
-					if (data) {
-						addMarkers(data);
-					}
-					
-					// add layer controls
-					//addControls();
-				});
 			});
+
+			// get user checkins
+			$.getJSON(site_url + 'api/venues.json', {}, function(data) {
+				if (data) {
+					addSpecials(data);
+				}
+			});
+
+			// get user checkins
+			$.getJSON(site_url + 'api/user/battles.json', {}, function(data) {
+				if (data) {
+					addBattles(data);
+				}
+			});
+
+			// add layer control
+			map.addControl(layerControl);
 		});
 	}
 

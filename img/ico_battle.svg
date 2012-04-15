@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="32px" height="44px" viewBox="2.5 0.2 32 44" overflow="visible" enable-background="new 2.5 0.2 32 44"
+	 xml:space="preserve">
+<defs>
+</defs>
+<filter  filterUnits="objectBoundingBox" id="AI_Shadow_1">
+	<feGaussianBlur  result="blur" in="SourceAlpha" stdDeviation="1"></feGaussianBlur>
+	<feOffset  result="offsetBlurredAlpha" in="blur" dx="0" dy="1"></feOffset>
+	<feMerge>
+		<feMergeNode  in="offsetBlurredAlpha"></feMergeNode>
+		<feMergeNode  in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<filter  id="AI_GaussianBlur_4">
+	<feGaussianBlur  stdDeviation="2"></feGaussianBlur>
+</filter>
+<g opacity="0.33" filter="url(#AI_GaussianBlur_4)">
+	<path fill="#010101" d="M19.4,29.6c-0.1,0-0.1,0-0.2,0c-0.1,0-0.1,0-0.2,0C8.9,29.5,3,30.3,3,31.4c0,1,2.3,4.9,4.5,6
+		c2.1,1,8.5,2.1,8.5,2.1s7-1,9.5-2c2.7-1,7.1-4.6,7.7-5.6C34,30.8,29.1,29.8,19.4,29.6z"/>
+</g>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="828.4844" y1="-1515.9526" x2="828.4844" y2="-1538.5647" gradientTransform="matrix(1 0 0 -1 -812.7197 -1503.7324)">
+	<stop  offset="0" style="stop-color:#BF3731"/>
+	<stop  offset="1" style="stop-color:#962522"/>
+</linearGradient>
+<path fill="url(#SVGID_1_)" d="M15.9,0.7c-0.1,0-0.1,0-0.1,0c-0.1,0-0.1,0-0.1,0C7.6,0.7,3,3.6,3,7.1c0,3.5,2.1,17.7,4.1,22.2
+	c2.1,4.5,8.6,9.5,8.6,9.5s6.5-5,8.6-9.5c2.1-4.5,4.1-18.8,4.1-22.2C28.5,3.6,23.9,0.7,15.9,0.7z"/>
+<path fill="#5E1614" d="M15.8,39.4l-0.3-0.2c-0.3-0.2-6.7-5.1-8.7-9.7C4.6,24.8,2.5,10.5,2.5,7.1c0-3.4,4-6.8,13.1-6.8h0.3
+	c9,0,13.1,3.4,13.1,6.8c0,3.5-2.1,17.8-4.2,22.4c-2.1,4.6-8.5,9.5-8.7,9.7L15.8,39.4z M15.6,1.2c-8.3,0-12.1,3-12.1,5.8
+	c0,3.3,2.1,17.6,4.1,22c1.7,3.8,6.8,8.1,8.1,9.1c1.3-1,6.4-5.3,8.1-9.1c2-4.5,4.1-18.7,4.1-22c0-2.8-3.8-5.8-12.1-5.8L15.6,1.2
+	L15.6,1.2C15.7,1.2,15.7,1.2,15.6,1.2z"/>
+<g filter="url(#AI_Shadow_1)">
+	
+		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="828.3994" y1="-1509.8682" x2="828.3994" y2="-1537.6447" gradientTransform="matrix(1 0 0 -1 -812.7197 -1503.7324)">
+		<stop  offset="0" style="stop-color:#F8F8F3"/>
+		<stop  offset="1" style="stop-color:#DBDAD7"/>
+	</linearGradient>
+	<path fill="url(#SVGID_2_)" d="M20.7,13c-0.4-0.3-1.6-0.7-3.6-1c0,0-0.1,0-0.1,0c-0.1-0.2,0-1,0-1.6c0-0.4,0-0.7,0-1
+		c0-0.6-0.1-1.6-0.2-2.4c0-0.3-0.1-0.6-0.1-0.8c0-0.6,0-0.9,0.2-2c0.1-0.4,0-0.7-0.2-0.9c-0.3-0.3-0.8-0.3-0.8-0.3l-0.2,0
+		c0,0-0.1,0-0.2,0l0,0c0,0-1.3,0.2-1,1.2c0.2,1.1,0.3,1.5,0.2,2c0,0.6-0.3,2.2-0.3,3.1c0,0.8,0.1,2.2,0,2.6c-1.9,0.3-3,0.6-3.5,0.9
+		c-0.2,0.1-0.6,0.3-0.6,0.3l0.5,0c1.1-0.1,2.3-0.1,2.9-0.1c0.1,0.4,0.4,6.5,0.6,10.1c0.1,2,0.2,3.6,0.2,3.9c0,0.6,0.7,5.8,0.9,6.5
+		c0,0,0,0.1,0,0.1l0.1,0.1l0.1-0.1c0,0,0,0,0-0.1c0.2-0.7,0.8-5.9,0.9-6.4c0-0.3,0.1-1.9,0.2-3.9c0.2-3.6,0.5-9.6,0.6-10.1
+		c0.2-0.1,1.7,0,3.1,0.1l0.3,0L20.7,13z"/>
+</g>
+</svg>
