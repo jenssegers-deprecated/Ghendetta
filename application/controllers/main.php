@@ -25,6 +25,6 @@ class Main extends CI_Controller {
             $notifications = array();
         }
         
-        $this->load->view('dashboard', array('clan' => $clan, 'clans' => $clans, 'notificaions' => $notifications));
+        $this->load->view('dashboard', array('clan' => $clan, 'clans' => $clans, 'notifications' => $notifications));
     }
 }

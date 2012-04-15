@@ -29,6 +29,28 @@
 	<h2 class="btn js-toggle-legend">Legend</h2></a>
 
 	<section class="notifications">
+	<?php foreach($notifications as $notification): ?>
+		<article class="n-<?php echo $notification['type']; ?>">
+			<p>
+				<?php 
+				switch($notification['type']) {
+				    case 'region_lost':
+				        echo 'The ' . $notification['data']['clan'] . ' just took <strong class="region">' . $notification['data']['region'] . '</strong> from is! They can&rsquo;t get away with that!';
+				        break;
+				    case 'region_won':
+				        echo '<strong class="region">' . $notification['data']['region'] . '</strong> is now ' . $notification['data']['clan'] . ' territory. Like a boss.';
+				        break;
+				    case 'rank_won':
+				        echo 'Congratulations! <strong>' . $notification['data']['name'] . ' just became Capo of your clan.';
+				        break;
+				}
+				?>
+			</p>
+		</article>
+	<?php endforeach; ?>
+	</section>
+
+	<!-- <section class="notifications">
 		<article class="n-region_won s-new">
 			<p><strong class="region">Oostakker</strong> is now Wolves territory. Like a boss.</p>
 		</article>
@@ -53,7 +75,7 @@
 		<article class="n-capo_message s-read">
 			<p>The Capo says: Move out. Wolves are howling in the uz area.</p>
 		</article>
-	</section>
+	</section>  -->
 
 	<?php endif; ?>
 
