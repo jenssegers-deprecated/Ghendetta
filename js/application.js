@@ -19,4 +19,5 @@ $(document).ready(function()
 	{
 	  	$('.legend-holder').fadeToggle('fast');
 	});
+	
 });
