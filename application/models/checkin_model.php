@@ -27,6 +27,7 @@ class checkin_model extends CI_Model {
         // get multiplier if not set yet
         if (isset($checkin['multiplier'])) {
             $multiplier = $checkin['multiplier'];
+            unset($checkin['multiplier']);
         } else {
             $this->load->model('venue_model');
             $multiplier = $this->venue_model->get_multiplier($checkin['venueid']);
