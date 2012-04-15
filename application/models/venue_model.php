@@ -78,7 +78,7 @@ class venue_model extends CI_Model {
             FROM venuelists l
             JOIN venues v ON v.listid = l.listid
             JOIN categories c ON v.categoryid = c.categoryid
-        	WHERE listid = ?";
+        	WHERE l.listid = ?";
         
         return $this->db->query($query, array($listid))->result_array();
     }

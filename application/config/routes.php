@@ -46,7 +46,7 @@ $route['foursquare(:any)'] = 'fsq$1';
 
 $route['(:any).json'] = '$1';
 
-// automatically call index function for CLI scripts
+// automatically call index method for CLI scripts
 $route['scripts/(:any)/(:any)'] = 'scripts/$1/index/$2';
 
 /* End of file routes.php */
