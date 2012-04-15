@@ -770,11 +770,51 @@ a:focus {
 
 	.v-dashboard {
 		width: 96%;
-		padding: 48px 2% 0;
+		padding: 56px 2% 0;
 		height: auto;
 		-webkit-box-shadow: 0 3px 5px rgba(0,0,0,.11);
 		        box-shadow: 0 3px 5px rgba(0,0,0,.11);
 	}
+
+	.v-dashboard .clan {
+		float: left;
+	}
+
+		.js-toggle-legend {
+			position: static;
+			float: right;
+		}
+
+		.legend-holder {
+			position: static;
+			background: transparent;
+		}
+
+		.legend {
+			position: static;
+			padding-right: 200px;
+			padding: 0;
+		}
+
+			.legend dt {
+				clear: none;
+				height: 24px;
+				margin: 16px 5px 16px 15px;
+				padding: 0;
+				width: auto;
+			}
+
+				.legend dt:first-child {
+					margin-left: 0;
+				}
+
+			.legend dd {
+				font-size: .875em;
+				padding: 0;
+				float: left;
+				line-height: 24px;
+				margin: 16px 0;
+			}
 
 	#map {
 		width: 100%;
@@ -809,7 +849,8 @@ a:focus {
 	/* Hide Shit */
 
 	.v-dashboard-map,
-	.siteNav .logout {
+	.v-dashboard .js-toggle-legend,
+	.siteNav .logout, {
 		display: none;
 	}
 
