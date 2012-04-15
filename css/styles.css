@@ -450,7 +450,10 @@ a:focus {
 	/* Notifications */
 
 	.v-dashboard .notifications {
-		overflow: auto;
+		overflow: hidden;
+		clear: both;
+		max-height: 448px;
+		margin-bottom: 24px;
 	}
 
 		.notifications article {
@@ -481,6 +484,10 @@ a:focus {
 			background: #C1272D;
 			border-color: #990F14;
 			color: #FFF;
+		}
+
+		.notifications .n-capo_message {
+			font-style: italic;
 		}
 
 		.notifications .s-read {

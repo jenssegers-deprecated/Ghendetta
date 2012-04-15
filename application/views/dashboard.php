@@ -26,6 +26,8 @@
 
 	<p class="clan">You are with the <a href="/clan" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.</p>
 
+	<h2 class="btn js-toggle-legend">Legend</h2></a>
+
 	<section class="notifications">
 		<article class="n-region_won s-new">
 			<p><strong class="region">Oostakker</strong> is now Wolves territory. Like a boss.</p>
@@ -39,10 +41,10 @@
 		<article class="n-capo_message s-new">
 			<p>The Capo says: Move out. Wolves are howling in the uz area.</p>
 		</article>
-		<article class="n-region_won s-read">
+		<article class="n-region_won s-new">
 			<p>Oostakker is now Hawks territory. Like a boss.</p>
 		</article>
-		<article class="n-region_lost s-read">
+		<article class="n-region_lost s-new">
 			<p>The snakes just took Sint-Martens Latem from us! They can&rsquo;t get away with that!</p>
 		</article>
 		<article class="n-rank_won s-read">
@@ -55,7 +57,6 @@
 
 	<?php endif; ?>
 
-	<h2 class="btn js-toggle-legend">Legend</h2></a>
 	<div class="legend-holder cf">
 		<dl class="legend">
 			<?php if($this->ghendetta->current_user()): ?>
