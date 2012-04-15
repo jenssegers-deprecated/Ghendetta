@@ -96,13 +96,13 @@ class FSQ extends CI_Controller {
         }
     }
     
-    function checkin($code = FALSE) {
-        if ($user = $this->ghendetta->current_user() && $code) {
+    function checkin($venueid, $code = '') {
+        if ($user = $this->ghendetta->current_user()) {
             $this->load->model('venue_model');
             
-            // decrypt
-            $this->load->library('encrypt');
-            $venueid = $this->encrypt->decode($code);
+            if ($code != $this->venue_model->generate_code($venueid)) {
+                show_error('Could not check you into this venue: wrong code');
+            }
             
             // search the specific venue
             if ($venue = $this->venue_model->get_active($venueid)) {
@@ -114,8 +114,8 @@ class FSQ extends CI_Controller {
                 print_r($checkin);
                 
                 // insert checkin response with multiplier
-                $this->process_checkin($checkin, array('multiplier' => $venue['multiplier']));
-                
+                //$this->process_checkin($checkin, array('multiplier' => $venue['multiplier']));
+            
             } else {
                 show_error('Could not check you into this venue: unlisted or expired');
             }

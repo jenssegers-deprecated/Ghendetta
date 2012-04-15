@@ -27,13 +27,8 @@ class Venues_hash extends CI_Controller {
         $this->load->model('venue_model');
         $venues = $this->venue_model->get_list($listid);
         
-        $this->load->library('encrypt');
-        
         foreach ($venues as $venue) {
-            $code = $this->encrypt->encode($venue['venueid']);
-            $venueid = $this->encrypt->decode($code);
-            
-            echo $venue['name'] . " ($venueid) -> " . $this->encrypt->encode($venue['venueid']) . "\n";
+            echo $venue['name'] . " -> " . $this->venue_model->generate_code($venue['venueid']) . "\n";
         }
     }
 }

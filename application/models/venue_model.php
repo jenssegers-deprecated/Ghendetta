@@ -98,6 +98,17 @@ class venue_model extends CI_Model {
         return $venue['multiplier'];
     }
     
+    function generate_code($venueid, $length = 20) {
+        $hash = hash('sha1', $venueid + $this->config->item('encryption_key'));
+        $tot = strlen($hash);
+        
+        if($length >= $tot) {
+            return $hash;
+        }
+        
+        return substr($hash, floor($tot-$length / 2), $length);
+    }
+    
     function count() {
         return $this->db->count_all('venues');
     }
