@@ -849,8 +849,8 @@ a:focus {
 	/* Hide Shit */
 
 	.v-dashboard-map,
-	.v-dashboard .js-toggle-legend,
-	.siteNav .logout, {
+	.js-toggle-legend,
+	.siteNav .logout {
 		display: none;
 	}
 
