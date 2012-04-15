@@ -13,6 +13,7 @@
 	Namespace:
 		v- are views.
 		n- are notifications.
+		s- are object statuses.
 */
 
 /*
@@ -445,6 +446,53 @@ a:focus {
 	.v-dashboard .clan a:focus {
 		opacity: .66;
 	}
+
+	/* Notifications */
+
+	.v-dashboard .notifications {
+		overflow: auto;
+	}
+
+		.notifications article {
+			font-size: .875em;
+			line-height: 1.142857143em;
+			background: #FFC;
+			color: #6E6E5C;
+			border: 1px solid #DDA;
+			border-width: 1px 1px 0;
+			padding: 15px 10px;
+			margin: 0;
+			cursor: pointer;
+			-webkit-box-shadow: inset 0 1px 1px rgba(255,255,255,.22);
+			   -moz-box-shadow: inset 0 1px 1px rgba(255,255,255,.22);
+			    -ms-box-shadow: inset 0 1px 1px rgba(255,255,255,.22);
+			        box-shadow: inset 0 1px 1px rgba(255,255,255,.22);
+		}
+
+			.notifications article:last-child {
+				border-width: 1px;
+			}
+
+			.notifications article p:last-child {
+				padding: 0;
+			}
+
+		.notifications .n-region_lost {
+			background: #C1272D;
+			border-color: #990F14;
+			color: #FFF;
+		}
+
+		.notifications .s-read {
+			color: #777;
+			border-color: #ddd;
+			background: #fff;
+			opacity: .66;
+			height: 30px;
+			padding: 0 10px;
+			line-height: 2.142857143;
+			overflow: hidden;
+		}
 
 	/* Map Legend */
 

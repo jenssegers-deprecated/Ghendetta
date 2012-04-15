@@ -19,4 +19,10 @@ $(document).ready(function()
 	{
 	  	$('.legend-holder').fadeToggle('fast');
 	});
+
+	$('.notifications article').live('click', function()
+	{
+		$(this).toggleClass('s-read');
+		// write toggled class to db: $.ajax({});
+	});
 });
