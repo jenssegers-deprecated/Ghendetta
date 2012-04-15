@@ -498,7 +498,6 @@ a:focus {
 		.leaflet-popup-content-wrapper {
 			background: #F7F6F2;
 			padding: 5px;
-			height: 115px;
 			overflow: hidden;
 			min-width: 220px;
 		}
