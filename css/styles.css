@@ -592,10 +592,10 @@ a:focus {
 
 				/* points */
 
-				.points {
+				.leaflet-popup-content-wrapper .points {
 					display: block;
 					float: left;
-					margin-top: 5px;
+					margin-top: 10px;
 					line-height: 70px;
 					font-size: 42px;
 					color: #C1272D;
