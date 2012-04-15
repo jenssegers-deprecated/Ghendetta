@@ -60,7 +60,7 @@ var Mapbox = function() {
 
 		// add polygons to map
 		showLayer(layers.regions);
-		
+
 		// set map center
 		map.setView(new L.LatLng(centerLon / totalCoords, centerLat / totalCoords), 12);
 	}
@@ -84,7 +84,7 @@ var Mapbox = function() {
 			// add to layer
 			layers.battles.addLayer(new L.Marker(new L.LatLng(battle.lat, battle.lon), {icon: new battleIcon()}));
 		}
-		
+
 		// add battles to map
 		showLayer(layers.battles);
 	}
@@ -118,7 +118,7 @@ var Mapbox = function() {
 			layers.specials.addLayer(marker);
 		}
 	}
-	
+
 	/**
 	 * Toggle a layer
 	 */
@@ -141,7 +141,7 @@ var Mapbox = function() {
 		layer.state = 1;
 		map.addLayer(layer);
 	}
-	
+
 	/**
 	 * Hide a layer
 	 */
@@ -163,7 +163,7 @@ var Mapbox = function() {
 
 		wax.tilejson(url, function(tilejson) {
 			map.addLayer(new wax.leaf.connector(tilejson));
-			
+
 			// get regions
 			$.getJSON(site_url + 'api/regions.json', {}, function(data) {
 				if (data) {
@@ -196,19 +196,3 @@ var Mapbox = function() {
 		hideLayer : hideLayer
 	}
 }
-
-
-$(document).ready(function() {
-
-	var mapbox = new Mapbox();
-	mapbox.init('map');
-
-	// demo mode
-	window.setInterval(function() {
-		mapbox.toggleLayer(mapbox.layers['specials']);
-	}, 1000);
-	
-	window.setInterval(function() {
-		mapbox.toggleLayer(mapbox.layers['battles']);
-	}, 666);
-});
