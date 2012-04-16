@@ -124,8 +124,9 @@ class FSQ extends CI_Controller {
                 // redirect to foursquare
                 redirect('https://foursquare.com/user/' . $user['fsqid'] . '/checkin/' . $checkinid);
             } else {
-                redirect( 'https://foursquare.com/v/' . $venueid );
-                // show_error('Could not check you into this venue: unlisted or expired');
+                redirect('https://foursquare.com/v/' . $venueid);
+            
+     // show_error('Could not check you into this venue: unlisted or expired');
             }
         } else {
             redirect();
@@ -206,7 +207,7 @@ class FSQ extends CI_Controller {
         // fetch checkins
         if ($json = $this->foursquare->api('users/' . $fsqid . '/checkins', array('afterTimestamp' => $since))) {
             // insert the checkins in our database
-            $this->process_checkins($json->response->checkins->items, $fsqid);
+            $this->process_checkins($json->response->checkins->items, array('userid' => $fsqid));
         } else {
             return FALSE;
         }
@@ -220,11 +221,11 @@ class FSQ extends CI_Controller {
      */
     private function process_checkin($checkin, $defaults = array()) {
         $this->load->model('checkin_model');
-
+        
         // only allow venue checkins
         if (isset($checkin->venue) && isset($checkin->venue->location->lng) && isset($checkin->venue->location->lat)) {
             $data = $defaults;
-
+            
             if (!isset($data['userid'])) {
                 $data['userid'] = $checkin->user->id;
             }
