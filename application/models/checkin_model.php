@@ -71,7 +71,7 @@ class checkin_model extends CI_Model {
         	FROM checkins
         	WHERE checkinid = ?
         		' . ( $venueid ? 'OR venueid = ?' : '') . ' AND date >= UNIX_TIMESTAMP(now()) - 3600';
-        echo $query; 
+        
         $row = $this->db->query($query, array( $checkinid, $venueid ))->row_array();
         return $row['count'] == 0;
     }
