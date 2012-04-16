@@ -75,7 +75,7 @@ var Mapbox = function() {
 		    iconUrl: static_url + 'img/ico_battle.svg',
 		    iconSize: new L.Point(32, 44),
 		    shadowUrl: null,
-		    iconAnchor: new L.Point(21, 36),
+		    iconAnchor: new L.Point(14, 40),
 		});
 
 		for (i in battles) {
@@ -102,7 +102,7 @@ var Mapbox = function() {
 			    iconUrl: static_url + 'img/ico_arena.svg',
 			    iconSize: new L.Point(32, 44),
 			    shadowUrl: null,
-			    iconAnchor: new L.Point(16, 16),
+			    iconAnchor: new L.Point(14, 40),
 			});
 
 			// create marker
