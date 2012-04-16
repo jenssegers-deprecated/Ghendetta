@@ -51,7 +51,7 @@
 
 <?php include_once('footer.tpl'); ?>
 
-<script src="<?php echo static_url('js/mapbox.min.js?v=090402'); ?>"></script>
+<script src="<?php echo static_url('js/mapbox.min.js?v=160401'); ?>"></script>
 
 </body>
 </html>
