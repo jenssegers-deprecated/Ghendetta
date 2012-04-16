@@ -220,46 +220,27 @@ class FSQ extends CI_Controller {
      */
     private function process_checkin($checkin, $defaults = array()) {
         $this->load->model('checkin_model');
-        
-        // only process this checkin if it is not already inserted in the database
-        if (!$this->checkin_model->exists($checkin->id)) {
-            $this->load->model('region_model');
-            
-            if (isset($checkin->venue) && isset($checkin->venue->location->lng) && isset($checkin->venue->location->lat)) {
-                $found_region = FALSE;
-                $lon = $checkin->venue->location->lng;
-                $lat = $checkin->venue->location->lat;
-                
-                // check what region the checkin was located in, using point in polygon algorithm
-                $found_region = $this->region_model->detect_region($lat, $lon);
-                
-                // if region is not found, the checkin is outside our territory
-                if ($found_region) {
-                    $data = $defaults;
-                    
-                    if (!isset($data['userid'])) {
-                        $data['userid'] = $checkin->user->id;
-                    }
-                    
-                    $data['checkinid'] = $checkin->id;
-                    $data['date'] = $checkin->createdAt;
-                    $data['venueid'] = $checkin->venue->id;
-                    $data['lon'] = $checkin->venue->location->lng;
-                    $data['lat'] = $checkin->venue->location->lat;
-                    $data['regionid'] = $found_region['regionid'];
-                    
-                    if ($checkin->venue->categories) {
-                        $category = reset($checkin->venue->categories);
-                        $data['categoryid'] = $category->id;
-                    }
-                    
-                    if (isset($checkin->shout)) {
-                        $data['message'] = $checkin->shout;
-                    }
-                    
-                    return $this->checkin_model->insert($data);
-                }
+
+        // only allow venue checkins
+        if (isset($checkin->venue) && isset($checkin->venue->location->lng) && isset($checkin->venue->location->lat)) {
+            $data = $defaults;
+
+            if (!isset($data['userid'])) {
+                $data['userid'] = $checkin->user->id;
             }
+            
+            $data['checkinid'] = $checkin->id;
+            $data['date'] = $checkin->createdAt;
+            $data['venueid'] = $checkin->venue->id;
+            $data['lon'] = $checkin->venue->location->lng;
+            $data['lat'] = $checkin->venue->location->lat;
+            
+            if ($checkin->venue->categories) {
+                $category = reset($checkin->venue->categories);
+                $data['categoryid'] = $category->id;
+            }
+            
+            return $this->checkin_model->insert($data);
         }
         
         return FALSE;

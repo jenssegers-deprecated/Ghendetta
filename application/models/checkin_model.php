@@ -12,8 +12,21 @@ if (!defined('BASEPATH'))
 class checkin_model extends CI_Model {
     
     function insert($checkin) {
-        // get region clan (before checkin)
+        // prevent duplicated checkins
+        if($this->checkin_model->exists($checkin['checkinid'], $checkin['venueid'], $checkin['date'])) {
+            return FALSE;
+        }
+        
+        // detect checkin region
         $this->load->model('region_model');
+        $checkin['region'] = $this->region_model->detect_region($checkin['lat'], $checkin['lon']);
+        
+        // checkin must be inside a valid region
+        if(!$checkin['region']) {
+            return FALSE;
+        }
+        
+        // get region clan (before checkin)
         $leader_before = $this->region_model->get_leader($checkin['regionid']);
         
         // get user information (before checkin)
@@ -65,14 +78,19 @@ class checkin_model extends CI_Model {
         return $checkin['checkinid'];
     }
     
-    function exists($checkinid , $venueid = FALSE ) {
-        $query = '
+    function exists($checkinid, $venueid = FALSE, $date = FALSE) {
+        if (!$date) {
+            $date = time();
+        }
+        
+        $query = "
         	SELECT COUNT(1) as count
         	FROM checkins
         	WHERE checkinid = ?
-        		' . ( $venueid ? 'OR venueid = ?' : '') . ' AND date >= UNIX_TIMESTAMP(now()) - 3600';
+        		" . ($venueid ? 'OR venueid = ?' : '') . "
+        		AND date >= '" . ($date - 3600) . "'";
         
-        $row = $this->db->query($query, array( $checkinid, $venueid ))->row_array();
+        $row = $this->db->query($query, array($checkinid, $venueid))->row_array();
         return $row['count'] == 0;
     }
     
