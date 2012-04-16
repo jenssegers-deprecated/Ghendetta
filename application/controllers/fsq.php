@@ -125,11 +125,9 @@ class FSQ extends CI_Controller {
                 redirect('https://foursquare.com/user/' . $user['fsqid'] . '/checkin/' . $checkinid);
             } else {
                 redirect('https://foursquare.com/v/' . $venueid);
-            
-     // show_error('Could not check you into this venue: unlisted or expired');
             }
         } else {
-            redirect();
+            $this->auth();
         }
     }
     
