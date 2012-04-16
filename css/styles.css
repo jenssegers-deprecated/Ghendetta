@@ -497,6 +497,12 @@ a:focus {
 				color: #555;
 			}
 
+				.legend .chk {
+					cursor: pointer;
+					font-weight: 700;
+					color: #C1272D;
+				}
+
 	/* Map */
 
 	#map {

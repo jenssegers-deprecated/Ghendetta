@@ -8,6 +8,12 @@ $(document).ready(function()
 		var mapbox = new Mapbox();
 		mapbox.init('map');
 
+		// hard-coded set to true for now. @todo replace with function
+
+		$('.battles input').attr('checked', true);
+
+		// legend toggle functionality
+
 		$('.legend dt, .legend dd').bind('click', function()
 		{
 			layerClass = $(this).attr('class').split(/\s+/);
@@ -18,7 +24,20 @@ $(document).ready(function()
 				{
 				    if (item != 'chk')
 					{
+						// toggle layers on and off
+
 						mapbox.toggleLayer(mapbox.layers[item]);
+
+						// toggle checkboxes on and off. @todo replace with function
+
+						if(mapbox.layers[item].state === 1)
+						{
+							$('.' + item + ' input').attr('checked', true);
+						}
+						else
+						{
+							$('.' + item + ' input').attr('checked', false);
+						}
 					}
 			    });
 			}
