@@ -65,14 +65,14 @@ class checkin_model extends CI_Model {
         return $checkin['checkinid'];
     }
     
-    function exists($checkinid) {
-        $query = "
+    function exists($checkinid , $venueid = FALSE ) {
+        $query = '
         	SELECT COUNT(1) as count
         	FROM checkins
         	WHERE checkinid = ?
-        		OR venueid = ? AND date >= UNIX_TIMESTAMP(now()) - 3600";
-        
-        $row = $this->db->query($query)->row_array();
+        		' . ( $venueid ? 'OR venueid = ?' : '') . ' AND date >= UNIX_TIMESTAMP(now()) - 3600';
+        echo $query; 
+        $row = $this->db->query($query, array( $checkinid, $venueid ))->row_array();
         return $row['count'] == 0;
     }
     
