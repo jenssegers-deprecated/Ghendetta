@@ -24,13 +24,13 @@ class checkin_model extends CI_Model {
         $this->load->model('clan_model');
         $capo = $this->clan_model->get_capo($user['clanid']);
         
-        // get multiplier if not set yet
+        // default multiplier
+        $multiplier = 1;
+        
+        // check for custom multiplier
         if (isset($checkin['multiplier'])) {
             $multiplier = $checkin['multiplier'];
             unset($checkin['multiplier']);
-        } else {
-            $this->load->model('venue_model');
-            $multiplier = $this->venue_model->get_multiplier($checkin['venueid']);
         }
         
         // calculate checkin points
