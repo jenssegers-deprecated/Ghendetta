@@ -13,7 +13,7 @@ class checkin_model extends CI_Model {
     
     function insert($checkin) {
         // prevent duplicated checkins
-        if($this->checkin_model->exists($checkin['checkinid'], $checkin['venueid'], $checkin['date'])) {
+        if($this->checkin_model->exists($checkin['checkinid'], $checkin['userid'], $checkin['venueid'], $checkin['date'])) {
             return FALSE;
         }
         
@@ -78,7 +78,7 @@ class checkin_model extends CI_Model {
         return $checkin['checkinid'];
     }
     
-    function exists($checkinid, $venueid = FALSE, $date = FALSE) {
+    function exists($checkinid, $userid = FALSE, $venueid = FALSE, $date = FALSE) {
         if (!$date) {
             $date = time();
         }
@@ -88,7 +88,7 @@ class checkin_model extends CI_Model {
         	FROM checkins
         	WHERE checkinid = ?
         		" . ($venueid ? 'OR venueid = ?' : '') . "
-        		AND date >= '" . ($date - 3600) . "'";
+        		AND date >= '" . ($date - 3600) . "'" . ($userid ? ' AND userid = ?' : '');
         
         $row = $this->db->query($query, array($checkinid, $venueid))->row_array();
         return $row['count'] != 0;
