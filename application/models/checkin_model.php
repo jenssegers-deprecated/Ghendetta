@@ -19,10 +19,10 @@ class checkin_model extends CI_Model {
         
         // detect checkin region
         $this->load->model('region_model');
-        $checkin['region'] = $this->region_model->detect_region($checkin['lat'], $checkin['lon']);
+        $checkin['regionid'] = $this->region_model->detect_region($checkin['lat'], $checkin['lon']);
         
         // checkin must be inside a valid region
-        if(!$checkin['region']) {
+        if(!$checkin['regionid']) {
             return FALSE;
         }
         
@@ -91,7 +91,7 @@ class checkin_model extends CI_Model {
         		AND date >= '" . ($date - 3600) . "'";
         
         $row = $this->db->query($query, array($checkinid, $venueid))->row_array();
-        return $row['count'] == 0;
+        return $row['count'] != 0;
     }
     
     function get_all() {
