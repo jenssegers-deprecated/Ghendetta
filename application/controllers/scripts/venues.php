@@ -14,7 +14,7 @@ class Venues extends CI_Controller {
     function __construct() {
         parent::__construct();
         
-        $user = $this->ghendetta->current_user();
+        $user = $this->auth->current_user();
         if (!($user && $user['admin']) && !$this->input->is_cli_request()) {
             show_error('Scripts can only be executed from CLI');
         }

@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Ghendetta {
+class Auth {
     
     private $ci, $user = FALSE;
     private $cookie_name = 'ghendetta_user';

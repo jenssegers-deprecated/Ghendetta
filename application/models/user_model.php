@@ -21,11 +21,12 @@ class user_model extends CI_Model {
         $user['admin'] = 0;
         
         $this->db->insert('users', $user);
-        return $this->db->insert_id();
+        return $user['fsqid'];
     }
     
     function update($fsqid, $user) {
-        return $this->db->where('fsqid', $fsqid)->update('users', $user);
+        $this->db->where('fsqid', $fsqid)->update('users', $user);
+        return $fsqid;
     }
     
     function delete($userid) {

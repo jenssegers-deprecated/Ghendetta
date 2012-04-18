@@ -8,7 +8,7 @@
 <section class="v-dashboard" role="main">
 	<h1 class="logo"><img src="<?php echo static_url('img/intro.svg'); ?>" alt="Ghendetta" /></h1>
 
-	<?php if(!$this->ghendetta->current_user()): ?>
+	<?php if(!$this->auth->current_user()): ?>
 
 	<p class="foursquare">
 		<a href="<?php echo site_url('foursquare'); ?>">Connect &amp; Conquer</a>
@@ -31,7 +31,7 @@
 	<h2 class="btn js-toggle-legend">Legend</h2></a>
 	<div class="legend-holder cf">
 		<dl class="legend">
-			<?php if($this->ghendetta->current_user()): ?>
+			<?php if($this->auth->current_user()): ?>
 			<dt class="chk battles"><img src="<?php echo static_url('img/ico_battle.svg'); ?>" alt="" /></dt>
 				<dd class="chk battles">My Battles <input type="checkbox" /></dd>
 			<dt class="chk specials"><img src="<?php echo static_url('img/ico_arena.svg'); ?>" alt="" /></dt>

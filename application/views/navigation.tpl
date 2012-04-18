@@ -9,7 +9,7 @@ $section = strtolower($ci->router->fetch_class()); ?>
 		<li<?php echo $section == 'map' ? ' class="selected"' : ''; ?>>
 			<a href="<?php echo site_url('map'); ?>" class="map">Map</a>
 		</li>
-		<?php if($this->ghendetta->current_user()): ?>
+		<?php if($this->auth->current_user()): ?>
 		<li<?php echo $section == 'clan' ? ' class="selected"' : ''; ?>>
 			<a href="<?php echo site_url('clan'); ?>" class="myClan">My Clan</a>
 		</li>
@@ -18,7 +18,7 @@ $section = strtolower($ci->router->fetch_class()); ?>
 		<li<?php echo $section == 'about' ? ' class="selected"' : ''; ?>>
 			<a href="<?php echo site_url('about'); ?>" class="about">About</a>
 		</li>
-		<?php if($this->ghendetta->current_user()): ?>
+		<?php if($this->auth->current_user()): ?>
 		<li>
 			<a href="<?php echo site_url('logout'); ?>" class="logout">Log Out</a>
 		</li>

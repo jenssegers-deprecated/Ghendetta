@@ -38,7 +38,7 @@ class FSQ extends CI_Controller {
                 $this->process_user($json->response->user, $token);
                 
                 // mark this user as current ghendetta user
-                $this->ghendetta->login($fsqid);
+                $this->auth->login($fsqid);
             
             } else {
                 log_message('error', $this->foursquare->error);
@@ -97,7 +97,7 @@ class FSQ extends CI_Controller {
     }
     
     function checkin($venueid, $code = '') {
-        if ($user = $this->ghendetta->current_user()) {
+        if ($user = $this->auth->current_user()) {
             $this->load->model('venue_model');
             
             if ($code != $this->venue_model->generate_code($venueid)) {
@@ -138,7 +138,7 @@ class FSQ extends CI_Controller {
         // not a CLI reqeuest, check if admin
         if (!$this->input->is_cli_request()) {
             // no user detected or not admin
-            if (!$user = $this->ghendetta->current_user() || !$user['admin']) {
+            if (!$user = $this->auth->current_user() || !$user['admin']) {
                 show_error('You have not permission to access this page');
             }
         }
@@ -289,9 +289,9 @@ class FSQ extends CI_Controller {
             $clan = $this->clan_model->suggest_clan();
             $data['clanid'] = $clan['clanid'];
             
-            $this->user_model->insert($data);
+            return $this->user_model->insert($data);
         } else {
-            $this->user_model->update($data['fsqid'], $data);
+            return $this->user_model->update($data['fsqid'], $data);
         }
     }
     
