@@ -11,6 +11,7 @@ $(document).ready(function()
 		// hard-coded set to true for now. @todo replace with function
 
 		$('.battles input').attr('checked', true);
+		$('.specials input').attr('checked', true);
 
 		// legend toggle functionality
 

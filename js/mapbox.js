@@ -117,6 +117,9 @@ var Mapbox = function() {
 			// add to layer to group
 			layers.specials.addLayer(marker);
 		}
+		
+		// add specials to map
+		showLayer(layers.specials);
 	}
 
 	/**
