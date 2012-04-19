@@ -37,14 +37,14 @@ class notification_model extends CI_Model {
     
     function get_personal($userid, $limit = FALSE) {
         $query = "
-        	SELECT notifications.*, CASE WHEN date <= last_visit THEN 1 ELSE 0 END as 'read'
+        	SELECT notifications.*, CASE WHEN date < last_visit THEN 1 ELSE 0 END as 'read'
             FROM users
             JOIN notifications ON to_type = 'clan' AND `to` = clanid
             WHERE fsqid = ?
             
             UNION
             
-            SELECT notifications.*, CASE WHEN date <= last_visit THEN 1 ELSE 0 END as 'read'
+            SELECT notifications.*, CASE WHEN date < last_visit THEN 1 ELSE 0 END as 'read'
             FROM users
             JOIN notifications ON to_type = 'user' AND `to` = fsqid
             WHERE fsqid = ?
