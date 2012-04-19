@@ -36,24 +36,23 @@ class notification_model extends CI_Model {
     }
     
     function get_personal($userid, $clanid = FALSE, $limit = FALSE) {
-        if (!$clanid) {
-            $this->load->model('user_model');
-            $user = $this->user_model->get($userid);
-            $clanid = $user['clanid'];
-        }
-        
         $query = "
-        	SELECT notificationid, type, date, data
-        	FROM notifications
-        	WHERE `to` =
-        		CASE `to_type`
-        			WHEN 'user' THEN ?
-        			WHEN 'clan' THEN ?
-        		END
-        	ORDER BY date DESC
-        	";
+        	SELECT notifications.*, CASE WHEN date <= last_visit THEN 1 ELSE 0 END as 'read'
+            FROM users
+            JOIN notifications ON to_type = 'clan' AND `to` = clanid
+            WHERE fsqid = ?
+            
+            UNION
+            
+            SELECT notifications.*, CASE WHEN date <= last_visit THEN 1 ELSE 0 END as 'read'
+            FROM users
+            JOIN notifications ON to_type = 'user' AND `to` = fsqid
+            WHERE fsqid = ?
+        	
+            ORDER BY date DESC, notificationid DESC
+            " . $limit ? "LIMIT 0,$limit" : "";
         
-        $notifications = $this->db->query($query, array($userid, $clanid))->result_array();
+        $notifications = $this->db->query($query, array($userid, $userid))->result_array();
         foreach ($notifications as &$notification) {
             $notification['data'] = @unserialize($notification['data']);
         }
