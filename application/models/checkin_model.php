@@ -34,7 +34,7 @@ class checkin_model extends CI_Model {
         
         // detect a missing region transition
         if ($leader_before && $region['leader'] && $region['leader'] != $leader_before['clanid']) {
-            $this->region_model->set_leader($region['regionid'], $leader_before['clanid'], $region['leader']);
+            $this->region_model->set_leader($region['regionid'], $leader_before['clanid'], $region['leader'], $leader_before['last_checkin']);
         }
         
         // get user information (before checkin)
@@ -86,6 +86,15 @@ class checkin_model extends CI_Model {
         return $checkin['checkinid'];
     }
     
+    /**
+     * Check if a checkin exists base on checkinid,
+     * prevents users to checkin into the same venue in small time periods
+     * @param string $checkinid
+     * @param int $userid
+     * @param string $venueid
+     * @param int $date
+     * @return boolean
+     */
     function exists($checkinid, $userid = FALSE, $venueid = FALSE, $date = FALSE) {
         if (func_num_args() == 1) {
             return $this->db->where('checkinid', $checkinid)->count_all_results('checkins');
