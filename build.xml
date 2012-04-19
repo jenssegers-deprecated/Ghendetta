@@ -43,6 +43,25 @@
             <param name="file" value="${js_dir}/mapbox.min.js" />
         </antcall>
     </target>
+    
+    <!--
+	*************************************************
+	* APPLICATION *
+	*************************************************
+	-->
+	<target name="concat_application">
+        <concat destfile="${js_dir}/application.min.js">
+            <filelist id="files" dir="${js_dir}">
+                <file name="application.js" />
+            </filelist>
+        </concat>
+    </target>
+	
+	<target name="compress_application" depends="concat_application">
+        <antcall target="compress">
+            <param name="file" value="${js_dir}/application.min.js" />
+        </antcall>
+    </target>
 	
 	<!--
 	*************************************************
@@ -72,6 +91,7 @@
 		<echo>-------------------------------------</echo>
 		<echo>Initialising Apache Ant</echo>
         <antcall target="compress_mapbox" />
+        <antcall target="compress_application" />
 		<antcall target="compress_stylesheet" />
 		<echo>-------------------------------------</echo>
     </target>

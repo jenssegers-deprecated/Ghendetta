@@ -89,10 +89,10 @@ class Foursquare {
             $params['oauth_token'] = $token;
         }
         
-        if (strtoupper($method) == 'GET') {
-            $json = $this->_get('https://api.foursquare.com/v2/' . $uri . '?' . http_build_query(array_merge($params, $data)));
-        } else {
+        if (strtoupper($method) == 'POST') {
             $json = $this->_post('https://api.foursquare.com/v2/' . $uri . '?' . http_build_query($params), $data);
+        } else {
+            $json = $this->_get('https://api.foursquare.com/v2/' . $uri . '?' . http_build_query(array_merge($params, $data)));
         }
         
         if (!$json) {

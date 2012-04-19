@@ -4,17 +4,15 @@ var Mapbox = function() {
 	var url = 'http://api.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp';
 
 	// map layers
-	var battlesGroup = new L.LayerGroup();
-	var specialGroup = new L.LayerGroup();
-	var polygonGroup = new L.LayerGroup();
-	
-	// control
-	var layerControl = new L.Control.Layers();
+	var layers = {};
+	layers.battles = new L.LayerGroup();
+	layers.specials = new L.LayerGroup();
+	layers.regions = new L.LayerGroup();
 
 	/**
-	 * Add region polygons to the map and bind popups
+	 * Add regions to the map and bind popups
 	 */
-	var addPolygons = function(regions) {
+	var addRegions = function(regions) {
 		var region, coords, points, polygon, clan, html, max;
 		var centerLon = 0, centerLat = 0,totalCoords = 0;
 
@@ -42,7 +40,7 @@ var Mapbox = function() {
 			});
 
 			// add to layer
-			polygonGroup.addLayer(polygon);
+			layers.regions.addLayer(polygon);
 
 			// only show popup when occupied
 			if(region.clans[region.leader]) {
@@ -61,8 +59,8 @@ var Mapbox = function() {
 		}
 
 		// add polygons to map
-		map.addLayer(polygonGroup);
-		
+		showLayer(layers.regions);
+
 		// set map center
 		map.setView(new L.LatLng(centerLon / totalCoords, centerLat / totalCoords), 12);
 	}
@@ -77,21 +75,18 @@ var Mapbox = function() {
 		    iconUrl: static_url + 'img/ico_battle.svg',
 		    iconSize: new L.Point(32, 44),
 		    shadowUrl: null,
-		    iconAnchor: new L.Point(21, 36),
+		    iconAnchor: new L.Point(14, 40),
 		});
 
 		for (i in battles) {
 			battle = battles[i];
 
 			// add to layer
-			battlesGroup.addLayer(new L.Marker(new L.LatLng(battle.lat, battle.lon), {icon: new battleIcon()}));
+			layers.battles.addLayer(new L.Marker(new L.LatLng(battle.lat, battle.lon), {icon: new battleIcon()}));
 		}
-		
-		// add layer to control
-		layerControl.addOverlay(battlesGroup, "Battles");
-		
+
 		// add battles to map
-		map.addLayer(battlesGroup);
+		showLayer(layers.battles);
 	}
 
 	/**
@@ -107,33 +102,60 @@ var Mapbox = function() {
 			    iconUrl: static_url + 'img/ico_arena.svg',
 			    iconSize: new L.Point(32, 44),
 			    shadowUrl: null,
-			    iconAnchor: new L.Point(16, 16),
+			    iconAnchor: new L.Point(14, 40),
 			});
 
 			// create marker
 			marker = new L.Marker(new L.LatLng(venue.lat, venue.lon), {icon: new venueIcon()});
 
 			// generate html
-			html = '<h1>' + venue.name + '</h1><img src="/img/ico_tower.svg" /><span class="points">+' + venue.multiplier + '</span>';
+			html = '<h1>' + venue.name + '</h1><img src="' + static_url + 'img/ico_tower.svg" /><span class="points">+' + venue.multiplier + '</span>';
 
 			// bind popup
 			marker.bindPopup(html);
 
 			// add to layer to group
-			specialGroup.addLayer(marker);
+			layers.specials.addLayer(marker);
 		}
 		
-		// add layer to control
-		layerControl.addOverlay(specialGroup, "Specials");
+		// add specials to map
+		showLayer(layers.specials);
 	}
 
 	/**
-	 * Add layer controls to the map
+	 * Toggle a layer
 	 */
-	var toggleLayer = function() {
-		
+	var toggleLayer = function(layer) {
+		if (layer.state === undefined) {
+			showLayer(layer);
+		} else {
+			if(layer.state == 1) {
+				hideLayer(layer);
+			} else {
+				showLayer(layer);
+			}
+		}
 	}
 
+	/**
+	 * Show a layer
+	 */
+	var showLayer = function(layer) {
+		layer.state = 1;
+		map.addLayer(layer);
+	}
+
+	/**
+	 * Hide a layer
+	 */
+	var hideLayer = function(layer) {
+		layer.state = 0;
+		map.removeLayer(layer);
+	}
+
+	/**
+	 * Initialise the map
+	 */
 	var init = function(element) {
 
 		// create map
@@ -144,17 +166,11 @@ var Mapbox = function() {
 
 		wax.tilejson(url, function(tilejson) {
 			map.addLayer(new wax.leaf.connector(tilejson));
-			
-			// add layer listener
-			map.on('layeradd', function(e) {
-			    console.log(e);
-			    console.log(e.layer);
-			});
-			
+
 			// get regions
 			$.getJSON(site_url + 'api/regions.json', {}, function(data) {
 				if (data) {
-					addPolygons(data);
+					addRegions(data);
 				}
 			});
 
@@ -171,22 +187,15 @@ var Mapbox = function() {
 					addBattles(data);
 				}
 			});
-
-			// add layer control
-			map.addControl(layerControl);
 		});
 	}
 
 	return {
 		map : map,
-		init : init
+		layers : layers,
+		init : init,
+		toggleLayer : toggleLayer,
+		showLayer : showLayer,
+		hideLayer : hideLayer
 	}
 }
-
-
-$(document).ready(function() {
-
-	var mapbox = new Mapbox();
-	mapbox.init('map');
-
-});

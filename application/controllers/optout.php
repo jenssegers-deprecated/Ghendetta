@@ -12,7 +12,7 @@ if (!defined('BASEPATH'))
 class Optout extends CI_Controller {
     
     function index() {
-        if ($user = $this->ghendetta->current_user()) {
+        if ($user = $this->auth->current_user()) {
             $this->warning();
         } else {
             redirect();
@@ -20,11 +20,11 @@ class Optout extends CI_Controller {
     }
     
     function go() {
-        if ($user = $this->ghendetta->current_user()) {
+        if ($user = $this->auth->current_user()) {
             $this->load->model('user_model');
             $this->user_model->delete($user['fsqid']);
             
-            $this->ghendetta->logout();
+            $this->auth->logout();
         }
         
         redirect('https://foursquare.com/settings/connections');

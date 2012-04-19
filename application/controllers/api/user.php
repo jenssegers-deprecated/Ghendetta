@@ -14,7 +14,7 @@ require_once (APPPATH . 'core/API_Controller.php');
 class User extends API_Controller {
     
     function index() {
-        if ($user = $this->ghendetta->current_user()) {
+        if ($user = $this->auth->current_user()) {
             $fsqid = $user['fsqid'];
             
             // try from cache
@@ -34,7 +34,7 @@ class User extends API_Controller {
     }
     
     function battles() {
-        if ($user = $this->ghendetta->current_user()) {
+        if ($user = $this->auth->current_user()) {
             $fsqid = $user['fsqid'];
             
             // try from cache
@@ -53,7 +53,7 @@ class User extends API_Controller {
     }
     
     function notifications() {
-        if ($user = $this->ghendetta->current_user()) {
+        if ($user = $this->auth->current_user()) {
             $fsqid = $user['fsqid'];
             
             // try from cache

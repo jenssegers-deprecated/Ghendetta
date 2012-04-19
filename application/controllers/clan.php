@@ -14,7 +14,7 @@ class Clan extends CI_Controller {
     function index() {
         $this->load->driver('cache');
         
-        if ($user = $this->ghendetta->current_user()) {
+        if ($user = $this->auth->current_user()) {
             $clanid = $user['clanid'];
             
             // try from cache

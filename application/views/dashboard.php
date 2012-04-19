@@ -8,7 +8,7 @@
 <section class="v-dashboard" role="main">
 	<h1 class="logo"><img src="<?php echo static_url('img/intro.svg'); ?>" alt="Ghendetta" /></h1>
 
-	<?php if(!$this->ghendetta->current_user()): ?>
+	<?php if(!$this->auth->current_user()): ?>
 
 	<p class="foursquare">
 		<a href="<?php echo site_url('foursquare'); ?>">Connect &amp; Conquer</a>
@@ -84,11 +84,11 @@
 
 	<div class="legend-holder cf">
 		<dl class="legend">
-			<?php if($this->ghendetta->current_user()): ?>
-			<dt><img src="<?php echo static_url('img/ico_battle.svg'); ?>" alt="" /></dt>
-				<dd>My Battles</dd>
-			<dt><img src="<?php echo static_url('img/ico_arena.svg'); ?>" alt="" /></dt>
-				<dd>Arena</dd>
+			<?php if($this->auth->current_user()): ?>
+			<dt class="chk battles"><img src="<?php echo static_url('img/ico_battle.svg'); ?>" alt="" /></dt>
+				<dd class="chk battles">My Battles <input type="checkbox" /></dd>
+			<dt class="chk specials"><img src="<?php echo static_url('img/ico_arena.svg'); ?>" alt="" /></dt>
+				<dd class="chk specials">Arena <input type="checkbox" /></dd>
 			<?php endif; ?>
 			<?php foreach($clans as $clan): ?>
 			<dt><img src="<?php echo $clan['shield']; ?>" alt="<?php echo $clan['name']; ?>" /></dt>
@@ -101,7 +101,7 @@
 
 <?php include_once('footer.tpl'); ?>
 
-<script src="<?php echo static_url('js/mapbox.min.js?v=080402'); ?>"></script>
+<script src="<?php echo static_url('js/mapbox.min.js?v=160402'); ?>"></script>
 
 </body>
 </html>

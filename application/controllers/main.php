@@ -15,7 +15,7 @@ class Main extends CI_Controller {
         $this->load->model('clan_model');
         $clans = $this->clan_model->get_all();
         
-        if ($user = $this->ghendetta->current_user()) {
+        if ($user = $this->auth->current_user()) {
             $clan = $this->clan_model->get($user['clanid']);
             
             $this->load->model('notification_model');
