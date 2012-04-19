@@ -10,8 +10,8 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class region_model extends CI_Model {
-
-    private $regions = NULL ;
+    
+    private $regions = NULL;
     
     function insert_region($region) {
         $this->db->insert('regions', $region);
@@ -103,7 +103,7 @@ class region_model extends CI_Model {
         
         foreach ($this->regions as $region) {
             if (is_in_polygon($region['coords'], $lon, $lat)) {
-                $found_region = $region['regionid'];
+                $found_region = $region;
                 break; // yes this is a break :)
             }
         }
@@ -135,8 +135,14 @@ class region_model extends CI_Model {
      * @param int $regionid
      * @param int $new
      * @param int $old
+     * @param int $date
      */
-    function set_leader($regionid, $new, $old = FALSE) {
+    function set_leader($regionid, $new, $old = FALSE, $date = FALSE) {
+        // allow custom dates
+        if (!$date) {
+            $date = time();
+        }
+        
         // set leader
         $this->update($regionid, array('leader' => $new));
         
