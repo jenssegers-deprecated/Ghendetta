@@ -35,7 +35,7 @@ class notification_model extends CI_Model {
         return $notification;
     }
     
-    function get_personal($userid, $clanid = FALSE, $limit = FALSE) {
+    function get_personal($userid, $limit = FALSE) {
         $query = "
         	SELECT notifications.*, CASE WHEN date <= last_visit THEN 1 ELSE 0 END as 'read'
             FROM users
