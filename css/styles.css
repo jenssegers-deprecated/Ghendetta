@@ -427,6 +427,10 @@ a:focus {
 
 	/* Dashboard: Logged in */
 
+	.v-dashboard {
+		overflow: auto;
+	}
+
 	/* Clan sentence */
 
 	.v-dashboard .clan a {
@@ -450,10 +454,7 @@ a:focus {
 	/* Notifications */
 
 	.v-dashboard .notifications {
-		overflow: hidden;
 		clear: both;
-		max-height: 448px;
-		margin-bottom: 24px;
 	}
 
 		.notifications article {
@@ -557,6 +558,7 @@ a:focus {
 
 	/* Map */
 
+	.v-dashboard-map,
 	#map {
 		height: 100%;
 	}
@@ -907,6 +909,7 @@ a:focus {
 
 	#map {
 		width: 100%;
+		height: 100%;
 	}
 
 	/* View: clan */

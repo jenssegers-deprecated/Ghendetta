@@ -26,13 +26,11 @@
 
 	<p class="clan">You are with the <a href="/clan" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.</p>
 
-	<h2 class="btn js-toggle-legend">Legend</h2></a>
-
 	<section class="notifications">
 	<?php foreach($notifications as $notification): ?>
-		<article class="n-<?php echo $notification['type']; ?>">
+		<article class="n-<?php echo $notification['type']; ?> s-new">
 			<p>
-				<?php 
+				<?php
 				switch($notification['type']) {
 				    case 'region_lost':
 				        echo 'The ' . $notification['data']['clan'] . ' just took <strong class="region">' . $notification['data']['region'] . '</strong> from is! They can&rsquo;t get away with that!';
@@ -79,6 +77,11 @@
 
 	<?php endif; ?>
 
+</section>
+
+<section class="v-dashboard-map">
+	<h2 class="btn js-toggle-legend">Legend</h2></a>
+
 	<div class="legend-holder cf">
 		<dl class="legend">
 			<?php if($this->ghendetta->current_user()): ?>
@@ -93,11 +96,8 @@
 			<?php endforeach; ?>
 		</dl>
 	</div>
-
-
+	<div id="map"></div>
 </section>
-
-<div class="v-dashboard-map" id="map" ></div>
 
 <?php include_once('footer.tpl'); ?>
 
