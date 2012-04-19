@@ -40,7 +40,7 @@
 				    case 'region_won':
 				        echo '<strong class="region">' . $notification['data']['region'] . '</strong> is now ' . $notification['data']['clan'] . ' territory. Like a boss.';
 				        break;
-				    case 'rank_won':
+				    case 'new_capo':
 				        echo 'Congratulations! <strong>' . $notification['data']['name'] . ' just became Capo of your clan.';
 				        break;
 				}
