@@ -103,7 +103,7 @@ class region_model extends CI_Model {
         
         foreach ($this->regions as $region) {
             if (is_in_polygon($region['coords'], $lon, $lat)) {
-                $found_region = $region['regionid'];
+                $found_region = $region;
                 break; // yes this is a break :)
             }
         }

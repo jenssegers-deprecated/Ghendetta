@@ -13,21 +13,29 @@ class checkin_model extends CI_Model {
     
     function insert($checkin) {
         // prevent duplicated checkins
-        if($this->checkin_model->exists($checkin['checkinid'], $checkin['userid'], $checkin['venueid'], $checkin['date'])) {
+        if ($this->checkin_model->exists($checkin['checkinid'], $checkin['userid'], $checkin['venueid'], $checkin['date'])) {
             return FALSE;
         }
         
         // detect checkin region
         $this->load->model('region_model');
-        $checkin['regionid'] = $this->region_model->detect_region($checkin['lat'], $checkin['lon']);
+        $region = $this->region_model->detect_region($checkin['lat'], $checkin['lon']);
         
         // checkin must be inside a valid region
-        if(!$checkin['regionid']) {
+        if (!$region) {
             return FALSE;
         }
         
+        // set regionid for the checkin
+        $checkin['regionid'] = $region['regionid'];
+        
         // get region clan (before checkin)
         $leader_before = $this->region_model->get_leader($checkin['regionid']);
+        
+        // detect a missing region transition
+        if ($leader_before && $region['leader'] && $region['leader'] != $leader_before['clanid']) {
+            $this->region_model->set_leader($region['regionid'], $leader_before['clanid'], $region['leader']);
+        }
         
         // get user information (before checkin)
         $this->load->model('user_model');
@@ -79,19 +87,24 @@ class checkin_model extends CI_Model {
     }
     
     function exists($checkinid, $userid = FALSE, $venueid = FALSE, $date = FALSE) {
-        if (!$date) {
-            $date = time();
-        }
-        
-        $query = "
+        if (func_num_args() == 1) {
+            return $this->db->where('checkinid', $checkinid)->count_all_results('checkins');
+        } else {
+            if (!$date) {
+                $date = time();
+            }
+            
+            $query = "
         	SELECT COUNT(1) as count
         	FROM checkins
         	WHERE checkinid = ?
-        		" . ($venueid ? 'OR venueid = ?' : '') . "
-        		AND date >= '" . ($date - 3600) . "'" . ($userid ? ' AND userid = ?' : '');
-        
-        $row = $this->db->query($query, array($checkinid, $venueid))->row_array();
-        return $row['count'] != 0;
+        		OR (venueid = ?
+        			AND date >= ?
+        			AND userid = ?)";
+            
+            $row = $this->db->query($query, array($checkinid, $venueid, $date, $userid))->row_array();
+            return $row['count'] != 0;
+        }
     }
     
     function get_all() {
