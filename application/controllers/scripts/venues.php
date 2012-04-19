@@ -12,7 +12,10 @@ if (!defined('BASEPATH'))
 class Venues extends CI_Controller {
     
     function __construct() {
-        if (!$this->input->is_cli_request()) {
+        parent::__construct();
+        
+        $user = $this->auth->current_user();
+        if (!($user && $user['admin']) && !$this->input->is_cli_request()) {
             show_error('Scripts can only be executed from CLI');
         }
     }

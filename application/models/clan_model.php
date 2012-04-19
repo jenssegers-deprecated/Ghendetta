@@ -141,7 +141,7 @@ class clan_model extends CI_Model {
         
         // insert rank_won notification
         $notification = array();
-        $notification['type'] = 'rank_won';
+        $notification['type'] = 'new_capo';
         $notification['to'] = $clanid;
         $notification['to_type'] = 'clan';
         $notification['data'] = array('rank' => 1, 'name' => $user['firstname'], 'userid' => $userid);
