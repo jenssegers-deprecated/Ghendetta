@@ -33,13 +33,16 @@
 				<?php
 				switch($notification['type']) {
 				    case 'region_lost':
-				        echo 'The ' . $notification['data']['clan'] . ' just took <strong class="region">' . $notification['data']['region'] . '</strong> from is! They can&rsquo;t get away with that!';
+				        echo 'The ' . $notification['data']['clan'] . ' just took <strong class="region">' . $notification['data']['region'] . '</strong> from us! They can&rsquo;t get away with that!';
 				        break;
 				    case 'region_won':
 				        echo '<strong class="region">' . $notification['data']['region'] . '</strong> is now ' . $notification['data']['clan'] . ' territory. Like a boss.';
 				        break;
 				    case 'new_capo':
-				        echo 'Congratulations! <strong>' . $notification['data']['name'] . ' just became Capo of your clan.';
+				        echo 'Swear oath before your new leader. <strong>' . $notification['data']['name'] . ' just became Capo of your clan.';
+						break;
+					case 'rank_won':
+				        echo 'Your fellow associate <strong>' . $notification['data']['name'] . '</strong> was just <strong>promoted</strong>.';
 				        break;
 				}
 				?>
