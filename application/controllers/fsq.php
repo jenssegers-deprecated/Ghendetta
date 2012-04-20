@@ -228,16 +228,24 @@ class FSQ extends CI_Controller {
                 $data['userid'] = $checkin->user->id;
             }
             
+            $venue = array();
+            $venue['venueid'] = $checkin->venue->id;
+            $venue['name'] = $checkin->venue->name;
+            $venue['lon'] = $checkin->venue->location->lng;
+            $venue['lat'] = $checkin->venue->location->lat;
+            
+            if ($checkin->venue->categories) {
+                $category = reset($checkin->venue->categories);
+                $venue['categoryid'] = $category->id;
+            }
+            
+            $this->venue_model->insert($venue);
+            
             $data['checkinid'] = $checkin->id;
             $data['date'] = $checkin->createdAt;
             $data['venueid'] = $checkin->venue->id;
             $data['lon'] = $checkin->venue->location->lng;
             $data['lat'] = $checkin->venue->location->lat;
-            
-            if ($checkin->venue->categories) {
-                $category = reset($checkin->venue->categories);
-                $data['categoryid'] = $category->id;
-            }
             
             return $this->checkin_model->insert($data);
         }
