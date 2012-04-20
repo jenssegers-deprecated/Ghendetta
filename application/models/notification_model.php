@@ -50,7 +50,7 @@ class notification_model extends CI_Model {
             WHERE fsqid = ?
         	
             ORDER BY date DESC, notificationid DESC
-            " . $limit ? "LIMIT 0,$limit" : "";
+            " . ($limit ? "LIMIT 0,$limit" : "");
         
         $notifications = $this->db->query($query, array($userid, $userid))->result_array();
         foreach ($notifications as &$notification) {
