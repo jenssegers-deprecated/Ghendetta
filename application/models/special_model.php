@@ -71,7 +71,11 @@ class special_model extends CI_Model {
         return $venue['multiplier'];
     }
     
-    /**
+    function count() {
+        return $this->db->count_all('specials');
+    }
+    
+	/**
      * Generate a unique venue key
      * @param int $venueid
      * @param int $length
@@ -86,10 +90,6 @@ class special_model extends CI_Model {
         }
         
         return substr($hash, floor(($tot - $length) / 2), $length);
-    }
-    
-    function count() {
-        return $this->db->count_all('specials');
     }
 
 }

@@ -13,7 +13,7 @@ class venue_model extends CI_Model {
     
     function insert($venue) {
         // prevent duplicate venues
-        if($this->exists($venue)) {
+        if($this->exists($venue['venueid'])) {
             return FALSE;
         }
         

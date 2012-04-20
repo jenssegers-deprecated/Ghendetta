@@ -219,6 +219,7 @@ class FSQ extends CI_Controller {
      */
     private function process_checkin($checkin, $defaults = array()) {
         $this->load->model('checkin_model');
+        $this->load->model('venue_model');
         
         // only allow venue checkins
         if (isset($checkin->venue) && isset($checkin->venue->location->lng) && isset($checkin->venue->location->lat)) {
@@ -239,6 +240,7 @@ class FSQ extends CI_Controller {
                 $venue['categoryid'] = $category->id;
             }
             
+            // insert venue
             $this->venue_model->insert($venue);
             
             $data['checkinid'] = $checkin->id;
@@ -247,6 +249,7 @@ class FSQ extends CI_Controller {
             $data['lon'] = $checkin->venue->location->lng;
             $data['lat'] = $checkin->venue->location->lat;
             
+            // insert checkin
             return $this->checkin_model->insert($data);
         }
         

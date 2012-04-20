@@ -31,13 +31,11 @@ class list_model extends CI_Model {
      */
     function get_specials($listid) {
         $query = "
-        	SELECT l.name AS listname, startdate, enddate, 
-                   COALESCE(v.multiplier , l.multiplier) as multiplier, v.listid, v.venueid,
-                   v.name, v.categoryid, v.lon, v.lat, v.regionid, c.name as category, c.icon
-            FROM lists l
-            JOIN specials v ON v.listid = l.listid
-            JOIN categories c ON v.categoryid = c.categoryid
-        	WHERE l.listid = ?";
+        	SELECT venues.*
+            FROM specials
+            JOIN venues ON venues.venueid = specials.venueid
+            JOIN categories ON categories.categoryid = venues.categoryid
+            WHERE listid = ?";
         
         return $this->db->query($query, array($listid))->result_array();
     }
