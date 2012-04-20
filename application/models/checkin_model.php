@@ -176,9 +176,9 @@ class checkin_model extends CI_Model {
      */
     function get_daily($userid, $days = 30) {
         $query = "
-            SELECT FROM_UNIXTIME(date, GET_FORMAT(DATE,'EUR')) as date, count(1) as battles
+            SELECT FROM_UNIXTIME(date, GET_FORMAT(DATE,'EUR')) as date, COUNT(1) as battles
             FROM checkins
-            WHERE userid = ? AND date >= UNIX_TIMESTAMP(subdate(now(),?))
+            WHERE userid = ? AND date >= UNIX_TIMESTAMP(SUBDATE(NOW(),?))
             GROUP BY FROM_UNIXTIME(date, GET_FORMAT(DATE,'EUR'))
             ORDER BY date DESC";
         
@@ -192,9 +192,9 @@ class checkin_model extends CI_Model {
      */
     function get_hourly($userid, $days = 1) {
         $query = "
-            SELECT FROM_UNIXTIME(date, '%Y-%m-%d %H') as date, FROM_UNIXTIME(date, '%H') as hour, count(1) as battles
+            SELECT FROM_UNIXTIME(date, '%Y-%m-%d %H') as date, FROM_UNIXTIME(date, '%H') as hour, COUNT(1) as battles
             FROM checkins
-            WHERE userid = ? AND date >= UNIX_TIMESTAMP(subdate(now(),?))
+            WHERE userid = ? AND date >= UNIX_TIMESTAMP(SUBDATE(NOW(),?))
             GROUP BY FROM_UNIXTIME(date, '%Y-%m-%d %H')
             ORDER BY date DESC";
         
@@ -213,9 +213,25 @@ class checkin_model extends CI_Model {
          * Long term: 24 hours
          */
         
-        $short_term = $this->count_between($userid, $time - 900, $time) + 1;
-        $mid_term = $this->count_between($userid, $time - 3600, $time) + 1;
-        $long_term = $this->count_between($userid, $time - 86400, $time) + 1;
+        $query = "
+        	SELECT 
+                COUNT(CASE
+                    WHEN date >= ? THEN 1
+                    ELSE null
+                END) as 'short',
+                COUNT(CASE
+                    WHEN date >= ? THEN 1
+                    ELSE null
+                END) as 'mid',
+                count(1) as 'long'
+            FROM checkins
+            WHERE userid = ? AND date >= ? AND date <= ?";
+        
+        $count = $this->db->query($query, array($time - 900, $time - 3600, $userid, $time - 86400, $time))->row_array();
+        
+        $short_term = $count['short'] + 1;
+        $mid_term = $count['mid'] + 1;
+        $long_term = $count['long'] + 1;
         
         $ratio = 1;
         
