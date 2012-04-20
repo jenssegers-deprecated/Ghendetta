@@ -482,9 +482,9 @@ a:focus {
 			}
 
 		.notifications .n-region_lost {
-			background: #C1272D;
+/*			background: #C1272D;
 			border-color: #990F14;
-			color: #FFF;
+			color: #FFF;*/
 		}
 
 		.notifications .n-capo_message {
@@ -496,10 +496,11 @@ a:focus {
 			border-color: #ddd;
 			background: #fff;
 			opacity: .66;
-			height: 30px;
-			padding: 0 10px;
-			line-height: 2.142857143;
-			overflow: hidden;
+			-webkit-transition: opacity .33s ease-out;
+			   -moz-transition: opacity .33s ease-out;
+			    -ms-transition: opacity .33s ease-out;
+			     -o-transition: opacity .33s ease-out;
+			        transition: opacity .33s ease-out;
 		}
 
 /*
