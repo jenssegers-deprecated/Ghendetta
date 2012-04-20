@@ -24,7 +24,7 @@
 
 	<?php else: ?>
 
-	<p class="clan">You are with the <a href="/clan" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.</p>
+	<p class="clan">You are with the <a href="<?php echo site_url('clan'); ?>" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.</p>
 
 	<?php endif; ?>
 

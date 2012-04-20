@@ -98,14 +98,14 @@ class FSQ extends CI_Controller {
     
     function checkin($venueid, $code = '') {
         if ($user = $this->auth->current_user()) {
-            $this->load->model('venue_model');
+            $this->load->model('special_model');
             
-            if ($code != $this->venue_model->generate_code($venueid)) {
+            if ($code != $this->special_model->generate_code($venueid)) {
                 show_error('Could not check you into this venue: wrong code');
             }
             
             // search the specific venue
-            if ($venue = $this->venue_model->get_active($venueid)) {
+            if ($venue = $this->special_model->get_active($venueid)) {
                 // do checkin
                 $data = array();
                 $data['venueId'] = $venue['venueid'];

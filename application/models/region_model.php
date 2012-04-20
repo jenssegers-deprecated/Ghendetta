@@ -17,7 +17,7 @@ class region_model extends CI_Model {
         $this->db->insert('regions', $region);
         
         // remove cached regions
-        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
+        $this->load->driver('cache');
         $this->cache->delete("model/regions.cache");
         
         return $this->db->insert_id();
@@ -27,7 +27,7 @@ class region_model extends CI_Model {
         $this->db->insert('regioncoords', $coords);
         
         // remove cached regions
-        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
+        $this->load->driver('cache');
         $this->cache->delete("model/regions.cache");
         
         return $this->db->insert_id();
@@ -35,7 +35,7 @@ class region_model extends CI_Model {
     
     function update($regionid, $region) {
         // remove cached regions
-        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
+        $this->load->driver('cache');
         $this->cache->delete("model/regions.cache");
         
         return $this->db->where('regionid', $regionid)->update('regions', $region);
@@ -47,7 +47,7 @@ class region_model extends CI_Model {
      */
     function get($regionid) {
         // add cache to this method, regions will not change that often
-        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
+        $this->load->driver('cache');
         
         if (!$region = $this->cache->get("model/region-$regionid.cache")) {
             $region = $this->db->where('regionid', $regionid)->get('regions')->row_array();
@@ -275,7 +275,7 @@ class region_model extends CI_Model {
         $this->db->truncate('regions');
         $this->db->truncate('regioncoords');
         
-        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
+        $this->load->driver('cache');
         $this->cache->delete("model/regions.cache");
     }
 

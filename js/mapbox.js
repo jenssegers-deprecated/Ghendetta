@@ -69,7 +69,7 @@ var Mapbox = function() {
 	 * Add battle markers to the map
 	 */
 	var addBattles = function(battles) {
-		var battle;
+		var battle, marker;
 
 		var battleIcon = L.Icon.extend({
 		    iconUrl: static_url + 'img/ico_battle.svg',
@@ -81,8 +81,16 @@ var Mapbox = function() {
 		for (i in battles) {
 			battle = battles[i];
 
+			marker = new L.Marker(new L.LatLng(battle.lat, battle.lon), {icon: new battleIcon()});
+			
+			// generate html
+			html = '<h1>' + battle.name + '</h1><img src="' + static_url + 'img/ico_tower.svg" /><span class="points">+' + battle.points + '</span>';
+
+			// bind popup
+			marker.bindPopup(html);
+			
 			// add to layer
-			layers.battles.addLayer(new L.Marker(new L.LatLng(battle.lat, battle.lon), {icon: new battleIcon()}));
+			layers.battles.addLayer(marker);
 		}
 
 		// add battles to map
@@ -175,7 +183,7 @@ var Mapbox = function() {
 			});
 
 			// get user checkins
-			$.getJSON(site_url + 'api/venues.json', {}, function(data) {
+			$.getJSON(site_url + 'api/specials.json', {}, function(data) {
 				if (data) {
 					addSpecials(data);
 				}
