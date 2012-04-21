@@ -137,9 +137,9 @@ class checkin_model extends CI_Model {
         return $this->db->query($query, array($userid, $since))->result_array();
     }
     
-    /*function get_last($userid) {
+    function get_last($userid) {
         return $this->db->where('userid', $userid)->order_by('date', 'desc')->limit(1)->get('checkins')->row_array();
-    }*/
+    }
     
     function count($userid = FALSE) {
         if ($userid) {

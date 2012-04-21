@@ -16,9 +16,25 @@ class user_model extends CI_Model {
     }
     
     function insert($user) {
+        // mark active when token is refreshed
+        if (isset($user['token'])) {
+            $user['active'] = 1;
+        }
+        
+        // update existing user if already in the database
+        if ($this->exists($user['fsqid'])) {
+            return $this->update($user['fsqid'], $user);
+        }
+        
+        // default values
         $user['registered'] = time();
         $user['active'] = 1;
         $user['admin'] = 0;
+        
+        // get clan suggestion
+        $this->load->model('clan_model');
+        $clan = $this->clan_model->suggest_clan();
+        $user['clanid'] = $clan['clanid'];
         
         $this->db->insert('users', $user);
         return $user['fsqid'];
