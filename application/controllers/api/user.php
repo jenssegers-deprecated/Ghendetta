@@ -43,7 +43,7 @@ class User extends API_Controller {
                 $checkins = $this->checkin_model->get_unique_since($fsqid, (time() - 608400));
                 
                 // save cache
-                $this->cache->save("api/battles-$fsqid.cache", $checkins, 300);
+                $this->cache->save("api/battles-$fsqid.cache", $checkins, 120);
             }
             
             $this->output($checkins);
