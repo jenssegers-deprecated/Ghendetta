@@ -17,7 +17,7 @@ class Foursquare extends CI_Controller {
         // load foursquare api
         $this->load->library('foursquare_api', '', 'foursquare');
         
-    /*$user = $this->auth->current_user();
+    	/*$user = $this->auth->current_user();
         if (!($user && $user['admin']) && !$this->input->is_cli_request()) {
             show_error('You have not permission to access this page');
         }*/

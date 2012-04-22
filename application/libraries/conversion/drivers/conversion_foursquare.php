@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class conversion_foursquare extends CI_Driver {
+class Conversion_foursquare extends CI_Driver {
     
     function user($object, $defaults = array()) {
         $user = $defaults;
