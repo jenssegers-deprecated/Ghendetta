@@ -32,7 +32,7 @@ class special_model extends CI_Model {
         $query = "
         	SELECT venues.*, lists.listid, lists.name as list, lists.startdate, lists.enddate, COALESCE(specials.multiplier , lists.multiplier) as multiplier
             FROM specials
-            LEFT JOIN lists ON lists.listid = specials.listid
+            JOIN lists ON lists.listid = specials.listid
             JOIN venues ON venues.venueid = specials.venueid
             JOIN categories ON categories.categoryid = venues.categoryid
             WHERE specials.venueid = ? AND startdate <= UNIX_TIMESTAMP(NOW()) AND enddate >= UNIX_TIMESTAMP(NOW())
@@ -48,7 +48,7 @@ class special_model extends CI_Model {
         $query = "
         	SELECT venues.*, lists.listid, lists.name as list, lists.startdate, lists.enddate, COALESCE(specials.multiplier , lists.multiplier) as multiplier
             FROM specials
-            LEFT JOIN lists ON lists.listid = specials.listid
+            JOIN lists ON lists.listid = specials.listid
             JOIN venues ON venues.venueid = specials.venueid
             JOIN categories ON categories.categoryid = venues.categoryid
             WHERE startdate <= UNIX_TIMESTAMP(NOW()) AND enddate >= UNIX_TIMESTAMP(NOW())

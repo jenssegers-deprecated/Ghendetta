@@ -118,7 +118,13 @@ class checkin_model extends CI_Model {
     }
     
     function get_since($userid, $since) {
-        return $this->db->where('userid', $userid)->where('date >=', $since)->get('checkins')->result_array();
+        $query = "
+        	SELECT venues.*, checkins.*
+        	FROM checkins
+        	JOIN venues ON venues.venueid = checkins.venueid
+        	WHERE userid = ? AND date >= ?";
+        
+        return $this->db->query($query, array($userid, $since))->result_array();
     }
     
     /**
@@ -130,7 +136,7 @@ class checkin_model extends CI_Model {
         $query = "
         	SELECT venues.*, checkins.*
         	FROM checkins
-        	LEFT JOIN venues ON venues.venueid = checkins.venueid
+        	JOIN venues ON venues.venueid = checkins.venueid
         	WHERE userid = ? AND date >= ?
         	GROUP BY checkins.venueid";
         

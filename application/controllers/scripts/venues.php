@@ -35,20 +35,33 @@ class Venues extends CI_Controller {
         $query = "
         	SELECT DISTINCT checkins.venueid
             FROM checkins
-            LEFT JOIN venues ON venues.venueid = checkins.venueid
+            LEFT JOIN venues ON checkins.venueid = venues.venueid
             WHERE venues.venueid is NULL
             " . ($limit ? "LIMIT 0,$limit" : "");
         
         $results = $this->db->query($query)->result_array();
         
+        $count = 0;
         $this->load->model('venue_model');
         
         foreach ($results as $result) {
             // fetch and insert venue
             $json = $this->foursquare->api('venues/' . $result['venueid']);
-            $venue = $this->adapter->venue($json->response->venue);
-            $this->venue_model->insert($venue);
+            
+            if ($json) {
+                $venue = $this->adapter->venue($json->response->venue);
+                if ($this->venue_model->insert($venue)) {
+                    $count++;
+                    echo "Inserted #" . $venue['venueid'] . ": " . $venue['name'] . "\n";
+                } else {
+                    echo "Could not insert #" . $venue['venueid'] . ": " . $venue['name'] . "\n";
+                }
+            } else {
+                echo $this->foursquare->error . "\n";
+            }
         }
+        
+        echo "Inserted $count venues\n";
         
         if (!$this->input->is_cli_request()) {
             $this->output->set_profiler_sections(array('queries' => TRUE));
