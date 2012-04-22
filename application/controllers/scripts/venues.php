@@ -38,31 +38,17 @@ class Venues extends CI_Controller {
         
         $results = $this->db->query($query)->result_array();
         
+        $this->load->model('venue_model');
+        
         foreach ($results as $result) {
             // fetch and insert venue
             $json = $this->foursquare->api('venues/' . $result['venueid']);
-            $this->process_venue($json->response->venue);
+            $venue = $this->adapter->venue($json->response->venue);
+            $this->venue_model->insert($venue);
         }
         
         if (!$this->input->is_cli_request()) {
             $this->output->set_profiler_sections(array('queries' => TRUE));
         }
-    }
-    
-    private function process_venue($venue) {
-        $data = array();
-        $data['venueid'] = $venue->id;
-        $data['name'] = $venue->name;
-        $data['lon'] = $venue->location->lng;
-        $data['lat'] = $venue->location->lat;
-        
-        if ($venue->categories) {
-            $category = reset($venue->categories);
-            $data['categoryid'] = $category->id;
-        }
-        
-        // insert venue
-        $this->load->model('venue_model');
-        return $this->venue_model->insert($data);
     }
 }
