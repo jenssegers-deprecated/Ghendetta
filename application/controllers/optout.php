@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Optout extends CI_Controller {
+class Optout extends MY_Controller {
     
     function index() {
         if ($user = $this->auth->current_user()) {

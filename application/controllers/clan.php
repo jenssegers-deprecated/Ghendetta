@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Clan extends CI_Controller {
+class Clan extends MY_Controller {
     
     function index() {
         $this->load->driver('cache');

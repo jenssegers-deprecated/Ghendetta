@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Map extends CI_Controller{
+class Map extends MY_Controller{
 
     function index(){
         $this->load->view('map');    

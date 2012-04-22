@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Main extends CI_Controller {
+class Dashboard extends MY_Controller {
     
     public function index() {
         $this->load->model('clan_model');
