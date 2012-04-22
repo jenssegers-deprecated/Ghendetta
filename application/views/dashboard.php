@@ -51,33 +51,6 @@
 	<?php endforeach; ?>
 	</section>
 
-	<!-- <section class="notifications">
-		<article class="n-region_won s-new">
-			<p><strong class="region">Oostakker</strong> is now Wolves territory. Like a boss.</p>
-		</article>
-		<article class="n-region_lost s-new">
-			<p>The Snakes just took <strong class="region">Sint-Martens Latem</strong> from us! They can&rsquo;t get away with that!</p>
-		</article>
-		<article class="n-rank_won s-new">
-			<p><strong>Congratulations!</strong> You just became Capo of your clan.</p>
-		</article>
-		<article class="n-capo_message s-new">
-			<p>The Capo says: Move out. Wolves are howling in the uz area.</p>
-		</article>
-		<article class="n-region_won s-new">
-			<p>Oostakker is now Hawks territory. Like a boss.</p>
-		</article>
-		<article class="n-region_lost s-new">
-			<p>The snakes just took Sint-Martens Latem from us! They can&rsquo;t get away with that!</p>
-		</article>
-		<article class="n-rank_won s-read">
-			<p>Congratulations! You became Capo of your clan.</p>
-		</article>
-		<article class="n-capo_message s-read">
-			<p>The Capo says: Move out. Wolves are howling in the uz area.</p>
-		</article>
-	</section>  -->
-
 	<?php endif; ?>
 
 </section>
