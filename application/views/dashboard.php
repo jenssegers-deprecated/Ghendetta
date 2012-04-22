@@ -36,16 +36,16 @@
 				<?php
 				switch($notification['type']) {
 				    case 'region_lost':
-				        echo $notification['data']['clan'] . ' just took <strong class="region">' . $notification['data']['region'] . '</strong> from us. Revenge will be sweet!';
+				        echo $notification['data']['clan'] . ' just took <strong class="region">' . $notification['data']['region'] . '</strong> from us. Revenge will be sweet! <span class="date">' . date('j M H:i', $notification['date']) . '</span>';
 				        break;
 				    case 'region_won':
-				        echo '<strong class="region">' . $notification['data']['region'] . '</strong> is now ' . $notification['data']['clan'] . ' territory. Like a boss.';
+				        echo '<strong class="region">' . $notification['data']['region'] . '</strong> is now ' . $notification['data']['clan'] . ' territory. Like a boss. <span class="date">' . date('j M H:i', $notification['date']) . '</span>';
 				        break;
 				    case 'new_capo':
-				        echo 'Swear oath before your new leader. <strong>' . $notification['data']['name'] . ' just became Capo of your clan.';
+				        echo 'Swear oath before your new leader. <strong>' . $notification['data']['name'] . ' just became Capo of your clan. <span class="date">' . date('j M H:i', $notification['date']) . '</span>';
 						break;
 					case 'rank_won':
-				        echo 'Your fellow associate <strong>' . $notification['data']['name'] . '</strong> was just promoted.';
+				        echo 'Your fellow associate <strong>' . $notification['data']['name'] . '</strong> was just promoted. <span class="date">' . date('j M H:i', $notification['date']) . '</span>';
 				        break;
 				}
 				?>

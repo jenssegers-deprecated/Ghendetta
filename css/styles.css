@@ -528,7 +528,6 @@ a:focus {
 			background-image: url(../img/ico_rank_won.svg);
 		}
 
-
 		.notifications .s-read {
 			color: #666;
 			border-color: #ddd;
@@ -538,6 +537,12 @@ a:focus {
 			    -ms-box-shadow: none;
 			        box-shadow: none;
 		}
+
+			.notifications .date {
+				font-size: .785714286em;
+				font-weight: 700;
+				color: #777;
+			}
 
 /*
 	Map
