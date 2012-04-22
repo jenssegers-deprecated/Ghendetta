@@ -519,6 +519,11 @@ a:focus {
 			background-image: url(../img/ico_capo_message.svg);
 		}
 
+		.notifications .n-new_capo {
+			font-style: italic;
+			background-image: url(../img/ico_new_capo.svg);
+		}
+
 		.notifications .n-rank_won {
 			background-image: url(../img/ico_rank_won.svg);
 		}
