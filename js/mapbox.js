@@ -87,7 +87,7 @@ var Mapbox = function() {
 			html = '<h1>' + battle.name + '</h1><img src="' + static_url + 'img/ico_tower.svg" /><span class="points">+' + battle.points + '</span>';
 
 			// bind popup
-			marker.bindPopup(html);
+			//marker.bindPopup(html);
 			
 			// add to layer
 			layers.battles.addLayer(marker);
