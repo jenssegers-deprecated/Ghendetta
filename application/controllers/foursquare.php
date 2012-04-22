@@ -16,6 +16,9 @@ class Foursquare extends CI_Controller {
         
         // load foursquare api
         $this->load->library('foursquare_api', '', 'foursquare');
+        
+        // load the foursquare adapter
+        $this->load->driver('adapter', array('adapter' => 'foursquare'));
     }
     
     function index() {
@@ -41,10 +44,7 @@ class Foursquare extends CI_Controller {
             if ($json = $this->foursquare->api('users/self')) {
                 
                 // convert object
-                $this->load->driver('conversion');
-                $user = $this->conversion->foursquare->user($json->response->user);
-                
-                // set user token
+                $user = $this->adapter->user($json->response->user);
                 $user['token'] = $token;
                 
                 // insert user
@@ -63,8 +63,7 @@ class Foursquare extends CI_Controller {
             if ($json = $this->foursquare->api('users/self/checkins', array('afterTimestamp' => (time() - 604800)))) {
                 
                 // convert object
-                $this->load->driver('conversion');
-                $checkins = $this->conversion->foursquare->checkins($json->response->checkins->items, array('userid' => $fsqid));
+                $checkins = $this->adapter->checkins($json->response->checkins->items, array('userid' => $fsqid));
                 
                 // insert checkins
                 $this->load->model('checkin_model');
@@ -78,7 +77,7 @@ class Foursquare extends CI_Controller {
             }
             
             // back to the homepage
-            redirect();
+            //redirect();
         } else {
             show_error('Something went wrong');
         }
@@ -108,8 +107,7 @@ class Foursquare extends CI_Controller {
                 if ($this->user_model->exists($fsqid)) {
                     
                     // convert object
-                    $this->load->driver('conversion');
-                    $checkin = $this->conversion->foursquare->checkin($json, array('userid' => $fsqid));
+                    $checkin = $this->adapter->checkin($json, array('userid' => $fsqid));
                     
                     // insert checkin
                     $this->load->model('checkin_model');
@@ -153,8 +151,7 @@ class Foursquare extends CI_Controller {
                 }
                 
                 // convert object
-                $this->load->driver('conversion');
-                $checkin = $this->conversion->foursquare->checkin($json->response->user);
+                $checkin = $this->adapter->checkin($json->response->user);
                 
                 // insert checkin
                 $this->load->model('checkin_model');
