@@ -17,6 +17,9 @@ class Venues extends CI_Controller {
         // load foursquare api
         $this->load->library('foursquare_api', '', 'foursquare');
         
+        // load the foursquare adapter
+        $this->load->driver('adapter', array('adapter' => 'foursquare'));
+        
         $user = $this->auth->current_user();
         if (!($user && $user['admin']) && !$this->input->is_cli_request()) {
             show_error('You have not permission to access this page');
@@ -30,26 +33,21 @@ class Venues extends CI_Controller {
         
         // manual query that gets all venueid's that are not in the db
         $query = "
-        	SELECT checkins.venueid
+        	SELECT DISTINCT checkins.venueid
             FROM checkins
             LEFT JOIN venues ON venues.venueid = checkins.venueid
             WHERE venues.venueid is NULL
-            ORDER BY RAND() LIMIT 1";
+            " . ($limit ? "LIMIT 0,$limit" : "");
         
-        $count = 0;
+        $results = $this->db->query($query)->result_array();
+        
         $this->load->model('venue_model');
         
-        while ($row = $this->db->query($query)->row_array()) {
+        foreach ($results as $result) {
             // fetch and insert venue
-            $json = $this->foursquare->api('venues/' . $row['venueid']);
+            $json = $this->foursquare->api('venues/' . $result['venueid']);
             $venue = $this->adapter->venue($json->response->venue);
             $this->venue_model->insert($venue);
-            
-            $count++;
-            
-            if ($limit && $count >= $limit) {
-                break;
-            }
         }
         
         if (!$this->input->is_cli_request()) {
