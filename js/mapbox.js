@@ -84,7 +84,7 @@ var Mapbox = function() {
 			marker = new L.Marker(new L.LatLng(battle.lat, battle.lon), {icon: new battleIcon()});
 			
 			// generate html
-			html = '<h1>' + battle.name + '</h1><img src="' + static_url + 'img/ico_tower.svg" /><span class="points">+' + battle.points + '</span>';
+			html = '<h1>' + battle.name + '</h1><img src="' + static_url + 'img/ico_sword.svg" /><span class="points">+' + battle.points + '</span>';
 
 			// bind popup
 			//marker.bindPopup(html);
