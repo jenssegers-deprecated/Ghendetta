@@ -34,17 +34,22 @@ class Venues extends CI_Controller {
             FROM checkins
             LEFT JOIN venues ON venues.venueid = checkins.venueid
             WHERE venues.venueid is NULL
-            " . ($limit ? "LIMIT 0,$limit" : "");
+            ORDER BY RAND() LIMIT 1";
         
-        $results = $this->db->query($query)->result_array();
-        
+        $count = 0;
         $this->load->model('venue_model');
         
-        foreach ($results as $result) {
+        while ($row = $this->db->query($query)->row_array()) {
             // fetch and insert venue
-            $json = $this->foursquare->api('venues/' . $result['venueid']);
+            $json = $this->foursquare->api('venues/' . $row['venueid']);
             $venue = $this->adapter->venue($json->response->venue);
             $this->venue_model->insert($venue);
+            
+            $count++;
+            
+            if ($limit && $count >= $limit) {
+                break;
+            }
         }
         
         if (!$this->input->is_cli_request()) {
