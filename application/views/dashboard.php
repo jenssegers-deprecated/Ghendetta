@@ -28,7 +28,7 @@
 
 	<section class="notifications">
 	<?php foreach($notifications as $notification): ?>
-		<article class="n-<?php echo $notification['type']; ?> s-new">
+		<article class="n-<?php echo $notification['type']; ?> <?php echo $notification['read'] ? 's-read' : 's-new'; ?>">
 			<p>
 				<?php
 				switch($notification['type']) {
