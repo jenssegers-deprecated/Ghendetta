@@ -41,9 +41,7 @@
 $route['default_controller'] = 'main';
 $route['404_override'] = '';
 
-$route['foursquare'] = 'fsq';
-$route['foursquare(:any)'] = 'fsq$1';
-
+// api urls
 $route['(:any).json'] = '$1';
 
 // automatically call index method for CLI scripts

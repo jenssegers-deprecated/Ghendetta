@@ -17,12 +17,9 @@ class checkin_model extends CI_Model {
             return FALSE;
         }
         
-        // detect checkin region
+        // detect valid checkin region
         $this->load->model('region_model');
-        $region = $this->region_model->detect_region($checkin['lat'], $checkin['lon']);
-        
-        // checkin must be inside a valid region
-        if (!$region) {
+        if (!$region = $this->region_model->detect_region($checkin['lat'], $checkin['lon'])) {
             return FALSE;
         }
         
@@ -124,8 +121,20 @@ class checkin_model extends CI_Model {
         return $this->db->where('userid', $userid)->where('date >=', $since)->get('checkins')->result_array();
     }
     
+    /**
+     * Get a user's checkins since a certain timestamp
+     * @param int $userid
+     * @param int $since
+     */
     function get_unique_since($userid, $since) {
-        return $this->db->where('userid', $userid)->where('date >=', $since)->group_by('venueid')->get('checkins')->result_array();
+        $query = "
+        	SELECT venues.*, checkins.*
+        	FROM checkins
+        	LEFT JOIN venues ON venues.venueid = checkins.venueid
+        	WHERE userid = ? AND date >= ?
+        	GROUP BY checkins.venueid";
+        
+        return $this->db->query($query, array($userid, $since))->result_array();
     }
     
     function get_last($userid) {

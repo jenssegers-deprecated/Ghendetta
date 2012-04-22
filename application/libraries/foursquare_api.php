@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Foursquare {
+class Foursquare_API {
     
     private $settings, $ci, $token = FALSE;
     

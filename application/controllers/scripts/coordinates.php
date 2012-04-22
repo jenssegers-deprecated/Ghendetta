@@ -16,7 +16,7 @@ class Coordinates extends CI_Controller {
         
         $user = $this->auth->current_user();
         if (!($user && $user['admin']) && !$this->input->is_cli_request()) {
-            show_error('Scripts can only be executed from CLI');
+            show_error('You have not permission to access this page');
         }
     }
     

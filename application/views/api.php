@@ -61,6 +61,11 @@
         			<td>regionid, name, leader, <em><u>coords</u> (lon, lat)</em>, <em>list of <u>clans</u> (including possession)</em></td>
         		</tr>
         		<tr>
+        			<td>api/specials.json</td>
+        			<td>Get all current special venues</td>
+        			<td>venueid, name, categoryid, lon, lat, regionid, listid, list, startdate, enddate, multiplier</td>
+        		</tr>
+        		<tr>
         			<td>api/stats.json</td>
         			<td>Get general information about ghendetta</td>
         			<td>users, battles, regions, clans</td>
