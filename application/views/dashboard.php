@@ -45,7 +45,7 @@
 				        echo 'Swear oath before your new leader. <strong>' . $notification['data']['name'] . ' just became Capo of your clan.';
 						break;
 					case 'rank_won':
-				        echo 'Your fellow associate <strong>' . $notification['data']['name'] . '</strong> was just <strong>promoted</strong>.';
+				        echo 'Your fellow associate <strong>' . $notification['data']['name'] . '</strong> was just promoted.';
 				        break;
 				}
 				?>
