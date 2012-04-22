@@ -373,7 +373,7 @@ a:focus {
 }
 
 	.logo {
-		padding: 50px 0 10px;
+		padding: 64px 0 16px;
 		margin: auto;
 	}
 
@@ -429,6 +429,12 @@ a:focus {
 	/* Dashboard: Logged in */
 
 	/* Clan sentence */
+
+	.v-dashboard .clan img {
+		float: left;
+		height: 56px;
+		margin-right: 10px;
+	}
 
 	.v-dashboard .clan a {
 		padding: 2px 4px;
