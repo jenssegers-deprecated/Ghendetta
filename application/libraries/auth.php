@@ -96,9 +96,6 @@ class Auth {
             $this->ci->load->model('user_model');
             $this->user = $this->ci->user_model->get($user);
             
-            // update last_visit
-            $this->ci->user_model->update($user, array('last_visit' => time()));
-            
             // set primary login if needed
             if (!isset($_SESSION['user'])) {
                 $_SESSION['user'] = $user;

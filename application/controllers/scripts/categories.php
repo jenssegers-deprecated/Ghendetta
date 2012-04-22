@@ -14,9 +14,12 @@ class Categories extends CI_Controller {
     function __construct() {
         parent::__construct();
         
+        // load foursquare api
+        $this->load->library('foursquare_api', '', 'foursquare');
+        
         $user = $this->auth->current_user();
         if (!($user && $user['admin']) && !$this->input->is_cli_request()) {
-            show_error('Scripts can only be executed from CLI');
+            show_error('You have not permission to access this page');
         }
     }
     

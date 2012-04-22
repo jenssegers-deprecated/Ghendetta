@@ -9,10 +9,8 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class About extends MY_Controller {
+class Conversion extends CI_Driver_Library {
     
-    function index() {
-        $this->load->view('about');
-    }
-
+    protected $valid_drivers = array('conversion_foursquare');
+    
 }

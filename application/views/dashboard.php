@@ -24,7 +24,7 @@
 
 	<?php else: ?>
 
-	<p class="clan">You are with the <a href="/clan" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.</p>
+	<p class="clan">You are with the <a href="<?php echo site_url('clan'); ?>" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.</p>
 
 	<section class="notifications">
 	<?php foreach($notifications as $notification): ?>
@@ -104,7 +104,7 @@
 
 <?php include_once('footer.tpl'); ?>
 
-<script src="<?php echo static_url('js/mapbox.min.js?v=160402'); ?>"></script>
+<script src="<?php echo static_url('js/mapbox.min.js?v=200401'); ?>"></script>
 
 </body>
 </html>

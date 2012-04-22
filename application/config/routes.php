@@ -38,13 +38,14 @@
 |
 */
 
-$route['default_controller'] = 'main';
+$route['default_controller'] = 'dashboard';
 $route['404_override'] = '';
 
-$route['foursquare'] = 'fsq';
-$route['foursquare(:any)'] = 'fsq$1';
-
+// api urls
 $route['(:any).json'] = '$1';
+
+// temp cronjob route
+$route['foursquare/cronjob'] = 'cronjob/foursquare';
 
 // automatically call index method for CLI scripts
 $route['scripts/(:any)/(:any)'] = 'scripts/$1/index/$2';

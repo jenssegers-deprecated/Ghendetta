@@ -14,66 +14,55 @@ class Venues extends CI_Controller {
     function __construct() {
         parent::__construct();
         
+        // load foursquare api
+        $this->load->library('foursquare_api', '', 'foursquare');
+        
         $user = $this->auth->current_user();
         if (!($user && $user['admin']) && !$this->input->is_cli_request()) {
-            show_error('Scripts can only be executed from CLI');
+            show_error('You have not permission to access this page');
         }
     }
     
-    function index($listid, $startdate = FALSE, $enddate = FALSE, $multiplier = FALSE) {
-        // default values
-        $startdate = $startdate ? $startdate : time();
-        $enddate = $enddate ? $enddate : time();
+    function index($limit = FALSE) {
+        if (!$this->input->is_cli_request()) {
+            $this->output->enable_profiler(TRUE);
+        }
         
-        if ($json = $this->foursquare->api("lists/$listid")) {
-            $count = 0;
-            
-            $list = array();
-            $list['startdate'] = $startdate;
-            $list['enddate'] = $enddate;
-            $list['listid'] = $listid;
-            $list['name'] = $json->response->list->name;
-            
-            if ($multiplier) {
-                $list['multiplier'] = $multiplier;
-            }
-            
-            $this->load->model('venue_model');
-            $this->venue_model->insert_list($list);
-            
-            if ($list = $json->response->list->listItems->items) {
-                // process venues
-                foreach ($list as $venue) {
-                    if ($this->process_venue($venue->venue, $listid)) {
-                        $count++;
-                    }
-                }
-                
-                echo "$count/" . count($list) . " venues imported from list $listid";
-            } else {
-                show_error('This list does not exist');
-            }
-        } else {
-            show_error($this->foursquare->error);
+        // manual query that gets all venueid's that are not in the db
+        $query = "
+        	SELECT checkins.venueid
+            FROM checkins
+            LEFT JOIN venues ON venues.venueid = checkins.venueid
+            WHERE venues.venueid is NULL
+            " . ($limit ? "LIMIT 0,$limit" : "");
+        
+        $results = $this->db->query($query)->result_array();
+        
+        foreach ($results as $result) {
+            // fetch and insert venue
+            $json = $this->foursquare->api('venues/' . $result['venueid']);
+            $this->process_venue($json->response->venue);
+        }
+        
+        if (!$this->input->is_cli_request()) {
+            $this->output->set_profiler_sections(array('queries' => TRUE));
         }
     }
     
-    private function process_venue($venue, $listid) {
-        $category = reset($venue->categories);
-        
+    private function process_venue($venue) {
         $data = array();
-        $data['listid'] = $listid;
         $data['venueid'] = $venue->id;
         $data['name'] = $venue->name;
-        $data['categoryid'] = $category->id;
         $data['lon'] = $venue->location->lng;
         $data['lat'] = $venue->location->lat;
         
-        if ($regionid = $this->region_model->detect_region($data['lat'], $data['lon'])) {
-            $data['regionid'] = $regionid;
-            return $this->venue_model->insert($data);
+        if ($venue->categories) {
+            $category = reset($venue->categories);
+            $data['categoryid'] = $category->id;
         }
         
-        return FALSE;
+        // insert venue
+        $this->load->model('venue_model');
+        return $this->venue_model->insert($data);
     }
 }
