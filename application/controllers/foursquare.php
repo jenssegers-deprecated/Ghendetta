@@ -43,11 +43,8 @@ class Foursquare extends CI_Controller {
             // fetch user ------------------------------------------------------------------------------------------
             if ($json = $this->foursquare->api('users/self')) {
                 
-                // convert object
-                $user = $this->adapter->user($json->response->user);
-                $user['token'] = $token;
-                
-                // insert user
+                // convert and insert object
+                $user = $this->adapter->user($json->response->user, array('token' => $token));
                 $this->load->model('user_model');
                 $fsqid = $this->user_model->insert($user);
                 
@@ -62,13 +59,23 @@ class Foursquare extends CI_Controller {
             // fetch checkins ---------------------------------------------------------------------------------------
             if ($json = $this->foursquare->api('users/self/checkins', array('afterTimestamp' => (time() - 604800)))) {
                 
-                // convert object
-                $checkins = $this->adapter->checkins($json->response->checkins->items, array('userid' => $fsqid));
+                // sort checkins
+                $checkins = $json->response->checkins->items;
+                usort($checkins, array($this, 'cmp_checkins'));
                 
-                // insert checkins
                 $this->load->model('checkin_model');
-                foreach ($checkins as $checkin) {
-                    $this->checkin_model->insert($checkin);
+                $this->load->model('venue_model');
+                
+                foreach ($checkins as $object) {
+                    // convert and insert checkin
+                    $checkin = $this->adapter->checkin($object, array('userid' => $fsqid));
+                    $checkinid = $this->checkin_model->insert($checkin);
+                    
+                    if ($checkinid) {
+                        // convert venue object
+                        $venue = $this->adapter->venue($object->venue);
+                        $this->venue_model->insert($venue);
+                    }
                 }
             
             } else {
@@ -77,7 +84,7 @@ class Foursquare extends CI_Controller {
             }
             
             // back to the homepage
-            //redirect();
+            redirect();
         } else {
             show_error('Something went wrong');
         }
@@ -106,12 +113,17 @@ class Foursquare extends CI_Controller {
                 $this->load->model('user_model');
                 if ($this->user_model->exists($fsqid)) {
                     
-                    // convert object
+                    // convert checkin object
                     $checkin = $this->adapter->checkin($json, array('userid' => $fsqid));
-                    
-                    // insert checkin
                     $this->load->model('checkin_model');
-                    $this->checkin_model->insert($checkin);
+                    $checkinid = $this->checkin_model->insert($checkin);
+                    
+                    if ($checkinid) {
+                        // convert venue object
+                        $venue = $this->adapter->venue($json->venue);
+                        $this->load->model('venue_model');
+                        $this->venue_model->insert($venue);
+                    }
                 
                 } else {
                     set_status_header(500);
@@ -143,19 +155,24 @@ class Foursquare extends CI_Controller {
                 $data['venueId'] = $venue['venueid'];
                 
                 $this->foursquare->set_token($user['token']);
-                $checkin = $this->foursquare->api('checkins/add', $data, 'POST');
+                $json = $this->foursquare->api('checkins/add', $data, 'POST');
                 
-                if (!$checkin) {
+                if (!$json) {
                     log_message('error', $this->foursquare->error);
                     show_error('Something went wrong, please try again');
                 }
                 
-                // convert object
-                $checkin = $this->adapter->checkin($json->response->user);
-                
-                // insert checkin
+                // convert checkin object
+                $checkin = $this->adapter->checkin($json->response->checkin);
                 $this->load->model('checkin_model');
                 $checkinid = $this->checkin_model->insert($checkin, array('userid' => $user['fsqid'], 'multiplier' => $venue['multiplier']));
+                
+                if ($checkinid) {
+                    // convert venue object
+                    $venue = $this->adapter->venue($json->response->checkin->venue);
+                    $this->load->model('venue_model');
+                    $this->venue_model->insert($venue);
+                }
                 
                 // redirect to foursquare
                 redirect('https://foursquare.com/user/' . $user['fsqid'] . '/checkin/' . $checkinid);
@@ -165,6 +182,19 @@ class Foursquare extends CI_Controller {
         } else {
             $this->auth();
         }
+    }
+    
+    /**
+     * Sorts checkins based on their created timestamp
+     * @param checkin $a
+     * @param checkin $b
+     * @return number
+     */
+    private function cmp_checkins($a, $b) {
+        if ($a->createdAt == $b->createdAt) {
+            return 0;
+        }
+        return $a->createdAt < $b->createdAt ? -1 : 1;
     }
 
 }
