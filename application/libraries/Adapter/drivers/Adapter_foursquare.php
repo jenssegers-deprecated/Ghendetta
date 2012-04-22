@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Conversion_foursquare extends CI_Driver {
+class Adapter_foursquare extends CI_Driver {
     
     function user($object, $defaults = array()) {
         $user = $defaults;
@@ -65,19 +65,6 @@ class Conversion_foursquare extends CI_Driver {
         }
         
         return $venue;
-    }
-    
-    /**
-     * Sorts checkins based on their created timestamp
-     * @param checkin $a
-     * @param checkin $b
-     * @return number
-     */
-    private function cmp_checkins($a, $b) {
-        if ($a->createdAt == $b->createdAt) {
-            return 0;
-        }
-        return $a->createdAt < $b->createdAt ? -1 : 1;
     }
 
 }
