@@ -369,6 +369,7 @@ a:focus {
 	float: left;
 	z-index: 999;
 	background: #F7F6F2;
+	overflow: auto;
 }
 
 	.logo {
@@ -427,10 +428,6 @@ a:focus {
 
 	/* Dashboard: Logged in */
 
-	.v-dashboard {
-		overflow: auto;
-	}
-
 	/* Clan sentence */
 
 	.v-dashboard .clan a {
@@ -471,6 +468,7 @@ a:focus {
 			   -moz-box-shadow: inset 0 1px 1px rgba(255,255,255,.22);
 			    -ms-box-shadow: inset 0 1px 1px rgba(255,255,255,.22);
 			        box-shadow: inset 0 1px 1px rgba(255,255,255,.22);
+			background: transparent url(../img/ico_region_won.svg) 4px 16px no-repeat;
 		}
 
 		.notifications article:last-child {
@@ -479,7 +477,7 @@ a:focus {
 
 		.notifications article:hover,
 		.notifications article:focus {
-			background: #fff;
+			background-color: #fff;
 		}
 
 		.notifications article:active {
@@ -491,17 +489,22 @@ a:focus {
 			}
 
 		.notifications .n-region_lost {
-
+			background-image: url(../img/ico_region_lost.svg);
 		}
 
 		.notifications .n-capo_message {
 			font-style: italic;
+			background-image: url(../img/ico_capo_message.svg);
 		}
+
+		.notifications .n-rank_won {
+			background-image: url(../img/ico_rank_won.svg);
+		}
+
 
 		.notifications .s-read {
 			color: #777;
 			border-color: #ddd;
-			background: #fff;
 			opacity: .66;
 			-webkit-transition: opacity .33s ease-out;
 			   -moz-transition: opacity .33s ease-out;

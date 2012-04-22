@@ -72,4 +72,10 @@ $(document).ready(function()
 		$(this).toggleClass('s-read');
 		// write toggled class to db: $.ajax({});
 	});
+
+	$(".notifications").bind("mousewheel",function(ev, delta) {
+	    var scrollTop = $(this).scrollTop();
+	    $(this).scrollTop(scrollTop-Math.round(delta));
+	});
+
 });
