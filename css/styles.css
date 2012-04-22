@@ -455,6 +455,22 @@ a:focus {
 		padding-bottom: 32px;
 	}
 
+	.v-dashboard .notifications:after {
+		content:'.';
+		width: 100%;
+		height: 40px;
+		display: block;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		text-indent: -999px;
+		overflow: hidden;
+		background: -webkit-gradient(linear, 0 100%, 100% 100%, from(#F7F6F2), to(rgba(247,246,242,0)) );
+		background: -webkit-linear-gradient(top, rgba(247,246,242,0), #F7F6F2);
+		background:    -moz-linear-gradient(top, rgba(247,246,242,0), #F7F6F2);
+		background:         linear-gradient(top, rgba(247,246,242,0), #F7F6F2);
+	}
+
 		.notifications article {
 /*			cursor: pointer;*/
 			font-size: .875em;
@@ -516,7 +532,8 @@ a:focus {
 	Map
 */
 
-.v-dashboard-map {
+.v-dashboard-map,
+.v-map {
 	position: relative;
 }
 
@@ -875,8 +892,17 @@ a:focus {
 
 @media handheld, only screen and (max-width: 768px) {
 
+	/* hide shit */
+
+	.v-dashboard-map,
 	.logo {
 		display: none;
+	}
+
+	/* Site Navigation */
+
+	.siteNav li a.map {
+		display: block;
 	}
 
 	/* View: dashboard */
@@ -889,46 +915,28 @@ a:focus {
 		        box-shadow: 0 3px 5px rgba(0,0,0,.11);
 	}
 
-	.v-dashboard .clan {
-		float: left;
+	.legend {
+		width: 100%;
+		padding: 0 0 40px;
 	}
 
-		.js-toggle-legend {
-			position: static;
-			float: right;
-		}
-
-		.legend-holder {
-			position: static;
-			background: transparent;
-		}
-
-		.legend {
-			position: static;
-			padding-right: 200px;
+		.legend dt {
+			clear: none;
+			height: 24px;
+			margin: 16px 5px 16px 15px;
 			padding: 0;
+			width: auto;
 		}
 
-			.legend dt {
-				clear: none;
-				height: 24px;
-				margin: 16px 5px 16px 15px;
-				padding: 0;
-				width: auto;
-			}
+		.legend dd {
+			font-size: .875em;
+			padding: 0;
+			float: left;
+			line-height: 24px;
+			margin: 16px 0;
+		}
 
-				.legend dt:first-child {
-					margin-left: 0;
-				}
-
-			.legend dd {
-				font-size: .875em;
-				padding: 0;
-				float: left;
-				line-height: 24px;
-				margin: 16px 0;
-			}
-
+	.v-map,
 	#map {
 		width: 100%;
 		height: 100%;
@@ -962,8 +970,6 @@ a:focus {
 
 	/* Hide Shit */
 
-	.v-dashboard-map,
-	.js-toggle-legend,
 	.siteNav .logout {
 		display: none;
 	}
@@ -979,10 +985,6 @@ a:focus {
 		background-position: 50% 3px;
 		padding: 20px 10px 4px;
 	}
-
-		.siteNav li a.map {
-			display: block;
-		}
 
 	/* Page Navigation */
 
