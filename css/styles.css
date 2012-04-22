@@ -459,30 +459,30 @@ a:focus {
 			font-size: .875em;
 			line-height: 1.142857143em;
 			color: #404040;
-			border: 1px solid #DDD;
-			border-width: 1px 0 0;
-			padding: 15px 0 15px 30px;
+			padding: 15px 10px 15px 40px;
 			margin: 0;
-			cursor: pointer;
-			-webkit-box-shadow: inset 0 1px 1px rgba(255,255,255,.22);
-			   -moz-box-shadow: inset 0 1px 1px rgba(255,255,255,.22);
-			    -ms-box-shadow: inset 0 1px 1px rgba(255,255,255,.22);
-			        box-shadow: inset 0 1px 1px rgba(255,255,255,.22);
-			background: transparent url(../img/ico_region_won.svg) 4px 16px no-repeat;
+/*			cursor: pointer;*/
+			-webkit-box-shadow: inset 0 1px 1px rgba(255,255,255,.44);
+			   -moz-box-shadow: inset 0 1px 1px rgba(255,255,255,.44);
+			    -ms-box-shadow: inset 0 1px 1px rgba(255,255,255,.44);
+			        box-shadow: inset 0 1px 1px rgba(255,255,255,.44);
+			background: #FFF url(../img/ico_region_won.svg) 14px 16px no-repeat;
+			border: 1px solid #EEE;
+			border-width: 1px 0 0;
 		}
 
 		.notifications article:last-child {
 			border-width: 1px 0;
 		}
 
-		.notifications article:hover,
+/*		.notifications article:hover,
 		.notifications article:focus {
 			background-color: #fff;
 		}
 
 		.notifications article:active {
-			padding: 17px 0 13px 30px;
-		}
+			padding: 17px 10px 13px 40px;
+		}*/
 
 			.notifications article p:last-child {
 				padding: 0;
@@ -503,14 +503,14 @@ a:focus {
 
 
 		.notifications .s-read {
-			color: #777;
+/*			display: none;*/
+			color: #666;
 			border-color: #ddd;
-			opacity: .66;
-			-webkit-transition: opacity .33s ease-out;
-			   -moz-transition: opacity .33s ease-out;
-			    -ms-transition: opacity .33s ease-out;
-			     -o-transition: opacity .33s ease-out;
-			        transition: opacity .33s ease-out;
+			background-color: transparent;
+			-webkit-box-shadow: none;
+			   -moz-box-shadow: none;
+			    -ms-box-shadow: none;
+			        box-shadow: none;
 		}
 
 /*
