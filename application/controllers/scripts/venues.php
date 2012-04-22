@@ -23,20 +23,20 @@ class Venues extends CI_Controller {
         }
     }
     
-    function index() {
+    function index($limit = FALSE) {
         // manual query that gets all venueid's that are not in the db
         $query = "
         	SELECT checkins.venueid
             FROM checkins
             LEFT JOIN venues ON venues.venueid = checkins.venueid
-            WHERE venues.venueid is NULL LIMIT 0,10";
+            WHERE venues.venueid is NULL
+            " . ($limit ? "LIMIT 0,$limit" : "");
         
         $results = $this->db->query($query)->result_array();
         
-        $this->load->library('foursquare');
-        foreach($results as $result) {
+        foreach ($results as $result) {
             // fetch and insert venue
-            $json = $this->foursquare->api('venues/'.$result['venueid']);
+            $json = $this->foursquare->api('venues/' . $result['venueid']);
             $this->process_venue($json->response->venue);
         }
     }
