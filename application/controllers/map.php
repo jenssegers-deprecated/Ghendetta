@@ -11,8 +11,10 @@ if (!defined('BASEPATH'))
 
 class Map extends MY_Controller{
 
-    function index(){
-        $this->load->view('map');    
-    }
+    public function index() {
+		$this->load->model('clan_model');
+	    $clans = $this->clan_model->get_all();
 
+        $this->load->view('map', array('clans' => $clans));
+    }
 }
