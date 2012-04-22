@@ -24,7 +24,10 @@
 
 	<?php else: ?>
 
-	<p class="clan">You are with the <a href="<?php echo site_url('clan'); ?>" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.</p>
+	<p class="clan">
+		<img src="<?php echo $clan['shield']; ?>" height="48" />
+		You are with the<br /><a href="<?php echo site_url('clan'); ?>" style="background:#<?php echo $clan['color']; ?>"><?php echo $clan['name']; ?></a> clan.
+	</p>
 
 	<section class="notifications">
 	<?php foreach($notifications as $notification): ?>
