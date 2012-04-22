@@ -33,7 +33,7 @@
 				<?php
 				switch($notification['type']) {
 				    case 'region_lost':
-				        echo 'The ' . $notification['data']['clan'] . ' just took <strong class="region">' . $notification['data']['region'] . '</strong> from us! They can&rsquo;t get away with that!';
+				        echo $notification['data']['clan'] . ' just took <strong class="region">' . $notification['data']['region'] . '</strong> from us. Revenge will be sweet!';
 				        break;
 				    case 'region_won':
 				        echo '<strong class="region">' . $notification['data']['region'] . '</strong> is now ' . $notification['data']['clan'] . ' territory. Like a boss.';
