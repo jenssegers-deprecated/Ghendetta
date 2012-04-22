@@ -895,6 +895,7 @@ a:focus {
 	/* hide shit */
 
 	.v-dashboard-map,
+	.v-dashboard .notifications:after,
 	.logo {
 		display: none;
 	}
