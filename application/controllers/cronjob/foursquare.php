@@ -71,7 +71,7 @@ class Foursquare extends CI_Controller {
                 }
             
             } else {
-                echo $this->foursquare->error . "\n";
+                echo '#' . $user['fsqid'] . ': ' . $this->foursquare->error . "\n";
             }
         }
         
