@@ -24,6 +24,10 @@ class Venues extends CI_Controller {
     }
     
     function index($limit = FALSE) {
+        if (!$this->input->is_cli_request()) {
+            $this->output->enable_profiler(TRUE);
+        }
+        
         // manual query that gets all venueid's that are not in the db
         $query = "
         	SELECT checkins.venueid
@@ -38,6 +42,10 @@ class Venues extends CI_Controller {
             // fetch and insert venue
             $json = $this->foursquare->api('venues/' . $result['venueid']);
             $this->process_venue($json->response->venue);
+        }
+        
+        if (!$this->input->is_cli_request()) {
+            $this->output->set_profiler_sections(array('queries' => TRUE));
         }
     }
     
