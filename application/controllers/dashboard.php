@@ -18,8 +18,11 @@ class Dashboard extends MY_Controller {
         if ($user = $this->auth->current_user()) {
             $clan = $this->clan_model->get($user['clanid']);
             
-            $this->load->model('notification_model');
-            $notifications = $this->notification_model->get_personal($user['fsqid']);
+            if (!$notifications = $this->cache->get('api/notifications-' . $user['fsqid'] . '.cache')) {
+                $this->load->model('notification_model');
+                $notifications = $this->notification_model->get_personal($user['fsqid']);
+                $this->cache->save('api/notifications-' . $user['fsqid'] . '.cache', $notifications, 60);
+            }
         } else {
             $clan = FALSE;
             $notifications = array();
