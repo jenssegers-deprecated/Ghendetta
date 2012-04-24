@@ -5,7 +5,7 @@
 </script>
 
 <script src="<?php echo static_url('js/jquery.js'); ?>"></script>
-<script src="<?php echo static_url('js/application.min.js?v=160401'); ?>"></script>
+<script src="<?php echo static_url('js/application.min.js?v=240401'); ?>"></script>
 
 <script type="text/javascript">
 	var _gaq=[['_setAccount','UA-30544866-1'],['_trackPageview']];

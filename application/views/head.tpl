@@ -10,7 +10,7 @@
 	<link rel="apple-touch-icon" sizes="114x114" href="<?php echo static_url('/img/apple-touch-114.png');?>" />
 	<title>Ghendetta</title>
 	<?php if(ENVIRONMENT == 'production'): ?>
-	<link rel="stylesheet" href="<?php echo static_url('css/styles.min.css?v=160401'); ?>" media="screen" />
+	<link rel="stylesheet" href="<?php echo static_url('css/styles.min.css?v=240401'); ?>" media="screen" />
 	<?php else: ?>
 	<link rel="stylesheet" href="<?php echo static_url('css/styles.css'); ?>" media="screen" />
 	<?php endif; ?>
