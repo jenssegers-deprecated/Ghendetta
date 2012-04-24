@@ -16,9 +16,8 @@ class region_model extends CI_Model {
     function insert_region($region) {
         $this->db->insert('regions', $region);
         
-        // remove cached regions
-        $this->load->driver('cache');
-        $this->cache->delete("model/regions.cache");
+        // reset global regions
+        $this->regions = NULL;
         
         return $this->db->insert_id();
     }
@@ -26,19 +25,19 @@ class region_model extends CI_Model {
     function insert_coords($coords) {
         $this->db->insert('regioncoords', $coords);
         
-        // remove cached regions
-        $this->load->driver('cache');
-        $this->cache->delete("model/regions.cache");
+        // reset global regions
+        $this->regions = NULL;
         
         return $this->db->insert_id();
     }
     
     function update($regionid, $region) {
-        // remove cached regions
-        $this->load->driver('cache');
-        $this->cache->delete("model/regions.cache");
+        $this->db->where('regionid', $regionid)->update('regions', $region);
         
-        return $this->db->where('regionid', $regionid)->update('regions', $region);
+        // reset global regions
+        $this->regions = NULL;
+        
+        return $regionid;
     }
     
     /**
@@ -46,15 +45,8 @@ class region_model extends CI_Model {
      * @param int $regionid
      */
     function get($regionid) {
-        // add cache to this method, regions will not change that often
-        $this->load->driver('cache');
-        
-        if (!$region = $this->cache->get("model/region-$regionid.cache")) {
-            $region = $this->db->where('regionid', $regionid)->get('regions')->row_array();
-            $region['coords'] = $this->get_coords($regionid);
-            
-            $this->cache->save("model/region-$regionid.cache", $region, 7200);
-        }
+    	$region = $this->db->where('regionid', $regionid)->get('regions')->row_array();
+        $region['coords'] = $this->get_coords($regionid);
         
         return $region;
     }
@@ -71,20 +63,15 @@ class region_model extends CI_Model {
      * Get all regions without manipulation
      */
     function get_all() {
-        // add cache to this method, regions will not change that often
-        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'dummy'));
-        
-        if (!$regions = $this->cache->get("model/regions.cache")) {
-            $regions = $this->db->get('regions')->result_array();
+        if (!$this->regions) {
+            $this->regions = $this->db->get('regions')->result_array();
             
-            foreach ($regions as &$region) {
+            foreach ($this->regions as &$region) {
                 $region['coords'] = $this->get_coords($region['regionid']);
             }
-            
-            $this->cache->save("model/regions.cache", $regions, 7200);
         }
         
-        return $regions;
+        return $this->regions;
     }
     
     /**
@@ -285,8 +272,8 @@ class region_model extends CI_Model {
         $this->db->truncate('regions');
         $this->db->truncate('regioncoords');
         
-        $this->load->driver('cache');
-        $this->cache->delete("model/regions.cache");
+        // reset global regions
+        $this->regions = NULL;
     }
 
 }
