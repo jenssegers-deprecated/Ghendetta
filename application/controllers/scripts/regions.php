@@ -32,7 +32,7 @@ class Regions extends CI_Controller {
                 echo $region['name'] . ' -> ' . $leader['name'] . "\n";
             } else {
                 $this->region_model->update($region['regionid'], array('leader' => 0));
-                echo $region['name'] . ' -> no leader';
+                echo $region['name'] . " -> no leader\n";
             }
         }
     }
