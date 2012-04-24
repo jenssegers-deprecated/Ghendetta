@@ -14,10 +14,10 @@ class Regions extends CI_Controller {
     function __construct() {
         parent::__construct();
         
-    /*$user = $this->auth->current_user();
+        $user = $this->auth->current_user();
         if (!($user && $user['admin']) && !$this->input->is_cli_request()) {
             show_error('You have not permission to access this page');
-        }*/
+        }
     }
     
     function index() {
@@ -29,8 +29,10 @@ class Regions extends CI_Controller {
             
             if ($leader) {
                 $this->region_model->update($region['regionid'], array('leader' => $leader['clanid']));
+                echo $region['name'] . ' -> ' . $leader['name'] . "\n";
             } else {
                 $this->region_model->update($region['regionid'], array('leader' => 0));
+                echo $region['name'] . ' -> no leader';
             }
         }
     }
