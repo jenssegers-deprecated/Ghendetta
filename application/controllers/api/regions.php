@@ -43,7 +43,7 @@ class Regions extends API_Controller {
             }
             
             // save cache
-            $this->cache->save("api/regions.cache", $regions, 120);
+            $this->cache->save("api/regions.cache", $regions, 60);
         }
         
         // return the right region depending on the supplied id
