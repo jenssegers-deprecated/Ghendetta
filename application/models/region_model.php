@@ -124,7 +124,7 @@ class region_model extends CI_Model {
             JOIN clans ON clans.clanid = users.clanid
             WHERE regions.regionid = ?
             GROUP BY users.clanid
-            ORDER BY regions.regionid ASC, points DESC, last_checkin ASC
+            ORDER BY points DESC, last_checkin ASC
             LIMIT 0,1";
         
         return $this->db->query($query, array($regionid))->row_array();
@@ -182,11 +182,11 @@ class region_model extends CI_Model {
      */
     function get_all_stats() {
         $query = "
-            SELECT regions.regionid, clans.*, points, battles
+            SELECT regions.regionid, clans.*, COALESCE(points, 0) as points, COALESCE(battles, 0) as battles, COALESCE(last_checkin, 0) as last_checkin
             FROM regions
             JOIN clans
             LEFT JOIN (
-            	SELECT regionid, clanid, COALESCE(FLOOR(SUM(checkins.points)), 0) as points, COALESCE(COUNT(checkins.checkinid), 0) as battles
+            	SELECT regionid, clanid, MAX(checkins.date) as last_checkin, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
             	FROM users
             	JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
             	GROUP BY regionid, clanid ) as sub ON sub.regionid = regions.regionid AND sub.clanid = clans.clanid
@@ -210,17 +210,27 @@ class region_model extends CI_Model {
             $rid = $region['regionid'];
             
             if (isset($clans[$rid])) {
-                $region['clans'] = $clans[$rid];
-                $region['leader'] = FALSE;
-                
-                // TODO: remove this part when the database bug has been resolved!
-                $max = 0;
-                foreach ($clans[$rid] as $clan) {
-                    if ($clan['points'] > $max) {
-                        $max = $clan['points'];
-                        $region['leader'] = $clan['clanid'];
+
+                // possible leader
+                $leader = FALSE;
+                foreach ($clans[$rid] as &$clan) {
+                    // check if clan has points
+                    if ($clan['points']) {
+                        // compare points with possible leader
+                        if (!$leader || $clan['points'] > $leader['points']) {
+                            $leader = $clan;
+                        } else if ($clan['points'] == $leader['points'] && $clan['last_checkin'] < $leader['last_checkin']) {
+                            // special case when clans have the same number of points
+                            // this clan has a checkin that is older and is the leader of this region
+                            $leader = $clan;
+                        }
                     }
+                    
+                    unset($clan['last_checkin']);
                 }
+                
+                $region['clans'] = $clans[$rid];
+                $region['leader'] = $leader['clanid'];
             
             } else {
                 $region['clans'] = array();
