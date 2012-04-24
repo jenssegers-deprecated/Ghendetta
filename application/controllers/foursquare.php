@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Foursquare extends CI_Controller {
+class Foursquare extends MY_Controller {
     
     function __construct() {
         parent::__construct();

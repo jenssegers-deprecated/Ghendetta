@@ -144,7 +144,7 @@ class clan_model extends CI_Model {
         $notification['type'] = 'new_capo';
         $notification['to'] = $clanid;
         $notification['to_type'] = 'clan';
-        $notification['data'] = array('rank' => 1, 'name' => $user['firstname'], 'userid' => $userid);
+        $notification['data'] = array('name' => $user['firstname'], 'userid' => $userid);
         $this->notification_model->insert($notification);
     }
     

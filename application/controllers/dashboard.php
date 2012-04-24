@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Main extends CI_Controller {
+class Dashboard extends MY_Controller {
     
     public function index() {
         $this->load->model('clan_model');
@@ -17,10 +17,14 @@ class Main extends CI_Controller {
         
         if ($user = $this->auth->current_user()) {
             $clan = $this->clan_model->get($user['clanid']);
+            
+            $this->load->model('notification_model');
+            $notifications = $this->notification_model->get_personal($user['fsqid']);
         } else {
             $clan = FALSE;
+            $notifications = array();
         }
         
-        $this->load->view('dashboard', array('clan' => $clan, 'clans' => $clans));
+        $this->load->view('dashboard', array('clan' => $clan, 'clans' => $clans, 'notifications' => $notifications));
     }
 }

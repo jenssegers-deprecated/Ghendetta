@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Construction extends CI_Controller {
+class Construction extends MY_Controller {
     
     public function index() {
         redirect();
