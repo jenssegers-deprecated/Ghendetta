@@ -89,9 +89,9 @@ class clan_model extends CI_Model {
                 SELECT fsqid, firstname, lastname, picurl, COALESCE(points, 0) as points, COALESCE(battles, 0) as battles
                 FROM users
                 LEFT JOIN (
-                	SELECT fsqid as userid, max(checkins.date) as last_checkin, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
+                	SELECT fsqid as userid, MAX(checkins.date) as last_checkin, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
                 	FROM users
-                	JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
+                	JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(NOW(),7))
                 	WHERE users.clanid = ?
                 	GROUP BY users.fsqid
                 ) as sub ON sub.userid = users.fsqid
@@ -111,9 +111,9 @@ class clan_model extends CI_Model {
         	SELECT fsqid, firstname, lastname, picurl, COALESCE(points, 0) as points, COALESCE(battles, 0) as battles
             FROM users
             LEFT JOIN (
-            	SELECT fsqid as userid, max(checkins.date) as last_checkin, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
+            	SELECT fsqid as userid, MAX(checkins.date) as last_checkin, FLOOR(SUM(checkins.points)) as points, COUNT(checkins.checkinid) as battles
             	FROM users
-            	JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(now(),7))
+            	JOIN checkins ON users.fsqid = checkins.userid AND checkins.date >= UNIX_TIMESTAMP(SUBDATE(NOW(),7))
             	WHERE users.clanid = ?
             	GROUP BY users.fsqid
             ) as sub ON sub.userid = users.fsqid
