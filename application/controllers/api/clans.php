@@ -14,36 +14,17 @@ require_once (APPPATH . 'core/API_Controller.php');
 class Clans extends API_Controller {
     
     function get($id = FALSE) {
-        // try from cache
-        if (!$clans = $this->cache->get("api/clans.cache")) {
-            // cache miss
-            $this->load->model('clan_model');
-            $clans = $this->clan_model->get_all_stats();
-            
-            // save cache
-            $this->cache->save("api/clans.cache", $clans, 300);
+        $this->load->model('clan_model');
+        $clans = $this->clan_model->get_all_stats();
+        
+        if (!$id) {
+            return $clans;
         }
         
-        // return the right clan depending on the supplied id
-        if ($id) {
-            foreach ($clans as $clan) {
-                if ($clan['clanid'] == $id) {
-                    $this->output($clan);
-                    break;
-                }
+        foreach ($clans as $clan) {
+            if ($clan['clanid'] == $id) {
+                return $clan;
             }
-        } else {
-            $this->output($clans);
-        }
-    }
-    
-    function _remap($method) {
-        switch ($method) {
-            case 'index' :
-                $this->get();
-                break;
-            default :
-                $this->get($method);
         }
     }
 
