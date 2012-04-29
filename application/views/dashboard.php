@@ -42,7 +42,7 @@
 				        echo '<strong class="region">' . $notification['data']['region'] . '</strong> is now ' . $notification['data']['clan'] . ' territory. Like a boss. <span class="date">' . date('j M H:i', $notification['date']) . '</span>';
 				        break;
 				    case 'new_capo':
-				        echo 'Swear oath before your new leader. <strong>' . $notification['data']['name'] . ' just became Capo of your clan. <span class="date">' . date('j M H:i', $notification['date']) . '</span>';
+				        echo 'Swear oath before your new leader. <strong>' . $notification['data']['name'] . '</strong> just became Capo of your clan. <span class="date">' . date('j M H:i', $notification['date']) . '</span>';
 						break;
 					case 'rank_won':
 				        echo 'Your fellow associate <strong>' . $notification['data']['name'] . '</strong> was just promoted. <span class="date">' . date('j M H:i', $notification['date']) . '</span>';
