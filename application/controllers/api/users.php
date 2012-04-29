@@ -13,16 +13,14 @@ require_once (APPPATH . 'core/API_Controller.php');
 
 class Users extends API_Controller {
     
-    function index($id) {
+    function get($id = 'self') {
         if ($user = $this->auth->current_user()) {
-            $fsqid = $user['fsqid'];
-            
-            if ($id != $fsqid) {
+            if ($id != 'self' && $id != $user['fsqid']) {
                 $this->error('Not implemented yet');
             }
             
             $this->load->model('user_model');
-            $user = $this->user_model->get_stats($fsqid);
+            $user = $this->user_model->get_stats($user['fsqid']);
             
             return $user;
         } else {
@@ -30,16 +28,14 @@ class Users extends API_Controller {
         }
     }
     
-    function battles($id) {
+    function battles($id = 'self') {
         if ($user = $this->auth->current_user()) {
-            $fsqid = $user['fsqid'];
-            
-            if ($id != $fsqid) {
+            if ($id != 'self' && $id != $user['fsqid']) {
                 $this->error('Not implemented yet');
             }
             
             $this->load->model('checkin_model');
-            $checkins = $this->checkin_model->get_unique_since($fsqid, (time() - 608400));
+            $checkins = $this->checkin_model->get_unique_since($user['fsqid'], (time() - 608400));
             
             return $checkins;
         } else {
@@ -47,16 +43,14 @@ class Users extends API_Controller {
         }
     }
     
-    function notifications($id) {
+    function notifications($id = 'self') {
         if ($user = $this->auth->current_user()) {
-            $fsqid = $user['fsqid'];
-            
-            if ($id != $fsqid) {
+            if ($id != 'self' && $id != $user['fsqid']) {
                 $this->error('Not implemented yet');
             }
             
             $this->load->model('notification_model');
-            $notifications = $this->notification_model->get_personal($fsqid);
+            $notifications = $this->notification_model->get_personal($user['fsqid']);
             
             return $notifications;
         } else {

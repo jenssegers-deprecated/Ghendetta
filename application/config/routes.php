@@ -42,7 +42,7 @@ $route['default_controller'] = 'dashboard';
 $route['404_override'] = '';
 
 // api urls
-$route['api/users/(:any)/(.*)'] = 'api/users/$2/$1';
+$route['api/users/(:any)/(:any)(.*).json'] = 'api/users/$2/$1$3';
 $route['api/(:any).json'] = 'api/$1';
 
 // temp cronjob route

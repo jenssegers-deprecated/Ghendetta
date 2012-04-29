@@ -6,14 +6,14 @@ class API_Controller extends CI_Controller {
     
     function output($data) {
         set_status_header(200);
-        $this->output->set_header('Content-type: application/json');
-        $this->output->set_output(json_encode($data));
+        header('Content-type: application/json');
+        echo json_encode($data);
     }
     
     function error($message, $code = 500) {
         set_status_header($code);
-        $this->output->set_header('Content-type: application/json');
-        $this->output->set_output(json_encode(array('error' => $message)));
+        header('Content-type: application/json');
+        die(json_encode(array('error' => $message, 'code' => $code)));
     }
     
     function _remap($method_name, $args = array()) {
@@ -33,7 +33,7 @@ class API_Controller extends CI_Controller {
                 $this->error('Unknown API endpoint');
             }
             
-            if (!$data) {
+            if (is_null($data) || $data === FALSE) {
                 $this->error('No data returned');
             }
             
