@@ -13,9 +13,9 @@ require_once (APPPATH . 'core/API_Controller.php');
 
 class Users extends API_Controller {
     
-    function get($id = 'self') {
+    function get($id) {
         if ($user = $this->auth->current_user()) {
-            if ($id != 'self' && $id != $user['fsqid']) {
+            if ($id != $user['fsqid']) {
                 $this->error('Not implemented yet');
             }
             
@@ -28,9 +28,9 @@ class Users extends API_Controller {
         }
     }
     
-    function battles($id = 'self') {
+    function battles($id) {
         if ($user = $this->auth->current_user()) {
-            if ($id != 'self' && $id != $user['fsqid']) {
+            if ($id != $user['fsqid']) {
                 $this->error('Not implemented yet');
             }
             
@@ -43,9 +43,9 @@ class Users extends API_Controller {
         }
     }
     
-    function notifications($id = 'self') {
+    function notifications($id) {
         if ($user = $this->auth->current_user()) {
-            if ($id != 'self' && $id != $user['fsqid']) {
+            if ($id != $user['fsqid']) {
                 $this->error('Not implemented yet');
             }
             

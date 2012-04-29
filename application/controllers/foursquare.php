@@ -84,7 +84,7 @@ class Foursquare extends MY_Controller {
             }
             
             // back to the homepage
-            redirect();
+            //redirect();
         } else {
             show_error('Something went wrong');
         }

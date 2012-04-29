@@ -80,7 +80,7 @@
 
 <?php include_once('footer.tpl'); ?>
 
-<script src="<?php echo static_url('js/mapbox.min.js?v=290401'); ?>"></script>
+<script src="<?php echo static_url('js/mapbox.min.js?v=300401'); ?>"></script>
 
 </body>
 </html>
