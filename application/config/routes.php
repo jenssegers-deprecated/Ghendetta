@@ -38,14 +38,18 @@
 |
 */
 
-$route['default_controller'] = 'main';
+$route['default_controller'] = 'dashboard';
 $route['404_override'] = '';
 
-$route['foursquare'] = 'fsq'; 
-$route['foursquare(:any)'] = 'fsq$1';
+// api urls
+$route['api/users/(:any)/(:any)(.*).json'] = 'api/users/$2/$1$3';
+$route['api/(:any).json'] = 'api/$1';
 
-$route['(:any)/(:num).json'] = '$1/get/$2';
-$route['(:any).json'] = '$1';
+// temp cronjob route
+$route['foursquare/cronjob'] = 'cronjob/foursquare';
+
+// automatically call index method for CLI scripts
+$route['scripts/(:any)/(:any)'] = 'scripts/$1/index/$2';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -1,6 +1,14 @@
 <?php
+/*
+|--------------------------------------------------------------------------
+| Foursquare config
+|--------------------------------------------------------------------------
+|
+| Your Foursquare application consumer credentials
+|
+*/
 
-$config['client'] = '';
-$config['secret'] = '';
-$config['callback'] = '';
-$config['push_secret'] = '';
+$config['client_id']     = '';
+$config['client_secret'] = '';
+$config['callback_url']  = '';
+$config['push_secret']   = '';

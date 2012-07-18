@@ -8,8 +8,7 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,addre
 /* ==================================================================================================================== */
 
 .container {
-padding-left: 20px;
-padding-right: 20px;
+padding: 56px 20px 32px;
 }
 
 .row {
@@ -20,57 +19,57 @@ margin: 0 auto;
 overflow: hidden;
 }
 
-.onecol, .twocol, .threecol, .fourcol, .fivecol, .sixcol, .sevencol, .eightcol, .ninecol, .tencol, .elevencol {
+.c1, .c2, .c3, .c4, .c5, .c6, .c7, .c8, .c9, .c10, .c11 {
 margin-right: 3.8%;
 float: left;
 min-height: 1px;
 }
 
-.row .onecol {
+.row .c1 {
 width: 4.85%;
 }
 
-.row .twocol {
+.row .c2 {
 width: 13.45%;
 }
 
-.row .threecol {
+.row .c3 {
 width: 22.05%;
 }
 
-.row .fourcol {
+.row .c4 {
 width: 30.75%;
 }
 
-.row .fivecol {
+.row .c5 {
 width: 39.45%;
 }
 
-.row .sixcol {
+.row .c6 {
 width: 48%;
 }
 
-.row .sevencol {
+.row .c7 {
 width: 56.75%;
 }
 
-.row .eightcol {
+.row .c8 {
 width: 65.4%;
 }
 
-.row .ninecol {
+.row .c9 {
 width: 74.05%;
 }
 
-.row .tencol {
+.row .c10 {
 width: 82.7%;
 }
 
-.row .elevencol {
+.row .c11 {
 width: 91.35%;
 }
 
-.row .twelvecol {
+.row .c12 {
 width: 100%;
 float: left;
 }
@@ -96,7 +95,7 @@ img {
 	font-size: 0.8em;
 	line-height: 1.5em;
 	}
-	
+
 	}
 
 
@@ -108,7 +107,7 @@ img {
 	font-size: 16px;
 	-webkit-text-size-adjust: none;
 	}
-	
+
 	.row, body, .container {
 	width: 100%;
 	min-width: 0;
@@ -117,8 +116,8 @@ img {
 	padding-left: 0px;
 	padding-right: 0px;
 	}
-	
-	.row .onecol, .row .twocol, .row .threecol, .row .fourcol, .row .fivecol, .row .sixcol, .row .sevencol, .row .eightcol, .row .ninecol, .row .tencol, .row .elevencol, .row .twelvecol {
+
+	.row .c1, .row .c2, .row .c3, .row .c4, .row .c5, .row .c6, .row .c7, .row .c8, .row .c9, .row .c10, .row .c11, .row .c12 {
 	width: auto;
 	float: none;
 	margin-left: 0px;
