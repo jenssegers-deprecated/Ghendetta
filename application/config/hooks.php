@@ -10,12 +10,7 @@
 |
 */
 
-$hook['post_controller_constructor'] = array(
-                                            'class'    => 'Request_logger',
-                                            'function' => 'log',
-                                            'filename' => 'request_logger.php',
-                                            'filepath' => 'hooks'
-                                            );
+
 
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

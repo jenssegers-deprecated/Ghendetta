@@ -1,5 +1,7 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*
+<?php
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+    /*
 | -------------------------------------------------------------------
 | AUTO-LOADER
 | -------------------------------------------------------------------
@@ -39,7 +41,6 @@
 
 $autoload['packages'] = array();
 
-
 /*
 | -------------------------------------------------------------------
 |  Auto-load Libraries
@@ -52,8 +53,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session', 'database', 'foursquare', 'ghendetta');
-
+$autoload['libraries'] = array('database', 'auth');
 
 /*
 | -------------------------------------------------------------------
@@ -65,7 +65,6 @@ $autoload['libraries'] = array('session', 'database', 'foursquare', 'ghendetta')
 */
 
 $autoload['helper'] = array('url');
-
 
 /*
 | -------------------------------------------------------------------
@@ -82,7 +81,6 @@ $autoload['helper'] = array('url');
 
 $autoload['config'] = array();
 
-
 /*
 | -------------------------------------------------------------------
 |  Auto-load Language files
@@ -97,7 +95,6 @@ $autoload['config'] = array();
 */
 
 $autoload['language'] = array();
-
 
 /*
 | -------------------------------------------------------------------
